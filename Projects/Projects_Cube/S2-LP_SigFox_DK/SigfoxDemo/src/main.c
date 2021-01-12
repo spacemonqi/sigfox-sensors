@@ -33,7 +33,6 @@ To use the project with IAR Embedded Workbench for ARM, please follow the instru
 
 /* a flag to understand if the button has been pressed */
 static volatile uint8_t but_pressed=0;
-ST_MCU_API_LowPower(0);
 
 void Appli_Exti_CB(uint32_t GPIO_Pin)
 {
@@ -91,6 +90,9 @@ int main(void)
   uint8_t customer_data[12]={0};
   uint8_t customer_resp[8];
 
+  /* Prevent the MCU from going into Low Power mode */
+  ST_MCU_API_LowPower(0);
+
   /* System initialization function */
   ret_err = ST_Init();
 
@@ -118,13 +120,10 @@ int main(void)
     LedBlink(LED3, 1);
   }
 
-/* Only for STM32 eval platforms */
-#if  !(defined(BLUENRG2_DEVICE) || defined(BLUENRG1_DEVICE))
   /* The low level driver uses the internal RTC as a timer while the STM32 is in low power.
   This function calibrates the RTC using an auxiliary general purpose timer in order to
   increase its precision. */
   ST_MCU_API_TimerCalibration(500);
-#endif
 
   /* Initialize push button 2 on the board as an interrupt */
   ButtonSetIRQ();
@@ -136,17 +135,10 @@ int main(void)
     SdkDelayMs(1);
 
     /* Set EEPROM CS */
-#if  !(defined(BLUENRG2_DEVICE) || defined(BLUENRG1_DEVICE))
-    if(SdkEvalGetDaughterBoardType() == FKI_SERIES)
+   if(SdkEvalGetDaughterBoardType() == FKI_SERIES)
 	EepromCsPinInitialization();
-    else
+   else
 	EepromCsXnucleoPinInitialization();
-#else
-    /* On BlueNRG-1/2 kits the only platform that supports EEPROM kit is the FKI001V1 */
-#ifdef FKI001V1
-    EepromCsPinInitialization();
-#endif
-#endif
   }
 
   /* Init the Sigfox Library and the device for Sigfox communication*/
@@ -165,13 +157,11 @@ int main(void)
   /* application main loop */
   while(1)
   {
-#if  !(defined(BLUENRG2_DEVICE) || defined(BLUENRG1_DEVICE))
     // /* Go in low power with the STM32 waiting for an external interrupt */
     // ST_MCU_API_GPIO_LowPower();
     // HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_STOPENTRY_WFI);
     // ST_MCU_API_SetSysClock();
     // ST_MCU_API_GPIO_Restore();
-#endif
 
     if(but_pressed)
     {

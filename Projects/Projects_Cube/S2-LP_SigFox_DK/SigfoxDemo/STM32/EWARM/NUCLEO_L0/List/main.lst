@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  12:25:12
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  13:02:14
 # Copyright 1999-2020 IAR Systems AB.
 #
 #    Cpu mode                    
@@ -8,7 +8,7 @@
 #    Source file              =
 #        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c
 #    Command line             =
-#        -f C:\Users\dvone\AppData\Local\Temp\EW3472.tmp
+#        -f C:\Users\dvone\AppData\Local\Temp\EW2974.tmp
 #        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c
 #        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
 #        STM32L053xx -lC
@@ -201,231 +201,218 @@ C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_
      90            uint8_t customer_data[12]={0};
      91            uint8_t customer_resp[8];
      92          
-     93            /* System initialization function */
-     94            ret_err = ST_Init();
+     93            /* Prevent the MCU from going into Low Power mode */
+     94            ST_MCU_API_LowPower(0);
+   \       0x14   0x2000             MOVS     R0,#+0
+   \       0x16   0x....'....        BL       ST_MCU_API_LowPower
      95          
-     96            if(ret_err)
-   \       0x14   0x....'....        BL       ST_Init
-   \       0x18   0x0600             LSLS     R0,R0,#+24
-   \       0x1A   0xD001             BEQ      ??main_0
-     97              Fatal_Error();
-   \       0x1C   0x....'....        BL       Fatal_Error
+     96            /* System initialization function */
+     97            ret_err = ST_Init();
      98          
-     99            SdkDelayMs(10); //Wait for CS to rise
+     99            if(ret_err)
+   \       0x1A   0x....'....        BL       ST_Init
+   \       0x1E   0x0600             LSLS     R0,R0,#+24
+   \       0x20   0xD001             BEQ      ??main_0
+    100              Fatal_Error();
+   \       0x22   0x....'....        BL       Fatal_Error
+    101          
+    102            SdkDelayMs(10); //Wait for CS to rise
    \                     ??main_0: (+1)
-   \       0x20   0x200A             MOVS     R0,#+10
-   \       0x22   0x....'....        BL       SdkDelayMs
-    100          
-    101            /* Reset S2LP */
-    102            S2LPShutdownEnter();
-   \       0x26   0x....'....        BL       S2LPShutdownEnter
-    103            SdkDelayMs(10);
-   \       0x2A   0x200A             MOVS     R0,#+10
-   \       0x2C   0x....'....        BL       SdkDelayMs
-    104            S2LPShutdownExit();
-   \       0x30   0x....'....        BL       S2LPShutdownExit
-    105          
-    106            /* Set the Push Button 2 as an input. If the application is started with the
-    107            PUSH BUTTON 2 pressed, the public KEY is used by the applicaiton.
-    108            This is useful for testing purposes or to use the SNEK emulator to receive
-    109            Sigfox messages. */
-    110            if (ButtonInit())
-   \       0x34   0x....'....        BL       ButtonInit
-   \       0x38   0x2800             CMP      R0,#+0
-   \       0x3A   0xD00B             BEQ      ??main_1
-    111            {
-    112              use_public_key=1;
-   \       0x3C   0x2501             MOVS     R5,#+1
-    113              LedBlink(LED3, 1);
-   \       0x3E   0x2101             MOVS     R1,#+1
-   \       0x40   0x2000             MOVS     R0,#+0
-   \       0x42   0x....'....        BL       LedBlink
-    114          
-    115              while(IsButtonPressed());	/* Wait until button is pressed */
+   \       0x26   0x200A             MOVS     R0,#+10
+   \       0x28   0x....'....        BL       SdkDelayMs
+    103          
+    104            /* Reset S2LP */
+    105            S2LPShutdownEnter();
+   \       0x2C   0x....'....        BL       S2LPShutdownEnter
+    106            SdkDelayMs(10);
+   \       0x30   0x200A             MOVS     R0,#+10
+   \       0x32   0x....'....        BL       SdkDelayMs
+    107            S2LPShutdownExit();
+   \       0x36   0x....'....        BL       S2LPShutdownExit
+    108          
+    109            /* Set the Push Button 2 as an input. If the application is started with the
+    110            PUSH BUTTON 2 pressed, the public KEY is used by the applicaiton.
+    111            This is useful for testing purposes or to use the SNEK emulator to receive
+    112            Sigfox messages. */
+    113            if (ButtonInit())
+   \       0x3A   0x....'....        BL       ButtonInit
+   \       0x3E   0x2800             CMP      R0,#+0
+   \       0x40   0xD00B             BEQ      ??main_1
+    114            {
+    115              use_public_key=1;
+   \       0x42   0x2501             MOVS     R5,#+1
+    116              LedBlink(LED3, 1);
+   \       0x44   0x2101             MOVS     R1,#+1
+   \       0x46   0x2000             MOVS     R0,#+0
+   \       0x48   0x....'....        BL       LedBlink
+    117          
+    118              while(IsButtonPressed());	/* Wait until button is pressed */
    \                     ??main_2: (+1)
-   \       0x46   0x....'....        BL       IsButtonPressed
-   \       0x4A   0x2800             CMP      R0,#+0
-   \       0x4C   0xD1FB             BNE      ??main_2
-    116          
-    117              LedBlink(LED3, 1);
-   \       0x4E   0x2101             MOVS     R1,#+1
-   \       0x50   0x....'....        BL       LedBlink
-    118            }
+   \       0x4C   0x....'....        BL       IsButtonPressed
+   \       0x50   0x2800             CMP      R0,#+0
+   \       0x52   0xD1FB             BNE      ??main_2
     119          
-    120          /* Only for STM32 eval platforms */
-    121          #if  !(defined(BLUENRG2_DEVICE) || defined(BLUENRG1_DEVICE))
-    122            /* The low level driver uses the internal RTC as a timer while the STM32 is in low power.
-    123            This function calibrates the RTC using an auxiliary general purpose timer in order to
-    124            increase its precision. */
-    125            ST_MCU_API_TimerCalibration(500);
+    120              LedBlink(LED3, 1);
+   \       0x54   0x2101             MOVS     R1,#+1
+   \       0x56   0x....'....        BL       LedBlink
+    121            }
+    122          
+    123            /* The low level driver uses the internal RTC as a timer while the STM32 is in low power.
+    124            This function calibrates the RTC using an auxiliary general purpose timer in order to
+    125            increase its precision. */
+    126            ST_MCU_API_TimerCalibration(500);
    \                     ??main_1: (+1)
-   \       0x54   0x20FA             MOVS     R0,#+250
-   \       0x56   0x0040             LSLS     R0,R0,#+1        ;; #+500
-   \       0x58   0x....'....        BL       ST_MCU_API_TimerCalibration
-    126          #endif
+   \       0x5A   0x20FA             MOVS     R0,#+250
+   \       0x5C   0x0040             LSLS     R0,R0,#+1        ;; #+500
+   \       0x5E   0x....'....        BL       ST_MCU_API_TimerCalibration
     127          
     128            /* Initialize push button 2 on the board as an interrupt */
     129            ButtonSetIRQ();
-   \       0x5C   0x....'....        BL       ButtonSetIRQ
+   \       0x62   0x....'....        BL       ButtonSetIRQ
     130          
     131            if(S2LPEvalGetHasEeprom())
-   \       0x60   0x....'....        BL       S2LPEvalGetHasEeprom
-   \       0x64   0x2800             CMP      R0,#+0
-   \       0x66   0xD00E             BEQ      ??main_3
+   \       0x66   0x....'....        BL       S2LPEvalGetHasEeprom
+   \       0x6A   0x2800             CMP      R0,#+0
+   \       0x6C   0xD00E             BEQ      ??main_3
     132            {
     133              /* Shutdown S2-LP in order to read EEPROM */
     134              ST_MCU_API_Shutdown(1);
-   \       0x68   0x2001             MOVS     R0,#+1
-   \       0x6A   0x....'....        BL       ST_MCU_API_Shutdown
-    135              SdkDelayMs(1);
    \       0x6E   0x2001             MOVS     R0,#+1
-   \       0x70   0x....'....        BL       SdkDelayMs
+   \       0x70   0x....'....        BL       ST_MCU_API_Shutdown
+    135              SdkDelayMs(1);
+   \       0x74   0x2001             MOVS     R0,#+1
+   \       0x76   0x....'....        BL       SdkDelayMs
     136          
     137              /* Set EEPROM CS */
-    138          #if  !(defined(BLUENRG2_DEVICE) || defined(BLUENRG1_DEVICE))
-    139              if(SdkEvalGetDaughterBoardType() == FKI_SERIES)
-   \       0x74   0x....'....        BL       SdkEvalGetDaughterBoardType
-   \       0x78   0x2800             CMP      R0,#+0
-   \       0x7A   0xD102             BNE      ??main_4
-    140          	EepromCsPinInitialization();
-   \       0x7C   0x....'....        BL       EepromCsPinInitialization
-   \       0x80   0xE001             B        ??main_3
-    141              else
-    142          	EepromCsXnucleoPinInitialization();
+    138             if(SdkEvalGetDaughterBoardType() == FKI_SERIES)
+   \       0x7A   0x....'....        BL       SdkEvalGetDaughterBoardType
+   \       0x7E   0x2800             CMP      R0,#+0
+   \       0x80   0xD102             BNE      ??main_4
+    139          	EepromCsPinInitialization();
+   \       0x82   0x....'....        BL       EepromCsPinInitialization
+   \       0x86   0xE001             B        ??main_3
+    140             else
+    141          	EepromCsXnucleoPinInitialization();
    \                     ??main_4: (+1)
-   \       0x82   0x....'....        BL       EepromCsXnucleoPinInitialization
-    143          #else
-    144              /* On BlueNRG-1/2 kits the only platform that supports EEPROM kit is the FKI001V1 */
-    145          #ifdef FKI001V1
-    146              EepromCsPinInitialization();
-    147          #endif
-    148          #endif
-    149            }
-    150          
-    151            /* Init the Sigfox Library and the device for Sigfox communication*/
-    152            NVM_BoardDataType boardData;
-    153            stSfxRetErr = ST_Sigfox_Init(&boardData, 1);
-    154          
-    155            if(stSfxRetErr != ST_SFX_ERR_NONE)
+   \       0x88   0x....'....        BL       EepromCsXnucleoPinInitialization
+    142            }
+    143          
+    144            /* Init the Sigfox Library and the device for Sigfox communication*/
+    145            NVM_BoardDataType boardData;
+    146            stSfxRetErr = ST_Sigfox_Init(&boardData, 1);
+    147          
+    148            if(stSfxRetErr != ST_SFX_ERR_NONE)
    \                     ??main_3: (+1)
-   \       0x86   0x2101             MOVS     R1,#+1
-   \       0x88   0xA806             ADD      R0,SP,#+24
-   \       0x8A   0x....'....        BL       ST_Sigfox_Init
-   \       0x8E   0x2800             CMP      R0,#+0
-   \       0x90   0xD001             BEQ      ??main_5
-    156              Fatal_Error();
-   \       0x92   0x....'....        BL       Fatal_Error
-    157          
-    158            if(use_public_key)
+   \       0x8C   0x2101             MOVS     R1,#+1
+   \       0x8E   0xA806             ADD      R0,SP,#+24
+   \       0x90   0x....'....        BL       ST_Sigfox_Init
+   \       0x94   0x2800             CMP      R0,#+0
+   \       0x96   0xD001             BEQ      ??main_5
+    149              Fatal_Error();
+   \       0x98   0x....'....        BL       Fatal_Error
+    150          
+    151            if(use_public_key)
    \                     ??main_5: (+1)
-   \       0x96   0x2D00             CMP      R5,#+0
-   \       0x98   0xD002             BEQ      ??main_6
-    159              enc_utils_set_public_key(1);
-   \       0x9A   0x2001             MOVS     R0,#+1
-   \       0x9C   0x....'....        BL       enc_utils_set_public_key
-    160          
-    161            SdkEvalLedInit(LED1);
+   \       0x9C   0x2D00             CMP      R5,#+0
+   \       0x9E   0xD002             BEQ      ??main_6
+    152              enc_utils_set_public_key(1);
+   \       0xA0   0x2001             MOVS     R0,#+1
+   \       0xA2   0x....'....        BL       enc_utils_set_public_key
+    153          
+    154            SdkEvalLedInit(LED1);
    \                     ??main_6: (+1)
-   \       0xA0   0x2000             MOVS     R0,#+0
-   \       0xA2   0x....'....        BL       SdkEvalLedInit
-    162            SdkEvalLedOn(LED1);
    \       0xA6   0x2000             MOVS     R0,#+0
-   \       0xA8   0x....'....        BL       SdkEvalLedOn
-   \       0xAC   0x....             LDR      R5,??DataTable1
-    163          
-    164            /* application main loop */
-    165            while(1)
-    166            {
-    167          #if  !(defined(BLUENRG2_DEVICE) || defined(BLUENRG1_DEVICE))
-    168              /* Go in low power with the STM32 waiting for an external interrupt */
-    169              ST_MCU_API_GPIO_LowPower();
+   \       0xA8   0x....'....        BL       SdkEvalLedInit
+    155            SdkEvalLedOn(LED1);
+   \       0xAC   0x2000             MOVS     R0,#+0
+   \       0xAE   0x....'....        BL       SdkEvalLedOn
+   \       0xB2   0x....             LDR      R5,??DataTable1
+    156          
+    157            /* application main loop */
+    158            while(1)
+    159            {
+    160              // /* Go in low power with the STM32 waiting for an external interrupt */
+    161              // ST_MCU_API_GPIO_LowPower();
+    162              // HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_STOPENTRY_WFI);
+    163              // ST_MCU_API_SetSysClock();
+    164              // ST_MCU_API_GPIO_Restore();
+    165          
+    166              if(but_pressed)
    \                     ??main_7: (+1)
-   \       0xAE   0x....'....        BL       ST_MCU_API_GPIO_LowPower
-    170              HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_STOPENTRY_WFI);
-   \       0xB2   0x2101             MOVS     R1,#+1
-   \       0xB4   0x2001             MOVS     R0,#+1
-   \       0xB6   0x....'....        BL       HAL_PWR_EnterSTOPMode
-    171              ST_MCU_API_SetSysClock();
-   \       0xBA   0x....'....        BL       ST_MCU_API_SetSysClock
-    172              ST_MCU_API_GPIO_Restore();
-   \       0xBE   0x....'....        BL       ST_MCU_API_GPIO_Restore
-    173          #endif
-    174          
-    175              if(but_pressed)
-   \       0xC2   0x7828             LDRB     R0,[R5, #+0]
-   \       0xC4   0x2800             CMP      R0,#+0
-   \       0xC6   0xD0F2             BEQ      ??main_7
-    176              {
-    177                LedBlink(LED3, 6);
-   \       0xC8   0x2106             MOVS     R1,#+6
-   \       0xCA   0x2000             MOVS     R0,#+0
-   \       0xCC   0x....'....        BL       LedBlink
-    178          
-    179                /* If the interrupt is raised, prepare the buffer to send with a 4-bytes counter */
-    180                cust_counter++;
-   \       0xD0   0x1C64             ADDS     R4,R4,#+1
-    181          
-    182          	for(uint8_t i=0;i<4;i++)
-   \       0xD2   0x2000             MOVS     R0,#+0
-    183          	  customer_data[i]=(uint8_t)(cust_counter>>((3-i)*8));
+   \       0xB4   0x7828             LDRB     R0,[R5, #+0]
+   \       0xB6   0x2800             CMP      R0,#+0
+   \       0xB8   0xD0FC             BEQ      ??main_7
+    167              {
+    168                LedBlink(LED3, 6);
+   \       0xBA   0x2106             MOVS     R1,#+6
+   \       0xBC   0x2000             MOVS     R0,#+0
+   \       0xBE   0x....'....        BL       LedBlink
+    169          
+    170                /* If the interrupt is raised, prepare the buffer to send with a 4-bytes counter */
+    171                cust_counter++;
+   \       0xC2   0x1C64             ADDS     R4,R4,#+1
+    172          
+    173          	for(uint8_t i=0;i<4;i++)
+   \       0xC4   0x2000             MOVS     R0,#+0
+    174          	  customer_data[i]=(uint8_t)(cust_counter>>((3-i)*8));
    \                     ??main_8: (+1)
-   \       0xD4   0x2103             MOVS     R1,#+3
-   \       0xD6   0x1A09             SUBS     R1,R1,R0
-   \       0xD8   0x00C9             LSLS     R1,R1,#+3
-   \       0xDA   0x0022             MOVS     R2,R4
-   \       0xDC   0x40CA             LSRS     R2,R2,R1
-   \       0xDE   0xA901             ADD      R1,SP,#+4
-   \       0xE0   0x540A             STRB     R2,[R1, R0]
-   \       0xE2   0x1C40             ADDS     R0,R0,#+1
-   \       0xE4   0x2804             CMP      R0,#+4
-   \       0xE6   0xDBF5             BLT      ??main_8
-    184          
-    185                /* Call the send_frame function */
-    186                SIGFOX_API_send_frame(customer_data,4,customer_resp,2,0);
-   \       0xE8   0x9600             STR      R6,[SP, #+0]
-   \       0xEA   0x2302             MOVS     R3,#+2
-   \       0xEC   0xAA04             ADD      R2,SP,#+16
-   \       0xEE   0x2104             MOVS     R1,#+4
-   \       0xF0   0xA801             ADD      R0,SP,#+4
-   \       0xF2   0x....'....        BL       SIGFOX_API_send_frame
-    187          
-    188                LedBlink(LED3, 6);
-   \       0xF6   0x2106             MOVS     R1,#+6
-   \       0xF8   0x2000             MOVS     R0,#+0
-   \       0xFA   0x....'....        BL       LedBlink
-    189                but_pressed=0;
-   \       0xFE   0x702E             STRB     R6,[R5, #+0]
-   \      0x100   0xE7D5             B        ??main_7
-    190              }
-    191            }
-    192          }
+   \       0xC6   0x2103             MOVS     R1,#+3
+   \       0xC8   0x1A09             SUBS     R1,R1,R0
+   \       0xCA   0x00C9             LSLS     R1,R1,#+3
+   \       0xCC   0x0022             MOVS     R2,R4
+   \       0xCE   0x40CA             LSRS     R2,R2,R1
+   \       0xD0   0xA901             ADD      R1,SP,#+4
+   \       0xD2   0x540A             STRB     R2,[R1, R0]
+   \       0xD4   0x1C40             ADDS     R0,R0,#+1
+   \       0xD6   0x2804             CMP      R0,#+4
+   \       0xD8   0xDBF5             BLT      ??main_8
+    175          
+    176                /* Call the send_frame function */
+    177                SIGFOX_API_send_frame(customer_data,4,customer_resp,2,0);
+   \       0xDA   0x9600             STR      R6,[SP, #+0]
+   \       0xDC   0x2302             MOVS     R3,#+2
+   \       0xDE   0xAA04             ADD      R2,SP,#+16
+   \       0xE0   0x2104             MOVS     R1,#+4
+   \       0xE2   0xA801             ADD      R0,SP,#+4
+   \       0xE4   0x....'....        BL       SIGFOX_API_send_frame
+    178          
+    179                LedBlink(LED3, 6);
+   \       0xE8   0x2106             MOVS     R1,#+6
+   \       0xEA   0x2000             MOVS     R0,#+0
+   \       0xEC   0x....'....        BL       LedBlink
+    180                but_pressed=0;
+   \       0xF0   0x702E             STRB     R6,[R5, #+0]
+   \       0xF2   0xE7DF             B        ??main_7
+    181              }
+    182            }
+    183          }
 
    \                                 In section .text, align 4, keep-with-next
    \                     ??DataTable1:
    \        0x0   0x....'....        DC32     but_pressed
-    193          
-    194          #ifdef  USE_FULL_ASSERT
-    195          /**
-    196          * @brief  Reports the name of the source file and the source line number
-    197          *         where the assert_param error has occurred.
-    198          * @param file: pointer to the source file name
-    199          * @param line: assert_param error line source number
-    200          * @retval : None
-    201          */
-    202          void assert_failed(uint8_t* file, uint32_t line)
-    203          {
-    204            /* User can add his own implementation to report the file name and line number */
-    205            //printf("Wrong parameters value: file %s on line %d\r\n", file, line);
-    206          
-    207            /* Infinite loop */
-    208            while (1)
-    209            {
-    210            }
-    211          }
-    212          #endif
-    213          
-    214          
-    215          /******************* (C) COPYRIGHT 2018 STMicroelectronics *****END OF FILE*****/
+    184          
+    185          #ifdef  USE_FULL_ASSERT
+    186          /**
+    187          * @brief  Reports the name of the source file and the source line number
+    188          *         where the assert_param error has occurred.
+    189          * @param file: pointer to the source file name
+    190          * @param line: assert_param error line source number
+    191          * @retval : None
+    192          */
+    193          void assert_failed(uint8_t* file, uint32_t line)
+    194          {
+    195            /* User can add his own implementation to report the file name and line number */
+    196            //printf("Wrong parameters value: file %s on line %d\r\n", file, line);
+    197          
+    198            /* Infinite loop */
+    199            while (1)
+    200            {
+    201            }
+    202          }
+    203          #endif
+    204          
+    205          
+    206          /******************* (C) COPYRIGHT 2018 STMicroelectronics *****END OF FILE*****/
 
    Maximum stack usage in bytes:
 
@@ -447,7 +434,6 @@ C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_
         72   -> EepromCsPinInitialization
         72   -> EepromCsXnucleoPinInitialization
         72   -> Fatal_Error
-        72   -> HAL_PWR_EnterSTOPMode
         72   -> IsButtonPressed
         72   -> LedBlink
         72   -> S2LPEvalGetHasEeprom
@@ -455,9 +441,7 @@ C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_
         72   -> S2LPShutdownExit
         72   -> SIGFOX_API_send_frame
         72   -> ST_Init
-        72   -> ST_MCU_API_GPIO_LowPower
-        72   -> ST_MCU_API_GPIO_Restore
-        72   -> ST_MCU_API_SetSysClock
+        72   -> ST_MCU_API_LowPower
         72   -> ST_MCU_API_Shutdown
         72   -> ST_MCU_API_TimerCalibration
         72   -> ST_Sigfox_Init
@@ -477,13 +461,13 @@ C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_
       22  Fatal_Error
       42  LedBlink
        1  but_pressed
-     258  main
+     244  main
 
  
    1 byte  in section .bss
- 334 bytes in section .text
+ 320 bytes in section .text
  
- 334 bytes of CODE memory
+ 320 bytes of CODE memory
    1 byte  of DATA memory
 
 Errors: none
