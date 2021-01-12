@@ -1,12 +1,6 @@
 /**
 * @file main.c
-* @author  AMG - RF Application team
-* @version 1.6.0
-* @date    December, 2018
-* @brief  This is a ST demo that shows how to use the Sigfox protocol to
-*         send a message to the base stations each time the push button is pressed.
-*         The data sent is a number representing the number of times the button
-*	    has been pressed from the boot.
+* This application demonstrates interfacing a DHT11 sensor to the S2LP chip, and sending the data via Sigfox to AWS.
 * @details
 * This application sets the MCU in low power. in order to debug it using a SWD debugger it is necessary to:
 * - call the following function in the initialization phase:
@@ -21,15 +15,6 @@
 * ST_MCU_API_GPIO_Restore();
 * \endcode
 *
-* @note       If the application is booted with the push button pressed, it will use the public key for transmission.
-* \section KEIL_project KEIL project
-To use the project with KEIL uVision 5 for ARM, please follow the instructions below:
--# Open the KEIL uVision 5 for ARM and select Project->Open Project menu.
--# Open the KEIL project
--# Select desired configuration to build
--# Select Project->Rebuild all target files. This will recompile and link the entire application
--# Select Project->Download to download the related binary image.
-
 * \section IAR_project IAR project
 To use the project with IAR Embedded Workbench for ARM, please follow the instructions below:
 -# Open the Embedded Workbench for ARM and select File->Open->Workspace menu.
@@ -37,34 +22,7 @@ To use the project with IAR Embedded Workbench for ARM, please follow the instru
 -# Select desired configuration to build
 -# Select Project->Rebuild All. This will recompile and link the entire application
 -# Select Project->Download and Debug to download the related binary image.
-
-* \subsection Project_configurations Project configurations
-- \c NUCLEO_L1 - Configuration to be used for all RCZ on the NUCLEO-L152RE
-- \c NUCLEO_L0 - Configuration to be used for all RCZ on the NUCLEO-L053R8
-- \c NUCLEO_F0 - Configuration to be used for all RCZ on the NUCLEO-F072RB
-- \c NUCLEO_F4 - Configuration to be used for all RCZ on the NUCLEO-F401RE
-- \c STEVAL-IDB007V2 - Configuration to be used for all RCZ on the BlueNRG-1 based evaluation board
-- \c STEVAL-IDB008V2 - Configuration to be used for all RCZ on the BlueNRG-2 based evaluation board
-- \c FKI001V1 - Configuration to be used for all RCZ on the BlueNRG-1 + S2-LP based evaluation board
-- \c Monarch Reference Design - Configuration to be used for all RCZ on the BlueNRG-2 + S2-LP based reference design
-* \section Board_supported Boards supported
-- \c STEVAL-FKI868V2  (for RCZ1 and RCZ3)
-- \c STEVAL-FKI915V1  (for RCZ2 and RCZ4)
-- \c X-NUCLEO S2868A1 (for RCZ1 and RCZ3)
 *
-*
-* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
-* WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
-* TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
-* DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
-* FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
-* CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
-*
-* THIS SOURCE CODE IS PROTECTED BY A LICENSE.
-* FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
-* IN THE ROOT DIRECTORY OF THIS FIRMWARE PACKAGE.
-*
-* <h2><center>&copy; COPYRIGHT 2018 STMicroelectronics</center></h2>
 */
 
 #include "st_main.h"
