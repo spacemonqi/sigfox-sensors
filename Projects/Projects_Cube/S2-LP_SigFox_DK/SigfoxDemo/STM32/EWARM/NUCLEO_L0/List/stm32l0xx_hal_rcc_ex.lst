@@ -1,0 +1,2283 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  11:53:25
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                    
+#    Endian                   =  little
+#    Source file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_rcc_ex.c
+#    Command line             =
+#        -f C:\Users\dvone\AppData\Local\Temp\EW261A.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_rcc_ex.c
+#        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
+#        STM32L053xx -lC
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List
+#        -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+#        --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.4\arm\inc\c\DLib_Config_Normal.h" -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\BSP\SDK_Eval_STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\CMSIS\STM32L0xx\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\S2LP_Middleware\STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\Utils\STM32\inc\\
+#        -Ohz --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.4\arm\CMSIS\Core\Include\\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.4\arm\CMSIS\DSP\Include\\")
+#    Locale                   =  C
+#    List file                =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\stm32l0xx_hal_rcc_ex.lst
+#    Object file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_rcc_ex.o
+#    Runtime model:              
+#      __SystemLibrary        =  DLib
+#      __dlib_file_descriptor =  0
+#      __dlib_version         =  6
+#
+###############################################################################
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_rcc_ex.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    stm32l0xx_hal_rcc_ex.c
+      4            * @author  MCD Application Team
+      5            * @brief   Extended RCC HAL module driver.
+      6            *          This file provides firmware functions to manage the following
+      7            *          functionalities RCC extension peripheral:
+      8            *           + Extended Peripheral Control functions
+      9            *           + Extended Clock Recovery System Control functions
+     10            *
+     11            ******************************************************************************
+     12            * @attention
+     13            *
+     14            * <h2><center>&copy; Copyright(c) 2016 STMicroelectronics.
+     15            * All rights reserved.</center></h2>
+     16            *
+     17            * This software component is licensed by ST under BSD 3-Clause license,
+     18            * the "License"; You may not use this file except in compliance with the
+     19            * License. You may obtain a copy of the License at:
+     20            *                        opensource.org/licenses/BSD-3-Clause
+     21            *
+     22            ******************************************************************************
+     23            */
+     24          
+     25          /* Includes ------------------------------------------------------------------*/
+     26          #include "stm32l0xx_hal.h"
+     27          
+     28          /** @addtogroup STM32L0xx_HAL_Driver
+     29            * @{
+     30            */
+     31          
+     32          #ifdef HAL_RCC_MODULE_ENABLED
+     33          
+     34          /** @defgroup RCCEx RCCEx
+     35            * @brief RCC Extension HAL module driver
+     36            * @{
+     37            */
+     38          
+     39          /* Private typedef -----------------------------------------------------------*/
+     40          /* Private define ------------------------------------------------------------*/
+     41          /** @defgroup RCCEx_Private_Constants RCCEx Private Constants
+     42            * @{
+     43            */
+     44          #if defined(USB)
+     45          extern const uint8_t PLLMulTable[];
+     46          #endif /* USB */
+     47          /**
+     48            * @}
+     49            */
+     50          
+     51          /* Private macro -------------------------------------------------------------*/
+     52          /** @defgroup RCCEx_Private_Macros RCCEx Private Macros
+     53            * @{
+     54            */
+     55          /**
+     56            * @}
+     57            */
+     58          
+     59          /* Private variables ---------------------------------------------------------*/
+     60          /* Private function prototypes -----------------------------------------------*/
+     61          /* Private functions ---------------------------------------------------------*/
+     62          
+     63          /** @defgroup RCCEx_Exported_Functions RCCEx Exported Functions
+     64            * @{
+     65            */
+     66          
+     67          /** @defgroup RCCEx_Exported_Functions_Group1 Extended Peripheral Control functions
+     68           *  @brief  Extended Peripheral Control functions
+     69           *
+     70          @verbatim
+     71           ===============================================================================
+     72                          ##### Extended Peripheral Control functions  #####
+     73           ===============================================================================
+     74              [..]
+     75              This subsection provides a set of functions allowing to control the RCC Clocks
+     76              frequencies.
+     77              [..]
+     78              (@) Important note: Care must be taken when HAL_RCCEx_PeriphCLKConfig() is used to
+     79                  select the RTC clock source; in this case the Backup domain will be reset in
+     80                  order to modify the RTC Clock source, as consequence RTC registers (including
+     81                  the backup registers) are set to their reset values.
+     82          
+     83          @endverbatim
+     84            * @{
+     85            */
+     86          
+     87          /**
+     88            * @brief  Initializes the RCC extended peripherals clocks according to the specified
+     89            *         parameters in the RCC_PeriphCLKInitTypeDef.
+     90            * @param  PeriphClkInit pointer to an RCC_PeriphCLKInitTypeDef structure that
+     91            *         contains the configuration information for the Extended Peripherals clocks(USART1,USART2, LPUART1,
+     92            *         I2C1, I2C3, RTC, USB/RNG  and LPTIM1 clocks).
+     93            * @retval HAL status
+     94            * @note   If HAL_ERROR returned, first switch-OFF HSE clock oscillator with @ref HAL_RCC_OscConfig()
+     95            *         to possibly update HSE divider.
+     96            */
+
+   \                                 In section .text, align 2, keep-with-next
+     97          HAL_StatusTypeDef HAL_RCCEx_PeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit)
+     98          {
+   \                     HAL_RCCEx_PeriphCLKConfig: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+     99            uint32_t tickstart;
+    100            uint32_t temp_reg;
+    101          
+    102            /* Check the parameters */
+    103            assert_param(IS_RCC_PERIPHCLOCK(PeriphClkInit->PeriphClockSelection));
+    104          
+    105            /*------------------------------- RTC/LCD Configuration ------------------------*/
+    106            if ((((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_RTC) == RCC_PERIPHCLK_RTC)
+    107          #if defined(LCD)
+    108             || (((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_LCD) == RCC_PERIPHCLK_LCD)
+    109          #endif /* LCD */
+    110               )
+   \        0x4   0x....             LDR      R5,??DataTable1  ;; 0x40021000
+   \        0x6   0x6820             LDR      R0,[R4, #+0]
+   \        0x8   0x2182             MOVS     R1,#+130
+   \        0xA   0x0109             LSLS     R1,R1,#+4        ;; #+2080
+   \        0xC   0x4001             ANDS     R1,R1,R0
+   \        0xE   0xD100             BNE      .+4
+   \       0x10   0xE089             B        ??HAL_RCCEx_PeriphCLKConfig_0
+    111            {
+    112              /* check for RTC Parameters used to output RTCCLK */
+    113              if(((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_RTC) == RCC_PERIPHCLK_RTC)
+    114              {
+    115                assert_param(IS_RCC_RTCCLKSOURCE(PeriphClkInit->RTCClockSelection));
+    116              }
+    117          
+    118          #if defined(LCD)
+    119              if(((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_LCD) == RCC_PERIPHCLK_LCD)
+    120              {
+    121                assert_param(IS_RCC_RTCCLKSOURCE(PeriphClkInit->LCDClockSelection));
+    122              }
+    123          #endif /* LCD */
+    124          
+    125              FlagStatus       pwrclkchanged = RESET;
+   \       0x12   0x2000             MOVS     R0,#+0
+   \       0x14   0x9001             STR      R0,[SP, #+4]
+    126          
+    127              /* As soon as function is called to change RTC clock source, activation of the
+    128                 power domain is done. */
+    129              /* Requires to enable write access to Backup Domain of necessary */
+    130              if(__HAL_RCC_PWR_IS_CLK_DISABLED())
+   \       0x16   0x2080             MOVS     R0,#+128
+   \       0x18   0x0540             LSLS     R0,R0,#+21       ;; #+268435456
+   \       0x1A   0x6BA9             LDR      R1,[R5, #+56]
+   \       0x1C   0x4001             ANDS     R1,R1,R0
+   \       0x1E   0xD104             BNE      ??HAL_RCCEx_PeriphCLKConfig_1
+    131              {
+    132                __HAL_RCC_PWR_CLK_ENABLE();
+   \       0x20   0x6BA9             LDR      R1,[R5, #+56]
+   \       0x22   0x4308             ORRS     R0,R0,R1
+   \       0x24   0x63A8             STR      R0,[R5, #+56]
+    133                pwrclkchanged = SET;
+   \       0x26   0x2001             MOVS     R0,#+1
+   \       0x28   0x9001             STR      R0,[SP, #+4]
+    134              }
+    135          
+    136              if(HAL_IS_BIT_CLR(PWR->CR, PWR_CR_DBP))
+   \                     ??HAL_RCCEx_PeriphCLKConfig_1: (+1)
+   \       0x2A   0x0DAF             LSRS     R7,R5,#+22
+   \       0x2C   0x....             LDR      R0,??DataTable1_1  ;; 0x40007000
+   \       0x2E   0x6800             LDR      R0,[R0, #+0]
+   \       0x30   0x4038             ANDS     R0,R0,R7
+   \       0x32   0xD113             BNE      ??HAL_RCCEx_PeriphCLKConfig_2
+    137              {
+    138                /* Enable write access to Backup domain */
+    139                SET_BIT(PWR->CR, PWR_CR_DBP);
+   \       0x34   0x....             LDR      R0,??DataTable1_1  ;; 0x40007000
+   \       0x36   0x9000             STR      R0,[SP, #+0]
+   \       0x38   0x6800             LDR      R0,[R0, #+0]
+   \       0x3A   0x4338             ORRS     R0,R0,R7
+   \       0x3C   0x9900             LDR      R1,[SP, #+0]
+   \       0x3E   0x6008             STR      R0,[R1, #+0]
+    140          
+    141                /* Wait for Backup domain Write protection disable */
+    142                tickstart = HAL_GetTick();
+   \       0x40   0x....'....        BL       HAL_GetTick
+   \       0x44   0x0006             MOVS     R6,R0
+    143          
+    144                while(HAL_IS_BIT_CLR(PWR->CR, PWR_CR_DBP))
+   \                     ??HAL_RCCEx_PeriphCLKConfig_3: (+1)
+   \       0x46   0x9800             LDR      R0,[SP, #+0]
+   \       0x48   0x6800             LDR      R0,[R0, #+0]
+   \       0x4A   0x4038             ANDS     R0,R0,R7
+   \       0x4C   0xD106             BNE      ??HAL_RCCEx_PeriphCLKConfig_2
+    145                {
+    146                  if((HAL_GetTick() - tickstart) > RCC_DBP_TIMEOUT_VALUE)
+   \       0x4E   0x....'....        BL       HAL_GetTick
+   \       0x52   0x1B80             SUBS     R0,R0,R6
+   \       0x54   0x2865             CMP      R0,#+101
+   \       0x56   0xD3F6             BCC      ??HAL_RCCEx_PeriphCLKConfig_3
+    147                  {
+    148                    return HAL_TIMEOUT;
+    149                  }
+    150                }
+    151              }
+    152          
+    153              /* Check if user wants to change HSE RTC prescaler whereas HSE is enabled */
+    154              temp_reg = (RCC->CR & RCC_CR_RTCPRE);
+    155              if ((temp_reg != (PeriphClkInit->RTCClockSelection & RCC_CR_RTCPRE))
+    156          #if defined (LCD)
+    157               || (temp_reg != (PeriphClkInit->LCDClockSelection & RCC_CR_RTCPRE))
+    158          #endif /* LCD */
+    159                 )
+    160              { /* Check HSE State */
+    161                if ((PeriphClkInit->RTCClockSelection & RCC_CSR_RTCSEL) == RCC_CSR_RTCSEL_HSE)
+    162                {
+    163                  if (HAL_IS_BIT_SET(RCC->CR, RCC_CR_HSERDY))
+    164                  {
+    165                    /* To update HSE divider, first switch-OFF HSE clock oscillator*/
+    166                    return HAL_ERROR;
+    167                  }
+    168                }
+    169              }
+    170          
+    171              /* Reset the Backup domain only if the RTC Clock source selection is modified from reset value */
+    172              temp_reg = (RCC->CSR & RCC_CSR_RTCSEL);
+    173          
+    174              if((temp_reg != 0x00000000U) && (((temp_reg != (PeriphClkInit->RTCClockSelection & RCC_CSR_RTCSEL)) \
+    175                && (((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_RTC) == RCC_PERIPHCLK_RTC))
+    176          #if defined(LCD)
+    177                || ((temp_reg != (PeriphClkInit->LCDClockSelection & RCC_CSR_RTCSEL)) \
+    178                 && (((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_LCD) == RCC_PERIPHCLK_LCD))
+    179          #endif /* LCD */
+    180               ))
+    181              {
+    182                /* Store the content of CSR register before the reset of Backup Domain */
+    183                temp_reg = (RCC->CSR & ~(RCC_CSR_RTCSEL));
+    184          
+    185                /* RTC Clock selection can be changed only if the Backup Domain is reset */
+    186                __HAL_RCC_BACKUPRESET_FORCE();
+    187                __HAL_RCC_BACKUPRESET_RELEASE();
+    188          
+    189                /* Restore the Content of CSR register */
+    190                RCC->CSR = temp_reg;
+    191          
+    192                 /* Wait for LSERDY if LSE was enabled */
+    193                if (HAL_IS_BIT_SET(temp_reg, RCC_CSR_LSEON))
+    194                {
+    195                  /* Get Start Tick */
+    196                  tickstart = HAL_GetTick();
+    197          
+    198                  /* Wait till LSE is ready */
+    199                  while(__HAL_RCC_GET_FLAG(RCC_FLAG_LSERDY) == 0U)
+    200                  {
+    201                    if((HAL_GetTick() - tickstart ) > RCC_LSE_TIMEOUT_VALUE)
+    202                    {
+    203                      return HAL_TIMEOUT;
+   \                     ??HAL_RCCEx_PeriphCLKConfig_4: (+1)
+   \       0x58   0x2003             MOVS     R0,#+3
+   \       0x5A   0xBDFE             POP      {R1-R7,PC}
+    204                    }
+   \                     ??HAL_RCCEx_PeriphCLKConfig_2: (+1)
+   \       0x5C   0x6828             LDR      R0,[R5, #+0]
+   \       0x5E   0x21C0             MOVS     R1,#+192
+   \       0x60   0x0389             LSLS     R1,R1,#+14       ;; #+3145728
+   \       0x62   0x4001             ANDS     R1,R1,R0
+   \       0x64   0x6860             LDR      R0,[R4, #+4]
+   \       0x66   0x22C0             MOVS     R2,#+192
+   \       0x68   0x0392             LSLS     R2,R2,#+14       ;; #+3145728
+   \       0x6A   0x4002             ANDS     R2,R2,R0
+   \       0x6C   0x4291             CMP      R1,R2
+   \       0x6E   0xD105             BNE      ??HAL_RCCEx_PeriphCLKConfig_5
+   \       0x70   0x68A2             LDR      R2,[R4, #+8]
+   \       0x72   0x23C0             MOVS     R3,#+192
+   \       0x74   0x039B             LSLS     R3,R3,#+14       ;; #+3145728
+   \       0x76   0x4013             ANDS     R3,R3,R2
+   \       0x78   0x4299             CMP      R1,R3
+   \       0x7A   0xD00B             BEQ      ??HAL_RCCEx_PeriphCLKConfig_6
+   \                     ??HAL_RCCEx_PeriphCLKConfig_5: (+1)
+   \       0x7C   0x21C0             MOVS     R1,#+192
+   \       0x7E   0x0289             LSLS     R1,R1,#+10       ;; #+196608
+   \       0x80   0x4001             ANDS     R1,R1,R0
+   \       0x82   0x22C0             MOVS     R2,#+192
+   \       0x84   0x0292             LSLS     R2,R2,#+10       ;; #+196608
+   \       0x86   0x4291             CMP      R1,R2
+   \       0x88   0xD104             BNE      ??HAL_RCCEx_PeriphCLKConfig_6
+   \       0x8A   0x6829             LDR      R1,[R5, #+0]
+   \       0x8C   0x0389             LSLS     R1,R1,#+14
+   \       0x8E   0xD501             BPL      ??HAL_RCCEx_PeriphCLKConfig_6
+   \       0x90   0x2001             MOVS     R0,#+1
+   \       0x92   0xBDFE             POP      {R1-R7,PC}
+   \                     ??HAL_RCCEx_PeriphCLKConfig_6: (+1)
+   \       0x94   0x6D2A             LDR      R2,[R5, #+80]
+   \       0x96   0x21C0             MOVS     R1,#+192
+   \       0x98   0x0289             LSLS     R1,R1,#+10       ;; #+196608
+   \       0x9A   0x4011             ANDS     R1,R1,R2
+   \       0x9C   0xD029             BEQ      ??HAL_RCCEx_PeriphCLKConfig_7
+   \       0x9E   0x22C0             MOVS     R2,#+192
+   \       0xA0   0x0292             LSLS     R2,R2,#+10       ;; #+196608
+   \       0xA2   0x4010             ANDS     R0,R0,R2
+   \       0xA4   0x4281             CMP      R1,R0
+   \       0xA6   0xD002             BEQ      ??HAL_RCCEx_PeriphCLKConfig_8
+   \       0xA8   0x7820             LDRB     R0,[R4, #+0]
+   \       0xAA   0x0680             LSLS     R0,R0,#+26
+   \       0xAC   0xD406             BMI      ??HAL_RCCEx_PeriphCLKConfig_9
+   \                     ??HAL_RCCEx_PeriphCLKConfig_8: (+1)
+   \       0xAE   0x68A0             LDR      R0,[R4, #+8]
+   \       0xB0   0x4002             ANDS     R2,R2,R0
+   \       0xB2   0x4291             CMP      R1,R2
+   \       0xB4   0xD01D             BEQ      ??HAL_RCCEx_PeriphCLKConfig_7
+   \       0xB6   0x6820             LDR      R0,[R4, #+0]
+   \       0xB8   0x0500             LSLS     R0,R0,#+20
+   \       0xBA   0xD51A             BPL      ??HAL_RCCEx_PeriphCLKConfig_7
+   \                     ??HAL_RCCEx_PeriphCLKConfig_9: (+1)
+   \       0xBC   0x6D29             LDR      R1,[R5, #+80]
+   \       0xBE   0x....             LDR      R0,??DataTable1_2  ;; 0xfffcffff
+   \       0xC0   0x4008             ANDS     R0,R0,R1
+   \       0xC2   0x6D29             LDR      R1,[R5, #+80]
+   \       0xC4   0x02FA             LSLS     R2,R7,#+11
+   \       0xC6   0x430A             ORRS     R2,R2,R1
+   \       0xC8   0x652A             STR      R2,[R5, #+80]
+   \       0xCA   0x6D29             LDR      R1,[R5, #+80]
+   \       0xCC   0x....             LDR      R2,??DataTable1_3  ;; 0xfff7ffff
+   \       0xCE   0x400A             ANDS     R2,R2,R1
+   \       0xD0   0x652A             STR      R2,[R5, #+80]
+   \       0xD2   0x6528             STR      R0,[R5, #+80]
+   \       0xD4   0x4007             ANDS     R7,R7,R0
+   \       0xD6   0xD00C             BEQ      ??HAL_RCCEx_PeriphCLKConfig_7
+   \       0xD8   0x....'....        BL       HAL_GetTick
+   \       0xDC   0x0006             MOVS     R6,R0
+   \                     ??HAL_RCCEx_PeriphCLKConfig_10: (+1)
+   \       0xDE   0x6D28             LDR      R0,[R5, #+80]
+   \       0xE0   0x0580             LSLS     R0,R0,#+22
+   \       0xE2   0xD406             BMI      ??HAL_RCCEx_PeriphCLKConfig_7
+   \       0xE4   0x....'....        BL       HAL_GetTick
+   \       0xE8   0x1B80             SUBS     R0,R0,R6
+   \       0xEA   0x....             LDR      R1,??DataTable1_4  ;; 0x1389
+   \       0xEC   0x4288             CMP      R0,R1
+   \       0xEE   0xD3F6             BCC      ??HAL_RCCEx_PeriphCLKConfig_10
+   \       0xF0   0xE7B2             B        ??HAL_RCCEx_PeriphCLKConfig_4
+    205                  }
+    206                }
+    207              }
+    208              __HAL_RCC_RTC_CONFIG(PeriphClkInit->RTCClockSelection);
+   \                     ??HAL_RCCEx_PeriphCLKConfig_7: (+1)
+   \       0xF2   0x6861             LDR      R1,[R4, #+4]
+   \       0xF4   0x20C0             MOVS     R0,#+192
+   \       0xF6   0x0280             LSLS     R0,R0,#+10       ;; #+196608
+   \       0xF8   0x0002             MOVS     R2,R0
+   \       0xFA   0x400A             ANDS     R2,R2,R1
+   \       0xFC   0x4282             CMP      R2,R0
+   \       0xFE   0xD106             BNE      ??HAL_RCCEx_PeriphCLKConfig_11
+   \      0x100   0x682A             LDR      R2,[R5, #+0]
+   \      0x102   0x....             LDR      R3,??DataTable3  ;; 0xffcfffff
+   \      0x104   0x4013             ANDS     R3,R3,R2
+   \      0x106   0x0102             LSLS     R2,R0,#+4
+   \      0x108   0x400A             ANDS     R2,R2,R1
+   \      0x10A   0x431A             ORRS     R2,R2,R3
+   \      0x10C   0x602A             STR      R2,[R5, #+0]
+   \                     ??HAL_RCCEx_PeriphCLKConfig_11: (+1)
+   \      0x10E   0x6D29             LDR      R1,[R5, #+80]
+   \      0x110   0x6862             LDR      R2,[R4, #+4]
+   \      0x112   0x4010             ANDS     R0,R0,R2
+   \      0x114   0x4308             ORRS     R0,R0,R1
+   \      0x116   0x6528             STR      R0,[R5, #+80]
+    209          
+    210              /* Require to disable power clock if necessary */
+    211              if(pwrclkchanged == SET)
+   \      0x118   0x9801             LDR      R0,[SP, #+4]
+   \      0x11A   0x2800             CMP      R0,#+0
+   \      0x11C   0xD003             BEQ      ??HAL_RCCEx_PeriphCLKConfig_0
+    212              {
+    213                __HAL_RCC_PWR_CLK_DISABLE();
+   \      0x11E   0x6BA8             LDR      R0,[R5, #+56]
+   \      0x120   0x....             LDR      R1,??DataTable4  ;; 0xefffffff
+   \      0x122   0x4001             ANDS     R1,R1,R0
+   \      0x124   0x63A9             STR      R1,[R5, #+56]
+    214              }
+    215            }
+    216          
+    217          #if defined (RCC_CCIPR_USART1SEL)
+    218            /*------------------------------- USART1 Configuration ------------------------*/
+    219            if(((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_USART1) == RCC_PERIPHCLK_USART1)
+   \                     ??HAL_RCCEx_PeriphCLKConfig_0: (+1)
+   \      0x126   0x7820             LDRB     R0,[R4, #+0]
+   \      0x128   0x07C0             LSLS     R0,R0,#+31
+   \      0x12A   0xD505             BPL      ??HAL_RCCEx_PeriphCLKConfig_12
+    220            {
+    221              /* Check the parameters */
+    222              assert_param(IS_RCC_USART1CLKSOURCE(PeriphClkInit->Usart1ClockSelection));
+    223          
+    224              /* Configure the USART1 clock source */
+    225              __HAL_RCC_USART1_CONFIG(PeriphClkInit->Usart1ClockSelection);
+   \      0x12C   0x6CE8             LDR      R0,[R5, #+76]
+   \      0x12E   0x2103             MOVS     R1,#+3
+   \      0x130   0x4388             BICS     R0,R0,R1
+   \      0x132   0x68E1             LDR      R1,[R4, #+12]
+   \      0x134   0x4301             ORRS     R1,R1,R0
+   \      0x136   0x64E9             STR      R1,[R5, #+76]
+    226            }
+    227          #endif /* RCC_CCIPR_USART1SEL */
+    228          
+    229            /*----------------------------- USART2 Configuration --------------------------*/
+    230            if(((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_USART2) == RCC_PERIPHCLK_USART2)
+   \                     ??HAL_RCCEx_PeriphCLKConfig_12: (+1)
+   \      0x138   0x7820             LDRB     R0,[R4, #+0]
+   \      0x13A   0x0780             LSLS     R0,R0,#+30
+   \      0x13C   0xD505             BPL      ??HAL_RCCEx_PeriphCLKConfig_13
+    231            {
+    232              /* Check the parameters */
+    233              assert_param(IS_RCC_USART2CLKSOURCE(PeriphClkInit->Usart2ClockSelection));
+    234          
+    235              /* Configure the USART2 clock source */
+    236              __HAL_RCC_USART2_CONFIG(PeriphClkInit->Usart2ClockSelection);
+   \      0x13E   0x6CE8             LDR      R0,[R5, #+76]
+   \      0x140   0x210C             MOVS     R1,#+12
+   \      0x142   0x4388             BICS     R0,R0,R1
+   \      0x144   0x6921             LDR      R1,[R4, #+16]
+   \      0x146   0x4301             ORRS     R1,R1,R0
+   \      0x148   0x64E9             STR      R1,[R5, #+76]
+    237            }
+    238          
+    239            /*------------------------------ LPUART1 Configuration ------------------------*/
+    240            if(((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_LPUART1) == RCC_PERIPHCLK_LPUART1)
+   \                     ??HAL_RCCEx_PeriphCLKConfig_13: (+1)
+   \      0x14A   0x7820             LDRB     R0,[R4, #+0]
+   \      0x14C   0x0740             LSLS     R0,R0,#+29
+   \      0x14E   0xD505             BPL      ??HAL_RCCEx_PeriphCLKConfig_14
+    241            {
+    242              /* Check the parameters */
+    243              assert_param(IS_RCC_LPUART1CLKSOURCE(PeriphClkInit->Lpuart1ClockSelection));
+    244          
+    245              /* Configure the LPUAR1 clock source */
+    246              __HAL_RCC_LPUART1_CONFIG(PeriphClkInit->Lpuart1ClockSelection);
+   \      0x150   0x6CE8             LDR      R0,[R5, #+76]
+   \      0x152   0x....             LDR      R1,??DataTable5  ;; 0xfffff3ff
+   \      0x154   0x4001             ANDS     R1,R1,R0
+   \      0x156   0x6960             LDR      R0,[R4, #+20]
+   \      0x158   0x4308             ORRS     R0,R0,R1
+   \      0x15A   0x64E8             STR      R0,[R5, #+76]
+    247            }
+    248          
+    249            /*------------------------------ I2C1 Configuration ------------------------*/
+    250            if(((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_I2C1) == RCC_PERIPHCLK_I2C1)
+   \                     ??HAL_RCCEx_PeriphCLKConfig_14: (+1)
+   \      0x15C   0x7820             LDRB     R0,[R4, #+0]
+   \      0x15E   0x0700             LSLS     R0,R0,#+28
+   \      0x160   0xD505             BPL      ??HAL_RCCEx_PeriphCLKConfig_15
+    251            {
+    252              /* Check the parameters */
+    253              assert_param(IS_RCC_I2C1CLKSOURCE(PeriphClkInit->I2c1ClockSelection));
+    254          
+    255              /* Configure the I2C1 clock source */
+    256              __HAL_RCC_I2C1_CONFIG(PeriphClkInit->I2c1ClockSelection);
+   \      0x162   0x6CE8             LDR      R0,[R5, #+76]
+   \      0x164   0x....             LDR      R1,??DataTable7  ;; 0xffffcfff
+   \      0x166   0x4001             ANDS     R1,R1,R0
+   \      0x168   0x69A0             LDR      R0,[R4, #+24]
+   \      0x16A   0x4308             ORRS     R0,R0,R1
+   \      0x16C   0x64E8             STR      R0,[R5, #+76]
+    257            }
+    258          
+    259          #if defined (RCC_CCIPR_I2C3SEL)
+    260              /*------------------------------ I2C3 Configuration ------------------------*/
+    261            if(((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_I2C3) == RCC_PERIPHCLK_I2C3)
+    262            {
+    263              /* Check the parameters */
+    264              assert_param(IS_RCC_I2C3CLKSOURCE(PeriphClkInit->I2c3ClockSelection));
+    265          
+    266              /* Configure the I2C3 clock source */
+    267              __HAL_RCC_I2C3_CONFIG(PeriphClkInit->I2c3ClockSelection);
+    268            }
+    269          #endif /* RCC_CCIPR_I2C3SEL */
+    270          
+    271          #if defined(USB)
+    272           /*---------------------------- USB and RNG configuration --------------------*/
+    273            if(((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_USB) == (RCC_PERIPHCLK_USB))
+   \                     ??HAL_RCCEx_PeriphCLKConfig_15: (+1)
+   \      0x16E   0x7820             LDRB     R0,[R4, #+0]
+   \      0x170   0x0640             LSLS     R0,R0,#+25
+   \      0x172   0xD505             BPL      ??HAL_RCCEx_PeriphCLKConfig_16
+    274            {
+    275              assert_param(IS_RCC_USBCLKSOURCE(PeriphClkInit->UsbClockSelection));
+    276              __HAL_RCC_USB_CONFIG(PeriphClkInit->UsbClockSelection);
+   \      0x174   0x6CE8             LDR      R0,[R5, #+76]
+   \      0x176   0x....             LDR      R1,??DataTable8  ;; 0xfbffffff
+   \      0x178   0x4001             ANDS     R1,R1,R0
+   \      0x17A   0x6A20             LDR      R0,[R4, #+32]
+   \      0x17C   0x4308             ORRS     R0,R0,R1
+   \      0x17E   0x64E8             STR      R0,[R5, #+76]
+    277            }
+    278          #endif /* USB */
+    279          
+    280            /*---------------------------- LPTIM1 configuration ------------------------*/
+    281            if(((PeriphClkInit->PeriphClockSelection) & RCC_PERIPHCLK_LPTIM1) == (RCC_PERIPHCLK_LPTIM1))
+   \                     ??HAL_RCCEx_PeriphCLKConfig_16: (+1)
+   \      0x180   0x7820             LDRB     R0,[R4, #+0]
+   \      0x182   0x0600             LSLS     R0,R0,#+24
+   \      0x184   0xD505             BPL      ??HAL_RCCEx_PeriphCLKConfig_17
+    282            {
+    283              assert_param(IS_RCC_LPTIMCLK(PeriphClkInit->LptimClockSelection));
+    284              __HAL_RCC_LPTIM1_CONFIG(PeriphClkInit->LptimClockSelection);
+   \      0x186   0x6CE8             LDR      R0,[R5, #+76]
+   \      0x188   0x....             LDR      R1,??DataTable10  ;; 0xfff3ffff
+   \      0x18A   0x4001             ANDS     R1,R1,R0
+   \      0x18C   0x69E0             LDR      R0,[R4, #+28]
+   \      0x18E   0x4308             ORRS     R0,R0,R1
+   \      0x190   0x64E8             STR      R0,[R5, #+76]
+    285            }
+    286          
+    287            return HAL_OK;
+   \                     ??HAL_RCCEx_PeriphCLKConfig_17: (+1)
+   \      0x192   0x2000             MOVS     R0,#+0
+   \      0x194   0xBDFE             POP      {R1-R7,PC}       ;; return
+    288          }
+    289          
+    290          /**
+    291            * @brief  Get the PeriphClkInit according to the internal RCC configuration registers.
+    292            * @param  PeriphClkInit pointer to an RCC_PeriphCLKInitTypeDef structure that
+    293            *         returns the configuration information for the Extended Peripherals clocks(USART1,USART2, LPUART1,
+    294            *         I2C1, I2C3, RTC, USB/RNG  and LPTIM1 clocks).
+    295            * @retval None
+    296            */
+
+   \                                 In section .text, align 2, keep-with-next
+    297          void HAL_RCCEx_GetPeriphCLKConfig(RCC_PeriphCLKInitTypeDef  *PeriphClkInit)
+    298          {
+   \                     HAL_RCCEx_GetPeriphCLKConfig: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    299            uint32_t srcclk;
+    300          
+    301             /* Set all possible values for the extended clock type parameter -----------*/
+    302            /* Common part first */
+    303            PeriphClkInit->PeriphClockSelection = RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_LPUART1 | \
+    304                                                  RCC_PERIPHCLK_I2C1   | RCC_PERIPHCLK_RTC     | \
+    305                                                  RCC_PERIPHCLK_LPTIM1;
+    306          #if defined(RCC_CCIPR_USART1SEL)
+    307            PeriphClkInit->PeriphClockSelection |= RCC_PERIPHCLK_USART1;
+    308          #endif /* RCC_CCIPR_USART1SEL */
+    309          #if  defined(RCC_CCIPR_I2C3SEL)
+    310            PeriphClkInit->PeriphClockSelection |= RCC_PERIPHCLK_I2C3;
+    311          #endif /* RCC_CCIPR_I2C3SEL */
+    312          #if defined(USB)
+    313            PeriphClkInit->PeriphClockSelection |= RCC_PERIPHCLK_USB;
+    314          #endif /* USB */
+    315          #if defined(LCD)
+    316            PeriphClkInit->PeriphClockSelection |= RCC_PERIPHCLK_LCD;
+   \        0x2   0x....             LDR      R1,??DataTable8_1  ;; 0x8ef
+   \        0x4   0x6001             STR      R1,[R0, #+0]
+    317          #endif /* LCD */
+    318          
+    319            /* Get the RTC/LCD configuration -----------------------------------------------*/
+    320            srcclk = __HAL_RCC_GET_RTC_SOURCE();
+   \        0x6   0x....             LDR      R1,??DataTable1  ;; 0x40021000
+   \        0x8   0x22C0             MOVS     R2,#+192
+   \        0xA   0x0292             LSLS     R2,R2,#+10       ;; #+196608
+   \        0xC   0x6D0B             LDR      R3,[R1, #+80]
+   \        0xE   0x4013             ANDS     R3,R3,R2
+    321            if (srcclk != RCC_RTCCLKSOURCE_HSE_DIV2)
+   \       0x10   0x4293             CMP      R3,R2
+   \       0x12   0xD103             BNE      ??HAL_RCCEx_GetPeriphCLKConfig_0
+    322            {
+    323              /* Source clock is LSE or LSI*/
+    324              PeriphClkInit->RTCClockSelection = srcclk;
+    325            }
+    326            else
+    327            {
+    328              /* Source clock is HSE. Need to get the prescaler value*/
+    329              PeriphClkInit->RTCClockSelection = srcclk | (READ_BIT(RCC->CR, RCC_CR_RTCPRE));
+   \       0x14   0x680C             LDR      R4,[R1, #+0]
+   \       0x16   0x0113             LSLS     R3,R2,#+4
+   \       0x18   0x4023             ANDS     R3,R3,R4
+   \       0x1A   0x4313             ORRS     R3,R3,R2
+    330            }
+    331          #if defined(LCD)
+    332            PeriphClkInit->LCDClockSelection = PeriphClkInit->RTCClockSelection;
+   \                     ??HAL_RCCEx_GetPeriphCLKConfig_0: (+1)
+   \       0x1C   0x6043             STR      R3,[R0, #+4]
+   \       0x1E   0x6083             STR      R3,[R0, #+8]
+    333          #endif /* LCD */
+    334          #if defined(RCC_CCIPR_USART1SEL)
+    335            /* Get the USART1 configuration --------------------------------------------*/
+    336            PeriphClkInit->Usart1ClockSelection  = __HAL_RCC_GET_USART1_SOURCE();
+   \       0x20   0x6CCB             LDR      R3,[R1, #+76]
+   \       0x22   0x079B             LSLS     R3,R3,#+30
+   \       0x24   0x0F9B             LSRS     R3,R3,#+30
+   \       0x26   0x60C3             STR      R3,[R0, #+12]
+    337          #endif /* RCC_CCIPR_USART1SEL */
+    338            /* Get the USART2 clock source ---------------------------------------------*/
+    339            PeriphClkInit->Usart2ClockSelection  = __HAL_RCC_GET_USART2_SOURCE();
+   \       0x28   0x6CCB             LDR      R3,[R1, #+76]
+   \       0x2A   0x240C             MOVS     R4,#+12
+   \       0x2C   0x401C             ANDS     R4,R4,R3
+   \       0x2E   0x6104             STR      R4,[R0, #+16]
+    340            /* Get the LPUART1 clock source ---------------------------------------------*/
+    341            PeriphClkInit->Lpuart1ClockSelection = __HAL_RCC_GET_LPUART1_SOURCE();
+   \       0x30   0x6CCB             LDR      R3,[R1, #+76]
+   \       0x32   0x0994             LSRS     R4,R2,#+6
+   \       0x34   0x401C             ANDS     R4,R4,R3
+   \       0x36   0x6144             STR      R4,[R0, #+20]
+    342            /* Get the I2C1 clock source -----------------------------------------------*/
+    343            PeriphClkInit->I2c1ClockSelection    = __HAL_RCC_GET_I2C1_SOURCE();
+   \       0x38   0x6CCB             LDR      R3,[R1, #+76]
+   \       0x3A   0x0914             LSRS     R4,R2,#+4
+   \       0x3C   0x401C             ANDS     R4,R4,R3
+   \       0x3E   0x6184             STR      R4,[R0, #+24]
+    344          #if defined(RCC_CCIPR_I2C3SEL)
+    345          /* Get the I2C3 clock source -----------------------------------------------*/
+    346            PeriphClkInit->I2c3ClockSelection    = __HAL_RCC_GET_I2C3_SOURCE();
+    347          #endif /* RCC_CCIPR_I2C3SEL */
+    348            /* Get the LPTIM1 clock source -----------------------------------------------*/
+    349            PeriphClkInit->LptimClockSelection   = __HAL_RCC_GET_LPTIM1_SOURCE();
+   \       0x40   0x6CCB             LDR      R3,[R1, #+76]
+   \       0x42   0x0094             LSLS     R4,R2,#+2
+   \       0x44   0x401C             ANDS     R4,R4,R3
+   \       0x46   0x61C4             STR      R4,[R0, #+28]
+    350            /* Get the RTC clock source -----------------------------------------------*/
+    351            PeriphClkInit->RTCClockSelection     = __HAL_RCC_GET_RTC_SOURCE();
+   \       0x48   0x6D0B             LDR      R3,[R1, #+80]
+   \       0x4A   0x401A             ANDS     R2,R2,R3
+   \       0x4C   0x6042             STR      R2,[R0, #+4]
+    352          #if defined(USB)
+    353            /* Get the USB/RNG clock source -----------------------------------------------*/
+    354            PeriphClkInit->UsbClockSelection     = __HAL_RCC_GET_USB_SOURCE();
+   \       0x4E   0x6CC9             LDR      R1,[R1, #+76]
+   \       0x50   0x2280             MOVS     R2,#+128
+   \       0x52   0x04D2             LSLS     R2,R2,#+19       ;; #+67108864
+   \       0x54   0x4011             ANDS     R1,R1,R2
+   \       0x56   0x6201             STR      R1,[R0, #+32]
+    355          #endif /* USB */
+    356          }
+   \       0x58   0xBD10             POP      {R4,PC}          ;; return
+    357          
+    358          /**
+    359            * @brief  Return the peripheral clock frequency
+    360            * @note   Return 0 if peripheral clock is unknown
+    361            * @param  PeriphClk Peripheral clock identifier
+    362            *         This parameter can be one of the following values:
+    363            *            @arg @ref RCC_PERIPHCLK_RTC      RTC peripheral clock
+    364            *            @arg @ref RCC_PERIPHCLK_LCD      LCD peripheral clock (*)
+    365            *            @arg @ref RCC_PERIPHCLK_USB      USB or RNG peripheral clock (*)
+    366            *            @arg @ref RCC_PERIPHCLK_USART1   USART1 peripheral clock (*)
+    367            *            @arg @ref RCC_PERIPHCLK_USART2   USART2 peripheral clock
+    368            *            @arg @ref RCC_PERIPHCLK_LPUART1  LPUART1 peripheral clock
+    369            *            @arg @ref RCC_PERIPHCLK_I2C1     I2C1 peripheral clock
+    370            *            @arg @ref RCC_PERIPHCLK_I2C2     I2C2 peripheral clock (*)
+    371            *            @arg @ref RCC_PERIPHCLK_I2C3     I2C3 peripheral clock (*)
+    372            * @note   (*) means that this peripheral is not present on all the devices
+    373            * @retval Frequency in Hz (0: means that no available frequency for the peripheral)
+    374            */
+
+   \                                 In section .text, align 2, keep-with-next
+    375          uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
+    376          {
+   \                     HAL_RCCEx_GetPeriphCLKFreq: (+1)
+   \        0x0   0xB5F1             PUSH     {R0,R4-R7,LR}
+    377            uint32_t frequency = 0U;
+   \        0x2   0x2000             MOVS     R0,#+0
+    378            uint32_t temp_reg, clkprediv, srcclk;    /* no init needed */
+    379          #if defined(USB)
+    380            uint32_t pllmul, plldiv, pllvco;    /* no init needed */
+    381          #endif /* USB */
+    382          
+    383            /* Check the parameters */
+    384            assert_param(IS_RCC_PERIPHCLOCK(PeriphClk));
+    385          
+    386            switch (PeriphClk)
+   \        0x4   0x2102             MOVS     R1,#+2
+   \        0x6   0x020B             LSLS     R3,R1,#+8
+   \        0x8   0x2504             MOVS     R5,#+4
+   \        0xA   0x....             LDR      R2,??DataTable11  ;; 0x40021000
+   \        0xC   0x2410             MOVS     R4,#+16
+   \        0xE   0x9E00             LDR      R6,[SP, #+0]
+   \       0x10   0x2E01             CMP      R6,#+1
+   \       0x12   0xD060             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_0
+   \       0x14   0x2E02             CMP      R6,#+2
+   \       0x16   0xD06B             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_1
+   \       0x18   0x2E04             CMP      R6,#+4
+   \       0x1A   0xD078             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_2
+   \       0x1C   0x2E08             CMP      R6,#+8
+   \       0x1E   0xD100             BNE      .+4
+   \       0x20   0xE087             B        ??HAL_RCCEx_GetPeriphCLKFreq_3
+   \       0x22   0x2E10             CMP      R6,#+16
+   \       0x24   0xD100             BNE      .+4
+   \       0x26   0xE09C             B        ??HAL_RCCEx_GetPeriphCLKFreq_4
+   \       0x28   0x2E20             CMP      R6,#+32
+   \       0x2A   0xD004             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_5
+   \       0x2C   0x2E40             CMP      R6,#+64
+   \       0x2E   0xD02C             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_6
+   \       0x30   0x028F             LSLS     R7,R1,#+10
+   \       0x32   0x42BE             CMP      R6,R7
+   \       0x34   0xD10A             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_7
+    387            {
+    388            case RCC_PERIPHCLK_RTC:
+    389          #if defined(LCD)
+    390            case RCC_PERIPHCLK_LCD:
+    391          #endif /* LCD */
+    392              {
+    393                /* Get RCC CSR configuration ------------------------------------------------------*/
+    394                temp_reg = RCC->CSR;
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_5: (+1)
+   \       0x36   0x6D14             LDR      R4,[R2, #+80]
+    395          
+    396                /* Get the current RTC source */
+    397                srcclk = __HAL_RCC_GET_RTC_SOURCE();
+   \       0x38   0x25C0             MOVS     R5,#+192
+   \       0x3A   0x02AD             LSLS     R5,R5,#+10       ;; #+196608
+   \       0x3C   0x6D16             LDR      R6,[R2, #+80]
+   \       0x3E   0x402E             ANDS     R6,R6,R5
+    398          
+    399                /* Check if LSE is ready if RTC clock selection is LSE */
+    400                if ((srcclk == RCC_RTCCLKSOURCE_LSE) && (HAL_IS_BIT_SET(temp_reg, RCC_CSR_LSERDY)))
+   \       0x40   0x03CF             LSLS     R7,R1,#+15
+   \       0x42   0x42BE             CMP      R6,R7
+   \       0x44   0xD103             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_8
+   \       0x46   0x4023             ANDS     R3,R3,R4
+   \       0x48   0xD000             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_7
+    401                {
+    402                  frequency = LSE_VALUE;
+   \       0x4A   0x0388             LSLS     R0,R1,#+14
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_7: (+1)
+   \       0x4C   0xBDF2             POP      {R1,R4-R7,PC}
+    403                }
+    404                /* Check if LSI is ready if RTC clock selection is LSI */
+    405                else if (srcclk == RCC_RTCCLKSOURCE_LSI)
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_8: (+1)
+   \       0x4E   0x040B             LSLS     R3,R1,#+16
+   \       0x50   0x429E             CMP      R6,R3
+   \       0x52   0xD103             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_9
+    406                {
+    407                  if (HAL_IS_BIT_SET(temp_reg, RCC_CSR_LSIRDY))
+   \       0x54   0x4021             ANDS     R1,R1,R4
+   \       0x56   0xD000             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_10
+    408                  {
+    409                    frequency = LSI_VALUE;
+   \       0x58   0x....             LDR      R0,??DataTable11_1  ;; 0x9088
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_10: (+1)
+   \       0x5A   0xBDF2             POP      {R1,R4-R7,PC}
+    410                  }
+    411                }
+    412                /* Check if HSE is ready and if RTC clock selection is HSE */
+    413                else if (srcclk == RCC_RTCCLKSOURCE_HSE_DIVX)
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_9: (+1)
+   \       0x5C   0x42AE             CMP      R6,R5
+   \       0x5E   0xD1FC             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_10
+    414                {
+    415                  if (HAL_IS_BIT_SET(RCC->CR, RCC_CR_HSERDY))
+   \       0x60   0x6811             LDR      R1,[R2, #+0]
+   \       0x62   0x400B             ANDS     R3,R3,R1
+   \       0x64   0xD0F9             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_10
+    416                  {
+    417                    /* Get the current HSE clock divider */
+    418                    clkprediv = __HAL_RCC_GET_RTC_HSE_PRESCALER();
+   \       0x66   0x6810             LDR      R0,[R2, #+0]
+    419          
+    420                    switch (clkprediv)
+   \       0x68   0x0129             LSLS     R1,R5,#+4
+   \       0x6A   0x4001             ANDS     R1,R1,R0
+   \       0x6C   0x0138             LSLS     R0,R7,#+4
+   \       0x6E   0x4281             CMP      R1,R0
+   \       0x70   0xD009             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_11
+   \       0x72   0x0040             LSLS     R0,R0,#+1
+   \       0x74   0x4281             CMP      R1,R0
+   \       0x76   0xD004             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_12
+   \       0x78   0x0128             LSLS     R0,R5,#+4
+   \       0x7A   0x4281             CMP      R1,R0
+   \       0x7C   0xD167             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_13
+    421                    {
+    422                      case RCC_RTC_HSE_DIV_16:  /* HSE DIV16 has been selected */
+    423                      {
+    424                        frequency = HSE_VALUE / 16U;
+   \       0x7E   0x....             LDR      R0,??DataTable12  ;; 0x7a120
+    425                        break;
+   \       0x80   0xBDF2             POP      {R1,R4-R7,PC}
+    426                      }
+    427                      case RCC_RTC_HSE_DIV_8:   /* HSE DIV8 has been selected  */
+    428                      {
+    429                        frequency = HSE_VALUE / 8U;
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_12: (+1)
+   \       0x82   0x....             LDR      R0,??DataTable12_1  ;; 0xf4240
+    430                        break;
+   \       0x84   0xBDF2             POP      {R1,R4-R7,PC}
+    431                      }
+    432                      case RCC_RTC_HSE_DIV_4:   /* HSE DIV4 has been selected  */
+    433                      {
+    434                        frequency = HSE_VALUE / 4U;
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_11: (+1)
+   \       0x86   0x....             LDR      R0,??DataTable12_2  ;; 0x1e8480
+    435                        break;
+   \       0x88   0xBDF2             POP      {R1,R4-R7,PC}
+    436                      }
+    437                      default:                  /* HSE DIV2 has been selected  */
+    438                      {
+    439                        frequency = HSE_VALUE / 2U;
+    440                        break;
+    441                      }
+    442                    }
+    443                  }
+    444                }
+    445                /* Clock not enabled for RTC */
+    446                else
+    447                {
+    448                  frequency = 0U;
+    449                }
+    450                break;
+    451              }
+    452          #if defined(USB)
+    453            case RCC_PERIPHCLK_USB:
+    454              {
+    455                /* Get the current USB source */
+    456                srcclk = __HAL_RCC_GET_USB_SOURCE();
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_6: (+1)
+   \       0x8A   0x064D             LSLS     R5,R1,#+25
+   \       0x8C   0x6CD3             LDR      R3,[R2, #+76]
+   \       0x8E   0x402B             ANDS     R3,R3,R5
+    457          
+    458                if (srcclk == RCC_USBCLKSOURCE_PLL)
+   \       0x90   0xD11A             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_14
+    459                {
+    460                  if (HAL_IS_BIT_SET(RCC->CR, RCC_CR_PLLRDY))
+   \       0x92   0x6811             LDR      R1,[R2, #+0]
+   \       0x94   0x0189             LSLS     R1,R1,#+6
+   \       0x96   0xD569             BPL      ??HAL_RCCEx_GetPeriphCLKFreq_15
+    461                  {
+    462                    /* Get PLL clock source and multiplication factor ----------------------*/
+    463                    pllmul = RCC->CFGR & RCC_CFGR_PLLMUL;
+   \       0x98   0x68D0             LDR      R0,[R2, #+12]
+    464                    plldiv = RCC->CFGR & RCC_CFGR_PLLDIV;
+   \       0x9A   0x68D1             LDR      R1,[R2, #+12]
+    465                    pllmul = PLLMulTable[(pllmul >> RCC_CFGR_PLLMUL_Pos)];
+   \       0x9C   0x....             LDR      R3,??DataTable12_3
+   \       0x9E   0x0280             LSLS     R0,R0,#+10
+   \       0xA0   0x0F00             LSRS     R0,R0,#+28
+   \       0xA2   0x5C1B             LDRB     R3,[R3, R0]
+    466                    plldiv = (plldiv >> RCC_CFGR_PLLDIV_Pos) + 1U;
+   \       0xA4   0x0208             LSLS     R0,R1,#+8
+   \       0xA6   0x0F81             LSRS     R1,R0,#+30
+   \       0xA8   0x1C49             ADDS     R1,R1,#+1
+    467          
+    468                    /* Compute PLL clock input */
+    469                    if(__HAL_RCC_GET_PLL_OSCSOURCE() == RCC_PLLSOURCE_HSI)
+   \       0xAA   0x68D0             LDR      R0,[R2, #+12]
+   \       0xAC   0x03C0             LSLS     R0,R0,#+15
+   \       0xAE   0xD406             BMI      ??HAL_RCCEx_GetPeriphCLKFreq_16
+    470                    {
+    471                      if (READ_BIT(RCC->CR, RCC_CR_HSIDIVF) != 0U)
+   \       0xB0   0x6810             LDR      R0,[R2, #+0]
+   \       0xB2   0x4004             ANDS     R4,R4,R0
+   \       0xB4   0xD001             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_17
+    472                      {
+    473                        pllvco =  (HSI_VALUE >> 2U);
+   \       0xB6   0x....             LDR      R0,??DataTable12_4  ;; 0x3d0900
+   \       0xB8   0xE002             B        ??HAL_RCCEx_GetPeriphCLKFreq_18
+    474                      }
+    475                      else
+    476                      {
+    477                        pllvco =  HSI_VALUE;
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_17: (+1)
+   \       0xBA   0x....             LDR      R0,??DataTable12_5  ;; 0xf42400
+   \       0xBC   0xE000             B        ??HAL_RCCEx_GetPeriphCLKFreq_18
+    478                      }
+    479                    }
+    480                    else /* HSE source */
+    481                    {
+    482                      pllvco = HSE_VALUE;
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_16: (+1)
+   \       0xBE   0x....             LDR      R0,??DataTable12_6  ;; 0x7a1200
+    483                    }
+    484                    /* pllvco * pllmul / plldiv */
+    485                    pllvco = (pllvco * pllmul);
+    486                    frequency = (pllvco/ plldiv);
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_18: (+1)
+   \       0xC0   0x4358             MULS     R0,R3,R0
+   \       0xC2   0x....'....        BL       __aeabi_uidiv
+   \       0xC6   0xBDF2             POP      {R1,R4-R7,PC}
+    487                  }
+    488                }
+    489                else if (srcclk == RCC_USBCLKSOURCE_HSI48)
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_14: (+1)
+   \       0xC8   0x42AB             CMP      R3,R5
+   \       0xCA   0xD14F             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_15
+    490                {
+    491                  if (HAL_IS_BIT_SET(RCC->CRRCR, RCC_CRRCR_HSI48RDY))
+   \       0xCC   0x6892             LDR      R2,[R2, #+8]
+   \       0xCE   0x4011             ANDS     R1,R1,R2
+   \       0xD0   0xD04C             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_15
+    492                  {
+    493                    frequency = HSI48_VALUE;
+   \       0xD2   0x....             LDR      R0,??DataTable12_7  ;; 0x2dc6c00
+   \       0xD4   0xBDF2             POP      {R1,R4-R7,PC}
+    494                  }
+    495                }
+    496                else /* RCC_USBCLKSOURCE_NONE */
+    497                {
+    498                    frequency = 0U;
+    499                }
+    500                break;
+    501              }
+    502          #endif /* USB */
+    503          #if defined(RCC_CCIPR_USART1SEL)
+    504            case RCC_PERIPHCLK_USART1:
+    505              {
+    506                /* Get the current USART1 source */
+    507                srcclk = __HAL_RCC_GET_USART1_SOURCE();
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_0: (+1)
+   \       0xD6   0x6CD1             LDR      R1,[R2, #+76]
+   \       0xD8   0x0789             LSLS     R1,R1,#+30
+   \       0xDA   0x0F89             LSRS     R1,R1,#+30
+    508          
+    509                /* Check if USART1 clock selection is PCLK2 */
+    510                if (srcclk == RCC_USART1CLKSOURCE_PCLK2)
+   \       0xDC   0xD102             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_19
+    511                {
+    512                  frequency = HAL_RCC_GetPCLK2Freq();
+   \       0xDE   0x....'....        BL       HAL_RCC_GetPCLK2Freq
+   \       0xE2   0xBDF2             POP      {R1,R4-R7,PC}
+    513                }
+    514                /* Check if HSI is ready and if USART1 clock selection is HSI */
+    515                else if (srcclk == RCC_USART1CLKSOURCE_HSI)
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_19: (+1)
+   \       0xE4   0x2902             CMP      R1,#+2
+   \       0xE6   0xD02C             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_20
+    516                {
+    517                  if (HAL_IS_BIT_SET(RCC->CR, RCC_CR_HSIRDY))
+    518                  {
+    519                    if (READ_BIT(RCC->CR, RCC_CR_HSIDIVF) != 0U)
+    520                    {
+    521                      frequency =  (HSI_VALUE >> 2U);
+    522                    }
+    523                    else
+    524                    {
+    525                      frequency =  HSI_VALUE;
+    526                    }
+    527                  }
+    528                }
+    529                /* Check if USART1 clock selection is SYSCLK */
+    530                else if (srcclk == RCC_USART1CLKSOURCE_SYSCLK)
+   \       0xE8   0x2901             CMP      R1,#+1
+   \       0xEA   0xD037             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_21
+    531                {
+    532                  frequency = HAL_RCC_GetSysClockFreq();
+    533                }
+    534                /* Check if LSE is ready  and if USART1 clock selection is LSE */
+    535                else if (srcclk == RCC_USART1CLKSOURCE_LSE)
+   \       0xEC   0x2903             CMP      R1,#+3
+   \       0xEE   0xE008             B.N      ??HAL_RCCEx_GetPeriphCLKFreq_22
+    536                {
+    537                  if (HAL_IS_BIT_SET(RCC->CSR, RCC_CSR_LSERDY))
+    538                  {
+    539                    frequency = LSE_VALUE;
+    540                  }
+    541                }
+    542                /* Clock not enabled for USART1*/
+    543                else
+    544                {
+    545                  frequency = 0U;
+    546                }
+    547                break;
+    548              }
+    549          #endif /* RCC_CCIPR_USART1SEL */
+    550            case RCC_PERIPHCLK_USART2:
+    551              {
+    552                /* Get the current USART2 source */
+    553                srcclk = __HAL_RCC_GET_USART2_SOURCE();
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_1: (+1)
+   \       0xF0   0x6CD6             LDR      R6,[R2, #+76]
+   \       0xF2   0x210C             MOVS     R1,#+12
+   \       0xF4   0x4031             ANDS     R1,R1,R6
+    554          
+    555                /* Check if USART2 clock selection is PCLK1 */
+    556                if (srcclk == RCC_USART2CLKSOURCE_PCLK1)
+   \       0xF6   0xD037             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_23
+    557                {
+    558                  frequency = HAL_RCC_GetPCLK1Freq();
+    559                }
+    560                /* Check if HSI is ready and if USART2 clock selection is HSI */
+    561                else if (srcclk == RCC_USART2CLKSOURCE_HSI)
+   \       0xF8   0x2908             CMP      R1,#+8
+   \       0xFA   0xD022             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_20
+    562                {
+    563                  if (HAL_IS_BIT_SET(RCC->CR, RCC_CR_HSIRDY))
+    564                  {
+    565                    if (READ_BIT(RCC->CR, RCC_CR_HSIDIVF) != 0U)
+    566                    {
+    567                      frequency =  (HSI_VALUE >> 2U);
+    568                    }
+    569                    else
+    570                    {
+    571                      frequency =  HSI_VALUE;
+    572                    }
+    573                  }
+    574                }
+    575                /* Check if USART2 clock selection is SYSCLK */
+    576                else if (srcclk == RCC_USART2CLKSOURCE_SYSCLK)
+   \       0xFC   0x2904             CMP      R1,#+4
+   \       0xFE   0xD02D             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_21
+    577                {
+    578                  frequency = HAL_RCC_GetSysClockFreq();
+    579                }
+    580                /* Check if LSE is ready  and if USART2 clock selection is LSE */
+    581                else if (srcclk == RCC_USART2CLKSOURCE_LSE)
+   \      0x100   0x290C             CMP      R1,#+12
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_22: (+1)
+   \      0x102   0xD133             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_15
+    582                {
+    583                  if (HAL_IS_BIT_SET(RCC->CSR, RCC_CSR_LSERDY))
+   \      0x104   0x6D11             LDR      R1,[R2, #+80]
+   \      0x106   0x400B             ANDS     R3,R3,R1
+   \      0x108   0xD030             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_15
+    584                  {
+    585                    frequency = LSE_VALUE;
+   \      0x10A   0x02E0             LSLS     R0,R4,#+11
+   \      0x10C   0xBDF2             POP      {R1,R4-R7,PC}
+    586                  }
+    587                }
+    588                /* Clock not enabled for USART2*/
+    589                else
+    590                {
+    591                  frequency = 0U;
+    592                }
+    593                break;
+    594              }
+    595            case RCC_PERIPHCLK_LPUART1:
+    596              {
+    597                /* Get the current LPUART1 source */
+    598                srcclk = __HAL_RCC_GET_LPUART1_SOURCE();
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_2: (+1)
+   \      0x10E   0x26C0             MOVS     R6,#+192
+   \      0x110   0x0136             LSLS     R6,R6,#+4        ;; #+3072
+   \      0x112   0x6CD1             LDR      R1,[R2, #+76]
+   \      0x114   0x4031             ANDS     R1,R1,R6
+    599          
+    600                /* Check if LPUART1 clock selection is PCLK1 */
+    601                if (srcclk == RCC_LPUART1CLKSOURCE_PCLK1)
+   \      0x116   0xD027             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_23
+    602                {
+    603                  frequency = HAL_RCC_GetPCLK1Freq();
+    604                }
+    605                /* Check if HSI is ready and if LPUART1 clock selection is HSI */
+    606                else if (srcclk == RCC_LPUART1CLKSOURCE_HSI)
+   \      0x118   0x0CD7             LSRS     R7,R2,#+19
+   \      0x11A   0x42B9             CMP      R1,R7
+   \      0x11C   0xD011             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_20
+    607                {
+    608                  if (HAL_IS_BIT_SET(RCC->CR, RCC_CR_HSIRDY))
+    609                  {
+    610                    if (READ_BIT(RCC->CR, RCC_CR_HSIDIVF) != 0U)
+    611                    {
+    612                      frequency =  (HSI_VALUE >> 2U);
+    613                    }
+    614                    else
+    615                    {
+    616                      frequency =  HSI_VALUE;
+    617                    }
+    618                  }
+    619                }
+    620                /* Check if LPUART1 clock selection is SYSCLK */
+    621                else if (srcclk == RCC_LPUART1CLKSOURCE_SYSCLK)
+   \      0x11E   0x0D14             LSRS     R4,R2,#+20
+   \      0x120   0x42A1             CMP      R1,R4
+   \      0x122   0xD01B             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_21
+    622                {
+    623                  frequency = HAL_RCC_GetSysClockFreq();
+    624                }
+    625                /* Check if LSE is ready  and if LPUART1 clock selection is LSE */
+    626                else if (srcclk == RCC_LPUART1CLKSOURCE_LSE)
+   \      0x124   0x42B1             CMP      R1,R6
+   \      0x126   0xD121             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_15
+    627                {
+    628                  if (HAL_IS_BIT_SET(RCC->CSR, RCC_CSR_LSERDY))
+   \      0x128   0x6D11             LDR      R1,[R2, #+80]
+   \      0x12A   0x400B             ANDS     R3,R3,R1
+   \      0x12C   0xD01E             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_15
+    629                  {
+    630                    frequency = LSE_VALUE;
+   \      0x12E   0x0160             LSLS     R0,R4,#+5
+   \      0x130   0xBDF2             POP      {R1,R4-R7,PC}
+    631                  }
+    632                }
+    633                /* Clock not enabled for LPUART1*/
+    634                else
+    635                {
+    636                  frequency = 0U;
+    637                }
+    638                break;
+    639              }
+    640            case RCC_PERIPHCLK_I2C1:
+    641              {
+    642                /* Get the current I2C1 source */
+    643                srcclk = __HAL_RCC_GET_I2C1_SOURCE();
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_3: (+1)
+   \      0x132   0x6CD3             LDR      R3,[R2, #+76]
+   \      0x134   0x21C0             MOVS     R1,#+192
+   \      0x136   0x0189             LSLS     R1,R1,#+6        ;; #+12288
+   \      0x138   0x4019             ANDS     R1,R1,R3
+    644          
+    645                /* Check if I2C1 clock selection is PCLK1 */
+    646                if (srcclk == RCC_I2C1CLKSOURCE_PCLK1)
+   \      0x13A   0xD015             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_23
+    647                {
+    648                  frequency = HAL_RCC_GetPCLK1Freq();
+    649                }
+    650                /* Check if HSI is ready and if I2C1 clock selection is HSI */
+    651                else if (srcclk == RCC_I2C1CLKSOURCE_HSI)
+   \      0x13C   0x0263             LSLS     R3,R4,#+9
+   \      0x13E   0x4299             CMP      R1,R3
+   \      0x140   0xD109             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_24
+    652                {
+    653                  if (HAL_IS_BIT_SET(RCC->CR, RCC_CR_HSIRDY))
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_20: (+1)
+   \      0x142   0x6811             LDR      R1,[R2, #+0]
+   \      0x144   0x400D             ANDS     R5,R5,R1
+   \      0x146   0xD011             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_15
+    654                  {
+    655                    if (READ_BIT(RCC->CR, RCC_CR_HSIDIVF) != 0U)
+   \      0x148   0x6810             LDR      R0,[R2, #+0]
+   \      0x14A   0x4004             ANDS     R4,R4,R0
+   \      0x14C   0xD001             BEQ      ??HAL_RCCEx_GetPeriphCLKFreq_25
+    656                    {
+    657                      frequency =  (HSI_VALUE >> 2U);
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_13: (+1)
+   \      0x14E   0x....             LDR      R0,??DataTable12_4  ;; 0x3d0900
+   \      0x150   0xBDF2             POP      {R1,R4-R7,PC}
+    658                    }
+    659                    else
+    660                    {
+    661                      frequency =  HSI_VALUE;
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_25: (+1)
+   \      0x152   0x....             LDR      R0,??DataTable12_5  ;; 0xf42400
+   \      0x154   0xBDF2             POP      {R1,R4-R7,PC}
+    662                    }
+    663                  }
+    664                }
+    665                /* Check if I2C1 clock selection is SYSCLK */
+    666                else if (srcclk == RCC_I2C1CLKSOURCE_SYSCLK)
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_24: (+1)
+   \      0x156   0x0C92             LSRS     R2,R2,#+18
+   \      0x158   0x4291             CMP      R1,R2
+   \      0x15A   0xD107             BNE      ??HAL_RCCEx_GetPeriphCLKFreq_15
+    667                {
+    668                  frequency = HAL_RCC_GetSysClockFreq();
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_21: (+1)
+   \      0x15C   0x....'....        BL       HAL_RCC_GetSysClockFreq
+   \      0x160   0xBDF2             POP      {R1,R4-R7,PC}
+    669                }
+    670                /* Clock not enabled for I2C1*/
+    671                else
+    672                {
+    673                  frequency = 0U;
+    674                }
+    675                break;
+    676              }
+    677          #if defined(I2C2)
+    678            case RCC_PERIPHCLK_I2C2:
+    679              {
+    680          
+    681                /* Check if I2C2 on APB1 clock enabled*/
+    682                if (READ_BIT(RCC->APB1ENR, (RCC_APB1ENR_I2C2EN))==RCC_APB1ENR_I2C2EN)
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_4: (+1)
+   \      0x162   0x6B91             LDR      R1,[R2, #+56]
+   \      0x164   0x0249             LSLS     R1,R1,#+9
+   \      0x166   0xD501             BPL      ??HAL_RCCEx_GetPeriphCLKFreq_15
+    683                {
+    684                  frequency = HAL_RCC_GetPCLK1Freq();
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_23: (+1)
+   \      0x168   0x....'....        BL       HAL_RCC_GetPCLK1Freq
+    685                }
+    686                else
+    687                {
+    688                  frequency = 0U;
+    689                }
+    690                break;
+    691              }
+    692          #endif /* I2C2 */
+    693          
+    694          #if defined(RCC_CCIPR_I2C3SEL)
+    695            case RCC_PERIPHCLK_I2C3:
+    696              {
+    697                /* Get the current I2C3 source */
+    698                srcclk = __HAL_RCC_GET_I2C3_SOURCE();
+    699          
+    700                /* Check if I2C3 clock selection is PCLK1 */
+    701                if (srcclk == RCC_I2C3CLKSOURCE_PCLK1)
+    702                {
+    703                  frequency = HAL_RCC_GetPCLK1Freq();
+    704                }
+    705                /* Check if HSI is ready and if I2C3 clock selection is HSI */
+    706                else if (srcclk == RCC_I2C3CLKSOURCE_HSI)
+    707                {
+    708                  if (HAL_IS_BIT_SET(RCC->CR, RCC_CR_HSIRDY))
+    709                  {
+    710                    if (READ_BIT(RCC->CR, RCC_CR_HSIDIVF) != 0U)
+    711                    {
+    712                      frequency =  (HSI_VALUE >> 2U);
+    713                    }
+    714                    else
+    715                    {
+    716                      frequency =  HSI_VALUE;
+    717                    }
+    718                  }
+    719                }
+    720                /* Check if I2C3 clock selection is SYSCLK */
+    721                else if (srcclk == RCC_I2C3CLKSOURCE_SYSCLK)
+    722                {
+    723                  frequency = HAL_RCC_GetSysClockFreq();
+    724                }
+    725                /* Clock not enabled for I2C3*/
+    726                else
+    727                {
+    728                  frequency = 0U;
+    729                }
+    730                break;
+    731              }
+    732          #endif /* RCC_CCIPR_I2C3SEL */
+    733            default:
+    734              {
+    735                break;
+    736              }
+    737            }
+    738            return(frequency);
+   \                     ??HAL_RCCEx_GetPeriphCLKFreq_15: (+1)
+   \      0x16C   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    739          }
+    740          
+    741          /**
+    742            * @brief  Enables the LSE Clock Security System.
+    743            * @retval None
+    744            */
+
+   \                                 In section .text, align 2, keep-with-next
+    745          void HAL_RCCEx_EnableLSECSS(void)
+    746          {
+    747            SET_BIT(RCC->CSR, RCC_CSR_LSECSSON) ;
+   \                     HAL_RCCEx_EnableLSECSS: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable13  ;; 0x40021050
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x2280             MOVS     R2,#+128
+   \        0x6   0x0192             LSLS     R2,R2,#+6        ;; #+8192
+   \        0x8   0x430A             ORRS     R2,R2,R1
+   \        0xA   0x6002             STR      R2,[R0, #+0]
+    748          }
+   \        0xC   0x4770             BX       LR               ;; return
+    749          
+    750          /**
+    751            * @brief  Disables the LSE Clock Security System.
+    752            * @note   Once enabled this bit cannot be disabled, except after an LSE failure detection
+    753            *         (LSECSSD=1). In that case the software MUST disable the LSECSSON bit.
+    754            *         Reset by power on reset and RTC software reset (RTCRST bit).
+    755            * @retval None
+    756            */
+
+   \                                 In section .text, align 2, keep-with-next
+    757          void HAL_RCCEx_DisableLSECSS(void)
+    758          {
+    759            /* Disable LSE CSS */
+    760             CLEAR_BIT(RCC->CSR, RCC_CSR_LSECSSON) ;
+   \                     HAL_RCCEx_DisableLSECSS: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable13_1  ;; 0x40021010
+   \        0x2   0x6C01             LDR      R1,[R0, #+64]
+   \        0x4   0x....             LDR      R2,??DataTable13_2  ;; 0xffffdfff
+   \        0x6   0x400A             ANDS     R2,R2,R1
+   \        0x8   0x6402             STR      R2,[R0, #+64]
+    761          
+    762            /* Disable LSE CSS IT */
+    763            __HAL_RCC_DISABLE_IT(RCC_IT_LSECSS);
+   \        0xA   0x6801             LDR      R1,[R0, #+0]
+   \        0xC   0x2280             MOVS     R2,#+128
+   \        0xE   0x4391             BICS     R1,R1,R2
+   \       0x10   0x6001             STR      R1,[R0, #+0]
+    764          }
+   \       0x12   0x4770             BX       LR               ;; return
+    765          
+    766          /**
+    767            * @brief  Enable the LSE Clock Security System IT & corresponding EXTI line.
+    768            * @note   LSE Clock Security System IT is mapped on RTC EXTI line 19
+    769            * @retval None
+    770            */
+
+   \                                 In section .text, align 2, keep-with-next
+    771          void HAL_RCCEx_EnableLSECSS_IT(void)
+    772          {
+    773            /* Enable LSE CSS */
+    774             SET_BIT(RCC->CSR, RCC_CSR_LSECSSON) ;
+   \                     HAL_RCCEx_EnableLSECSS_IT: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable13_1  ;; 0x40021010
+   \        0x2   0x6C01             LDR      R1,[R0, #+64]
+   \        0x4   0x2280             MOVS     R2,#+128
+   \        0x6   0x0192             LSLS     R2,R2,#+6        ;; #+8192
+   \        0x8   0x430A             ORRS     R2,R2,R1
+   \        0xA   0x6402             STR      R2,[R0, #+64]
+    775          
+    776            /* Enable LSE CSS IT */
+    777            __HAL_RCC_ENABLE_IT(RCC_IT_LSECSS);
+   \        0xC   0x6801             LDR      R1,[R0, #+0]
+   \        0xE   0x2280             MOVS     R2,#+128
+   \       0x10   0x430A             ORRS     R2,R2,R1
+   \       0x12   0x6002             STR      R2,[R0, #+0]
+    778          
+    779            /* Enable IT on EXTI Line 19 */
+    780            __HAL_RCC_LSECSS_EXTI_ENABLE_IT();
+   \       0x14   0x2080             MOVS     R0,#+128
+   \       0x16   0x0300             LSLS     R0,R0,#+12       ;; #+524288
+   \       0x18   0x....             LDR      R1,??DataTable13_3  ;; 0x40010400
+   \       0x1A   0x680A             LDR      R2,[R1, #+0]
+   \       0x1C   0x4302             ORRS     R2,R2,R0
+   \       0x1E   0x600A             STR      R2,[R1, #+0]
+    781            __HAL_RCC_LSECSS_EXTI_ENABLE_RISING_EDGE();
+   \       0x20   0x688A             LDR      R2,[R1, #+8]
+   \       0x22   0x4310             ORRS     R0,R0,R2
+   \       0x24   0x6088             STR      R0,[R1, #+8]
+    782          }
+   \       0x26   0x4770             BX       LR               ;; return
+    783          
+    784          /**
+    785            * @brief Handle the RCC LSE Clock Security System interrupt request.
+    786            * @retval None
+    787            */
+
+   \                                 In section .text, align 2, keep-with-next
+    788          void HAL_RCCEx_LSECSS_IRQHandler(void)
+    789          {
+   \                     HAL_RCCEx_LSECSS_IRQHandler: (+1)
+   \        0x0   0xB538             PUSH     {R3-R5,LR}
+    790            /* Check RCC LSE CSSF flag  */
+    791            if(__HAL_RCC_GET_IT(RCC_IT_LSECSS))
+   \        0x2   0x2480             MOVS     R4,#+128
+   \        0x4   0x....             LDR      R5,??DataTable13_4  ;; 0x40021014
+   \        0x6   0x6828             LDR      R0,[R5, #+0]
+   \        0x8   0x4020             ANDS     R0,R0,R4
+   \        0xA   0xD002             BEQ      ??HAL_RCCEx_LSECSS_IRQHandler_0
+    792            {
+    793              /* RCC LSE Clock Security System interrupt user callback */
+    794              HAL_RCCEx_LSECSS_Callback();
+   \        0xC   0x....'....        BL       HAL_RCCEx_LSECSS_Callback
+    795          
+    796              /* Clear RCC LSE CSS pending bit */
+    797              __HAL_RCC_CLEAR_IT(RCC_IT_LSECSS);
+   \       0x10   0x606C             STR      R4,[R5, #+4]
+    798            }
+    799          }
+   \                     ??HAL_RCCEx_LSECSS_IRQHandler_0: (+1)
+   \       0x12   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+    800          
+    801          /**
+    802            * @brief  RCCEx LSE Clock Security System interrupt callback.
+    803            * @retval none
+    804            */
+
+   \                                 In section .text, align 2
+    805          __weak void HAL_RCCEx_LSECSS_Callback(void)
+    806          {
+    807            /* NOTE : This function should not be modified, when the callback is needed,
+    808                      the @ref HAL_RCCEx_LSECSS_Callback should be implemented in the user file
+    809             */
+    810          }
+   \                     HAL_RCCEx_LSECSS_Callback: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    811          
+    812          #if defined(SYSCFG_CFGR3_ENREF_HSI48)
+    813          /**
+    814            * @brief Enables Vrefint for the HSI48.
+    815            * @note  This is functional only if the LOCK is not set
+    816            * @retval None
+    817            */
+
+   \                                 In section .text, align 2, keep-with-next
+    818          void HAL_RCCEx_EnableHSI48_VREFINT(void)
+    819          {
+    820            /* Enable the Buffer for the ADC by setting SYSCFG_CFGR3_ENREF_HSI48 bit in SYSCFG_CFGR3 register   */
+    821            SET_BIT (SYSCFG->CFGR3, SYSCFG_CFGR3_ENREF_HSI48);
+   \                     HAL_RCCEx_EnableHSI48_VREFINT: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable13_5  ;; 0x40010020
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x0C42             LSRS     R2,R0,#+17
+   \        0x6   0x430A             ORRS     R2,R2,R1
+   \        0x8   0x6002             STR      R2,[R0, #+0]
+    822          }
+   \        0xA   0x4770             BX       LR               ;; return
+    823          
+    824          /**
+    825            * @brief Disables the Vrefint for the HSI48.
+    826            * @note  This is functional only if the LOCK is not set
+    827            * @retval None
+    828            */
+
+   \                                 In section .text, align 2, keep-with-next
+    829          void HAL_RCCEx_DisableHSI48_VREFINT(void)
+    830          {
+    831            /* Disable the Vrefint by resetting SYSCFG_CFGR3_ENREF_HSI48 bit in SYSCFG_CFGR3 register */
+    832            CLEAR_BIT(SYSCFG->CFGR3, SYSCFG_CFGR3_ENREF_HSI48);
+   \                     HAL_RCCEx_DisableHSI48_VREFINT: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable13_5  ;; 0x40010020
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x....             LDR      R2,??DataTable13_2  ;; 0xffffdfff
+   \        0x6   0x400A             ANDS     R2,R2,R1
+   \        0x8   0x6002             STR      R2,[R0, #+0]
+    833          }
+   \        0xA   0x4770             BX       LR               ;; return
+    834          
+    835          #endif /* SYSCFG_CFGR3_ENREF_HSI48 */
+    836          
+    837          /**
+    838            * @}
+    839            */
+    840          
+    841          #if defined (CRS)
+    842          
+    843          /** @defgroup RCCEx_Exported_Functions_Group3 Extended Clock Recovery System Control functions
+    844           *  @brief  Extended Clock Recovery System Control functions
+    845           *
+    846          @verbatim
+    847           ===============================================================================
+    848                          ##### Extended Clock Recovery System Control functions  #####
+    849           ===============================================================================
+    850              [..]
+    851                For devices with Clock Recovery System feature (CRS), RCC Extention HAL driver can be used as follows:
+    852          
+    853                (#) In System clock config, HSI48 needs to be enabled
+    854          
+    855                (#) Enable CRS clock in IP MSP init which will use CRS functions
+    856          
+    857                (#) Call CRS functions as follows:
+    858                    (##) Prepare synchronization configuration necessary for HSI48 calibration
+    859                        (+++) Default values can be set for frequency Error Measurement (reload and error limit)
+    860                                  and also HSI48 oscillator smooth trimming.
+    861                        (+++) Macro @ref __HAL_RCC_CRS_RELOADVALUE_CALCULATE can be also used to calculate
+    862                                  directly reload value with target and synchronization frequencies values
+    863                    (##) Call function @ref HAL_RCCEx_CRSConfig which
+    864                        (+++) Reset CRS registers to their default values.
+    865                        (+++) Configure CRS registers with synchronization configuration
+    866                        (+++) Enable automatic calibration and frequency error counter feature
+    867                     Note: When using USB LPM (Link Power Management) and the device is in Sleep mode, the
+    868                     periodic USB SOF will not be generated by the host. No SYNC signal will therefore be
+    869                     provided to the CRS to calibrate the HSI48 on the run. To guarantee the required clock
+    870                     precision after waking up from Sleep mode, the LSE or reference clock on the GPIOs
+    871                     should be used as SYNC signal.
+    872          
+    873                    (##) A polling function is provided to wait for complete synchronization
+    874                        (+++) Call function @ref HAL_RCCEx_CRSWaitSynchronization()
+    875                        (+++) According to CRS status, user can decide to adjust again the calibration or continue
+    876                                  application if synchronization is OK
+    877          
+    878                (#) User can retrieve information related to synchronization in calling function
+    879                      @ref HAL_RCCEx_CRSGetSynchronizationInfo()
+    880          
+    881                (#) Regarding synchronization status and synchronization information, user can try a new calibration
+    882                     in changing synchronization configuration and call again HAL_RCCEx_CRSConfig.
+    883                     Note: When the SYNC event is detected during the downcounting phase (before reaching the zero value),
+    884                     it means that the actual frequency is lower than the target (and so, that the TRIM value should be
+    885                     incremented), while when it is detected during the upcounting phase it means that the actual frequency
+    886                     is higher (and that the TRIM value should be decremented).
+    887          
+    888                (#) In interrupt mode, user can resort to the available macros (__HAL_RCC_CRS_XXX_IT). Interrupts will go
+    889                    through CRS Handler (RCC_IRQn/RCC_IRQHandler)
+    890                        (++) Call function @ref HAL_RCCEx_CRSConfig()
+    891                        (++) Enable RCC_IRQn (thanks to NVIC functions)
+    892                        (++) Enable CRS interrupt (@ref __HAL_RCC_CRS_ENABLE_IT)
+    893                        (++) Implement CRS status management in the following user callbacks called from
+    894                             HAL_RCCEx_CRS_IRQHandler():
+    895                             (+++) @ref HAL_RCCEx_CRS_SyncOkCallback()
+    896                             (+++) @ref HAL_RCCEx_CRS_SyncWarnCallback()
+    897                             (+++) @ref HAL_RCCEx_CRS_ExpectedSyncCallback()
+    898                             (+++) @ref HAL_RCCEx_CRS_ErrorCallback()
+    899          
+    900                (#) To force a SYNC EVENT, user can use the function @ref HAL_RCCEx_CRSSoftwareSynchronizationGenerate().
+    901                    This function can be called before calling @ref HAL_RCCEx_CRSConfig (for instance in Systick handler)
+    902          
+    903          @endverbatim
+    904           * @{
+    905           */
+    906          
+    907          /**
+    908            * @brief  Start automatic synchronization for polling mode
+    909            * @param  pInit Pointer on RCC_CRSInitTypeDef structure
+    910            * @retval None
+    911            */
+
+   \                                 In section .text, align 2, keep-with-next
+    912          void HAL_RCCEx_CRSConfig(RCC_CRSInitTypeDef *pInit)
+    913          {
+    914            uint32_t value;
+    915          
+    916            /* Check the parameters */
+    917            assert_param(IS_RCC_CRS_SYNC_DIV(pInit->Prescaler));
+    918            assert_param(IS_RCC_CRS_SYNC_SOURCE(pInit->Source));
+    919            assert_param(IS_RCC_CRS_SYNC_POLARITY(pInit->Polarity));
+    920            assert_param(IS_RCC_CRS_RELOADVALUE(pInit->ReloadValue));
+    921            assert_param(IS_RCC_CRS_ERRORLIMIT(pInit->ErrorLimitValue));
+    922            assert_param(IS_RCC_CRS_HSI48CALIBRATION(pInit->HSI48CalibrationValue));
+    923          
+    924            /* CONFIGURATION */
+    925          
+    926            /* Before configuration, reset CRS registers to their default values*/
+    927            __HAL_RCC_CRS_FORCE_RESET();
+   \                     HAL_RCCEx_CRSConfig: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable13_6  ;; 0x40021028
+   \        0x2   0x680A             LDR      R2,[R1, #+0]
+   \        0x4   0x2380             MOVS     R3,#+128
+   \        0x6   0x051B             LSLS     R3,R3,#+20       ;; #+134217728
+   \        0x8   0x4313             ORRS     R3,R3,R2
+   \        0xA   0x600B             STR      R3,[R1, #+0]
+    928            __HAL_RCC_CRS_RELEASE_RESET();
+   \        0xC   0x680A             LDR      R2,[R1, #+0]
+   \        0xE   0x....             LDR      R3,??DataTable13_7  ;; 0xf7ffffff
+   \       0x10   0x4013             ANDS     R3,R3,R2
+   \       0x12   0x600B             STR      R3,[R1, #+0]
+    929          
+    930            /* Set the SYNCDIV[2:0] bits according to Prescaler value */
+    931            /* Set the SYNCSRC[1:0] bits according to Source value */
+    932            /* Set the SYNCSPOL bit according to Polarity value */
+    933            value = (pInit->Prescaler | pInit->Source | pInit->Polarity);
+    934            /* Set the RELOAD[15:0] bits according to ReloadValue value */
+    935            value |= pInit->ReloadValue;
+    936            /* Set the FELIM[7:0] bits according to ErrorLimitValue value */
+    937            value |= (pInit->ErrorLimitValue << CRS_CFGR_FELIM_Pos);
+    938            WRITE_REG(CRS->CFGR, value);
+   \       0x14   0x....             LDR      R1,??DataTable13_8  ;; 0x40006c00
+   \       0x16   0x6802             LDR      R2,[R0, #+0]
+   \       0x18   0x6843             LDR      R3,[R0, #+4]
+   \       0x1A   0x4313             ORRS     R3,R3,R2
+   \       0x1C   0x6882             LDR      R2,[R0, #+8]
+   \       0x1E   0x431A             ORRS     R2,R2,R3
+   \       0x20   0x68C3             LDR      R3,[R0, #+12]
+   \       0x22   0x4313             ORRS     R3,R3,R2
+   \       0x24   0x6902             LDR      R2,[R0, #+16]
+   \       0x26   0x0412             LSLS     R2,R2,#+16
+   \       0x28   0x431A             ORRS     R2,R2,R3
+   \       0x2A   0x604A             STR      R2,[R1, #+4]
+    939          
+    940            /* Adjust HSI48 oscillator smooth trimming */
+    941            /* Set the TRIM[5:0] bits according to RCC_CRS_HSI48CalibrationValue value */
+    942            MODIFY_REG(CRS->CR, CRS_CR_TRIM, (pInit->HSI48CalibrationValue << CRS_CR_TRIM_Pos));
+   \       0x2C   0x680A             LDR      R2,[R1, #+0]
+   \       0x2E   0x....             LDR      R3,??DataTable13_9  ;; 0xffffc0ff
+   \       0x30   0x4013             ANDS     R3,R3,R2
+   \       0x32   0x6940             LDR      R0,[R0, #+20]
+   \       0x34   0x0200             LSLS     R0,R0,#+8
+   \       0x36   0x4318             ORRS     R0,R0,R3
+   \       0x38   0x6008             STR      R0,[R1, #+0]
+    943          
+    944            /* START AUTOMATIC SYNCHRONIZATION*/
+    945          
+    946            /* Enable Automatic trimming & Frequency error counter */
+    947            SET_BIT(CRS->CR, CRS_CR_AUTOTRIMEN | CRS_CR_CEN);
+   \       0x3A   0x6808             LDR      R0,[R1, #+0]
+   \       0x3C   0x2260             MOVS     R2,#+96
+   \       0x3E   0x4302             ORRS     R2,R2,R0
+   \       0x40   0x600A             STR      R2,[R1, #+0]
+    948          }
+   \       0x42   0x4770             BX       LR               ;; return
+    949          
+    950          /**
+    951            * @brief  Generate the software synchronization event
+    952            * @retval None
+    953            */
+
+   \                                 In section .text, align 2, keep-with-next
+    954          void HAL_RCCEx_CRSSoftwareSynchronizationGenerate(void)
+    955          {
+    956            SET_BIT(CRS->CR, CRS_CR_SWSYNC);
+   \                     HAL_RCCEx_CRSSoftwareSynchronizationGenerate: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable13_8  ;; 0x40006c00
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x2280             MOVS     R2,#+128
+   \        0x6   0x430A             ORRS     R2,R2,R1
+   \        0x8   0x6002             STR      R2,[R0, #+0]
+    957          }
+   \        0xA   0x4770             BX       LR               ;; return
+    958          
+    959          /**
+    960            * @brief  Return synchronization info
+    961            * @param  pSynchroInfo Pointer on RCC_CRSSynchroInfoTypeDef structure
+    962            * @retval None
+    963            */
+
+   \                                 In section .text, align 2, keep-with-next
+    964          void HAL_RCCEx_CRSGetSynchronizationInfo(RCC_CRSSynchroInfoTypeDef *pSynchroInfo)
+    965          {
+    966            /* Check the parameter */
+    967            assert_param(pSynchroInfo != (void *)NULL);
+    968          
+    969            /* Get the reload value */
+    970            pSynchroInfo->ReloadValue = (uint32_t)(READ_BIT(CRS->CFGR, CRS_CFGR_RELOAD));
+   \                     HAL_RCCEx_CRSGetSynchronizationInfo: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable13_8  ;; 0x40006c00
+   \        0x2   0x684A             LDR      R2,[R1, #+4]
+   \        0x4   0xB292             UXTH     R2,R2
+   \        0x6   0x6002             STR      R2,[R0, #+0]
+    971          
+    972            /* Get HSI48 oscillator smooth trimming */
+    973            pSynchroInfo->HSI48CalibrationValue = (uint32_t)(READ_BIT(CRS->CR, CRS_CR_TRIM) >> CRS_CR_TRIM_Pos);
+   \        0x8   0x680A             LDR      R2,[R1, #+0]
+   \        0xA   0x0492             LSLS     R2,R2,#+18
+   \        0xC   0x0E92             LSRS     R2,R2,#+26
+   \        0xE   0x6042             STR      R2,[R0, #+4]
+    974          
+    975            /* Get Frequency error capture */
+    976            pSynchroInfo->FreqErrorCapture = (uint32_t)(READ_BIT(CRS->ISR, CRS_ISR_FECAP) >> CRS_ISR_FECAP_Pos);
+   \       0x10   0x688A             LDR      R2,[R1, #+8]
+   \       0x12   0x0C12             LSRS     R2,R2,#+16
+   \       0x14   0x6082             STR      R2,[R0, #+8]
+    977          
+    978            /* Get Frequency error direction */
+    979            pSynchroInfo->FreqErrorDirection = (uint32_t)(READ_BIT(CRS->ISR, CRS_ISR_FEDIR));
+   \       0x16   0x6889             LDR      R1,[R1, #+8]
+   \       0x18   0x2280             MOVS     R2,#+128
+   \       0x1A   0x0212             LSLS     R2,R2,#+8        ;; #+32768
+   \       0x1C   0x4011             ANDS     R1,R1,R2
+   \       0x1E   0x60C1             STR      R1,[R0, #+12]
+    980          }
+   \       0x20   0x4770             BX       LR               ;; return
+    981          
+    982          /**
+    983          * @brief Wait for CRS Synchronization status.
+    984          * @param Timeout  Duration of the timeout
+    985          * @note  Timeout is based on the maximum time to receive a SYNC event based on synchronization
+    986          *        frequency.
+    987          * @note    If Timeout set to HAL_MAX_DELAY, HAL_TIMEOUT will be never returned.
+    988          * @retval Combination of Synchronization status
+    989          *          This parameter can be a combination of the following values:
+    990          *            @arg @ref RCC_CRS_TIMEOUT
+    991          *            @arg @ref RCC_CRS_SYNCOK
+    992          *            @arg @ref RCC_CRS_SYNCWARN
+    993          *            @arg @ref RCC_CRS_SYNCERR
+    994          *            @arg @ref RCC_CRS_SYNCMISS
+    995          *            @arg @ref RCC_CRS_TRIMOVF
+    996          */
+
+   \                                 In section .text, align 2, keep-with-next
+    997          uint32_t HAL_RCCEx_CRSWaitSynchronization(uint32_t Timeout)
+    998          {
+   \                     HAL_RCCEx_CRSWaitSynchronization: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+   \        0x2   0x0006             MOVS     R6,R0
+    999            uint32_t crsstatus = RCC_CRS_NONE;
+   \        0x4   0x2000             MOVS     R0,#+0
+   \        0x6   0x9001             STR      R0,[SP, #+4]
+   1000            uint32_t tickstart;
+   1001          
+   1002            /* Get timeout */
+   1003            tickstart = HAL_GetTick();
+   \        0x8   0x....'....        BL       HAL_GetTick
+   \        0xC   0x2404             MOVS     R4,#+4
+   \        0xE   0x....             LDR      R5,??DataTable13_10  ;; 0x40006c08
+   \       0x10   0x2701             MOVS     R7,#+1
+   \       0x12   0x9600             STR      R6,[SP, #+0]
+   \       0x14   0x9E01             LDR      R6,[SP, #+4]
+   \       0x16   0x9001             STR      R0,[SP, #+4]
+   1004          
+   1005            /* Wait for CRS flag or timeout detection */
+   1006            do
+   1007            {
+   1008              if(Timeout != HAL_MAX_DELAY)
+   \                     ??HAL_RCCEx_CRSWaitSynchronization_0: (+1)
+   \       0x18   0x9800             LDR      R0,[SP, #+0]
+   \       0x1A   0x2100             MOVS     R1,#+0
+   \       0x1C   0x43C9             MVNS     R1,R1            ;; #-1
+   \       0x1E   0x4288             CMP      R0,R1
+   \       0x20   0xD009             BEQ      ??HAL_RCCEx_CRSWaitSynchronization_1
+   1009              {
+   1010                if(((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
+   \       0x22   0x....'....        BL       HAL_GetTick
+   \       0x26   0x9901             LDR      R1,[SP, #+4]
+   \       0x28   0x1A40             SUBS     R0,R0,R1
+   \       0x2A   0x9900             LDR      R1,[SP, #+0]
+   \       0x2C   0x4281             CMP      R1,R0
+   \       0x2E   0xD301             BCC      ??HAL_RCCEx_CRSWaitSynchronization_2
+   \       0x30   0x2900             CMP      R1,#+0
+   \       0x32   0xD100             BNE      ??HAL_RCCEx_CRSWaitSynchronization_1
+   1011                {
+   1012                  crsstatus = RCC_CRS_TIMEOUT;
+   \                     ??HAL_RCCEx_CRSWaitSynchronization_2: (+1)
+   \       0x34   0x2601             MOVS     R6,#+1
+   1013                }
+   1014              }
+   1015              /* Check CRS SYNCOK flag  */
+   1016              if(__HAL_RCC_CRS_GET_FLAG(RCC_CRS_FLAG_SYNCOK))
+   \                     ??HAL_RCCEx_CRSWaitSynchronization_1: (+1)
+   \       0x36   0x6828             LDR      R0,[R5, #+0]
+   \       0x38   0x4038             ANDS     R0,R0,R7
+   \       0x3A   0xD003             BEQ      ??HAL_RCCEx_CRSWaitSynchronization_3
+   1017              {
+   1018                /* CRS SYNC event OK */
+   1019                crsstatus |= RCC_CRS_SYNCOK;
+   \       0x3C   0x0030             MOVS     R0,R6
+   \       0x3E   0x2602             MOVS     R6,#+2
+   \       0x40   0x4306             ORRS     R6,R6,R0
+   1020          
+   1021                /* Clear CRS SYNC event OK bit */
+   1022                __HAL_RCC_CRS_CLEAR_FLAG(RCC_CRS_FLAG_SYNCOK);
+   \       0x42   0x606F             STR      R7,[R5, #+4]
+   1023              }
+   1024          
+   1025              /* Check CRS SYNCWARN flag  */
+   1026              if(__HAL_RCC_CRS_GET_FLAG(RCC_CRS_FLAG_SYNCWARN))
+   \                     ??HAL_RCCEx_CRSWaitSynchronization_3: (+1)
+   \       0x44   0x2002             MOVS     R0,#+2
+   \       0x46   0x6829             LDR      R1,[R5, #+0]
+   \       0x48   0x4001             ANDS     R1,R1,R0
+   \       0x4A   0xD001             BEQ      ??HAL_RCCEx_CRSWaitSynchronization_4
+   1027              {
+   1028                /* CRS SYNC warning */
+   1029                crsstatus |= RCC_CRS_SYNCWARN;
+   \       0x4C   0x4326             ORRS     R6,R6,R4
+   1030          
+   1031                /* Clear CRS SYNCWARN bit */
+   1032                __HAL_RCC_CRS_CLEAR_FLAG(RCC_CRS_FLAG_SYNCWARN);
+   \       0x4E   0x6068             STR      R0,[R5, #+4]
+   1033              }
+   1034          
+   1035              /* Check CRS TRIM overflow flag  */
+   1036              if(__HAL_RCC_CRS_GET_FLAG(RCC_CRS_FLAG_TRIMOVF))
+   \                     ??HAL_RCCEx_CRSWaitSynchronization_4: (+1)
+   \       0x50   0x6828             LDR      R0,[R5, #+0]
+   \       0x52   0x0540             LSLS     R0,R0,#+21
+   \       0x54   0xD503             BPL      ??HAL_RCCEx_CRSWaitSynchronization_5
+   1037              {
+   1038                /* CRS SYNC Error */
+   1039                crsstatus |= RCC_CRS_TRIMOVF;
+   \       0x56   0x0030             MOVS     R0,R6
+   \       0x58   0x2620             MOVS     R6,#+32
+   \       0x5A   0x4306             ORRS     R6,R6,R0
+   1040          
+   1041                /* Clear CRS Error bit */
+   1042                __HAL_RCC_CRS_CLEAR_FLAG(RCC_CRS_FLAG_TRIMOVF);
+   \       0x5C   0x606C             STR      R4,[R5, #+4]
+   1043              }
+   1044          
+   1045              /* Check CRS Error flag  */
+   1046              if(__HAL_RCC_CRS_GET_FLAG(RCC_CRS_FLAG_SYNCERR))
+   \                     ??HAL_RCCEx_CRSWaitSynchronization_5: (+1)
+   \       0x5E   0x6828             LDR      R0,[R5, #+0]
+   \       0x60   0x05C0             LSLS     R0,R0,#+23
+   \       0x62   0xD503             BPL      ??HAL_RCCEx_CRSWaitSynchronization_6
+   1047              {
+   1048                /* CRS SYNC Error */
+   1049                crsstatus |= RCC_CRS_SYNCERR;
+   \       0x64   0x0030             MOVS     R0,R6
+   \       0x66   0x2608             MOVS     R6,#+8
+   \       0x68   0x4306             ORRS     R6,R6,R0
+   1050          
+   1051                /* Clear CRS Error bit */
+   1052                __HAL_RCC_CRS_CLEAR_FLAG(RCC_CRS_FLAG_SYNCERR);
+   \       0x6A   0x606C             STR      R4,[R5, #+4]
+   1053              }
+   1054          
+   1055              /* Check CRS SYNC Missed flag  */
+   1056              if(__HAL_RCC_CRS_GET_FLAG(RCC_CRS_FLAG_SYNCMISS))
+   \                     ??HAL_RCCEx_CRSWaitSynchronization_6: (+1)
+   \       0x6C   0x6828             LDR      R0,[R5, #+0]
+   \       0x6E   0x0580             LSLS     R0,R0,#+22
+   \       0x70   0xD503             BPL      ??HAL_RCCEx_CRSWaitSynchronization_7
+   1057              {
+   1058                /* CRS SYNC Missed */
+   1059                crsstatus |= RCC_CRS_SYNCMISS;
+   \       0x72   0x0030             MOVS     R0,R6
+   \       0x74   0x2610             MOVS     R6,#+16
+   \       0x76   0x4306             ORRS     R6,R6,R0
+   1060          
+   1061                /* Clear CRS SYNC Missed bit */
+   1062                __HAL_RCC_CRS_CLEAR_FLAG(RCC_CRS_FLAG_SYNCMISS);
+   \       0x78   0x606C             STR      R4,[R5, #+4]
+   1063              }
+   1064          
+   1065              /* Check CRS Expected SYNC flag  */
+   1066              if(__HAL_RCC_CRS_GET_FLAG(RCC_CRS_FLAG_ESYNC))
+   \                     ??HAL_RCCEx_CRSWaitSynchronization_7: (+1)
+   \       0x7A   0x2008             MOVS     R0,#+8
+   \       0x7C   0x6829             LDR      R1,[R5, #+0]
+   \       0x7E   0x4001             ANDS     R1,R1,R0
+   \       0x80   0xD000             BEQ      ??HAL_RCCEx_CRSWaitSynchronization_8
+   1067              {
+   1068                /* frequency error counter reached a zero value */
+   1069                __HAL_RCC_CRS_CLEAR_FLAG(RCC_CRS_FLAG_ESYNC);
+   \       0x82   0x6068             STR      R0,[R5, #+4]
+   1070              }
+   1071            } while(RCC_CRS_NONE == crsstatus);
+   \                     ??HAL_RCCEx_CRSWaitSynchronization_8: (+1)
+   \       0x84   0x2E00             CMP      R6,#+0
+   \       0x86   0xD0C7             BEQ      ??HAL_RCCEx_CRSWaitSynchronization_0
+   \       0x88   0x0030             MOVS     R0,R6
+   1072          
+   1073            return crsstatus;
+   \       0x8A   0xBDFE             POP      {R1-R7,PC}       ;; return
+   1074          }
+   1075          
+   1076          /**
+   1077            * @brief Handle the Clock Recovery System interrupt request.
+   1078            * @retval None
+   1079            */
+
+   \                                 In section .text, align 2, keep-with-next
+   1080          void HAL_RCCEx_CRS_IRQHandler(void)
+   1081          {
+   \                     HAL_RCCEx_CRS_IRQHandler: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   1082            uint32_t crserror = RCC_CRS_NONE;
+   \        0x2   0x2000             MOVS     R0,#+0
+   1083            /* Get current IT flags and IT sources values */
+   1084            uint32_t itflags = READ_REG(CRS->ISR);
+   \        0x4   0x....             LDR      R1,??DataTable13_8  ;; 0x40006c00
+   \        0x6   0x688A             LDR      R2,[R1, #+8]
+   1085            uint32_t itsources = READ_REG(CRS->CR);
+   \        0x8   0x680B             LDR      R3,[R1, #+0]
+   1086          
+   1087            /* Check CRS SYNCOK flag  */
+   1088            if(((itflags & RCC_CRS_FLAG_SYNCOK) != 0U) && ((itsources & RCC_CRS_IT_SYNCOK) != 0U))
+   \        0xA   0x07D5             LSLS     R5,R2,#+31
+   \        0xC   0x0FED             LSRS     R5,R5,#+31
+   \        0xE   0x07DE             LSLS     R6,R3,#+31
+   \       0x10   0x0FF6             LSRS     R6,R6,#+31
+   \       0x12   0x4235             TST      R5,R6
+   \       0x14   0xD004             BEQ      ??HAL_RCCEx_CRS_IRQHandler_0
+   1089            {
+   1090              /* Clear CRS SYNC event OK flag */
+   1091              WRITE_REG(CRS->ICR, CRS_ICR_SYNCOKC);
+   \       0x16   0x2001             MOVS     R0,#+1
+   \       0x18   0x60C8             STR      R0,[R1, #+12]
+   1092          
+   1093              /* user callback */
+   1094              HAL_RCCEx_CRS_SyncOkCallback();
+   \       0x1A   0x....'....        BL       HAL_RCCEx_CRS_SyncOkCallback
+   \       0x1E   0xBD70             POP      {R4-R6,PC}
+   1095            }
+   1096            /* Check CRS SYNCWARN flag  */
+   1097            else if(((itflags & RCC_CRS_FLAG_SYNCWARN) != 0U) && ((itsources & RCC_CRS_IT_SYNCWARN) != 0U))
+   \                     ??HAL_RCCEx_CRS_IRQHandler_0: (+1)
+   \       0x20   0x2402             MOVS     R4,#+2
+   \       0x22   0x4222             TST      R2,R4
+   \       0x24   0xD005             BEQ      ??HAL_RCCEx_CRS_IRQHandler_1
+   \       0x26   0x4223             TST      R3,R4
+   \       0x28   0xD003             BEQ      ??HAL_RCCEx_CRS_IRQHandler_1
+   1098            {
+   1099              /* Clear CRS SYNCWARN flag */
+   1100              WRITE_REG(CRS->ICR, CRS_ICR_SYNCWARNC);
+   \       0x2A   0x60CC             STR      R4,[R1, #+12]
+   1101          
+   1102              /* user callback */
+   1103              HAL_RCCEx_CRS_SyncWarnCallback();
+   \       0x2C   0x....'....        BL       HAL_RCCEx_CRS_SyncWarnCallback
+   \       0x30   0xBD70             POP      {R4-R6,PC}
+   1104            }
+   1105            /* Check CRS Expected SYNC flag  */
+   1106            else if(((itflags & RCC_CRS_FLAG_ESYNC) != 0U) && ((itsources & RCC_CRS_IT_ESYNC) != 0U))
+   \                     ??HAL_RCCEx_CRS_IRQHandler_1: (+1)
+   \       0x32   0x2508             MOVS     R5,#+8
+   \       0x34   0x422A             TST      R2,R5
+   \       0x36   0xD005             BEQ      ??HAL_RCCEx_CRS_IRQHandler_2
+   \       0x38   0x422B             TST      R3,R5
+   \       0x3A   0xD003             BEQ      ??HAL_RCCEx_CRS_IRQHandler_2
+   1107            {
+   1108              /* frequency error counter reached a zero value */
+   1109              WRITE_REG(CRS->ICR, CRS_ICR_ESYNCC);
+   \       0x3C   0x60CD             STR      R5,[R1, #+12]
+   1110          
+   1111              /* user callback */
+   1112              HAL_RCCEx_CRS_ExpectedSyncCallback();
+   \       0x3E   0x....'....        BL       HAL_RCCEx_CRS_ExpectedSyncCallback
+   \       0x42   0xBD70             POP      {R4-R6,PC}
+   1113            }
+   1114            /* Check CRS Error flags  */
+   1115            else
+   1116            {
+   1117              if(((itflags & RCC_CRS_FLAG_ERR) != 0U) && ((itsources & RCC_CRS_IT_ERR) != 0U))
+   \                     ??HAL_RCCEx_CRS_IRQHandler_2: (+1)
+   \       0x44   0x2404             MOVS     R4,#+4
+   \       0x46   0x4222             TST      R2,R4
+   \       0x48   0xD011             BEQ      ??HAL_RCCEx_CRS_IRQHandler_3
+   \       0x4A   0x4023             ANDS     R3,R3,R4
+   \       0x4C   0xD00F             BEQ      ??HAL_RCCEx_CRS_IRQHandler_3
+   1118              {
+   1119                if((itflags & RCC_CRS_FLAG_SYNCERR) != 0U)
+   \       0x4E   0x05D3             LSLS     R3,R2,#+23
+   \       0x50   0xD500             BPL      ??HAL_RCCEx_CRS_IRQHandler_4
+   1120                {
+   1121                  crserror |= RCC_CRS_SYNCERR;
+   \       0x52   0x2008             MOVS     R0,#+8
+   1122                }
+   1123                if((itflags & RCC_CRS_FLAG_SYNCMISS) != 0U)
+   \                     ??HAL_RCCEx_CRS_IRQHandler_4: (+1)
+   \       0x54   0x0593             LSLS     R3,R2,#+22
+   \       0x56   0xD502             BPL      ??HAL_RCCEx_CRS_IRQHandler_5
+   1124                {
+   1125                  crserror |= RCC_CRS_SYNCMISS;
+   \       0x58   0x0003             MOVS     R3,R0
+   \       0x5A   0x2010             MOVS     R0,#+16
+   \       0x5C   0x4318             ORRS     R0,R0,R3
+   1126                }
+   1127                if((itflags & RCC_CRS_FLAG_TRIMOVF) != 0U)
+   \                     ??HAL_RCCEx_CRS_IRQHandler_5: (+1)
+   \       0x5E   0x0552             LSLS     R2,R2,#+21
+   \       0x60   0xD502             BPL      ??HAL_RCCEx_CRS_IRQHandler_6
+   1128                {
+   1129                  crserror |= RCC_CRS_TRIMOVF;
+   \       0x62   0x0002             MOVS     R2,R0
+   \       0x64   0x2020             MOVS     R0,#+32
+   \       0x66   0x4310             ORRS     R0,R0,R2
+   1130                }
+   1131          
+   1132                /* Clear CRS Error flags */
+   1133                WRITE_REG(CRS->ICR, CRS_ICR_ERRC);
+   \                     ??HAL_RCCEx_CRS_IRQHandler_6: (+1)
+   \       0x68   0x60CC             STR      R4,[R1, #+12]
+   1134          
+   1135                /* user error callback */
+   1136                HAL_RCCEx_CRS_ErrorCallback(crserror);
+   \       0x6A   0x....'....        BL       HAL_RCCEx_CRS_ErrorCallback
+   1137              }
+   1138            }
+   1139          }
+   \                     ??HAL_RCCEx_CRS_IRQHandler_3: (+1)
+   \       0x6E   0xBD70             POP      {R4-R6,PC}       ;; return
+   1140          
+   1141          /**
+   1142            * @brief  RCCEx Clock Recovery System SYNCOK interrupt callback.
+   1143            * @retval none
+   1144            */
+
+   \                                 In section .text, align 2
+   1145          __weak void HAL_RCCEx_CRS_SyncOkCallback(void)
+   1146          {
+   1147            /* NOTE : This function should not be modified, when the callback is needed,
+   1148                      the @ref HAL_RCCEx_CRS_SyncOkCallback should be implemented in the user file
+   1149             */
+   1150          }
+   \                     HAL_RCCEx_CRS_SyncOkCallback: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+   1151          
+   1152          /**
+   1153            * @brief  RCCEx Clock Recovery System SYNCWARN interrupt callback.
+   1154            * @retval none
+   1155            */
+
+   \                                 In section .text, align 2
+   1156          __weak void HAL_RCCEx_CRS_SyncWarnCallback(void)
+   1157          {
+   1158            /* NOTE : This function should not be modified, when the callback is needed,
+   1159                      the @ref HAL_RCCEx_CRS_SyncWarnCallback should be implemented in the user file
+   1160             */
+   1161          }
+   \                     HAL_RCCEx_CRS_SyncWarnCallback: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+   1162          
+   1163          /**
+   1164            * @brief  RCCEx Clock Recovery System Expected SYNC interrupt callback.
+   1165            * @retval none
+   1166            */
+
+   \                                 In section .text, align 2
+   1167          __weak void HAL_RCCEx_CRS_ExpectedSyncCallback(void)
+   1168          {
+   1169            /* NOTE : This function should not be modified, when the callback is needed,
+   1170                      the @ref HAL_RCCEx_CRS_ExpectedSyncCallback should be implemented in the user file
+   1171             */
+   1172          }
+   \                     HAL_RCCEx_CRS_ExpectedSyncCallback: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+   1173          
+   1174          /**
+   1175            * @brief  RCCEx Clock Recovery System Error interrupt callback.
+   1176            * @param  Error Combination of Error status.
+   1177            *         This parameter can be a combination of the following values:
+   1178            *           @arg @ref RCC_CRS_SYNCERR
+   1179            *           @arg @ref RCC_CRS_SYNCMISS
+   1180            *           @arg @ref RCC_CRS_TRIMOVF
+   1181            * @retval none
+   1182            */
+
+   \                                 In section .text, align 2
+   1183          __weak void HAL_RCCEx_CRS_ErrorCallback(uint32_t Error)
+   1184          {
+   1185            /* Prevent unused argument(s) compilation warning */
+   1186            UNUSED(Error);
+   1187          
+   1188            /* NOTE : This function should not be modified, when the callback is needed,
+   1189                      the @ref HAL_RCCEx_CRS_ErrorCallback should be implemented in the user file
+   1190             */
+   1191          }
+   \                     HAL_RCCEx_CRS_ErrorCallback: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \        0x0   0x4002'1000        DC32     0x40021000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \        0x0   0x4000'7000        DC32     0x40007000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \        0x0   0xFFFC'FFFF        DC32     0xfffcffff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \        0x0   0xFFF7'FFFF        DC32     0xfff7ffff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \        0x0   0x0000'1389        DC32     0x1389
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \        0x0   0xFFCF'FFFF        DC32     0xffcfffff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \        0x0   0xEFFF'FFFF        DC32     0xefffffff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5:
+   \        0x0   0xFFFF'F3FF        DC32     0xfffff3ff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7:
+   \        0x0   0xFFFF'CFFF        DC32     0xffffcfff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8:
+   \        0x0   0xFBFF'FFFF        DC32     0xfbffffff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_1:
+   \        0x0   0x0000'08EF        DC32     0x8ef
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable10:
+   \        0x0   0xFFF3'FFFF        DC32     0xfff3ffff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11:
+   \        0x0   0x4002'1000        DC32     0x40021000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_1:
+   \        0x0   0x0000'9088        DC32     0x9088
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12:
+   \        0x0   0x0007'A120        DC32     0x7a120
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_1:
+   \        0x0   0x000F'4240        DC32     0xf4240
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_2:
+   \        0x0   0x001E'8480        DC32     0x1e8480
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_3:
+   \        0x0   0x....'....        DC32     PLLMulTable
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_4:
+   \        0x0   0x003D'0900        DC32     0x3d0900
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_5:
+   \        0x0   0x00F4'2400        DC32     0xf42400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_6:
+   \        0x0   0x007A'1200        DC32     0x7a1200
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_7:
+   \        0x0   0x02DC'6C00        DC32     0x2dc6c00
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13:
+   \        0x0   0x4002'1050        DC32     0x40021050
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_1:
+   \        0x0   0x4002'1010        DC32     0x40021010
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_2:
+   \        0x0   0xFFFF'DFFF        DC32     0xffffdfff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_3:
+   \        0x0   0x4001'0400        DC32     0x40010400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_4:
+   \        0x0   0x4002'1014        DC32     0x40021014
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_5:
+   \        0x0   0x4001'0020        DC32     0x40010020
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_6:
+   \        0x0   0x4002'1028        DC32     0x40021028
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_7:
+   \        0x0   0xF7FF'FFFF        DC32     0xf7ffffff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_8:
+   \        0x0   0x4000'6C00        DC32     0x40006c00
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_9:
+   \        0x0   0xFFFF'C0FF        DC32     0xffffc0ff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable13_10:
+   \        0x0   0x4000'6C08        DC32     0x40006c08
+   1192          
+   1193          /**
+   1194            * @}
+   1195            */
+   1196          
+   1197          #endif /* CRS */
+   1198          /**
+   1199            * @}
+   1200            */
+   1201          
+   1202          /**
+   1203            * @}
+   1204            */
+   1205          
+   1206          /**
+   1207            * @}
+   1208            */
+   1209          
+   1210          #endif /* HAL_RCC_MODULE_ENABLED */
+   1211          /**
+   1212            * @}
+   1213            */
+   1214          
+   1215          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   HAL_RCCEx_CRSConfig
+       0   HAL_RCCEx_CRSGetSynchronizationInfo
+       0   HAL_RCCEx_CRSSoftwareSynchronizationGenerate
+      32   HAL_RCCEx_CRSWaitSynchronization
+        32   -> HAL_GetTick
+       0   HAL_RCCEx_CRS_ErrorCallback
+       0   HAL_RCCEx_CRS_ExpectedSyncCallback
+      16   HAL_RCCEx_CRS_IRQHandler
+        16   -> HAL_RCCEx_CRS_ErrorCallback
+        16   -> HAL_RCCEx_CRS_ExpectedSyncCallback
+        16   -> HAL_RCCEx_CRS_SyncOkCallback
+        16   -> HAL_RCCEx_CRS_SyncWarnCallback
+       0   HAL_RCCEx_CRS_SyncOkCallback
+       0   HAL_RCCEx_CRS_SyncWarnCallback
+       0   HAL_RCCEx_DisableHSI48_VREFINT
+       0   HAL_RCCEx_DisableLSECSS
+       0   HAL_RCCEx_EnableHSI48_VREFINT
+       0   HAL_RCCEx_EnableLSECSS
+       0   HAL_RCCEx_EnableLSECSS_IT
+       8   HAL_RCCEx_GetPeriphCLKConfig
+      24   HAL_RCCEx_GetPeriphCLKFreq
+        24   -> HAL_RCC_GetPCLK1Freq
+        24   -> HAL_RCC_GetPCLK2Freq
+        24   -> HAL_RCC_GetSysClockFreq
+        24 __aeabi_uidiv
+       0   HAL_RCCEx_LSECSS_Callback
+      16   HAL_RCCEx_LSECSS_IRQHandler
+        16   -> HAL_RCCEx_LSECSS_Callback
+      32   HAL_RCCEx_PeriphCLKConfig
+        32   -> HAL_GetTick
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+       4  ??DataTable10
+       4  ??DataTable11
+       4  ??DataTable11_1
+       4  ??DataTable12
+       4  ??DataTable12_1
+       4  ??DataTable12_2
+       4  ??DataTable12_3
+       4  ??DataTable12_4
+       4  ??DataTable12_5
+       4  ??DataTable12_6
+       4  ??DataTable12_7
+       4  ??DataTable13
+       4  ??DataTable13_1
+       4  ??DataTable13_10
+       4  ??DataTable13_2
+       4  ??DataTable13_3
+       4  ??DataTable13_4
+       4  ??DataTable13_5
+       4  ??DataTable13_6
+       4  ??DataTable13_7
+       4  ??DataTable13_8
+       4  ??DataTable13_9
+       4  ??DataTable1_1
+       4  ??DataTable1_2
+       4  ??DataTable1_3
+       4  ??DataTable1_4
+       4  ??DataTable3
+       4  ??DataTable4
+       4  ??DataTable5
+       4  ??DataTable7
+       4  ??DataTable8
+       4  ??DataTable8_1
+      68  HAL_RCCEx_CRSConfig
+      34  HAL_RCCEx_CRSGetSynchronizationInfo
+      12  HAL_RCCEx_CRSSoftwareSynchronizationGenerate
+     140  HAL_RCCEx_CRSWaitSynchronization
+       2  HAL_RCCEx_CRS_ErrorCallback
+       2  HAL_RCCEx_CRS_ExpectedSyncCallback
+     112  HAL_RCCEx_CRS_IRQHandler
+       2  HAL_RCCEx_CRS_SyncOkCallback
+       2  HAL_RCCEx_CRS_SyncWarnCallback
+      12  HAL_RCCEx_DisableHSI48_VREFINT
+      20  HAL_RCCEx_DisableLSECSS
+      12  HAL_RCCEx_EnableHSI48_VREFINT
+      14  HAL_RCCEx_EnableLSECSS
+      40  HAL_RCCEx_EnableLSECSS_IT
+      90  HAL_RCCEx_GetPeriphCLKConfig
+     366  HAL_RCCEx_GetPeriphCLKFreq
+       2  HAL_RCCEx_LSECSS_Callback
+      20  HAL_RCCEx_LSECSS_IRQHandler
+     406  HAL_RCCEx_PeriphCLKConfig
+
+ 
+ 1'488 bytes in section .text
+ 
+ 1'478 bytes of CODE memory (+ 10 bytes shared)
+
+Errors: none
+Warnings: none

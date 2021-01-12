@@ -1,0 +1,909 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  11:53:13
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                    
+#    Endian                   =  little
+#    Source file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\S2LP_Middleware\STM32\src\S2LP_AUX_UTILS.c
+#    Command line             =
+#        -f C:\Users\dvone\AppData\Local\Temp\EWF93C.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\S2LP_Middleware\STM32\src\S2LP_AUX_UTILS.c
+#        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
+#        STM32L053xx -lC
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List
+#        -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+#        --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.4\arm\inc\c\DLib_Config_Normal.h" -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\BSP\SDK_Eval_STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\CMSIS\STM32L0xx\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\S2LP_Middleware\STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\Utils\STM32\inc\\
+#        -Ohz --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.4\arm\CMSIS\Core\Include\\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.4\arm\CMSIS\DSP\Include\\")
+#    Locale                   =  C
+#    List file                =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\S2LP_AUX_UTILS.lst
+#    Object file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\S2LP_AUX_UTILS.o
+#    Runtime model:              
+#      __SystemLibrary        =  DLib
+#      __dlib_file_descriptor =  0
+#      __dlib_version         =  6
+#
+###############################################################################
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\S2LP_Middleware\STM32\src\S2LP_AUX_UTILS.c
+      1          /**
+      2           * @file    S2LP_EVAL_Utils.c
+      3           * @author  LowPower RF BU - AMG
+      4           * @version 4.0.1
+      5           * @date    March, 2020
+      6           * @brief   Identification and utils functions for S2LP DK.
+      7           * @details
+      8           *
+      9           * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+     10           * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+     11           * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+     12           * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+     13           * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+     14           * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+     15           *
+     16           * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
+     17           * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
+     18           * IN THE ROOT DIRECTORY OF THIS FIRMWARE PACKAGE.
+     19           *
+     20           * <h2><center>&copy; COPYRIGHT 2020 STMicroelectronics</center></h2>
+     21           */
+     22          
+     23          
+     24          /* Includes ------------------------------------------------------------------*/
+     25          #include "S2LP_Middleware_Config.h"
+     26          #include "SDK_UTILS_Timers.h"
+     27          #include "S2LP_AUX_UTILS.h"
+     28          #include "S2LP_AUX_EEPROM.h"
+     29          #include "S2LP_CORE_GPIO.h"
+     30          
+     31          /** @addtogroup S2LP_MIDDLEWARE_STM32                     S2LP Middleware - STM32
+     32          * @{
+     33          */
+     34          
+     35          /** @defgroup S2LP_AUX_UTILS						S2LP AUX UTILS
+     36            * @brief  S2-LP Utils common module.
+     37            * This module exports common functions for the middleware layer.
+     38            * @{
+     39          */
+     40          
+
+   \                                 In section .bss, align 1
+     41          static volatile uint8_t s_RfModuleBand = 0, s_Tcxo=0;
+   \                     s_Tcxo:
+   \        0x0                      DS8 1
+     42          static volatile RangeExtType s_RfRangeExtender = RANGE_EXT_NONE;
+     43          static volatile uint32_t s_RfXtalFrequency = XTAL_FREQUENCY;
+
+   \                                 In section .bss, align 1
+     44          static volatile S2LPDaughterBoard _daughterBoard = FKI_SERIES;
+   \                     _daughterBoard:
+   \        0x0                      DS8 1
+
+   \                                 In section .data, align 4
+   \                     s_RfModuleBand:
+   \        0x0   0x00               DC8 0
+   \        0x1   0x00               DC8 0
+   \        0x2   0x91               DC8 145
+   \        0x3   0x00               DC8 0
+   \        0x4   0x02FA'F080        DC32 50'000'000
+     45          static volatile S2LPCutType s_S2LPCut = S2LP_CUT_2_1;
+     46          
+     47          
+     48          void S2LPRadioSetXtalFrequency(uint32_t lXtalFrequency);
+     49          
+
+   \                                 In section .text, align 2, keep-with-next
+     50          RangeExtType S2LPManagementGetRangeExtender(void)
+     51          {
+     52            return s_RfRangeExtender;
+   \                     S2LPManagementGetRangeExtender: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable14
+   \        0x2   0x7840             LDRB     R0,[R0, #+1]
+   \        0x4   0x4770             BX       LR               ;; return
+     53          }
+     54          
+
+   \                                 In section .text, align 2, keep-with-next
+     55          void S2LPManagementSetRangeExtender(RangeExtType value)
+     56          {
+     57            s_RfRangeExtender = value;
+   \                     S2LPManagementSetRangeExtender: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable14
+   \        0x2   0x7048             STRB     R0,[R1, #+1]
+     58          }
+   \        0x4   0x4770             BX       LR               ;; return
+     59          
+
+   \                                 In section .text, align 2, keep-with-next
+     60          void S2LPManagementSetBand(uint8_t band)
+     61          {
+     62            s_RfModuleBand = band;
+   \                     S2LPManagementSetBand: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable14
+   \        0x2   0x7008             STRB     R0,[R1, #+0]
+     63          }
+   \        0x4   0x4770             BX       LR               ;; return
+     64          
+
+   \                                 In section .text, align 4, keep-with-next
+     65          uint32_t S2LPGetFrequencyBand(void)
+     66          {
+     67            uint32_t frequency = 0;
+   \                     S2LPGetFrequencyBand: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+     68            const uint32_t band_frequencies[] = {
+     69              169000000,
+     70              315000000,
+     71              433000000,
+     72              868000000,
+     73              915000000,
+     74              450000000
+     75            };
+     76          
+     77            if (s_RfModuleBand < (sizeof(band_frequencies)/sizeof(uint32_t))) {
+   \        0x2   0x....             LDR      R1,??DataTable14
+   \        0x4   0x780A             LDRB     R2,[R1, #+0]
+   \        0x6   0x2A06             CMP      R2,#+6
+   \        0x8   0xD204             BCS      ??S2LPGetFrequencyBand_0
+     78              frequency = band_frequencies[s_RfModuleBand];
+   \        0xA   0xBF00             Nop
+   \        0xC   0x....             ADR.N    R0,`S2LPGetFrequencyBand::band_frequencies`
+   \        0xE   0x7809             LDRB     R1,[R1, #+0]
+   \       0x10   0x0089             LSLS     R1,R1,#+2
+   \       0x12   0x5840             LDR      R0,[R0, R1]
+     79            }
+     80          
+     81            return frequency;
+   \                     ??S2LPGetFrequencyBand_0: (+1)
+   \       0x14   0x4770             BX       LR               ;; return
+     82          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     `S2LPGetFrequencyBand::band_frequencies`:
+   \        0x0   0x0A12'BC40        DC32 169'000'000, 315'000'000, 433'000'000, 868'000'000, 915'000'000
+
+   \              0x12C6'84C0  
+
+   \              0x19CF'0E40  
+
+   \              0x33BC'A100  
+
+   \              0x3689'CAC0
+   \       0x14   0x1AD2'7480        DC32 450'000'000
+     83          
+
+   \                                 In section .text, align 2, keep-with-next
+     84          uint8_t S2LPManagementGetBand(void)
+     85          {
+     86            return s_RfModuleBand;
+   \                     S2LPManagementGetBand: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable14
+   \        0x2   0x7800             LDRB     R0,[R0, #+0]
+   \        0x4   0x4770             BX       LR               ;; return
+     87          }
+     88          
+
+   \                                 In section .text, align 2, keep-with-next
+     89          uint32_t S2LPManagementComputeXtalFrequency(void)
+     90          {
+     91            s_RfXtalFrequency = XTAL_FREQUENCY;
+   \                     S2LPManagementComputeXtalFrequency: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable14
+   \        0x2   0x....             LDR      R1,??DataTable14_1  ;; 0x2faf080
+   \        0x4   0x6041             STR      R1,[R0, #+4]
+     92            return s_RfXtalFrequency;
+   \        0x6   0x6840             LDR      R0,[R0, #+4]
+   \        0x8   0x4770             BX       LR               ;; return
+     93          }
+     94          
+
+   \                                 In section .text, align 2, keep-with-next
+     95          uint32_t S2LPManagementGetXtalFrequency(void)
+     96          {
+     97            return s_RfXtalFrequency;
+   \                     S2LPManagementGetXtalFrequency: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable14
+   \        0x2   0x6840             LDR      R0,[R0, #+4]
+   \        0x4   0x4770             BX       LR               ;; return
+     98          }
+     99          
+
+   \                                 In section .text, align 2, keep-with-next
+    100          uint8_t S2LPManagementGetTcxo(void)
+    101          {
+    102            return s_Tcxo;
+   \                     S2LPManagementGetTcxo: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable14_2
+   \        0x2   0x7800             LDRB     R0,[R0, #+0]
+   \        0x4   0x4770             BX       LR               ;; return
+    103          }
+    104          
+
+   \                                 In section .text, align 4
+    105          __weak void S2LPRadioSetXtalFrequency(uint32_t xtal)
+    106          {
+    107            s_RfXtalFrequency = xtal;
+   \                     S2LPRadioSetXtalFrequency: (+1)
+   \        0x0   0x4901             LDR      R1,??S2LPRadioSetXtalFrequency_0
+   \        0x2   0x6048             STR      R0,[R1, #+4]
+    108          }
+   \        0x4   0x4770             BX       LR               ;; return
+   \        0x6   0xBF00             Nop
+   \                     ??S2LPRadioSetXtalFrequency_0:
+   \        0x8   0x....'....        DC32     s_RfModuleBand
+    109          
+
+   \                                 In section .text, align 2, keep-with-next
+    110          S2LPCutType S2LPManagementGetCut(void)
+    111          {
+    112            return s_S2LPCut;
+   \                     S2LPManagementGetCut: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable14
+   \        0x2   0x7880             LDRB     R0,[R0, #+2]
+   \        0x4   0x4770             BX       LR               ;; return
+    113          }
+    114          
+
+   \                                 In section .text, align 4, keep-with-next
+    115          void S2LPManagementIdentificationRFBoard(void)
+    116          {
+   \                     S2LPManagementIdentificationRFBoard: (+1)
+   \        0x0   0xB5F0             PUSH     {R4-R7,LR}
+   \        0x2   0xB08B             SUB      SP,SP,#+44
+    117            uint8_t tmp;
+    118          
+    119            /* Read Cut version from S2LP registers */
+    120            S2LPSpiReadRegisters(0xF1, 1, &tmp);
+   \        0x4   0x466A             MOV      R2,SP
+   \        0x6   0x2101             MOVS     R1,#+1
+   \        0x8   0x20F1             MOVS     R0,#+241
+   \        0xA   0x....'....        BL       S2LPSpiReadRegisters
+    121            s_S2LPCut = (S2LPCutType)tmp;
+   \        0xE   0x....             LDR      R5,??DataTable14
+   \       0x10   0x4668             MOV      R0,SP
+   \       0x12   0x7800             LDRB     R0,[R0, #+0]
+   \       0x14   0x70A8             STRB     R0,[R5, #+2]
+    122          
+    123          #if EEPROM_PRESENT == EEPROM_YES
+    124            uint8_t was_in_sdn=1;
+   \       0x16   0x2001             MOVS     R0,#+1
+   \       0x18   0x9001             STR      R0,[SP, #+4]
+    125            int32_t xtal_comp_value;
+    126            float foffset = 0;
+   \       0x1A   0x2400             MOVS     R4,#+0
+    127          
+    128            if(S2LPShutdownCheck()==RESET)
+   \       0x1C   0x2600             MOVS     R6,#+0
+   \       0x1E   0x....'....        BL       S2LPShutdownCheck
+   \       0x22   0x2800             CMP      R0,#+0
+   \       0x24   0xD102             BNE      ??S2LPManagementIdentificationRFBoard_1
+    129            {
+    130              /* if reset it was not in SDN */
+    131              S2LPShutdownEnter();
+   \       0x26   0x....'....        BL       S2LPShutdownEnter
+    132              was_in_sdn=0;
+   \       0x2A   0x9601             STR      R6,[SP, #+4]
+    133            }
+    134          
+    135            /* Auto recognize FKI or X-NUCLEO daughter boards */
+    136            EepromIdentification();
+   \                     ??S2LPManagementIdentificationRFBoard_1: (+1)
+   \       0x2C   0x....'....        BL       EepromIdentification
+    137          
+    138            /* Read the EEPROM */
+    139            uint8_t tmpBuffer[32];
+    140            EepromRead(0x0000, 32, tmpBuffer);
+   \       0x30   0xAA03             ADD      R2,SP,#+12
+   \       0x32   0x2120             MOVS     R1,#+32
+   \       0x34   0x2000             MOVS     R0,#+0
+   \       0x36   0x....'....        BL       EepromRead
+    141          
+    142            /* Data in EEPROM is not valid ... */
+    143            if(tmpBuffer[0]==0 || tmpBuffer[0]==0xFF) {
+   \       0x3A   0x....             LDR      R0,??DataTable14_1  ;; 0x2faf080
+   \       0x3C   0x4669             MOV      R1,SP
+   \       0x3E   0x7B09             LDRB     R1,[R1, #+12]
+   \       0x40   0x2900             CMP      R1,#+0
+   \       0x42   0xD003             BEQ      ??S2LPManagementIdentificationRFBoard_2
+   \       0x44   0xA903             ADD      R1,SP,#+12
+   \       0x46   0x780A             LDRB     R2,[R1, #+0]
+   \       0x48   0x2AFF             CMP      R2,#+255
+   \       0x4A   0xD108             BNE      ??S2LPManagementIdentificationRFBoard_3
+    144              S2LPManagementComputeXtalFrequency();
+   \                     ??S2LPManagementIdentificationRFBoard_2: (+1)
+   \       0x4C   0x6068             STR      R0,[R5, #+4]
+   \       0x4E   0x6868             LDR      R0,[R5, #+4]
+    145              if(was_in_sdn==0) { S2LPShutdownExit(); }
+   \       0x50   0x9801             LDR      R0,[SP, #+4]
+   \       0x52   0x2800             CMP      R0,#+0
+   \       0x54   0xD101             BNE      ??S2LPManagementIdentificationRFBoard_4
+   \       0x56   0x....'....        BL       S2LPShutdownExit
+    146          
+    147              /* If EEPROM fails, set no EXT_PA by default */
+    148              S2LPManagementSetRangeExtender(RANGE_EXT_NONE);
+   \                     ??S2LPManagementIdentificationRFBoard_4: (+1)
+   \       0x5A   0x706E             STRB     R6,[R5, #+1]
+    149              return;
+   \       0x5C   0xE055             B        ??S2LPManagementIdentificationRFBoard_5
+    150            }
+    151          
+    152            switch(tmpBuffer[1]) {
+   \                     ??S2LPManagementIdentificationRFBoard_3: (+1)
+   \       0x5E   0x7849             LDRB     R1,[R1, #+1]
+   \       0x60   0x2905             CMP      R1,#+5
+   \       0x62   0xD810             BHI      ??S2LPManagementIdentificationRFBoard_6
+   \       0x64   0xA201             ADR      R2,??S2LPManagementIdentificationRFBoard_0
+   \       0x66   0x5C52             LDRB     R2,[R2, R1]
+   \       0x68   0x4497             ADD      PC,PC,R2
+   \       0x6A   0xBF00             Nop
+   \                     ??S2LPManagementIdentificationRFBoard_0:
+   \       0x6C   0x06 0x0A          DC8      0x6,0xA,0xE,0x12
+
+   \              0x0E 0x12
+   \       0x70   0x1E 0x16          DC8      0x1E,0x16
+    153            case 0:
+    154              s_RfXtalFrequency = 24000000;
+   \                     ??S2LPManagementIdentificationRFBoard_7: (+1)
+   \       0x72   0x....             LDR      R0,??DataTable14_3  ;; 0x16e3600
+   \       0x74   0xE009             B        ??S2LPManagementIdentificationRFBoard_8
+    155              break;
+    156            case 1:
+    157              s_RfXtalFrequency = 25000000;
+   \                     ??S2LPManagementIdentificationRFBoard_9: (+1)
+   \       0x76   0x0840             LSRS     R0,R0,#+1
+   \       0x78   0xE007             B        ??S2LPManagementIdentificationRFBoard_8
+    158              break;
+    159            case 2:
+    160              s_RfXtalFrequency = 26000000;
+   \                     ??S2LPManagementIdentificationRFBoard_10: (+1)
+   \       0x7A   0x....             LDR      R0,??DataTable14_4  ;; 0x18cba80
+   \       0x7C   0xE005             B        ??S2LPManagementIdentificationRFBoard_8
+    161              break;
+    162            case 3:
+    163              s_RfXtalFrequency = 48000000;
+   \                     ??S2LPManagementIdentificationRFBoard_11: (+1)
+   \       0x7E   0x....             LDR      R0,??DataTable14_5  ;; 0x2dc6c00
+   \       0x80   0xE003             B        ??S2LPManagementIdentificationRFBoard_8
+    164              break;
+    165            case 4:
+    166              s_RfXtalFrequency = 50000000;
+    167              break;
+    168            case 5:
+    169              s_RfXtalFrequency = 52000000;
+   \                     ??S2LPManagementIdentificationRFBoard_12: (+1)
+   \       0x82   0x....             LDR      R0,??DataTable14_6  ;; 0x3197500
+   \       0x84   0xE001             B        ??S2LPManagementIdentificationRFBoard_8
+    170              break;
+    171            default:
+    172              s_RfXtalFrequency=S2LPManagementComputeXtalFrequency();
+   \                     ??S2LPManagementIdentificationRFBoard_6: (+1)
+   \       0x86   0x6068             STR      R0,[R5, #+4]
+   \       0x88   0x6868             LDR      R0,[R5, #+4]
+   \                     ??S2LPManagementIdentificationRFBoard_8: (+1)
+   \       0x8A   0x6068             STR      R0,[R5, #+4]
+    173          
+    174              break;
+    175            }
+    176          
+    177            s_RfModuleBand = tmpBuffer[3];
+   \       0x8C   0xA803             ADD      R0,SP,#+12
+   \       0x8E   0x78C0             LDRB     R0,[R0, #+3]
+   \       0x90   0x7028             STRB     R0,[R5, #+0]
+    178          
+    179            EepromRead(0x0021,4,tmpBuffer);
+   \       0x92   0xAA03             ADD      R2,SP,#+12
+   \       0x94   0x2104             MOVS     R1,#+4
+   \       0x96   0x2021             MOVS     R0,#+33
+   \       0x98   0x....'....        BL       EepromRead
+    180          
+    181            for(uint8_t i=0;i<4;i++)
+   \       0x9C   0x2000             MOVS     R0,#+0
+   \       0x9E   0x9402             STR      R4,[SP, #+8]
+   \       0xA0   0xAF03             ADD      R7,SP,#+12
+    182            {
+    183              ((uint8_t*)&foffset)[i]=tmpBuffer[3-i];
+   \                     ??S2LPManagementIdentificationRFBoard_13: (+1)
+   \       0xA2   0x1CF9             ADDS     R1,R7,#+3
+   \       0xA4   0x4242             RSBS     R2,R0,#+0
+   \       0xA6   0x5C89             LDRB     R1,[R1, R2]
+   \       0xA8   0xAA02             ADD      R2,SP,#+8
+   \       0xAA   0x5411             STRB     R1,[R2, R0]
+    184            }
+   \       0xAC   0x1C40             ADDS     R0,R0,#+1
+   \       0xAE   0x2804             CMP      R0,#+4
+   \       0xB0   0xDBF7             BLT      ??S2LPManagementIdentificationRFBoard_13
+   \       0xB2   0x9C02             LDR      R4,[SP, #+8]
+    185          
+    186            xtal_comp_value = 0;
+    187          
+    188            /* foffset is a value measured during manufacturing as follows:
+    189            *
+    190            * foffset = fnominal-fmeasured.
+    191            * To compensate such value it should be reported to xtal freq
+    192            * and then subtracted
+    193            *
+    194            */
+    195            if (foffset != 0xFFFFFFFF) {
+   \       0xB4   0x0020             MOVS     R0,R4
+   \       0xB6   0x219F             MOVS     R1,#+159
+   \       0xB8   0x05C9             LSLS     R1,R1,#+23       ;; #+1333788672
+   \       0xBA   0x....'....        BL       __aeabi_cfcmpeq
+   \       0xBE   0xD019             BEQ      ??S2LPManagementIdentificationRFBoard_14
+    196              uint32_t frequency = S2LPGetFrequencyBand();
+   \       0xC0   0x....'....        BL       S2LPGetFrequencyBand
+   \       0xC4   0x9002             STR      R0,[SP, #+8]
+    197          
+    198              if (frequency != 0)
+   \       0xC6   0x2800             CMP      R0,#+0
+   \       0xC8   0xD014             BEQ      ??S2LPManagementIdentificationRFBoard_14
+    199              {
+    200          	uint32_t xtal_frequency = s_RfXtalFrequency;
+    201          
+    202          	/* This is the value to be added to the xtal nominal value
+    203          	to compensate the xtal offset */
+    204          	xtal_comp_value = (int32_t) ((xtal_frequency*(-foffset))/frequency);
+   \       0xCA   0x6868             LDR      R0,[R5, #+4]
+   \       0xCC   0x....'....        BL       __aeabi_ui2f
+   \       0xD0   0x0001             MOVS     R1,R0
+   \       0xD2   0x0020             MOVS     R0,R4
+   \       0xD4   0x....'....        BL       __aeabi_fmul
+   \       0xD8   0x0004             MOVS     R4,R0
+   \       0xDA   0x9802             LDR      R0,[SP, #+8]
+   \       0xDC   0x....'....        BL       __aeabi_ui2f
+   \       0xE0   0x0001             MOVS     R1,R0
+   \       0xE2   0x0020             MOVS     R0,R4
+   \       0xE4   0x....'....        BL       __aeabi_fdiv
+   \       0xE8   0x2180             MOVS     R1,#+128
+   \       0xEA   0x0609             LSLS     R1,R1,#+24       ;; #-2147483648
+   \       0xEC   0x4048             EORS     R0,R0,R1
+   \       0xEE   0x....'....        BL       __aeabi_f2iz
+   \       0xF2   0x0006             MOVS     R6,R0
+    205              }
+    206            }
+    207          
+    208            S2LPRadioSetXtalFrequency(s_RfXtalFrequency+xtal_comp_value);
+   \                     ??S2LPManagementIdentificationRFBoard_14: (+1)
+   \       0xF4   0x6868             LDR      R0,[R5, #+4]
+   \       0xF6   0x1980             ADDS     R0,R0,R6
+   \       0xF8   0x....'....        BL       S2LPRadioSetXtalFrequency
+    209          
+    210            S2LPManagementSetRangeExtender((RangeExtType)tmpBuffer[5]);
+   \       0xFC   0x7978             LDRB     R0,[R7, #+5]
+   \       0xFE   0x7068             STRB     R0,[R5, #+1]
+    211          
+    212            if(was_in_sdn==0)
+   \      0x100   0x9801             LDR      R0,[SP, #+4]
+   \      0x102   0x2800             CMP      R0,#+0
+   \      0x104   0xD101             BNE      ??S2LPManagementIdentificationRFBoard_5
+    213            {
+    214              S2LPShutdownExit();
+   \      0x106   0x....'....        BL       S2LPShutdownExit
+    215            }
+    216          #else
+    217            S2LPRadioSetXtalFrequency(s_RfXtalFrequency);
+    218          #endif
+    219          }
+   \                     ??S2LPManagementIdentificationRFBoard_5: (+1)
+   \      0x10A   0xB00B             ADD      SP,SP,#+44
+   \      0x10C   0xBDF0             POP      {R4-R7,PC}       ;; return
+    220          
+
+   \                                 In section .text, align 2, keep-with-next
+    221          uint8_t EepromIdentification(void)
+    222          {
+   \                     EepromIdentification: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+    223            uint8_t status=0;
+    224          
+    225            /* Configure EEPROM SPI with default configuration */
+    226            EepromSpiInitialization();
+   \        0x2   0x....'....        BL       EepromSpiInitialization
+    227          
+    228            /* FKI is default */
+    229            SdkEvalSetDaughterBoardType(FKI_SERIES);
+   \        0x6   0x2400             MOVS     R4,#+0
+   \        0x8   0x....             LDR      R1,??DataTable14_7
+   \        0xA   0x700C             STRB     R4,[R1, #+0]
+    230            EepromCsPinInitialization();
+   \        0xC   0x....'....        BL       EepromCsPinInitialization
+    231          
+    232            /* Try this procedure for both FKIxxx and XNUCLEO-S2868 boards */
+    233            for (int i=0; i<2; i++)
+   \       0x10   0x2500             MOVS     R5,#+0
+   \       0x12   0x27F0             MOVS     R7,#+240
+   \       0x14   0x2601             MOVS     R6,#+1
+   \       0x16   0xE01B             B        ??EepromIdentification_0
+    234            {
+    235              /* Switch to new CS configuration only if previoisly conf failed */
+    236              if (i==1 && status==0)
+    237              {
+    238                /* Configure the X-NUCLEO */
+    239          	SdkEvalSetDaughterBoardType(X_NUCLEO_SERIES);
+    240                EepromCsXnucleoPinInitialization();
+    241              }
+    242          
+    243              /* Try to get the status of the EEPROM */
+    244              status = EepromStatus();
+    245              if((status&0xF0) == EEPROM_STATUS_SRWD) {
+    246                /* If it is EEPROM_STATUS_SRWD => OK, the EEPROM is present and ready to work */
+    247                status=1;
+    248              }
+    249              else
+    250              {
+    251                EepromWriteEnable();
+   \                     ??EepromIdentification_1: (+1)
+   \       0x18   0x....'....        BL       EepromWriteEnable
+    252                SdkDelayMs(10);
+   \       0x1C   0x200A             MOVS     R0,#+10
+   \       0x1E   0x....'....        BL       SdkDelayMs
+    253                /* Else the bit may be not set (first time we see this EEPROM), try to set it*/
+    254                status = EepromSetSrwd();
+   \       0x22   0x....'....        BL       EepromSetSrwd
+    255                SdkDelayMs(10);
+   \       0x26   0x200A             MOVS     R0,#+10
+   \       0x28   0x....'....        BL       SdkDelayMs
+    256                /*check again*/
+    257                status = EepromStatus();
+    258          
+    259                if((status&0xF0) == EEPROM_STATUS_SRWD) { // 0xF0 mask [SRWD 0 0 0]
+   \       0x2C   0x....'....        BL       EepromStatus
+   \       0x30   0x4038             ANDS     R0,R0,R7
+   \       0x32   0x2880             CMP      R0,#+128
+   \       0x34   0xD101             BNE      ??EepromIdentification_2
+    260                  /* If it is EEPROM_STATUS_SRWD => OK, the EEPROM is present and ready to work */
+    261                  status=1;
+   \                     ??EepromIdentification_3: (+1)
+   \       0x36   0x2001             MOVS     R0,#+1
+   \       0x38   0xE000             B        ??EepromIdentification_4
+    262                }
+    263                else
+    264                {
+    265                  /* Else no EEPROM is present */
+    266                  status = 0;
+   \                     ??EepromIdentification_2: (+1)
+   \       0x3A   0x2000             MOVS     R0,#+0
+    267                }
+    268              }
+   \                     ??EepromIdentification_4: (+1)
+   \       0x3C   0x1C6D             ADDS     R5,R5,#+1
+   \       0x3E   0x2D01             CMP      R5,#+1
+   \       0x40   0xDC0C             BGT      ??EepromIdentification_5
+   \       0x42   0xD105             BNE      ??EepromIdentification_0
+   \       0x44   0x2800             CMP      R0,#+0
+   \       0x46   0xD103             BNE      ??EepromIdentification_0
+   \       0x48   0x....             LDR      R0,??DataTable14_7
+   \       0x4A   0x7006             STRB     R6,[R0, #+0]
+   \       0x4C   0x....'....        BL       EepromCsXnucleoPinInitialization
+   \                     ??EepromIdentification_0: (+1)
+   \       0x50   0x....'....        BL       EepromStatus
+   \       0x54   0x4038             ANDS     R0,R0,R7
+   \       0x56   0x2880             CMP      R0,#+128
+   \       0x58   0xD1DE             BNE      ??EepromIdentification_1
+   \       0x5A   0xE7EC             B.N      ??EepromIdentification_3
+    269            }
+    270          
+    271            return status;
+   \                     ??EepromIdentification_5: (+1)
+   \       0x5C   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    272          }
+    273          
+
+   \                                 In section .text, align 2, keep-with-next
+    274          void SdkEvalSetDaughterBoardType(S2LPDaughterBoard boardType)
+    275          {
+    276            _daughterBoard = boardType;
+   \                     SdkEvalSetDaughterBoardType: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable14_7
+   \        0x2   0x7008             STRB     R0,[R1, #+0]
+    277          }
+   \        0x4   0x4770             BX       LR               ;; return
+    278          
+
+   \                                 In section .text, align 2, keep-with-next
+    279          S2LPDaughterBoard SdkEvalGetDaughterBoardType()
+    280          {
+    281            return _daughterBoard;
+   \                     SdkEvalGetDaughterBoardType: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable14_7
+   \        0x2   0x7800             LDRB     R0,[R0, #+0]
+   \        0x4   0x4770             BX       LR               ;; return
+    282          }
+    283          
+
+   \                                 In section .text, align 2, keep-with-next
+    284          void S2LPManagementRcoCalibration(void)
+    285          {
+   \                     S2LPManagementRcoCalibration: (+1)
+   \        0x0   0xB51C             PUSH     {R2-R4,LR}
+    286            uint8_t tmp[2],tmp2;
+    287          
+    288            S2LPSpiReadRegisters(0x6D, 1, &tmp2);
+   \        0x2   0x466A             MOV      R2,SP
+   \        0x4   0x2101             MOVS     R1,#+1
+   \        0x6   0x206D             MOVS     R0,#+109
+   \        0x8   0x....'....        BL       S2LPSpiReadRegisters
+    289            tmp2 |= 0x01;
+   \        0xC   0x4668             MOV      R0,SP
+   \        0xE   0x7800             LDRB     R0,[R0, #+0]
+   \       0x10   0x2101             MOVS     R1,#+1
+   \       0x12   0x4301             ORRS     R1,R1,R0
+   \       0x14   0x4668             MOV      R0,SP
+   \       0x16   0x7001             STRB     R1,[R0, #+0]
+    290            S2LPSpiWriteRegisters(0x6D, 1, &tmp2);
+   \       0x18   0x466A             MOV      R2,SP
+   \       0x1A   0x2101             MOVS     R1,#+1
+   \       0x1C   0x206D             MOVS     R0,#+109
+   \       0x1E   0x....'....        BL       S2LPSpiWriteRegisters
+    291          
+    292            S2LPSpiCommandStrobes(0x63);
+   \       0x22   0x2063             MOVS     R0,#+99
+   \       0x24   0x....'....        BL       S2LPSpiCommandStrobes
+    293            SdkDelayMs(100);
+   \       0x28   0x2064             MOVS     R0,#+100
+   \       0x2A   0x....'....        BL       SdkDelayMs
+    294            S2LPSpiCommandStrobes(0x62);
+   \       0x2E   0x2062             MOVS     R0,#+98
+   \       0x30   0x....'....        BL       S2LPSpiCommandStrobes
+   \       0x34   0xAC00             ADD      R4,SP,#+0
+   \       0x36   0x1CA4             ADDS     R4,R4,#+2
+    295          
+    296            do
+    297            {
+    298              S2LPSpiReadRegisters(0x8D, 1, tmp);
+   \                     ??S2LPManagementRcoCalibration_0: (+1)
+   \       0x38   0xAA00             ADD      R2,SP,#+0
+   \       0x3A   0x1C92             ADDS     R2,R2,#+2
+   \       0x3C   0x2101             MOVS     R1,#+1
+   \       0x3E   0x208D             MOVS     R0,#+141
+   \       0x40   0x....'....        BL       S2LPSpiReadRegisters
+    299            }
+    300            while((tmp[0]&0x10)==0);
+   \       0x44   0x7820             LDRB     R0,[R4, #+0]
+   \       0x46   0x06C0             LSLS     R0,R0,#+27
+   \       0x48   0xD5F6             BPL      ??S2LPManagementRcoCalibration_0
+    301          
+    302            S2LPSpiReadRegisters(0x94, 2, tmp);
+   \       0x4A   0xAA00             ADD      R2,SP,#+0
+   \       0x4C   0x1C92             ADDS     R2,R2,#+2
+   \       0x4E   0x2102             MOVS     R1,#+2
+   \       0x50   0x2094             MOVS     R0,#+148
+   \       0x52   0x....'....        BL       S2LPSpiReadRegisters
+    303            S2LPSpiReadRegisters(0x6F, 1, &tmp2);
+   \       0x56   0x466A             MOV      R2,SP
+   \       0x58   0x2101             MOVS     R1,#+1
+   \       0x5A   0x206F             MOVS     R0,#+111
+   \       0x5C   0x....'....        BL       S2LPSpiReadRegisters
+    304            tmp[1]=(tmp[1]&0x80)|(tmp2&0x7F);
+   \       0x60   0x7860             LDRB     R0,[R4, #+1]
+   \       0x62   0x2180             MOVS     R1,#+128
+   \       0x64   0x4008             ANDS     R0,R0,R1
+   \       0x66   0x4669             MOV      R1,SP
+   \       0x68   0x7809             LDRB     R1,[R1, #+0]
+   \       0x6A   0x0649             LSLS     R1,R1,#+25
+   \       0x6C   0x0E49             LSRS     R1,R1,#+25
+   \       0x6E   0x4301             ORRS     R1,R1,R0
+   \       0x70   0x7061             STRB     R1,[R4, #+1]
+    305          
+    306            S2LPSpiWriteRegisters(0x6E, 2, tmp);
+   \       0x72   0xAA00             ADD      R2,SP,#+0
+   \       0x74   0x1C92             ADDS     R2,R2,#+2
+   \       0x76   0x2102             MOVS     R1,#+2
+   \       0x78   0x206E             MOVS     R0,#+110
+   \       0x7A   0x....'....        BL       S2LPSpiWriteRegisters
+    307            S2LPSpiReadRegisters(0x6D, 1, &tmp2);
+   \       0x7E   0x466A             MOV      R2,SP
+   \       0x80   0x2101             MOVS     R1,#+1
+   \       0x82   0x206D             MOVS     R0,#+109
+   \       0x84   0x....'....        BL       S2LPSpiReadRegisters
+    308            tmp2 &= 0xFE;
+   \       0x88   0x4668             MOV      R0,SP
+   \       0x8A   0x7800             LDRB     R0,[R0, #+0]
+   \       0x8C   0x21FE             MOVS     R1,#+254
+   \       0x8E   0x4001             ANDS     R1,R1,R0
+   \       0x90   0x4668             MOV      R0,SP
+   \       0x92   0x7001             STRB     R1,[R0, #+0]
+    309          
+    310            S2LPSpiWriteRegisters(0x6D, 1, &tmp2);
+   \       0x94   0x466A             MOV      R2,SP
+   \       0x96   0x2101             MOVS     R1,#+1
+   \       0x98   0x206D             MOVS     R0,#+109
+   \       0x9A   0x....'....        BL       S2LPSpiWriteRegisters
+    311          }
+   \       0x9E   0xBD13             POP      {R0,R1,R4,PC}    ;; return
+    312          
+
+   \                                 In section .text, align 2, keep-with-next
+    313          uint32_t S2LPGetSPIPrescaler(void)
+    314          {
+   \                     S2LPGetSPIPrescaler: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    315            uint32_t sysFreq;
+    316            sysFreq = HAL_RCC_GetSysClockFreq();
+    317          
+    318            switch(sysFreq)
+   \        0x2   0x....'....        BL       HAL_RCC_GetSysClockFreq
+   \        0x6   0x....             LDR      R1,??DataTable14_8  ;; 0x1e84800
+   \        0x8   0x4288             CMP      R0,R1
+   \        0xA   0xD101             BNE      ??S2LPGetSPIPrescaler_0
+    319            {
+    320            case 16000000:
+    321              return SPI_BAUDRATEPRESCALER_2;
+    322            case 32000000:
+    323              return SPI_BAUDRATEPRESCALER_4;
+   \        0xC   0x2008             MOVS     R0,#+8
+   \        0xE   0xBD02             POP      {R1,PC}
+    324            default:
+    325              return SPI_BAUDRATEPRESCALER_2;
+   \                     ??S2LPGetSPIPrescaler_0: (+1)
+   \       0x10   0x2000             MOVS     R0,#+0
+   \       0x12   0xBD02             POP      {R1,PC}          ;; return
+    326            }
+    327          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable14:
+   \        0x0   0x....'....        DC32     s_RfModuleBand
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable14_1:
+   \        0x0   0x02FA'F080        DC32     0x2faf080
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable14_2:
+   \        0x0   0x....'....        DC32     s_Tcxo
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable14_3:
+   \        0x0   0x016E'3600        DC32     0x16e3600
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable14_4:
+   \        0x0   0x018C'BA80        DC32     0x18cba80
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable14_5:
+   \        0x0   0x02DC'6C00        DC32     0x2dc6c00
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable14_6:
+   \        0x0   0x0319'7500        DC32     0x3197500
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable14_7:
+   \        0x0   0x....'....        DC32     _daughterBoard
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable14_8:
+   \        0x0   0x01E8'4800        DC32     0x1e84800
+    328          /**
+    329          * @}
+    330          */
+    331          
+    332          
+    333          
+    334          /**
+    335          * @}
+    336          */
+    337          
+    338          
+    339          /******************* (C) COPYRIGHT 2020 STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      24   EepromIdentification
+        24   -> EepromCsPinInitialization
+        24   -> EepromCsXnucleoPinInitialization
+        24   -> EepromSetSrwd
+        24   -> EepromSpiInitialization
+        24   -> EepromStatus
+        24   -> EepromWriteEnable
+        24   -> SdkDelayMs
+       0   S2LPGetFrequencyBand
+       8   S2LPGetSPIPrescaler
+         8   -> HAL_RCC_GetSysClockFreq
+       0   S2LPManagementComputeXtalFrequency
+       0   S2LPManagementGetBand
+       0   S2LPManagementGetCut
+       0   S2LPManagementGetRangeExtender
+       0   S2LPManagementGetTcxo
+       0   S2LPManagementGetXtalFrequency
+      64   S2LPManagementIdentificationRFBoard
+        64   -> EepromIdentification
+        64   -> EepromRead
+        64   -> S2LPGetFrequencyBand
+        64   -> S2LPRadioSetXtalFrequency
+        64   -> S2LPShutdownCheck
+        64   -> S2LPShutdownEnter
+        64   -> S2LPShutdownExit
+        64   -> S2LPSpiReadRegisters
+        64   -> __aeabi_f2iz
+        64   -> __aeabi_fdiv
+        64   -> __aeabi_fmul
+        64   -> __aeabi_ui2f
+        64 __aeabi_cfcmpeq
+      16   S2LPManagementRcoCalibration
+        16   -> S2LPSpiCommandStrobes
+        16   -> S2LPSpiReadRegisters
+        16   -> S2LPSpiWriteRegisters
+        16   -> SdkDelayMs
+       0   S2LPManagementSetBand
+       0   S2LPManagementSetRangeExtender
+       0   S2LPRadioSetXtalFrequency
+       0   SdkEvalGetDaughterBoardType
+       0   SdkEvalSetDaughterBoardType
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable14
+       4  ??DataTable14_1
+       4  ??DataTable14_2
+       4  ??DataTable14_3
+       4  ??DataTable14_4
+       4  ??DataTable14_5
+       4  ??DataTable14_6
+       4  ??DataTable14_7
+       4  ??DataTable14_8
+      94  EepromIdentification
+      22  S2LPGetFrequencyBand
+      20  S2LPGetSPIPrescaler
+      10  S2LPManagementComputeXtalFrequency
+       6  S2LPManagementGetBand
+       6  S2LPManagementGetCut
+       6  S2LPManagementGetRangeExtender
+       6  S2LPManagementGetTcxo
+       6  S2LPManagementGetXtalFrequency
+     270  S2LPManagementIdentificationRFBoard
+     160  S2LPManagementRcoCalibration
+       6  S2LPManagementSetBand
+       6  S2LPManagementSetRangeExtender
+      12  S2LPRadioSetXtalFrequency
+       6  SdkEvalGetDaughterBoardType
+       6  SdkEvalSetDaughterBoardType
+       1  _daughterBoard
+      24  band_frequencies
+       8  s_RfModuleBand
+          s_RfRangeExtender
+          s_S2LPCut
+          s_RfXtalFrequency
+       1  s_Tcxo
+
+ 
+   2 bytes in section .bss
+   8 bytes in section .data
+ 702 bytes in section .text
+ 
+ 690 bytes of CODE memory (+ 12 bytes shared)
+  10 bytes of DATA memory
+
+Errors: none
+Warnings: none

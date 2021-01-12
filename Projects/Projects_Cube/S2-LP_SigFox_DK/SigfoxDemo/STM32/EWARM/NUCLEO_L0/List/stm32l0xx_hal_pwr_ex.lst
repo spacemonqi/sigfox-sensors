@@ -1,0 +1,397 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  11:53:23
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                    
+#    Endian                   =  little
+#    Source file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_pwr_ex.c
+#    Command line             =
+#        -f C:\Users\dvone\AppData\Local\Temp\EW229E.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_pwr_ex.c
+#        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
+#        STM32L053xx -lC
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List
+#        -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+#        --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.4\arm\inc\c\DLib_Config_Normal.h" -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\BSP\SDK_Eval_STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\CMSIS\STM32L0xx\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\S2LP_Middleware\STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\Utils\STM32\inc\\
+#        -Ohz --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.4\arm\CMSIS\Core\Include\\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.4\arm\CMSIS\DSP\Include\\")
+#    Locale                   =  C
+#    List file                =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\stm32l0xx_hal_pwr_ex.lst
+#    Object file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_pwr_ex.o
+#    Runtime model:              
+#      __SystemLibrary        =  DLib
+#      __dlib_file_descriptor =  0
+#      __dlib_version         =  6
+#
+###############################################################################
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_pwr_ex.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    stm32l0xx_hal_pwr_ex.c
+      4            * @author  MCD Application Team
+      5            * @brief   Extended PWR HAL module driver.
+      6            *          This file provides firmware functions to manage the following
+      7            *          functionalities of the Power Controller (PWR) peripheral:
+      8            *           + Extended Initialization and de-initialization functions
+      9            *           + Extended Peripheral Control functions
+     10            *         
+     11            ******************************************************************************
+     12            * @attention
+     13            *
+     14            * <h2><center>&copy; Copyright(c) 2016 STMicroelectronics.
+     15            * All rights reserved.</center></h2>
+     16            *
+     17            * This software component is licensed by ST under BSD 3-Clause license,
+     18            * the "License"; You may not use this file except in compliance with the
+     19            * License. You may obtain a copy of the License at:
+     20            *                        opensource.org/licenses/BSD-3-Clause
+     21            *
+     22            ******************************************************************************
+     23            */
+     24          
+     25          /* Includes ------------------------------------------------------------------*/
+     26          #include "stm32l0xx_hal.h"
+     27          
+     28          #ifdef HAL_PWR_MODULE_ENABLED
+     29          /** @addtogroup STM32L0xx_HAL_Driver
+     30            * @{
+     31            */
+     32          
+     33          /** @addtogroup PWREx 
+     34            * @{
+     35            */
+     36          
+     37          /** @addtogroup PWREx_Private
+     38            * @{
+     39            */
+     40          
+     41          /** @defgroup PWR_Extended_TimeOut_Value PWREx Flag Setting Time Out Value
+     42            * @{
+     43            */ 
+     44          #define PWR_FLAG_SETTING_DELAY_US 50U
+     45          /**
+     46            * @}
+     47            */
+     48          
+     49          /**
+     50            * @}
+     51            */
+     52          
+     53          
+     54          /** @addtogroup PWREx_Exported_Functions
+     55            * @brief      Low Power modes configuration functions 
+     56            *
+     57          @verbatim
+     58          
+     59           ===============================================================================
+     60                           ##### Peripheral extended features functions #####
+     61           ===============================================================================
+     62          @endverbatim
+     63            * @{
+     64            */
+     65          
+     66          /**
+     67            * @brief Return Voltage Scaling Range.   
+     68            * @retval VOS bit field (PWR_REGULATOR_VOLTAGE_SCALE1, PWR_REGULATOR_VOLTAGE_SCALE2 or PWR_REGULATOR_VOLTAGE_SCALE3)
+     69            */  
+
+   \                                 In section .text, align 2, keep-with-next
+     70          uint32_t HAL_PWREx_GetVoltageRange(void)
+     71          {
+     72            return  (PWR->CR & PWR_CR_VOS);
+   \                     HAL_PWREx_GetVoltageRange: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable6  ;; 0x40007000
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x20C0             MOVS     R0,#+192
+   \        0x6   0x0140             LSLS     R0,R0,#+5        ;; #+6144
+   \        0x8   0x4008             ANDS     R0,R0,R1
+   \        0xA   0x4770             BX       LR               ;; return
+     73          }
+     74          
+     75          
+     76          /**
+     77            * @brief  Enables the Fast WakeUp from Ultra Low Power mode.
+     78            * @note This bit works in conjunction with ULP bit. 
+     79            *        Means, when ULP = 1 and FWU = 1 :VREFINT startup time is ignored when 
+     80            *        exiting from low power mode.
+     81            * @retval None
+     82            */
+
+   \                                 In section .text, align 2, keep-with-next
+     83          void HAL_PWREx_EnableFastWakeUp(void)
+     84          {
+     85            /* Enable the fast wake up */
+     86            SET_BIT(PWR->CR, PWR_CR_FWU);
+   \                     HAL_PWREx_EnableFastWakeUp: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable6  ;; 0x40007000
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x0D02             LSRS     R2,R0,#+20
+   \        0x6   0x430A             ORRS     R2,R2,R1
+   \        0x8   0x6002             STR      R2,[R0, #+0]
+     87          }
+   \        0xA   0x4770             BX       LR               ;; return
+     88          
+     89          /**
+     90            * @brief  Disables the Fast WakeUp from Ultra Low Power mode.
+     91            * @retval None
+     92            */
+
+   \                                 In section .text, align 2, keep-with-next
+     93          void HAL_PWREx_DisableFastWakeUp(void)
+     94          {
+     95            /* Disable the fast wake up */
+     96            CLEAR_BIT(PWR->CR, PWR_CR_FWU);
+   \                     HAL_PWREx_DisableFastWakeUp: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable6  ;; 0x40007000
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x....             LDR      R2,??DataTable6_1  ;; 0xfffffbff
+   \        0x6   0x400A             ANDS     R2,R2,R1
+   \        0x8   0x6002             STR      R2,[R0, #+0]
+     97          }
+   \        0xA   0x4770             BX       LR               ;; return
+     98          
+     99          /**
+    100            * @brief  Enables the Ultra Low Power mode
+    101            * @retval None
+    102            */
+
+   \                                 In section .text, align 2, keep-with-next
+    103          void HAL_PWREx_EnableUltraLowPower(void)
+    104          {
+    105            /* Enable the Ultra Low Power mode */
+    106            SET_BIT(PWR->CR, PWR_CR_ULP);
+   \                     HAL_PWREx_EnableUltraLowPower: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable6  ;; 0x40007000
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x0D42             LSRS     R2,R0,#+21
+   \        0x6   0x430A             ORRS     R2,R2,R1
+   \        0x8   0x6002             STR      R2,[R0, #+0]
+    107          }
+   \        0xA   0x4770             BX       LR               ;; return
+    108          
+    109          /**
+    110            * @brief  Disables the Ultra Low Power mode
+    111            * @retval None
+    112            */
+
+   \                                 In section .text, align 2, keep-with-next
+    113          void HAL_PWREx_DisableUltraLowPower(void)
+    114          {
+    115            /* Disable the Ultra Low Power mode */
+    116            CLEAR_BIT(PWR->CR, PWR_CR_ULP);
+   \                     HAL_PWREx_DisableUltraLowPower: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable6  ;; 0x40007000
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x....             LDR      R2,??DataTable6_2  ;; 0xfffffdff
+   \        0x6   0x400A             ANDS     R2,R2,R1
+   \        0x8   0x6002             STR      R2,[R0, #+0]
+    117          }
+   \        0xA   0x4770             BX       LR               ;; return
+    118          
+    119          /**
+    120            * @brief  Enable the Low Power Run mode.
+    121            * @note   Low power run mode can only be entered when VCORE is in range 2.
+    122            *         In addition, the dynamic voltage scaling must not be used when Low
+    123            *         power run mode is selected. Only Stop and Sleep modes with regulator
+    124            *         configured in Low power mode is allowed when Low power run mode is 
+    125            *         selected.
+    126            * @note   The frequency of the system clock must be decreased to not exceed the
+    127            *         frequency of RCC_MSIRANGE_1.
+    128            * @note   In Low power run mode, all I/O pins keep the same state as in Run mode.
+    129            * @retval None
+    130            */
+
+   \                                 In section .text, align 2, keep-with-next
+    131          void HAL_PWREx_EnableLowPowerRunMode(void)
+    132          {
+    133            /* Enters the Low Power Run mode */
+    134            SET_BIT(PWR->CR, PWR_CR_LPSDSR);
+   \                     HAL_PWREx_EnableLowPowerRunMode: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable6  ;; 0x40007000
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x2201             MOVS     R2,#+1
+   \        0x6   0x430A             ORRS     R2,R2,R1
+   \        0x8   0x6002             STR      R2,[R0, #+0]
+    135            SET_BIT(PWR->CR, PWR_CR_LPRUN);
+   \        0xA   0x6801             LDR      R1,[R0, #+0]
+   \        0xC   0x0C02             LSRS     R2,R0,#+16
+   \        0xE   0x430A             ORRS     R2,R2,R1
+   \       0x10   0x6002             STR      R2,[R0, #+0]
+    136          }
+   \       0x12   0x4770             BX       LR               ;; return
+    137          
+    138          /**
+    139            * @brief  Disable the Low Power Run mode.
+    140            * @note  Before HAL_PWREx_DisableLowPowerRunMode() completion, the function checks that 
+    141            *        REGLPF has been properly reset (otherwise, HAL_PWREx_DisableLowPowerRunMode 
+    142            *        returns HAL_TIMEOUT status). The system clock frequency can then be
+    143            *        increased above 2 MHz.   
+    144            * @retval HAL_StatusTypeDef
+    145            */
+
+   \                                 In section .text, align 2, keep-with-next
+    146          HAL_StatusTypeDef HAL_PWREx_DisableLowPowerRunMode(void)
+    147          {
+   \                     HAL_PWREx_DisableLowPowerRunMode: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    148            uint32_t wait_loop_index = 0U;
+    149            
+    150            /* Exit the Low Power Run mode */
+    151            CLEAR_BIT(PWR->CR, PWR_CR_LPRUN);
+   \        0x2   0x....             LDR      R4,??DataTable6  ;; 0x40007000
+   \        0x4   0x6820             LDR      R0,[R4, #+0]
+   \        0x6   0x....             LDR      R1,??DataTable6_3  ;; 0xffffbfff
+   \        0x8   0x4001             ANDS     R1,R1,R0
+   \        0xA   0x6021             STR      R1,[R4, #+0]
+    152            CLEAR_BIT(PWR->CR, PWR_CR_LPSDSR);
+   \        0xC   0x6820             LDR      R0,[R4, #+0]
+   \        0xE   0x2101             MOVS     R1,#+1
+   \       0x10   0x4388             BICS     R0,R0,R1
+   \       0x12   0x6020             STR      R0,[R4, #+0]
+    153            
+    154            /* Wait until REGLPF is reset */
+    155            wait_loop_index = (PWR_FLAG_SETTING_DELAY_US * (SystemCoreClock / 1000000U));
+   \       0x14   0x....             LDR      R0,??DataTable6_4
+   \       0x16   0x6800             LDR      R0,[R0, #+0]
+   \       0x18   0x....             LDR      R1,??DataTable6_5  ;; 0xf4240
+   \       0x1A   0x....'....        BL       __aeabi_uidiv
+   \       0x1E   0x2132             MOVS     R1,#+50
+   \       0x20   0x4348             MULS     R0,R1,R0
+   \       0x22   0x2120             MOVS     R1,#+32
+   \       0x24   0xE000             B        ??HAL_PWREx_DisableLowPowerRunMode_0
+    156          
+    157            while ((wait_loop_index != 0U) && (HAL_IS_BIT_SET(PWR->CSR, PWR_CSR_REGLPF)))
+    158            {
+    159              wait_loop_index--;
+   \                     ??HAL_PWREx_DisableLowPowerRunMode_1: (+1)
+   \       0x26   0x1E40             SUBS     R0,R0,#+1
+    160            }
+   \                     ??HAL_PWREx_DisableLowPowerRunMode_0: (+1)
+   \       0x28   0x2800             CMP      R0,#+0
+   \       0x2A   0xD002             BEQ      ??HAL_PWREx_DisableLowPowerRunMode_2
+   \       0x2C   0x6862             LDR      R2,[R4, #+4]
+   \       0x2E   0x400A             ANDS     R2,R2,R1
+   \       0x30   0xD1F9             BNE      ??HAL_PWREx_DisableLowPowerRunMode_1
+    161          
+    162            if (HAL_IS_BIT_SET(PWR->CSR, PWR_CSR_REGLPF))
+   \                     ??HAL_PWREx_DisableLowPowerRunMode_2: (+1)
+   \       0x32   0x6860             LDR      R0,[R4, #+4]
+   \       0x34   0x4001             ANDS     R1,R1,R0
+   \       0x36   0xD001             BEQ      ??HAL_PWREx_DisableLowPowerRunMode_3
+    163            {
+    164              return HAL_TIMEOUT;
+   \       0x38   0x2003             MOVS     R0,#+3
+   \       0x3A   0xBD10             POP      {R4,PC}
+    165            }
+    166          
+    167            return HAL_OK;
+   \                     ??HAL_PWREx_DisableLowPowerRunMode_3: (+1)
+   \       0x3C   0x2000             MOVS     R0,#+0
+   \       0x3E   0xBD10             POP      {R4,PC}          ;; return
+    168          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6:
+   \        0x0   0x4000'7000        DC32     0x40007000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_1:
+   \        0x0   0xFFFF'FBFF        DC32     0xfffffbff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_2:
+   \        0x0   0xFFFF'FDFF        DC32     0xfffffdff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_3:
+   \        0x0   0xFFFF'BFFF        DC32     0xffffbfff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_4:
+   \        0x0   0x....'....        DC32     SystemCoreClock
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_5:
+   \        0x0   0x000F'4240        DC32     0xf4240
+    169          
+    170          /**
+    171            * @}
+    172            */
+    173          
+    174          /**
+    175            * @}
+    176            */
+    177          
+    178          /**
+    179            * @}
+    180            */
+    181          #endif /* HAL_PWR_MODULE_ENABLED */
+    182          
+    183          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+    184          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   HAL_PWREx_DisableFastWakeUp
+       8   HAL_PWREx_DisableLowPowerRunMode
+         8 __aeabi_uidiv
+       0   HAL_PWREx_DisableUltraLowPower
+       0   HAL_PWREx_EnableFastWakeUp
+       0   HAL_PWREx_EnableLowPowerRunMode
+       0   HAL_PWREx_EnableUltraLowPower
+       0   HAL_PWREx_GetVoltageRange
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable6
+       4  ??DataTable6_1
+       4  ??DataTable6_2
+       4  ??DataTable6_3
+       4  ??DataTable6_4
+       4  ??DataTable6_5
+      12  HAL_PWREx_DisableFastWakeUp
+      64  HAL_PWREx_DisableLowPowerRunMode
+      12  HAL_PWREx_DisableUltraLowPower
+      12  HAL_PWREx_EnableFastWakeUp
+      20  HAL_PWREx_EnableLowPowerRunMode
+      12  HAL_PWREx_EnableUltraLowPower
+      12  HAL_PWREx_GetVoltageRange
+
+ 
+ 168 bytes in section .text
+ 
+ 168 bytes of CODE memory
+
+Errors: none
+Warnings: none

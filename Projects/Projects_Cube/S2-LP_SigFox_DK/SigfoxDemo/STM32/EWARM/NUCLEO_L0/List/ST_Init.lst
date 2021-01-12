@@ -1,0 +1,239 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  11:53:17
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                    
+#    Endian                   =  little
+#    Source file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\src\ST_Init.c
+#    Command line             =
+#        -f C:\Users\dvone\AppData\Local\Temp\EWB63.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\src\ST_Init.c
+#        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
+#        STM32L053xx -lC
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List
+#        -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+#        --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.4\arm\inc\c\DLib_Config_Normal.h" -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\BSP\SDK_Eval_STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\CMSIS\STM32L0xx\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\S2LP_Middleware\STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\Utils\STM32\inc\\
+#        -Ohz --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.4\arm\CMSIS\Core\Include\\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.4\arm\CMSIS\DSP\Include\\")
+#    Locale                   =  C
+#    List file                =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\ST_Init.lst
+#    Object file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\ST_Init.o
+#    Runtime model:              
+#      __SystemLibrary        =  DLib
+#      __dlib_file_descriptor =  0
+#      __dlib_version         =  6
+#
+###############################################################################
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\src\ST_Init.c
+      1          #include "ST_Init.h"
+      2          #include "sigfox_types.h"
+      3          #include "sigfox_api.h"
+      4          #include "st_rf_api.h"
+      5          #include "st_mcu_api.h"
+      6          
+      7          
+
+   \                                 In section .text, align 2, keep-with-next
+      8          int ST_Init(void)
+      9          {
+   \                     ST_Init: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     10            int nRet = 0;
+     11          
+     12            /* System initialization function */
+     13            HAL_Init();
+   \        0x2   0x....'....        BL       HAL_Init
+     14          
+     15            /* System clock initialization */
+     16            ST_MCU_API_SetSysClock();
+   \        0x6   0x....'....        BL       ST_MCU_API_SetSysClock
+     17          
+     18            /* Put the radio off */
+     19            S2LPShutdownInit();
+   \        0xA   0x....'....        BL       S2LPShutdownInit
+     20            SdkDelayMs(10);
+   \        0xE   0x200A             MOVS     R0,#+10
+   \       0x10   0x....'....        BL       SdkDelayMs
+     21            S2LPShutdownExit();
+   \       0x14   0x....'....        BL       S2LPShutdownExit
+     22          
+     23            /* SPI init */
+     24            S2LPSpiInit();
+   \       0x18   0x....'....        BL       S2LPSpiInit
+     25          
+     26            /* Set the EEPROM availability */
+     27            S2LPEvalSetHasEeprom(EEPROM_PRESENT);
+   \       0x1C   0x2001             MOVS     R0,#+1
+   \       0x1E   0x....'....        BL       S2LPEvalSetHasEeprom
+     28          
+     29            /* Auto detect settings, if EEPROM is available */
+     30          #if EEPROM_PRESENT == EEPROM_YES
+     31            /* Identify the S2-LP RF board reading some production data */
+     32            S2LPManagementIdentificationRFBoard();
+   \       0x22   0x....'....        BL       S2LPManagementIdentificationRFBoard
+     33          #elif EEPROM_PRESENT==EEPROM_NO
+     34            /* Set XTAL frequency with offset */
+     35            S2LPRadioSetXtalFrequency(XTAL_FREQUENCY+XTAL_FREQUENCY_OFFSET);
+     36          
+     37            /* Set the frequency base */
+     38            S2LPManagementSetBand(BOARD_FREQUENCY_BAND);
+     39          
+     40            /* Configure PA availability */
+     41          #if S2LP_FEM_PRESENT == S2LP_FEM_NO
+     42            S2LPManagementSetRangeExtender(0);
+     43          #else
+     44            S2LPManagementSetRangeExtender(1);
+     45          #endif
+     46          #endif
+     47          
+     48            if(!nRet)
+     49            {
+     50              /* uC IRQ config and enable */
+     51              S2LPIRQInit();
+   \       0x26   0x....'....        BL       S2LPIRQInit
+     52              S2LPIRQEnable(ENABLE, S2LP_GPIO_IRQ_EDGE_EVENT);
+   \       0x2A   0x2101             MOVS     R1,#+1
+   \       0x2C   0x2001             MOVS     R0,#+1
+   \       0x2E   0x....'....        BL       S2LPIRQEnable
+     53          
+     54              /* FEM Initialization */
+     55              FEM_Init();
+   \       0x32   0x....'....        BL       FEM_Init
+     56          
+     57              /* TCXO Initialization */
+     58              TCXO_Init();
+   \       0x36   0x....'....        BL       TCXO_Init
+     59            }
+     60          
+     61            return nRet;
+   \       0x3A   0x2000             MOVS     R0,#+0
+   \       0x3C   0xBD02             POP      {R1,PC}          ;; return
+     62          }
+     63          
+
+   \                                 In section .text, align 2, keep-with-next
+     64          uint8_t ButtonInit(void)
+     65          {
+   \                     ButtonInit: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+     66            int nBtnPressed = 0;
+   \        0x2   0x2400             MOVS     R4,#+0
+     67            SdkEvalPushButtonInit(BUTTON_1);
+   \        0x4   0x2000             MOVS     R0,#+0
+   \        0x6   0x....'....        BL       SdkEvalPushButtonInit
+     68          
+     69            if(!SdkEvalPushButtonGetState(BUTTON_1))
+   \        0xA   0x2000             MOVS     R0,#+0
+   \        0xC   0x....'....        BL       SdkEvalPushButtonGetState
+   \       0x10   0x2800             CMP      R0,#+0
+   \       0x12   0xD100             BNE      ??ButtonInit_0
+     70              nBtnPressed = 1;
+   \       0x14   0x2401             MOVS     R4,#+1
+     71          
+     72            return nBtnPressed;
+   \                     ??ButtonInit_0: (+1)
+   \       0x16   0x0020             MOVS     R0,R4
+   \       0x18   0xBD10             POP      {R4,PC}          ;; return
+     73          }
+     74          
+
+   \                                 In section .text, align 2, keep-with-next
+     75          void ButtonSetIRQ(void)
+     76          {
+   \                     ButtonSetIRQ: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     77            SdkEvalPushButtonIrq(BUTTON_1, BUTTON_MODE_EXTI);
+   \        0x2   0x2101             MOVS     R1,#+1
+   \        0x4   0x2000             MOVS     R0,#+0
+   \        0x6   0x....'....        BL       SdkEvalPushButtonIrq
+     78          }
+   \        0xA   0xBD01             POP      {R0,PC}          ;; return
+     79          
+
+   \                                 In section .text, align 2, keep-with-next
+     80          uint8_t IsButtonPressed(void)
+     81          {
+   \                     IsButtonPressed: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     82            return SdkEvalPushButtonGetState(BUTTON_1);
+   \        0x2   0x2000             MOVS     R0,#+0
+   \        0x4   0x....'....        BL       SdkEvalPushButtonGetState
+   \        0x8   0xBD02             POP      {R1,PC}          ;; return
+     83          }
+     84          
+
+   \                                 In section .text, align 2, keep-with-next
+     85          void ST_MANUF_report_CB(uint8_t status, int32_t rssi){}
+   \                     ST_MANUF_report_CB: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   ButtonInit
+         8   -> SdkEvalPushButtonGetState
+         8   -> SdkEvalPushButtonInit
+       8   ButtonSetIRQ
+         8   -> SdkEvalPushButtonIrq
+       8   IsButtonPressed
+         8   -> SdkEvalPushButtonGetState
+       8   ST_Init
+         8   -> FEM_Init
+         8   -> HAL_Init
+         8   -> S2LPEvalSetHasEeprom
+         8   -> S2LPIRQEnable
+         8   -> S2LPIRQInit
+         8   -> S2LPManagementIdentificationRFBoard
+         8   -> S2LPShutdownExit
+         8   -> S2LPShutdownInit
+         8   -> S2LPSpiInit
+         8   -> ST_MCU_API_SetSysClock
+         8   -> SdkDelayMs
+         8   -> TCXO_Init
+       0   ST_MANUF_report_CB
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      26  ButtonInit
+      12  ButtonSetIRQ
+      10  IsButtonPressed
+      62  ST_Init
+       2  ST_MANUF_report_CB
+
+ 
+ 112 bytes in section .text
+ 
+ 112 bytes of CODE memory
+
+Errors: none
+Warnings: none

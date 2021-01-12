@@ -1,0 +1,1626 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  11:53:15
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                    
+#    Endian                   =  little
+#    Source file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\S2LP_Middleware\STM32\src\S2LP_CORE_SPI.c
+#    Command line             =
+#        -f C:\Users\dvone\AppData\Local\Temp\EWFE4F.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\S2LP_Middleware\STM32\src\S2LP_CORE_SPI.c
+#        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
+#        STM32L053xx -lC
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List
+#        -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+#        --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.4\arm\inc\c\DLib_Config_Normal.h" -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\BSP\SDK_Eval_STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\CMSIS\STM32L0xx\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\S2LP_Middleware\STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\Utils\STM32\inc\\
+#        -Ohz --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.4\arm\CMSIS\Core\Include\\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.4\arm\CMSIS\DSP\Include\\")
+#    Locale                   =  C
+#    List file                =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\S2LP_CORE_SPI.lst
+#    Object file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\S2LP_CORE_SPI.o
+#    Runtime model:              
+#      __SystemLibrary        =  DLib
+#      __dlib_file_descriptor =  0
+#      __dlib_version         =  6
+#
+###############################################################################
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\S2LP_Middleware\STM32\src\S2LP_CORE_SPI.c
+      1          /**
+      2           * @file    S2LP_CORE_SPI.c
+      3           * @author  LowPower RF BU - AMG
+      4           * @version 2.1.1
+      5           * @date    March, 2020
+      6           * @brief   This file provides all the low level API to manage SPI interface for eval board.
+      7           * @details
+      8           *
+      9           * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+     10           * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+     11           * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+     12           * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+     13           * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+     14           * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+     15           *
+     16           * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
+     17           * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
+     18           * IN THE ROOT DIRECTORY OF THIS FIRMWARE PACKAGE.
+     19           *
+     20           * <h2><center>&copy; COPYRIGHT 2020 STMicroelectronics</center></h2>
+     21           */
+     22          
+     23          
+     24          /* Includes ------------------------------------------------------------------*/
+     25          #include "cube_hal.h"
+     26          #include "S2LP_Middleware_Config.h"
+     27          #include "S2LP_CORE_SPI.h"
+     28          
+     29          /** @addtogroup S2LP_CORE_STM32                     S2LP CORE - STM32
+     30          * @{
+     31          */
+     32          
+     33          /** @defgroup S2LP_CORE_SPI					S2LP CORE SPI
+     34            * @brief  S2-LP SPI handling module.
+     35            * This module exports all the main operations to deal with SPI.
+     36            * @details See the file <i>@ref S2LP_CORE_SPI.h</i> for more details.
+     37            * @{
+     38          */
+     39          
+     40          #define DELAY_CS_SCLK			0x70	/* Delay between CSn falling edge & start of SCLK */
+     41          
+     42          #define HEADER_WRITE_MASK		0x00 /* !< Write mask for header byte */
+     43          #define HEADER_READ_MASK		0x01 /* !< Read mask for header byte */
+     44          #define HEADER_ADDRESS_MASK		0x00 /* !< Address mask for header byte */
+     45          #define HEADER_COMMAND_MASK		0x80 /* !< Command mask for header byte */
+     46          
+     47          #define LINEAR_FIFO_ADDRESS		0xFF  /* !< Linear FIFO address */
+     48          #define RSSI_LEVEL_RUN_ADDRESS	0xEF	/* !< RSSI RUN Register address */
+     49          
+     50          #define BUILT_HEADER(add_comm, w_r) (add_comm | w_r)  /*!< macro to build the header byte*/
+     51          #define WRITE_HEADER    BUILT_HEADER(HEADER_ADDRESS_MASK, HEADER_WRITE_MASK) /*!< macro to build the write header byte*/
+     52          #define READ_HEADER     BUILT_HEADER(HEADER_ADDRESS_MASK, HEADER_READ_MASK)  /*!< macro to build the read header byte*/
+     53          #define COMMAND_HEADER  BUILT_HEADER(HEADER_COMMAND_MASK, HEADER_WRITE_MASK) /*!< macro to build the command header byte*/
+     54          
+
+   \                                 In section .bss, align 4
+     55          static SPI_HandleTypeDef SpiHandle;
+   \                     SpiHandle:
+   \        0x0                      DS8 88
+
+   \                                 In section .bss, align 4
+     56          static DMA_HandleTypeDef hdma_tx;
+   \                     hdma_tx:
+   \        0x0                      DS8 72
+   \       0x48                      DS8 72
+     57          static DMA_HandleTypeDef hdma_rx;
+
+   \                                 In section .bss, align 1
+     58          static uint8_t waiting_irq=0;
+   \                     waiting_irq:
+   \        0x0                      DS8 1
+   \        0x1                      DS8 1
+     59          
+     60          #define WAIT_FOR_SPI_TC()               {while(!__HAL_DMA_GET_FLAG(SpiHandle.hdmarx, __HAL_DMA_GET_TC_FLAG_INDEX(SpiHandle.hdmarx)));\
+     61                                                    do{HAL_DMA_IRQHandler(SpiHandle.hdmarx);\
+     62                                                    HAL_DMA_IRQHandler(SpiHandle.hdmatx);\
+     63                                                    }while(HAL_SPI_GetState(&SpiHandle) != HAL_SPI_STATE_READY);}
+     64          
+     65          
+     66          #define SPI_ENTER_CRITICAL()           __disable_irq()
+     67          #define SPI_EXIT_CRITICAL()            __enable_irq()
+     68          
+     69          
+     70          #define SdkEvalSPICSLow()        HAL_GPIO_WritePin(S2LP_SPI_CS_PORT, S2LP_SPI_CS_PIN, GPIO_PIN_RESET)
+     71          #define SdkEvalSPICSHigh()       HAL_GPIO_WritePin(S2LP_SPI_CS_PORT, S2LP_SPI_CS_PIN, GPIO_PIN_SET)
+     72          
+     73          static volatile uint8_t spi_in_use=0;
+     74          
+
+   \                                 In section .bss, align 4
+     75          static uint8_t tx_buff[130];
+   \                     tx_buff:
+   \        0x0                      DS8 132
+
+   \                                 In section .bss, align 4
+     76          static uint8_t rx_buff[130];
+   \                     rx_buff:
+   \        0x0                      DS8 132
+     77          
+
+   \                                 In section .text, align 2, keep-with-next
+     78          void S2LPSpiInit(void)
+     79          {
+   \                     S2LPSpiInit: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0xB086             SUB      SP,SP,#+24
+     80            GPIO_InitTypeDef GPIO_InitStructure;
+     81          
+     82            /* Enable SPI periph and SCLK, MOSI, MISO and CS GPIO clocks */
+     83            S2LP_SPI_PERIPH_CLK_ENABLE();
+   \        0x4   0x....             LDR      R0,??DataTable3  ;; 0x4002102c
+   \        0x6   0x6881             LDR      R1,[R0, #+8]
+   \        0x8   0x0C82             LSRS     R2,R0,#+18
+   \        0xA   0x430A             ORRS     R2,R2,R1
+   \        0xC   0x6082             STR      R2,[R0, #+8]
+     84          
+     85            S2LP_SPI_CS_CLK_ENABLE();
+   \        0xE   0x2701             MOVS     R7,#+1
+   \       0x10   0x6801             LDR      R1,[R0, #+0]
+   \       0x12   0x4339             ORRS     R1,R1,R7
+   \       0x14   0x6001             STR      R1,[R0, #+0]
+   \       0x16   0x6801             LDR      R1,[R0, #+0]
+   \       0x18   0x4039             ANDS     R1,R1,R7
+   \       0x1A   0x9105             STR      R1,[SP, #+20]
+   \       0x1C   0x9905             LDR      R1,[SP, #+20]
+     86            S2LP_SPI_SCLK_CLK_ENABLE();
+   \       0x1E   0x2502             MOVS     R5,#+2
+   \       0x20   0x6801             LDR      R1,[R0, #+0]
+   \       0x22   0x4329             ORRS     R1,R1,R5
+   \       0x24   0x6001             STR      R1,[R0, #+0]
+   \       0x26   0x6801             LDR      R1,[R0, #+0]
+   \       0x28   0x4029             ANDS     R1,R1,R5
+   \       0x2A   0x9105             STR      R1,[SP, #+20]
+   \       0x2C   0x9905             LDR      R1,[SP, #+20]
+     87            S2LP_SPI_MISO_CLK_ENABLE();
+   \       0x2E   0x6801             LDR      R1,[R0, #+0]
+   \       0x30   0x4339             ORRS     R1,R1,R7
+   \       0x32   0x6001             STR      R1,[R0, #+0]
+   \       0x34   0x6801             LDR      R1,[R0, #+0]
+   \       0x36   0x4039             ANDS     R1,R1,R7
+   \       0x38   0x9105             STR      R1,[SP, #+20]
+   \       0x3A   0x9905             LDR      R1,[SP, #+20]
+     88            S2LP_SPI_MOSI_CLK_ENABLE();
+   \       0x3C   0x6801             LDR      R1,[R0, #+0]
+   \       0x3E   0x4339             ORRS     R1,R1,R7
+   \       0x40   0x6001             STR      R1,[R0, #+0]
+   \       0x42   0x6801             LDR      R1,[R0, #+0]
+   \       0x44   0x4039             ANDS     R1,R1,R7
+   \       0x46   0x9105             STR      R1,[SP, #+20]
+   \       0x48   0x9905             LDR      R1,[SP, #+20]
+     89            S2LP_SPI_DMA_CLK_ENABLE();
+   \       0x4A   0x6841             LDR      R1,[R0, #+4]
+   \       0x4C   0x4339             ORRS     R1,R1,R7
+   \       0x4E   0x6041             STR      R1,[R0, #+4]
+   \       0x50   0x6840             LDR      R0,[R0, #+4]
+   \       0x52   0x4038             ANDS     R0,R0,R7
+   \       0x54   0x9005             STR      R0,[SP, #+20]
+   \       0x56   0x9805             LDR      R0,[SP, #+20]
+     90          
+     91            /* Configure the AF for MOSI, MISO and SCLK GPIO pins*/
+     92            GPIO_InitStructure.Pin       = S2LP_SPI_SCLK_PIN;
+   \       0x58   0x2008             MOVS     R0,#+8
+   \       0x5A   0x9000             STR      R0,[SP, #+0]
+     93            GPIO_InitStructure.Mode      = GPIO_MODE_AF_PP;
+   \       0x5C   0x9501             STR      R5,[SP, #+4]
+     94            GPIO_InitStructure.Pull      = GPIO_PULLUP;
+   \       0x5E   0x9702             STR      R7,[SP, #+8]
+     95            GPIO_InitStructure.Speed     = GPIO_SPEED_HIGH;
+   \       0x60   0x2003             MOVS     R0,#+3
+   \       0x62   0x9003             STR      R0,[SP, #+12]
+     96            GPIO_InitStructure.Alternate = S2LP_SPI_SCLK_AF;
+   \       0x64   0x2400             MOVS     R4,#+0
+   \       0x66   0x9404             STR      R4,[SP, #+16]
+     97            HAL_GPIO_Init(S2LP_SPI_SCLK_PORT, &GPIO_InitStructure);
+   \       0x68   0x4669             MOV      R1,SP
+   \       0x6A   0x....             LDR      R0,??DataTable4  ;; 0x50000400
+   \       0x6C   0x....'....        BL       HAL_GPIO_Init
+     98          
+     99            GPIO_InitStructure.Pin = S2LP_SPI_MISO_PIN;
+   \       0x70   0x2040             MOVS     R0,#+64
+   \       0x72   0x9000             STR      R0,[SP, #+0]
+    100            GPIO_InitStructure.Alternate = S2LP_SPI_MISO_AF;
+   \       0x74   0x9404             STR      R4,[SP, #+16]
+    101            HAL_GPIO_Init(S2LP_SPI_MISO_PORT, &GPIO_InitStructure);
+   \       0x76   0x4669             MOV      R1,SP
+   \       0x78   0x20A0             MOVS     R0,#+160
+   \       0x7A   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \       0x7C   0x....'....        BL       HAL_GPIO_Init
+    102          
+    103            GPIO_InitStructure.Pin = S2LP_SPI_MOSI_PIN;
+   \       0x80   0x2080             MOVS     R0,#+128
+   \       0x82   0x9000             STR      R0,[SP, #+0]
+    104            GPIO_InitStructure.Alternate = S2LP_SPI_MOSI_AF;
+   \       0x84   0x9404             STR      R4,[SP, #+16]
+    105            HAL_GPIO_Init(S2LP_SPI_MOSI_PORT, &GPIO_InitStructure);
+   \       0x86   0x4669             MOV      R1,SP
+   \       0x88   0x20A0             MOVS     R0,#+160
+   \       0x8A   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \       0x8C   0x....'....        BL       HAL_GPIO_Init
+    106          
+    107            GPIO_InitStructure.Pin = S2LP_SPI_CS_PIN;
+   \       0x90   0x9500             STR      R5,[SP, #+0]
+    108            GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+   \       0x92   0x9701             STR      R7,[SP, #+4]
+    109            HAL_GPIO_Init(S2LP_SPI_CS_PORT, &GPIO_InitStructure);
+   \       0x94   0x4669             MOV      R1,SP
+   \       0x96   0x20A0             MOVS     R0,#+160
+   \       0x98   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \       0x9A   0x....'....        BL       HAL_GPIO_Init
+    110          
+    111            /* Configure SPI peripheral */
+    112            if(HAL_SPI_GetState(&SpiHandle) == HAL_SPI_STATE_RESET)
+   \       0x9E   0x....             LDR      R5,??DataTable4_1
+   \       0xA0   0x0028             MOVS     R0,R5
+   \       0xA2   0x....'....        BL       HAL_SPI_GetState
+   \       0xA6   0x2800             CMP      R0,#+0
+   \       0xA8   0xD144             BNE      ??S2LPSpiInit_0
+    113            {
+    114              /* Set the SPI parameters */
+    115              SpiHandle.Instance               = S2LP_SPI_PERIPH_NB;
+   \       0xAA   0x....             LDR      R0,??DataTable4_2  ;; 0x40013000
+   \       0xAC   0x6028             STR      R0,[R5, #+0]
+    116              SpiHandle.Init.Mode              = SPI_MODE_MASTER;
+   \       0xAE   0x2082             MOVS     R0,#+130
+   \       0xB0   0x0040             LSLS     R0,R0,#+1        ;; #+260
+   \       0xB2   0x6068             STR      R0,[R5, #+4]
+    117              SpiHandle.Init.BaudRatePrescaler = S2LPGetSPIPrescaler();
+   \       0xB4   0x....'....        BL       S2LPGetSPIPrescaler
+   \       0xB8   0x61E8             STR      R0,[R5, #+28]
+    118          
+    119              SpiHandle.Init.Direction         = SPI_DIRECTION_2LINES;
+   \       0xBA   0x60AC             STR      R4,[R5, #+8]
+    120              SpiHandle.Init.CLKPhase          = SPI_PHASE_1EDGE;
+   \       0xBC   0x616C             STR      R4,[R5, #+20]
+    121              SpiHandle.Init.CLKPolarity       = SPI_POLARITY_LOW;
+   \       0xBE   0x612C             STR      R4,[R5, #+16]
+    122              SpiHandle.Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLED;
+   \       0xC0   0x62AC             STR      R4,[R5, #+40]
+    123              SpiHandle.Init.CRCPolynomial     = 7;
+   \       0xC2   0x2007             MOVS     R0,#+7
+   \       0xC4   0x62E8             STR      R0,[R5, #+44]
+    124              SpiHandle.Init.DataSize          = SPI_DATASIZE_8BIT;
+   \       0xC6   0x60EC             STR      R4,[R5, #+12]
+    125              SpiHandle.Init.FirstBit          = SPI_FIRSTBIT_MSB;
+   \       0xC8   0x622C             STR      R4,[R5, #+32]
+    126              SpiHandle.Init.NSS               = SPI_NSS_SOFT;
+   \       0xCA   0x0278             LSLS     R0,R7,#+9
+   \       0xCC   0x61A8             STR      R0,[R5, #+24]
+    127              SpiHandle.Init.TIMode            = SPI_TIMODE_DISABLED;
+   \       0xCE   0x626C             STR      R4,[R5, #+36]
+    128          
+    129              /*##-3- Configure the DMA ##################################################*/
+    130              /* Configure the DMA handler for Transmission process */
+    131          
+    132          #ifdef USE_STM32F4XX_NUCLEO
+    133              hdma_tx.Instance                 = S2LP_SPI_TX_DMA_STREAM;
+    134              hdma_tx.Init.Channel             = S2LP_SPI_TX_DMA_CHANNEL;
+    135              hdma_tx.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;
+    136              hdma_tx.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;
+    137              hdma_tx.Init.MemBurst            = DMA_MBURST_INC4;
+    138              hdma_tx.Init.PeriphBurst         = DMA_PBURST_INC4;
+    139          #else
+    140              hdma_tx.Instance                 = S2LP_SPI_TX_DMA_CHANNEL;
+   \       0xD0   0x....             LDR      R6,??DataTable4_3
+   \       0xD2   0x....             LDR      R0,??DataTable4_4  ;; 0x4002001c
+   \       0xD4   0x3014             ADDS     R0,R0,#+20
+   \       0xD6   0x6030             STR      R0,[R6, #+0]
+    141          #endif
+    142          
+    143          #ifdef USE_STM32L0XX_NUCLEO
+    144              hdma_tx.Init.Request=S2LP_SPI_TX_DMA_REQUEST;
+   \       0xD8   0x6077             STR      R7,[R6, #+4]
+    145          #endif
+    146              hdma_tx.Init.Direction           = DMA_MEMORY_TO_PERIPH;
+   \       0xDA   0x2010             MOVS     R0,#+16
+   \       0xDC   0x60B0             STR      R0,[R6, #+8]
+    147              hdma_tx.Init.PeriphInc           = DMA_PINC_DISABLE;
+   \       0xDE   0x60F4             STR      R4,[R6, #+12]
+    148              hdma_tx.Init.MemInc              = DMA_MINC_ENABLE;
+   \       0xE0   0x2080             MOVS     R0,#+128
+   \       0xE2   0x6130             STR      R0,[R6, #+16]
+    149              hdma_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+   \       0xE4   0x6174             STR      R4,[R6, #+20]
+    150              hdma_tx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
+   \       0xE6   0x61B4             STR      R4,[R6, #+24]
+    151              hdma_tx.Init.Mode                = DMA_NORMAL;
+   \       0xE8   0x61F4             STR      R4,[R6, #+28]
+    152              hdma_tx.Init.Priority            = DMA_PRIORITY_HIGH;
+   \       0xEA   0x0180             LSLS     R0,R0,#+6
+   \       0xEC   0x6230             STR      R0,[R6, #+32]
+    153          
+    154              HAL_DMA_Init(&hdma_tx);
+   \       0xEE   0x0030             MOVS     R0,R6
+   \       0xF0   0x....'....        BL       HAL_DMA_Init
+    155          
+    156              /* Associate the initialized DMA handle to the the SPI handle */
+    157              __HAL_LINKDMA(&SpiHandle, hdmatx, hdma_tx);
+   \       0xF4   0x64AE             STR      R6,[R5, #+72]
+   \       0xF6   0x62B5             STR      R5,[R6, #+40]
+    158          
+    159              /* Configure the DMA handler for Transmission process */
+    160          
+    161          #ifdef USE_STM32F4XX_NUCLEO
+    162              hdma_rx.Instance                 = S2LP_SPI_RX_DMA_STREAM;
+    163              hdma_rx.Init.Channel             = S2LP_SPI_RX_DMA_CHANNEL;
+    164              hdma_rx.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;
+    165              hdma_rx.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;
+    166              hdma_rx.Init.MemBurst            = DMA_MBURST_INC4;
+    167              hdma_rx.Init.PeriphBurst         = DMA_PBURST_INC4;
+    168          #else
+    169              hdma_rx.Instance                 = S2LP_SPI_RX_DMA_CHANNEL;
+   \       0xF8   0x....             LDR      R0,??DataTable4_4  ;; 0x4002001c
+   \       0xFA   0x64B0             STR      R0,[R6, #+72]
+    170          #endif
+    171          
+    172          #ifdef USE_STM32L0XX_NUCLEO
+    173              hdma_rx.Init.Request=S2LP_SPI_RX_DMA_REQUEST;
+   \       0xFC   0x64F7             STR      R7,[R6, #+76]
+    174          #endif
+    175              hdma_rx.Init.Direction           = DMA_PERIPH_TO_MEMORY;
+   \       0xFE   0x6534             STR      R4,[R6, #+80]
+    176              hdma_rx.Init.PeriphInc           = DMA_PINC_DISABLE;
+   \      0x100   0x6574             STR      R4,[R6, #+84]
+    177              hdma_rx.Init.MemInc              = DMA_MINC_ENABLE;
+   \      0x102   0x2080             MOVS     R0,#+128
+   \      0x104   0x65B0             STR      R0,[R6, #+88]
+    178              hdma_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+   \      0x106   0x65F4             STR      R4,[R6, #+92]
+    179              hdma_rx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
+   \      0x108   0x6634             STR      R4,[R6, #+96]
+    180              hdma_rx.Init.Mode                = DMA_NORMAL;
+   \      0x10A   0x6674             STR      R4,[R6, #+100]
+    181              hdma_rx.Init.Priority            = DMA_PRIORITY_HIGH;
+   \      0x10C   0x0180             LSLS     R0,R0,#+6
+   \      0x10E   0x66B0             STR      R0,[R6, #+104]
+    182          
+    183              HAL_DMA_Init(&hdma_rx);
+   \      0x110   0x0030             MOVS     R0,R6
+   \      0x112   0x3048             ADDS     R0,R0,#+72
+   \      0x114   0x....'....        BL       HAL_DMA_Init
+    184          
+    185              /* Associate the initialized DMA handle to the the SPI handle */
+    186              __HAL_LINKDMA(&SpiHandle, hdmarx, hdma_rx);
+   \      0x118   0x0030             MOVS     R0,R6
+   \      0x11A   0x3048             ADDS     R0,R0,#+72
+   \      0x11C   0x64E8             STR      R0,[R5, #+76]
+   \      0x11E   0x6735             STR      R5,[R6, #+112]
+    187          
+    188              if(HAL_SPI_Init(&SpiHandle) != HAL_OK) {
+   \      0x120   0x0028             MOVS     R0,R5
+   \      0x122   0x....'....        BL       HAL_SPI_Init
+   \      0x126   0x2800             CMP      R0,#+0
+   \      0x128   0xD10A             BNE      ??S2LPSpiInit_1
+    189                return;
+    190              }
+    191              __HAL_SPI_ENABLE(&SpiHandle);
+   \      0x12A   0x6828             LDR      R0,[R5, #+0]
+   \      0x12C   0x6801             LDR      R1,[R0, #+0]
+   \      0x12E   0x2240             MOVS     R2,#+64
+   \      0x130   0x430A             ORRS     R2,R2,R1
+   \      0x132   0x6002             STR      R2,[R0, #+0]
+    192            }
+    193          
+    194            SdkEvalSPICSHigh();
+   \                     ??S2LPSpiInit_0: (+1)
+   \      0x134   0x2201             MOVS     R2,#+1
+   \      0x136   0x2102             MOVS     R1,#+2
+   \      0x138   0x20A0             MOVS     R0,#+160
+   \      0x13A   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \      0x13C   0x....'....        BL       HAL_GPIO_WritePin
+    195          }
+   \                     ??S2LPSpiInit_1: (+1)
+   \      0x140   0xB007             ADD      SP,SP,#+28
+   \      0x142   0xBDF0             POP      {R4-R7,PC}       ;; return
+    196          
+
+   \                                 In section .text, align 2, keep-with-next
+    197          void SdkEvalSpiDeinit(void)
+    198          {
+   \                     SdkEvalSpiDeinit: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0xB086             SUB      SP,SP,#+24
+    199            GPIO_InitTypeDef GPIO_InitStructure;
+    200          
+    201            /* Enable SPI periph and SCLK, MOSI, MISO and CS GPIO clocks */
+    202            S2LP_SPI_PERIPH_CLK_ENABLE();
+   \        0x4   0x....             LDR      R0,??DataTable3  ;; 0x4002102c
+   \        0x6   0x6881             LDR      R1,[R0, #+8]
+   \        0x8   0x0C82             LSRS     R2,R0,#+18
+   \        0xA   0x430A             ORRS     R2,R2,R1
+   \        0xC   0x6082             STR      R2,[R0, #+8]
+    203          
+    204            S2LP_SPI_CS_CLK_ENABLE();
+   \        0xE   0x2101             MOVS     R1,#+1
+   \       0x10   0x6802             LDR      R2,[R0, #+0]
+   \       0x12   0x430A             ORRS     R2,R2,R1
+   \       0x14   0x6002             STR      R2,[R0, #+0]
+   \       0x16   0x6802             LDR      R2,[R0, #+0]
+   \       0x18   0x400A             ANDS     R2,R2,R1
+   \       0x1A   0x9205             STR      R2,[SP, #+20]
+   \       0x1C   0x9A05             LDR      R2,[SP, #+20]
+    205            S2LP_SPI_SCLK_CLK_ENABLE();
+   \       0x1E   0x2402             MOVS     R4,#+2
+   \       0x20   0x6802             LDR      R2,[R0, #+0]
+   \       0x22   0x4322             ORRS     R2,R2,R4
+   \       0x24   0x6002             STR      R2,[R0, #+0]
+   \       0x26   0x6802             LDR      R2,[R0, #+0]
+   \       0x28   0x4022             ANDS     R2,R2,R4
+   \       0x2A   0x9205             STR      R2,[SP, #+20]
+   \       0x2C   0x9A05             LDR      R2,[SP, #+20]
+    206            S2LP_SPI_MISO_CLK_ENABLE();
+   \       0x2E   0x6802             LDR      R2,[R0, #+0]
+   \       0x30   0x430A             ORRS     R2,R2,R1
+   \       0x32   0x6002             STR      R2,[R0, #+0]
+   \       0x34   0x6802             LDR      R2,[R0, #+0]
+   \       0x36   0x400A             ANDS     R2,R2,R1
+   \       0x38   0x9205             STR      R2,[SP, #+20]
+   \       0x3A   0x9A05             LDR      R2,[SP, #+20]
+    207            S2LP_SPI_MOSI_CLK_ENABLE();
+   \       0x3C   0x6802             LDR      R2,[R0, #+0]
+   \       0x3E   0x430A             ORRS     R2,R2,R1
+   \       0x40   0x6002             STR      R2,[R0, #+0]
+   \       0x42   0x6800             LDR      R0,[R0, #+0]
+   \       0x44   0x4008             ANDS     R0,R0,R1
+   \       0x46   0x9005             STR      R0,[SP, #+20]
+   \       0x48   0x9805             LDR      R0,[SP, #+20]
+    208          
+    209            /* Configure the AF for MOSI, MISO and SCLK GPIO pins*/
+    210            GPIO_InitStructure.Pin       = S2LP_SPI_SCLK_PIN;
+   \       0x4A   0x2008             MOVS     R0,#+8
+   \       0x4C   0x9000             STR      R0,[SP, #+0]
+    211            GPIO_InitStructure.Mode      = GPIO_MODE_INPUT;
+   \       0x4E   0x2500             MOVS     R5,#+0
+   \       0x50   0x9501             STR      R5,[SP, #+4]
+    212            GPIO_InitStructure.Pull      = GPIO_PULLUP;
+   \       0x52   0x9102             STR      R1,[SP, #+8]
+    213            GPIO_InitStructure.Speed     = GPIO_SPEED_HIGH;
+   \       0x54   0x2003             MOVS     R0,#+3
+   \       0x56   0x9003             STR      R0,[SP, #+12]
+    214          
+    215            HAL_GPIO_Init(S2LP_SPI_SCLK_PORT, &GPIO_InitStructure);
+   \       0x58   0x4669             MOV      R1,SP
+   \       0x5A   0x....             LDR      R0,??DataTable4  ;; 0x50000400
+   \       0x5C   0x....'....        BL       HAL_GPIO_Init
+    216          
+    217            GPIO_InitStructure.Pin = S2LP_SPI_MISO_PIN;
+   \       0x60   0x2040             MOVS     R0,#+64
+   \       0x62   0x9000             STR      R0,[SP, #+0]
+    218          
+    219            HAL_GPIO_Init(S2LP_SPI_MISO_PORT, &GPIO_InitStructure);
+   \       0x64   0x26A0             MOVS     R6,#+160
+   \       0x66   0x05F6             LSLS     R6,R6,#+23       ;; #+1342177280
+   \       0x68   0x4669             MOV      R1,SP
+   \       0x6A   0x0030             MOVS     R0,R6
+   \       0x6C   0x....'....        BL       HAL_GPIO_Init
+    220          
+    221            GPIO_InitStructure.Pin = S2LP_SPI_MOSI_PIN;
+   \       0x70   0x2080             MOVS     R0,#+128
+   \       0x72   0x9000             STR      R0,[SP, #+0]
+    222          
+    223            HAL_GPIO_Init(S2LP_SPI_MOSI_PORT, &GPIO_InitStructure);
+   \       0x74   0x4669             MOV      R1,SP
+   \       0x76   0x0030             MOVS     R0,R6
+   \       0x78   0x....'....        BL       HAL_GPIO_Init
+    224          
+    225            GPIO_InitStructure.Pin = S2LP_SPI_CS_PIN;
+   \       0x7C   0x9400             STR      R4,[SP, #+0]
+    226            GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+   \       0x7E   0x9501             STR      R5,[SP, #+4]
+    227            HAL_GPIO_Init(S2LP_SPI_CS_PORT, &GPIO_InitStructure);
+   \       0x80   0x4669             MOV      R1,SP
+   \       0x82   0x0030             MOVS     R0,R6
+   \       0x84   0x....'....        BL       HAL_GPIO_Init
+    228          
+    229            /* Configure SPI peripheral */
+    230            if(HAL_SPI_GetState(&SpiHandle) == HAL_SPI_STATE_RESET)
+   \       0x88   0x....             LDR      R4,??DataTable4_1
+   \       0x8A   0x0020             MOVS     R0,R4
+   \       0x8C   0x....'....        BL       HAL_SPI_GetState
+   \       0x90   0x2800             CMP      R0,#+0
+   \       0x92   0xD11D             BNE      ??SdkEvalSpiDeinit_0
+    231            {
+    232              /* Set the SPI parameters */
+    233              SpiHandle.Instance               = S2LP_SPI_PERIPH_NB;
+   \       0x94   0x....             LDR      R0,??DataTable4_2  ;; 0x40013000
+   \       0x96   0x6020             STR      R0,[R4, #+0]
+    234              SpiHandle.Init.Mode              = SPI_MODE_MASTER;
+   \       0x98   0x2082             MOVS     R0,#+130
+   \       0x9A   0x0040             LSLS     R0,R0,#+1        ;; #+260
+   \       0x9C   0x6060             STR      R0,[R4, #+4]
+    235              SpiHandle.Init.BaudRatePrescaler = S2LPGetSPIPrescaler();
+   \       0x9E   0x....'....        BL       S2LPGetSPIPrescaler
+   \       0xA2   0x61E0             STR      R0,[R4, #+28]
+    236          
+    237              SpiHandle.Init.Direction         = SPI_DIRECTION_2LINES;
+   \       0xA4   0x60A5             STR      R5,[R4, #+8]
+    238              SpiHandle.Init.CLKPhase          = SPI_PHASE_1EDGE;
+   \       0xA6   0x6165             STR      R5,[R4, #+20]
+    239              SpiHandle.Init.CLKPolarity       = SPI_POLARITY_LOW;
+   \       0xA8   0x6125             STR      R5,[R4, #+16]
+    240              SpiHandle.Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLED;
+   \       0xAA   0x62A5             STR      R5,[R4, #+40]
+    241              SpiHandle.Init.CRCPolynomial     = 7;
+   \       0xAC   0x2007             MOVS     R0,#+7
+   \       0xAE   0x62E0             STR      R0,[R4, #+44]
+    242              SpiHandle.Init.DataSize          = SPI_DATASIZE_8BIT;
+   \       0xB0   0x60E5             STR      R5,[R4, #+12]
+    243              SpiHandle.Init.FirstBit          = SPI_FIRSTBIT_MSB;
+   \       0xB2   0x6225             STR      R5,[R4, #+32]
+    244              SpiHandle.Init.NSS               = SPI_NSS_SOFT;
+   \       0xB4   0x2080             MOVS     R0,#+128
+   \       0xB6   0x0080             LSLS     R0,R0,#+2        ;; #+512
+   \       0xB8   0x61A0             STR      R0,[R4, #+24]
+    245              SpiHandle.Init.TIMode            = SPI_TIMODE_DISABLED;
+   \       0xBA   0x6265             STR      R5,[R4, #+36]
+    246          
+    247              if(HAL_SPI_DeInit(&SpiHandle) != HAL_OK) {
+   \       0xBC   0x0020             MOVS     R0,R4
+   \       0xBE   0x....'....        BL       HAL_SPI_DeInit
+   \       0xC2   0x2800             CMP      R0,#+0
+   \       0xC4   0xD104             BNE      ??SdkEvalSpiDeinit_0
+    248                return;
+    249              }
+    250              __HAL_SPI_DISABLE(&SpiHandle);
+   \       0xC6   0x6820             LDR      R0,[R4, #+0]
+   \       0xC8   0x6801             LDR      R1,[R0, #+0]
+   \       0xCA   0x2240             MOVS     R2,#+64
+   \       0xCC   0x4391             BICS     R1,R1,R2
+   \       0xCE   0x6001             STR      R1,[R0, #+0]
+    251            }
+    252          }
+   \                     ??SdkEvalSpiDeinit_0: (+1)
+   \       0xD0   0xB006             ADD      SP,SP,#+24
+   \       0xD2   0xBD70             POP      {R4-R6,PC}       ;; return
+    253          
+
+   \                                 In section .text, align 2, keep-with-next
+    254          uint16_t S2LPSpiReadRegisters(uint8_t address, uint8_t n_bytes, uint8_t* buffer)
+    255          {
+   \                     S2LPSpiReadRegisters: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+   \        0x2   0x000C             MOVS     R4,R1
+   \        0x4   0x0017             MOVS     R7,R2
+    256            tx_buff[0]=READ_HEADER;
+   \        0x6   0x2101             MOVS     R1,#+1
+   \        0x8   0x....             LDR      R2,??DataTable5
+   \        0xA   0x7011             STRB     R1,[R2, #+0]
+    257            tx_buff[1]=address;
+   \        0xC   0x7050             STRB     R0,[R2, #+1]
+    258          
+    259            uint16_t status;
+    260          
+    261            SPI_ENTER_CRITICAL();
+   \        0xE   0x....             B.N      ?Subroutine0
+    262            SdkEvalSPICSLow();
+    263            for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+    264          
+    265            HAL_SPI_TransmitReceive_DMA(&SpiHandle, tx_buff, rx_buff, 2+n_bytes);
+    266            WAIT_FOR_SPI_TC();
+    267          
+    268            for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+    269            SdkEvalSPICSHigh();
+    270            SPI_EXIT_CRITICAL();
+    271          
+    272            for(uint32_t i=0;i<n_bytes;i++)
+    273            {
+    274              buffer[i]=rx_buff[i+2];
+    275            }
+    276          
+    277            ((uint8_t*)&status)[1]=rx_buff[0];
+    278            ((uint8_t*)&status)[0]=rx_buff[1];
+    279          
+    280            return status;
+    281          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0: (+1)
+   \        0x0   0xB672             CPSID    I
+   \        0x2   0x2200             MOVS     R2,#+0
+   \        0x4   0x2102             MOVS     R1,#+2
+   \        0x6   0x20A0             MOVS     R0,#+160
+   \        0x8   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \        0xA   0x....'....        BL       HAL_GPIO_WritePin
+   \        0xE   0x2600             MOVS     R6,#+0
+   \       0x10   0x9601             STR      R6,[SP, #+4]
+   \       0x12   0xE002             B        ??Subroutine0_0
+   \                     ??Subroutine0_1: (+1)
+   \       0x14   0x9801             LDR      R0,[SP, #+4]
+   \       0x16   0x1C40             ADDS     R0,R0,#+1
+   \       0x18   0x9001             STR      R0,[SP, #+4]
+   \                     ??Subroutine0_0: (+1)
+   \       0x1A   0x9801             LDR      R0,[SP, #+4]
+   \       0x1C   0x2870             CMP      R0,#+112
+   \       0x1E   0xD3F9             BCC      ??Subroutine0_1
+   \       0x20   0x4668             MOV      R0,SP
+   \       0x22   0x7004             STRB     R4,[R0, #+0]
+   \       0x24   0x....             LDR      R5,??DataTable6_3
+   \       0x26   0x....             LDR      R4,??DataTable6
+   \       0x28   0x7803             LDRB     R3,[R0, #+0]
+   \       0x2A   0x1C9B             ADDS     R3,R3,#+2
+   \       0x2C   0xB29B             UXTH     R3,R3
+   \       0x2E   0x0022             MOVS     R2,R4
+   \       0x30   0x....             LDR      R1,??DataTable5
+   \       0x32   0x0028             MOVS     R0,R5
+   \       0x34   0x....'....        BL       HAL_SPI_TransmitReceive_DMA
+   \       0x38   0x6CE8             LDR      R0,[R5, #+76]
+   \       0x3A   0x6801             LDR      R1,[R0, #+0]
+   \                     ??Subroutine0_2: (+1)
+   \       0x3C   0x....             LDR      R0,??DataTable6_1  ;; 0x40020000
+   \       0x3E   0x6800             LDR      R0,[R0, #+0]
+   \       0x40   0x....             LDR      R2,??DataTable6_2  ;; 0x40020008
+   \       0x42   0x4291             CMP      R1,R2
+   \       0x44   0xD101             BNE      ??Subroutine0_3
+   \       0x46   0x2202             MOVS     R2,#+2
+   \       0x48   0xE01D             B        ??Subroutine0_4
+   \                     ??Subroutine0_3: (+1)
+   \       0x4A   0x3214             ADDS     R2,R2,#+20
+   \       0x4C   0x4291             CMP      R1,R2
+   \       0x4E   0xD101             BNE      ??Subroutine0_5
+   \       0x50   0x2220             MOVS     R2,#+32
+   \       0x52   0xE018             B        ??Subroutine0_4
+   \                     ??Subroutine0_5: (+1)
+   \       0x54   0x3214             ADDS     R2,R2,#+20
+   \       0x56   0x4291             CMP      R1,R2
+   \       0x58   0xD101             BNE      ??Subroutine0_6
+   \       0x5A   0x0D52             LSRS     R2,R2,#+21
+   \       0x5C   0xE013             B        ??Subroutine0_4
+   \                     ??Subroutine0_6: (+1)
+   \       0x5E   0x3214             ADDS     R2,R2,#+20
+   \       0x60   0x4291             CMP      R1,R2
+   \       0x62   0xD102             BNE      ??Subroutine0_7
+   \       0x64   0x2280             MOVS     R2,#+128
+   \       0x66   0x0192             LSLS     R2,R2,#+6        ;; #+8192
+   \       0x68   0xE00D             B        ??Subroutine0_4
+   \                     ??Subroutine0_7: (+1)
+   \       0x6A   0x3214             ADDS     R2,R2,#+20
+   \       0x6C   0x4291             CMP      R1,R2
+   \       0x6E   0xD102             BNE      ??Subroutine0_8
+   \       0x70   0x2280             MOVS     R2,#+128
+   \       0x72   0x0292             LSLS     R2,R2,#+10       ;; #+131072
+   \       0x74   0xE007             B        ??Subroutine0_4
+   \                     ??Subroutine0_8: (+1)
+   \       0x76   0x3214             ADDS     R2,R2,#+20
+   \       0x78   0x4291             CMP      R1,R2
+   \       0x7A   0xD102             BNE      ??Subroutine0_9
+   \       0x7C   0x2280             MOVS     R2,#+128
+   \       0x7E   0x0392             LSLS     R2,R2,#+14       ;; #+2097152
+   \       0x80   0xE001             B        ??Subroutine0_4
+   \                     ??Subroutine0_9: (+1)
+   \       0x82   0x2280             MOVS     R2,#+128
+   \       0x84   0x0492             LSLS     R2,R2,#+18       ;; #+33554432
+   \                     ??Subroutine0_4: (+1)
+   \       0x86   0x4002             ANDS     R2,R2,R0
+   \       0x88   0xD0D8             BEQ      ??Subroutine0_2
+   \                     ??Subroutine0_10: (+1)
+   \       0x8A   0x6CE8             LDR      R0,[R5, #+76]
+   \       0x8C   0x....'....        BL       HAL_DMA_IRQHandler
+   \       0x90   0x6CA8             LDR      R0,[R5, #+72]
+   \       0x92   0x....'....        BL       HAL_DMA_IRQHandler
+   \       0x96   0x0028             MOVS     R0,R5
+   \       0x98   0x....'....        BL       HAL_SPI_GetState
+   \       0x9C   0x2801             CMP      R0,#+1
+   \       0x9E   0xD1F4             BNE      ??Subroutine0_10
+   \       0xA0   0x9601             STR      R6,[SP, #+4]
+   \       0xA2   0xE002             B        ??Subroutine0_11
+   \                     ??Subroutine0_12: (+1)
+   \       0xA4   0x9801             LDR      R0,[SP, #+4]
+   \       0xA6   0x1C40             ADDS     R0,R0,#+1
+   \       0xA8   0x9001             STR      R0,[SP, #+4]
+   \                     ??Subroutine0_11: (+1)
+   \       0xAA   0x9801             LDR      R0,[SP, #+4]
+   \       0xAC   0x2870             CMP      R0,#+112
+   \       0xAE   0xD3F9             BCC      ??Subroutine0_12
+   \       0xB0   0x2201             MOVS     R2,#+1
+   \       0xB2   0x2102             MOVS     R1,#+2
+   \       0xB4   0x20A0             MOVS     R0,#+160
+   \       0xB6   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \       0xB8   0x....'....        BL       HAL_GPIO_WritePin
+   \       0xBC   0xB662             CPSIE    I
+   \       0xBE   0x4668             MOV      R0,SP
+   \       0xC0   0x7800             LDRB     R0,[R0, #+0]
+   \       0xC2   0xE003             B        ??Subroutine0_13
+   \                     ??Subroutine0_14: (+1)
+   \       0xC4   0x19A1             ADDS     R1,R4,R6
+   \       0xC6   0x7889             LDRB     R1,[R1, #+2]
+   \       0xC8   0x55B9             STRB     R1,[R7, R6]
+   \       0xCA   0x1C76             ADDS     R6,R6,#+1
+   \                     ??Subroutine0_13: (+1)
+   \       0xCC   0x4286             CMP      R6,R0
+   \       0xCE   0xD3F9             BCC      ??Subroutine0_14
+   \       0xD0   0x7820             LDRB     R0,[R4, #+0]
+   \       0xD2   0xA900             ADD      R1,SP,#+0
+   \       0xD4   0x1C89             ADDS     R1,R1,#+2
+   \       0xD6   0x7048             STRB     R0,[R1, #+1]
+   \       0xD8   0x7860             LDRB     R0,[R4, #+1]
+   \       0xDA   0x4669             MOV      R1,SP
+   \       0xDC   0x7088             STRB     R0,[R1, #+2]
+   \       0xDE   0x4668             MOV      R0,SP
+   \       0xE0   0x8840             LDRH     R0,[R0, #+2]
+   \       0xE2   0xBDFE             POP      {R1-R7,PC}       ;; return
+    282          
+
+   \                                 In section .text, align 2, keep-with-next
+    283          uint16_t S2LPSpiWriteRegisters(uint8_t address, uint8_t n_bytes, uint8_t* buffer)
+    284          {
+   \                     S2LPSpiWriteRegisters: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+    285            tx_buff[0]=WRITE_HEADER;
+   \        0x2   0x2400             MOVS     R4,#+0
+   \        0x4   0x....             LDR      R7,??DataTable5
+   \        0x6   0x703C             STRB     R4,[R7, #+0]
+    286            tx_buff[1]=address;
+   \        0x8   0x7078             STRB     R0,[R7, #+1]
+    287          
+    288            uint16_t status;
+    289          
+    290            for(uint32_t i=0;i<n_bytes;i++)
+   \        0xA   0x2000             MOVS     R0,#+0
+   \        0xC   0xE003             B        ??S2LPSpiWriteRegisters_0
+    291            {
+    292              tx_buff[i+2]=buffer[i];
+   \                     ??S2LPSpiWriteRegisters_1: (+1)
+   \        0xE   0x5C13             LDRB     R3,[R2, R0]
+   \       0x10   0x183D             ADDS     R5,R7,R0
+   \       0x12   0x70AB             STRB     R3,[R5, #+2]
+    293            }
+   \       0x14   0x1C40             ADDS     R0,R0,#+1
+   \                     ??S2LPSpiWriteRegisters_0: (+1)
+   \       0x16   0x4288             CMP      R0,R1
+   \       0x18   0xD3F9             BCC      ??S2LPSpiWriteRegisters_1
+   \       0x1A   0x4668             MOV      R0,SP
+   \       0x1C   0x7081             STRB     R1,[R0, #+2]
+    294          
+    295            SPI_ENTER_CRITICAL();
+   \       0x1E   0x....             B.N      ?Subroutine1
+    296          
+    297            /* Puts the SPI chip select low to start the transaction */
+    298            SdkEvalSPICSLow();
+    299            for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+    300          
+    301            HAL_SPI_TransmitReceive_DMA(&SpiHandle, tx_buff, rx_buff, 2+n_bytes);
+    302            WAIT_FOR_SPI_TC();
+    303          
+    304            for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+    305            /* Puts the SPI chip select high to end the transaction */
+    306            SdkEvalSPICSHigh();
+    307          
+    308            SPI_EXIT_CRITICAL();
+    309          
+    310            ((uint8_t*)&status)[1]=rx_buff[0];
+    311            ((uint8_t*)&status)[0]=rx_buff[1];
+    312          
+    313            return status;
+    314          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine1: (+1)
+   \        0x0   0xB672             CPSID    I
+   \        0x2   0x2200             MOVS     R2,#+0
+   \        0x4   0x2102             MOVS     R1,#+2
+   \        0x6   0x20A0             MOVS     R0,#+160
+   \        0x8   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \        0xA   0x....'....        BL       HAL_GPIO_WritePin
+   \        0xE   0x9401             STR      R4,[SP, #+4]
+   \       0x10   0xE002             B        ??Subroutine1_0
+   \                     ??Subroutine1_1: (+1)
+   \       0x12   0x9801             LDR      R0,[SP, #+4]
+   \       0x14   0x1C40             ADDS     R0,R0,#+1
+   \       0x16   0x9001             STR      R0,[SP, #+4]
+   \                     ??Subroutine1_0: (+1)
+   \       0x18   0x9801             LDR      R0,[SP, #+4]
+   \       0x1A   0x2870             CMP      R0,#+112
+   \       0x1C   0xD3F9             BCC      ??Subroutine1_1
+   \       0x1E   0x....             LDR      R6,??DataTable6_3
+   \       0x20   0x....             LDR      R5,??DataTable6
+   \       0x22   0x4668             MOV      R0,SP
+   \       0x24   0x7883             LDRB     R3,[R0, #+2]
+   \       0x26   0x1C9B             ADDS     R3,R3,#+2
+   \       0x28   0xB29B             UXTH     R3,R3
+   \       0x2A   0x002A             MOVS     R2,R5
+   \       0x2C   0x0039             MOVS     R1,R7
+   \       0x2E   0x0030             MOVS     R0,R6
+   \       0x30   0x....'....        BL       HAL_SPI_TransmitReceive_DMA
+   \       0x34   0x6CF0             LDR      R0,[R6, #+76]
+   \       0x36   0x6800             LDR      R0,[R0, #+0]
+   \                     ??Subroutine1_2: (+1)
+   \       0x38   0x....             LDR      R1,??DataTable6_1  ;; 0x40020000
+   \       0x3A   0x6809             LDR      R1,[R1, #+0]
+   \       0x3C   0x....             LDR      R2,??DataTable6_2  ;; 0x40020008
+   \       0x3E   0x4290             CMP      R0,R2
+   \       0x40   0xD101             BNE      ??Subroutine1_3
+   \       0x42   0x2202             MOVS     R2,#+2
+   \       0x44   0xE01D             B        ??Subroutine1_4
+   \                     ??Subroutine1_3: (+1)
+   \       0x46   0x3214             ADDS     R2,R2,#+20
+   \       0x48   0x4290             CMP      R0,R2
+   \       0x4A   0xD101             BNE      ??Subroutine1_5
+   \       0x4C   0x2220             MOVS     R2,#+32
+   \       0x4E   0xE018             B        ??Subroutine1_4
+   \                     ??Subroutine1_5: (+1)
+   \       0x50   0x3214             ADDS     R2,R2,#+20
+   \       0x52   0x4290             CMP      R0,R2
+   \       0x54   0xD101             BNE      ??Subroutine1_6
+   \       0x56   0x0D52             LSRS     R2,R2,#+21
+   \       0x58   0xE013             B        ??Subroutine1_4
+   \                     ??Subroutine1_6: (+1)
+   \       0x5A   0x3214             ADDS     R2,R2,#+20
+   \       0x5C   0x4290             CMP      R0,R2
+   \       0x5E   0xD102             BNE      ??Subroutine1_7
+   \       0x60   0x2280             MOVS     R2,#+128
+   \       0x62   0x0192             LSLS     R2,R2,#+6        ;; #+8192
+   \       0x64   0xE00D             B        ??Subroutine1_4
+   \                     ??Subroutine1_7: (+1)
+   \       0x66   0x3214             ADDS     R2,R2,#+20
+   \       0x68   0x4290             CMP      R0,R2
+   \       0x6A   0xD102             BNE      ??Subroutine1_8
+   \       0x6C   0x2280             MOVS     R2,#+128
+   \       0x6E   0x0292             LSLS     R2,R2,#+10       ;; #+131072
+   \       0x70   0xE007             B        ??Subroutine1_4
+   \                     ??Subroutine1_8: (+1)
+   \       0x72   0x3214             ADDS     R2,R2,#+20
+   \       0x74   0x4290             CMP      R0,R2
+   \       0x76   0xD102             BNE      ??Subroutine1_9
+   \       0x78   0x2280             MOVS     R2,#+128
+   \       0x7A   0x0392             LSLS     R2,R2,#+14       ;; #+2097152
+   \       0x7C   0xE001             B        ??Subroutine1_4
+   \                     ??Subroutine1_9: (+1)
+   \       0x7E   0x2280             MOVS     R2,#+128
+   \       0x80   0x0492             LSLS     R2,R2,#+18       ;; #+33554432
+   \                     ??Subroutine1_4: (+1)
+   \       0x82   0x400A             ANDS     R2,R2,R1
+   \       0x84   0xD0D8             BEQ      ??Subroutine1_2
+   \                     ??Subroutine1_10: (+1)
+   \       0x86   0x6CF0             LDR      R0,[R6, #+76]
+   \       0x88   0x....'....        BL       HAL_DMA_IRQHandler
+   \       0x8C   0x6CB0             LDR      R0,[R6, #+72]
+   \       0x8E   0x....'....        BL       HAL_DMA_IRQHandler
+   \       0x92   0x0030             MOVS     R0,R6
+   \       0x94   0x....'....        BL       HAL_SPI_GetState
+   \       0x98   0x2801             CMP      R0,#+1
+   \       0x9A   0xD1F4             BNE      ??Subroutine1_10
+   \       0x9C   0x9401             STR      R4,[SP, #+4]
+   \       0x9E   0xE002             B        ??Subroutine1_11
+   \                     ??Subroutine1_12: (+1)
+   \       0xA0   0x9801             LDR      R0,[SP, #+4]
+   \       0xA2   0x1C40             ADDS     R0,R0,#+1
+   \       0xA4   0x9001             STR      R0,[SP, #+4]
+   \                     ??Subroutine1_11: (+1)
+   \       0xA6   0x9801             LDR      R0,[SP, #+4]
+   \       0xA8   0x2870             CMP      R0,#+112
+   \       0xAA   0xD3F9             BCC      ??Subroutine1_12
+   \       0xAC   0x2201             MOVS     R2,#+1
+   \       0xAE   0x2102             MOVS     R1,#+2
+   \       0xB0   0x20A0             MOVS     R0,#+160
+   \       0xB2   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \       0xB4   0x....'....        BL       HAL_GPIO_WritePin
+   \       0xB8   0xB662             CPSIE    I
+   \       0xBA   0x7828             LDRB     R0,[R5, #+0]
+   \       0xBC   0x4669             MOV      R1,SP
+   \       0xBE   0x7048             STRB     R0,[R1, #+1]
+   \       0xC0   0x7868             LDRB     R0,[R5, #+1]
+   \       0xC2                      REQUIRE ??Subroutine2_0
+   \       0xC2                      ;; // Fall through to label ??Subroutine2_0
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ??Subroutine2_0: (+1)
+   \        0x0   0x7008             STRB     R0,[R1, #+0]
+   \        0x2   0x4668             MOV      R0,SP
+   \        0x4   0x8800             LDRH     R0,[R0, #+0]
+   \        0x6   0xBDFE             POP      {R1-R7,PC}       ;; return
+    315          
+
+   \                                 In section .text, align 2, keep-with-next
+    316          uint16_t S2LPSpiCommandStrobes(uint8_t command)
+    317          {
+   \                     S2LPSpiCommandStrobes: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+    318            tx_buff[0]=COMMAND_HEADER;
+   \        0x2   0x....             LDR      R7,??DataTable5
+   \        0x4   0x2180             MOVS     R1,#+128
+   \        0x6   0x7039             STRB     R1,[R7, #+0]
+    319            tx_buff[1]=command;
+   \        0x8   0x7078             STRB     R0,[R7, #+1]
+    320          
+    321            uint16_t status;
+    322          
+    323            SPI_ENTER_CRITICAL();
+   \        0xA   0xB672             CPSID    I
+    324            SdkEvalSPICSLow();
+   \        0xC   0x2200             MOVS     R2,#+0
+   \        0xE   0x2102             MOVS     R1,#+2
+   \       0x10   0x20A0             MOVS     R0,#+160
+   \       0x12   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \       0x14   0x....'....        BL       HAL_GPIO_WritePin
+    325            for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+   \       0x18   0x2600             MOVS     R6,#+0
+   \       0x1A   0x9601             STR      R6,[SP, #+4]
+   \       0x1C   0xE002             B        ??S2LPSpiCommandStrobes_0
+   \                     ??S2LPSpiCommandStrobes_1: (+1)
+   \       0x1E   0x9801             LDR      R0,[SP, #+4]
+   \       0x20   0x1C40             ADDS     R0,R0,#+1
+   \       0x22   0x9001             STR      R0,[SP, #+4]
+   \                     ??S2LPSpiCommandStrobes_0: (+1)
+   \       0x24   0x9801             LDR      R0,[SP, #+4]
+   \       0x26   0x2870             CMP      R0,#+112
+   \       0x28   0xD3F9             BCC      ??S2LPSpiCommandStrobes_1
+    326          
+    327          
+    328            HAL_SPI_TransmitReceive_DMA(&SpiHandle, tx_buff, rx_buff, 2);
+   \       0x2A   0x....             LDR      R5,??DataTable4_1
+   \       0x2C   0x....             LDR      R4,??DataTable6
+   \       0x2E   0x2302             MOVS     R3,#+2
+   \       0x30   0x0022             MOVS     R2,R4
+   \       0x32   0x0039             MOVS     R1,R7
+   \       0x34   0x0028             MOVS     R0,R5
+   \       0x36   0x....'....        BL       HAL_SPI_TransmitReceive_DMA
+   \       0x3A   0x6CE8             LDR      R0,[R5, #+76]
+   \       0x3C   0x6801             LDR      R1,[R0, #+0]
+    329            WAIT_FOR_SPI_TC();
+   \                     ??S2LPSpiCommandStrobes_2: (+1)
+   \       0x3E   0x....             LDR      R0,??DataTable6_1  ;; 0x40020000
+   \       0x40   0x6800             LDR      R0,[R0, #+0]
+   \       0x42   0x....             LDR      R2,??DataTable6_2  ;; 0x40020008
+   \       0x44   0x4291             CMP      R1,R2
+   \       0x46   0xD101             BNE      ??S2LPSpiCommandStrobes_3
+   \       0x48   0x2202             MOVS     R2,#+2
+   \       0x4A   0xE01D             B        ??S2LPSpiCommandStrobes_4
+   \                     ??S2LPSpiCommandStrobes_3: (+1)
+   \       0x4C   0x3214             ADDS     R2,R2,#+20
+   \       0x4E   0x4291             CMP      R1,R2
+   \       0x50   0xD101             BNE      ??S2LPSpiCommandStrobes_5
+   \       0x52   0x2220             MOVS     R2,#+32
+   \       0x54   0xE018             B        ??S2LPSpiCommandStrobes_4
+   \                     ??S2LPSpiCommandStrobes_5: (+1)
+   \       0x56   0x3214             ADDS     R2,R2,#+20
+   \       0x58   0x4291             CMP      R1,R2
+   \       0x5A   0xD101             BNE      ??S2LPSpiCommandStrobes_6
+   \       0x5C   0x0D52             LSRS     R2,R2,#+21
+   \       0x5E   0xE013             B        ??S2LPSpiCommandStrobes_4
+   \                     ??S2LPSpiCommandStrobes_6: (+1)
+   \       0x60   0x3214             ADDS     R2,R2,#+20
+   \       0x62   0x4291             CMP      R1,R2
+   \       0x64   0xD102             BNE      ??S2LPSpiCommandStrobes_7
+   \       0x66   0x2280             MOVS     R2,#+128
+   \       0x68   0x0192             LSLS     R2,R2,#+6        ;; #+8192
+   \       0x6A   0xE00D             B        ??S2LPSpiCommandStrobes_4
+   \                     ??S2LPSpiCommandStrobes_7: (+1)
+   \       0x6C   0x3214             ADDS     R2,R2,#+20
+   \       0x6E   0x4291             CMP      R1,R2
+   \       0x70   0xD102             BNE      ??S2LPSpiCommandStrobes_8
+   \       0x72   0x2280             MOVS     R2,#+128
+   \       0x74   0x0292             LSLS     R2,R2,#+10       ;; #+131072
+   \       0x76   0xE007             B        ??S2LPSpiCommandStrobes_4
+   \                     ??S2LPSpiCommandStrobes_8: (+1)
+   \       0x78   0x3214             ADDS     R2,R2,#+20
+   \       0x7A   0x4291             CMP      R1,R2
+   \       0x7C   0xD102             BNE      ??S2LPSpiCommandStrobes_9
+   \       0x7E   0x2280             MOVS     R2,#+128
+   \       0x80   0x0392             LSLS     R2,R2,#+14       ;; #+2097152
+   \       0x82   0xE001             B        ??S2LPSpiCommandStrobes_4
+   \                     ??S2LPSpiCommandStrobes_9: (+1)
+   \       0x84   0x2280             MOVS     R2,#+128
+   \       0x86   0x0492             LSLS     R2,R2,#+18       ;; #+33554432
+   \                     ??S2LPSpiCommandStrobes_4: (+1)
+   \       0x88   0x4002             ANDS     R2,R2,R0
+   \       0x8A   0xD0D8             BEQ      ??S2LPSpiCommandStrobes_2
+   \                     ??S2LPSpiCommandStrobes_10: (+1)
+   \       0x8C   0x6CE8             LDR      R0,[R5, #+76]
+   \       0x8E   0x....'....        BL       HAL_DMA_IRQHandler
+   \       0x92   0x6CA8             LDR      R0,[R5, #+72]
+   \       0x94   0x....'....        BL       HAL_DMA_IRQHandler
+   \       0x98   0x0028             MOVS     R0,R5
+   \       0x9A   0x....'....        BL       HAL_SPI_GetState
+   \       0x9E   0x2801             CMP      R0,#+1
+   \       0xA0   0xD1F4             BNE      ??S2LPSpiCommandStrobes_10
+    330          
+    331            for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+   \       0xA2   0x9601             STR      R6,[SP, #+4]
+   \       0xA4   0xE002             B        ??S2LPSpiCommandStrobes_11
+   \                     ??S2LPSpiCommandStrobes_12: (+1)
+   \       0xA6   0x9801             LDR      R0,[SP, #+4]
+   \       0xA8   0x1C40             ADDS     R0,R0,#+1
+   \       0xAA   0x9001             STR      R0,[SP, #+4]
+   \                     ??S2LPSpiCommandStrobes_11: (+1)
+   \       0xAC   0x9801             LDR      R0,[SP, #+4]
+   \       0xAE   0x2870             CMP      R0,#+112
+   \       0xB0   0xD3F9             BCC      ??S2LPSpiCommandStrobes_12
+    332            SdkEvalSPICSHigh();
+   \       0xB2   0x2201             MOVS     R2,#+1
+   \       0xB4   0x2102             MOVS     R1,#+2
+   \       0xB6   0x20A0             MOVS     R0,#+160
+   \       0xB8   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \       0xBA   0x....'....        BL       HAL_GPIO_WritePin
+    333            SPI_EXIT_CRITICAL();
+   \       0xBE   0xB662             CPSIE    I
+    334          
+    335            ((uint8_t*)&status)[1]=rx_buff[0];
+   \       0xC0   0x7820             LDRB     R0,[R4, #+0]
+   \       0xC2   0x4669             MOV      R1,SP
+   \       0xC4   0x7048             STRB     R0,[R1, #+1]
+    336            ((uint8_t*)&status)[0]=rx_buff[1];
+   \       0xC6   0x7860             LDRB     R0,[R4, #+1]
+   \       0xC8   0x....             B.N      ??Subroutine2_0
+    337          
+    338            return status;
+    339          }
+    340          
+
+   \                                 In section .text, align 2, keep-with-next
+    341          uint16_t S2LPSpiReadFifo(uint8_t n_bytes, uint8_t* buffer)
+    342          {
+   \                     S2LPSpiReadFifo: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+   \        0x4   0x000F             MOVS     R7,R1
+    343            tx_buff[0]=READ_HEADER;
+   \        0x6   0x2001             MOVS     R0,#+1
+   \        0x8   0x....             LDR      R1,??DataTable5
+   \        0xA   0x7008             STRB     R0,[R1, #+0]
+    344            tx_buff[1]=LINEAR_FIFO_ADDRESS;
+   \        0xC   0x20FF             MOVS     R0,#+255
+   \        0xE   0x7048             STRB     R0,[R1, #+1]
+    345          
+    346            uint16_t status;
+    347          
+    348            SPI_ENTER_CRITICAL();
+   \       0x10                      REQUIRE ?Subroutine0
+   \       0x10                      ;; // Fall through to label ?Subroutine0
+    349            SdkEvalSPICSLow();
+    350            for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+    351          
+    352            HAL_SPI_TransmitReceive_DMA(&SpiHandle, tx_buff, rx_buff, 2+n_bytes);
+    353            WAIT_FOR_SPI_TC();
+    354          
+    355            for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+    356            SdkEvalSPICSHigh();
+    357            SPI_EXIT_CRITICAL();
+    358          
+    359            for(uint32_t i=0;i<n_bytes;i++)
+    360            {
+    361              buffer[i]=rx_buff[i+2];
+    362            }
+    363            ((uint8_t*)&status)[1]=rx_buff[0];
+    364            ((uint8_t*)&status)[0]=rx_buff[1];
+    365          
+    366            return status;
+    367          }
+    368          
+
+   \                                 In section .text, align 2, keep-with-next
+    369          uint16_t S2LPSpiWriteFifo(uint8_t n_bytes, uint8_t* buffer)
+    370          {
+   \                     S2LPSpiWriteFifo: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+    371            tx_buff[0]=WRITE_HEADER;
+   \        0x2   0x2400             MOVS     R4,#+0
+   \        0x4   0x....             LDR      R7,??DataTable12
+   \        0x6   0x703C             STRB     R4,[R7, #+0]
+    372            tx_buff[1]=LINEAR_FIFO_ADDRESS;
+   \        0x8   0x22FF             MOVS     R2,#+255
+   \        0xA   0x707A             STRB     R2,[R7, #+1]
+    373          
+    374            uint16_t status;
+    375          
+    376            for(uint32_t i=0;i<n_bytes;i++)
+   \        0xC   0x2200             MOVS     R2,#+0
+   \        0xE   0xE003             B        ??S2LPSpiWriteFifo_0
+    377            {
+    378              tx_buff[i+2]=buffer[i];
+   \                     ??S2LPSpiWriteFifo_1: (+1)
+   \       0x10   0x5C8B             LDRB     R3,[R1, R2]
+   \       0x12   0x18BD             ADDS     R5,R7,R2
+   \       0x14   0x70AB             STRB     R3,[R5, #+2]
+    379            }
+   \       0x16   0x1C52             ADDS     R2,R2,#+1
+   \                     ??S2LPSpiWriteFifo_0: (+1)
+   \       0x18   0x4282             CMP      R2,R0
+   \       0x1A   0xD3F9             BCC      ??S2LPSpiWriteFifo_1
+   \       0x1C   0x4669             MOV      R1,SP
+   \       0x1E   0x7088             STRB     R0,[R1, #+2]
+    380          
+    381            SPI_ENTER_CRITICAL();
+   \       0x20                      REQUIRE ?Subroutine1
+   \       0x20                      ;; // Fall through to label ?Subroutine1
+    382            SdkEvalSPICSLow();
+    383            for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+    384          
+    385            HAL_SPI_TransmitReceive_DMA(&SpiHandle, tx_buff, rx_buff, 2+n_bytes);
+    386            WAIT_FOR_SPI_TC();
+    387          
+    388            for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+    389            SdkEvalSPICSHigh();
+    390            SPI_EXIT_CRITICAL();
+    391          
+    392            ((uint8_t*)&status)[1]=rx_buff[0];
+    393            ((uint8_t*)&status)[0]=rx_buff[1];
+    394          
+    395            return status;
+    396          }
+    397          
+
+   \                                 In section .text, align 2
+    398          __weak void SdkEvalSpiRawTC(void){}
+   \                     SdkEvalSpiRawTC: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    399          
+
+   \                                 In section .text, align 2, keep-with-next
+    400          void S2LPSpiRaw(uint8_t n_bytes, uint8_t* in_buffer, uint8_t* out_buffer, uint8_t can_return_bef_tx)
+    401          {
+   \                     S2LPSpiRaw: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+   \        0x2   0x0007             MOVS     R7,R0
+   \        0x4   0x000E             MOVS     R6,R1
+    402            uint8_t* out_buffer_=out_buffer;
+   \        0x6   0x9202             STR      R2,[SP, #+8]
+    403          
+    404            if(out_buffer==NULL)
+   \        0x8   0x2A00             CMP      R2,#+0
+   \        0xA   0xD101             BNE      ??S2LPSpiRaw_0
+    405              out_buffer_=rx_buff;
+   \        0xC   0x....             LDR      R0,??DataTable12_1
+   \        0xE   0x9002             STR      R0,[SP, #+8]
+   \                     ??S2LPSpiRaw_0: (+1)
+   \       0x10   0x4668             MOV      R0,SP
+   \       0x12   0x7003             STRB     R3,[R0, #+0]
+    406          
+    407            spi_in_use = 1;
+   \       0x14   0x2001             MOVS     R0,#+1
+   \       0x16   0x....             LDR      R5,??DataTable12_2
+   \       0x18   0x7068             STRB     R0,[R5, #+1]
+    408          
+    409            if(can_return_bef_tx)
+   \       0x1A   0x2400             MOVS     R4,#+0
+   \       0x1C   0x4669             MOV      R1,SP
+   \       0x1E   0x7809             LDRB     R1,[R1, #+0]
+   \       0x20   0x2900             CMP      R1,#+0
+   \       0x22   0xD011             BEQ      ??S2LPSpiRaw_1
+    410            {
+    411              waiting_irq=1;
+   \       0x24   0x7028             STRB     R0,[R5, #+0]
+    412              HAL_NVIC_SetPriority(S2LP_SPI_DMA_TX_IRQn, 1, 1);
+   \       0x26   0x2201             MOVS     R2,#+1
+   \       0x28   0x2101             MOVS     R1,#+1
+   \       0x2A   0x200A             MOVS     R0,#+10
+   \       0x2C   0x....'....        BL       HAL_NVIC_SetPriority
+    413              HAL_NVIC_EnableIRQ(S2LP_SPI_DMA_TX_IRQn);
+   \       0x30   0x200A             MOVS     R0,#+10
+   \       0x32   0x....'....        BL       HAL_NVIC_EnableIRQ
+    414              HAL_NVIC_SetPriority(S2LP_SPI_DMA_RX_IRQn, 1, 0);
+   \       0x36   0x2200             MOVS     R2,#+0
+   \       0x38   0x2101             MOVS     R1,#+1
+   \       0x3A   0x200A             MOVS     R0,#+10
+   \       0x3C   0x....'....        BL       HAL_NVIC_SetPriority
+    415              HAL_NVIC_EnableIRQ(S2LP_SPI_DMA_RX_IRQn);
+   \       0x40   0x200A             MOVS     R0,#+10
+   \       0x42   0x....'....        BL       HAL_NVIC_EnableIRQ
+   \       0x46   0xE007             B        ??S2LPSpiRaw_2
+    416            }
+    417            else
+    418            {
+    419              waiting_irq=0;
+   \                     ??S2LPSpiRaw_1: (+1)
+   \       0x48   0x702C             STRB     R4,[R5, #+0]
+    420              HAL_NVIC_DisableIRQ(S2LP_SPI_DMA_RX_IRQn);
+   \       0x4A   0x200A             MOVS     R0,#+10
+   \       0x4C   0x....'....        BL       HAL_NVIC_DisableIRQ
+    421              HAL_NVIC_DisableIRQ(S2LP_SPI_DMA_TX_IRQn);
+   \       0x50   0x200A             MOVS     R0,#+10
+   \       0x52   0x....'....        BL       HAL_NVIC_DisableIRQ
+    422              SPI_ENTER_CRITICAL();
+   \       0x56   0xB672             CPSID    I
+    423            }
+    424          
+    425            SdkEvalSPICSLow();
+   \                     ??S2LPSpiRaw_2: (+1)
+   \       0x58   0x2200             MOVS     R2,#+0
+   \       0x5A   0x2102             MOVS     R1,#+2
+   \       0x5C   0x20A0             MOVS     R0,#+160
+   \       0x5E   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \       0x60   0x....'....        BL       HAL_GPIO_WritePin
+    426            for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+   \       0x64   0x9401             STR      R4,[SP, #+4]
+   \       0x66   0xE002             B        ??S2LPSpiRaw_3
+   \                     ??S2LPSpiRaw_4: (+1)
+   \       0x68   0x9801             LDR      R0,[SP, #+4]
+   \       0x6A   0x1C40             ADDS     R0,R0,#+1
+   \       0x6C   0x9001             STR      R0,[SP, #+4]
+   \                     ??S2LPSpiRaw_3: (+1)
+   \       0x6E   0x9801             LDR      R0,[SP, #+4]
+   \       0x70   0x2870             CMP      R0,#+112
+   \       0x72   0xD3F9             BCC      ??S2LPSpiRaw_4
+   \       0x74   0x0031             MOVS     R1,R6
+   \       0x76   0x003B             MOVS     R3,R7
+    427          
+    428            HAL_SPI_TransmitReceive_DMA(&SpiHandle, in_buffer, out_buffer_, n_bytes);
+   \       0x78   0x....             LDR      R6,??DataTable12_3
+   \       0x7A   0x9A02             LDR      R2,[SP, #+8]
+   \       0x7C   0x0030             MOVS     R0,R6
+   \       0x7E   0x....'....        BL       HAL_SPI_TransmitReceive_DMA
+    429          
+    430            if(!can_return_bef_tx)
+   \       0x82   0x4668             MOV      R0,SP
+   \       0x84   0x7800             LDRB     R0,[R0, #+0]
+   \       0x86   0x2800             CMP      R0,#+0
+   \       0x88   0xD142             BNE      ??S2LPSpiRaw_5
+    431            {
+    432              WAIT_FOR_SPI_TC();
+   \                     ??S2LPSpiRaw_6: (+1)
+   \       0x8A   0x....             LDR      R0,??DataTable12_4  ;; 0x40020000
+   \       0x8C   0x6800             LDR      R0,[R0, #+0]
+   \       0x8E   0x6CF1             LDR      R1,[R6, #+76]
+   \       0x90   0x6809             LDR      R1,[R1, #+0]
+   \       0x92   0x....             LDR      R2,??DataTable12_5  ;; 0x40020008
+   \       0x94   0x4291             CMP      R1,R2
+   \       0x96   0xD101             BNE      ??S2LPSpiRaw_7
+   \       0x98   0x2102             MOVS     R1,#+2
+   \       0x9A   0xE01D             B        ??S2LPSpiRaw_8
+   \                     ??S2LPSpiRaw_7: (+1)
+   \       0x9C   0x3214             ADDS     R2,R2,#+20
+   \       0x9E   0x4291             CMP      R1,R2
+   \       0xA0   0xD101             BNE      ??S2LPSpiRaw_9
+   \       0xA2   0x2120             MOVS     R1,#+32
+   \       0xA4   0xE018             B        ??S2LPSpiRaw_8
+   \                     ??S2LPSpiRaw_9: (+1)
+   \       0xA6   0x3214             ADDS     R2,R2,#+20
+   \       0xA8   0x4291             CMP      R1,R2
+   \       0xAA   0xD101             BNE      ??S2LPSpiRaw_10
+   \       0xAC   0x0D51             LSRS     R1,R2,#+21
+   \       0xAE   0xE013             B        ??S2LPSpiRaw_8
+   \                     ??S2LPSpiRaw_10: (+1)
+   \       0xB0   0x3214             ADDS     R2,R2,#+20
+   \       0xB2   0x4291             CMP      R1,R2
+   \       0xB4   0xD102             BNE      ??S2LPSpiRaw_11
+   \       0xB6   0x2180             MOVS     R1,#+128
+   \       0xB8   0x0189             LSLS     R1,R1,#+6        ;; #+8192
+   \       0xBA   0xE00D             B        ??S2LPSpiRaw_8
+   \                     ??S2LPSpiRaw_11: (+1)
+   \       0xBC   0x3214             ADDS     R2,R2,#+20
+   \       0xBE   0x4291             CMP      R1,R2
+   \       0xC0   0xD102             BNE      ??S2LPSpiRaw_12
+   \       0xC2   0x2180             MOVS     R1,#+128
+   \       0xC4   0x0289             LSLS     R1,R1,#+10       ;; #+131072
+   \       0xC6   0xE007             B        ??S2LPSpiRaw_8
+   \                     ??S2LPSpiRaw_12: (+1)
+   \       0xC8   0x3214             ADDS     R2,R2,#+20
+   \       0xCA   0x4291             CMP      R1,R2
+   \       0xCC   0xD102             BNE      ??S2LPSpiRaw_13
+   \       0xCE   0x2180             MOVS     R1,#+128
+   \       0xD0   0x0389             LSLS     R1,R1,#+14       ;; #+2097152
+   \       0xD2   0xE001             B        ??S2LPSpiRaw_8
+   \                     ??S2LPSpiRaw_13: (+1)
+   \       0xD4   0x2180             MOVS     R1,#+128
+   \       0xD6   0x0489             LSLS     R1,R1,#+18       ;; #+33554432
+   \                     ??S2LPSpiRaw_8: (+1)
+   \       0xD8   0x4001             ANDS     R1,R1,R0
+   \       0xDA   0xD0D6             BEQ      ??S2LPSpiRaw_6
+   \                     ??S2LPSpiRaw_14: (+1)
+   \       0xDC   0x6CF0             LDR      R0,[R6, #+76]
+   \       0xDE   0x....'....        BL       HAL_DMA_IRQHandler
+   \       0xE2   0x6CB0             LDR      R0,[R6, #+72]
+   \       0xE4   0x....'....        BL       HAL_DMA_IRQHandler
+   \       0xE8   0x0030             MOVS     R0,R6
+   \       0xEA   0x....'....        BL       HAL_SPI_GetState
+   \       0xEE   0x2801             CMP      R0,#+1
+   \       0xF0   0xD1F4             BNE      ??S2LPSpiRaw_14
+    433          
+    434              for(volatile uint32_t i=0;i<DELAY_CS_SCLK;i++);
+   \       0xF2   0x9400             STR      R4,[SP, #+0]
+   \       0xF4   0xE002             B        ??S2LPSpiRaw_15
+   \                     ??S2LPSpiRaw_16: (+1)
+   \       0xF6   0x9800             LDR      R0,[SP, #+0]
+   \       0xF8   0x1C40             ADDS     R0,R0,#+1
+   \       0xFA   0x9000             STR      R0,[SP, #+0]
+   \                     ??S2LPSpiRaw_15: (+1)
+   \       0xFC   0x9800             LDR      R0,[SP, #+0]
+   \       0xFE   0x2870             CMP      R0,#+112
+   \      0x100   0xD3F9             BCC      ??S2LPSpiRaw_16
+    435          
+    436              SdkEvalSPICSHigh();
+   \      0x102   0x2201             MOVS     R2,#+1
+   \      0x104   0x2102             MOVS     R1,#+2
+   \      0x106   0x20A0             MOVS     R0,#+160
+   \      0x108   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \      0x10A   0x....'....        BL       HAL_GPIO_WritePin
+    437              SPI_EXIT_CRITICAL();
+   \      0x10E   0xB662             CPSIE    I
+    438            }
+    439          
+    440            spi_in_use = 0;
+   \                     ??S2LPSpiRaw_5: (+1)
+   \      0x110   0x706C             STRB     R4,[R5, #+1]
+    441          }
+   \      0x112   0xBDF7             POP      {R0-R2,R4-R7,PC}  ;; return
+    442          
+
+   \                                 In section .text, align 2, keep-with-next
+    443          void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
+    444          {
+   \                     HAL_SPI_TxRxCpltCallback: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    445            if(waiting_irq)
+   \        0x2   0x....             LDR      R4,??DataTable12_2
+   \        0x4   0x7820             LDRB     R0,[R4, #+0]
+   \        0x6   0x2800             CMP      R0,#+0
+   \        0x8   0xD009             BEQ      ??HAL_SPI_TxRxCpltCallback_0
+    446            {
+    447              SdkEvalSPICSHigh();
+   \        0xA   0x2201             MOVS     R2,#+1
+   \        0xC   0x2102             MOVS     R1,#+2
+   \        0xE   0x20A0             MOVS     R0,#+160
+   \       0x10   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \       0x12   0x....'....        BL       HAL_GPIO_WritePin
+    448              waiting_irq=0;
+   \       0x16   0x2000             MOVS     R0,#+0
+   \       0x18   0x7020             STRB     R0,[R4, #+0]
+    449              SdkEvalSpiRawTC();
+   \       0x1A   0x....'....        BL       SdkEvalSpiRawTC
+    450            }
+    451          }
+   \                     ??HAL_SPI_TxRxCpltCallback_0: (+1)
+   \       0x1E   0xBD10             POP      {R4,PC}          ;; return
+    452          
+    453          #if defined(USE_STM32L0xx_NUCLEO) || defined(USE_STM32F0xx_NUCLEO)
+    454            void NUCLEO_SPI_DMA_TX_IRQHandler(void)
+    455            {
+    456              HAL_DMA_IRQHandler(SpiHandle.hdmatx);
+    457              HAL_DMA_IRQHandler(SpiHandle.hdmarx);
+    458            }
+    459          #else
+
+   \                                 In section .text, align 2, keep-with-next
+    460            void NUCLEO_SPI_DMA_TX_IRQHandler(void)
+    461            {
+   \                     NUCLEO_SPI_DMA_TX_IRQHandler: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    462              HAL_DMA_IRQHandler(SpiHandle.hdmatx);
+   \        0x2   0x....             LDR      R0,??DataTable12_3
+   \        0x4   0x6C80             LDR      R0,[R0, #+72]
+   \        0x6   0x....'....        BL       HAL_DMA_IRQHandler
+    463            }
+   \        0xA   0xBD01             POP      {R0,PC}          ;; return
+    464          
+
+   \                                 In section .text, align 2, keep-with-next
+    465            void NUCLEO_SPI_DMA_RX_IRQHandler(void)
+    466            {
+   \                     NUCLEO_SPI_DMA_RX_IRQHandler: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    467              HAL_DMA_IRQHandler(SpiHandle.hdmarx);
+   \        0x2   0x....             LDR      R0,??DataTable12_3
+   \        0x4   0x6CC0             LDR      R0,[R0, #+76]
+   \        0x6   0x....'....        BL       HAL_DMA_IRQHandler
+    468            }
+   \        0xA   0xBD01             POP      {R0,PC}          ;; return
+    469          #endif
+    470          
+
+   \                                 In section .text, align 2, keep-with-next
+    471          void S2LPSetSpiInUse(uint8_t state)
+    472          {
+    473            spi_in_use = state;
+   \                     S2LPSetSpiInUse: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable12_2
+   \        0x2   0x7048             STRB     R0,[R1, #+1]
+    474          }
+   \        0x4   0x4770             BX       LR               ;; return
+    475          
+
+   \                                 In section .text, align 2, keep-with-next
+    476          uint8_t S2LPGetSpiInUse()
+    477          {
+    478            return spi_in_use;
+   \                     S2LPGetSpiInUse: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable12_2
+   \        0x2   0x7840             LDRB     R0,[R0, #+1]
+   \        0x4   0x4770             BX       LR               ;; return
+    479          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \        0x0   0x4002'102C        DC32     0x4002102c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \        0x0   0x5000'0400        DC32     0x50000400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_1:
+   \        0x0   0x....'....        DC32     SpiHandle
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_2:
+   \        0x0   0x4001'3000        DC32     0x40013000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_3:
+   \        0x0   0x....'....        DC32     hdma_tx
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_4:
+   \        0x0   0x4002'001C        DC32     0x4002001c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5:
+   \        0x0   0x....'....        DC32     tx_buff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6:
+   \        0x0   0x....'....        DC32     rx_buff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_1:
+   \        0x0   0x4002'0000        DC32     0x40020000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_2:
+   \        0x0   0x4002'0008        DC32     0x40020008
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_3:
+   \        0x0   0x....'....        DC32     SpiHandle
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12:
+   \        0x0   0x....'....        DC32     tx_buff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_1:
+   \        0x0   0x....'....        DC32     rx_buff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_2:
+   \        0x0   0x....'....        DC32     waiting_irq
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_3:
+   \        0x0   0x....'....        DC32     SpiHandle
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_4:
+   \        0x0   0x4002'0000        DC32     0x40020000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_5:
+   \        0x0   0x4002'0008        DC32     0x40020008
+    480          
+    481          /**
+    482           * @}
+    483           */
+    484          
+    485          /**
+    486           * @}
+    487           */
+    488          
+    489          /******************* (C) COPYRIGHT 2020 STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   HAL_SPI_TxRxCpltCallback
+         8   -> HAL_GPIO_WritePin
+         8   -> SdkEvalSpiRawTC
+       8   NUCLEO_SPI_DMA_RX_IRQHandler
+         8   -> HAL_DMA_IRQHandler
+       8   NUCLEO_SPI_DMA_TX_IRQHandler
+         8   -> HAL_DMA_IRQHandler
+       0   S2LPGetSpiInUse
+       0   S2LPSetSpiInUse
+      32   S2LPSpiCommandStrobes
+        32   -> HAL_DMA_IRQHandler
+        32   -> HAL_GPIO_WritePin
+        32   -> HAL_SPI_GetState
+        32   -> HAL_SPI_TransmitReceive_DMA
+      48   S2LPSpiInit
+        48   -> HAL_DMA_Init
+        48   -> HAL_GPIO_Init
+        48   -> HAL_GPIO_WritePin
+        48   -> HAL_SPI_GetState
+        48   -> HAL_SPI_Init
+        48   -> S2LPGetSPIPrescaler
+      32   S2LPSpiRaw
+        32   -> HAL_DMA_IRQHandler
+        32   -> HAL_GPIO_WritePin
+        32   -> HAL_NVIC_DisableIRQ
+        32   -> HAL_NVIC_EnableIRQ
+        32   -> HAL_NVIC_SetPriority
+        32   -> HAL_SPI_GetState
+        32   -> HAL_SPI_TransmitReceive_DMA
+      32   S2LPSpiReadFifo
+        32   -> HAL_DMA_IRQHandler
+        32   -> HAL_GPIO_WritePin
+        32   -> HAL_SPI_GetState
+        32   -> HAL_SPI_TransmitReceive_DMA
+      32   S2LPSpiReadRegisters
+        32   -> HAL_DMA_IRQHandler
+        32   -> HAL_GPIO_WritePin
+        32   -> HAL_SPI_GetState
+        32   -> HAL_SPI_TransmitReceive_DMA
+      32   S2LPSpiWriteFifo
+        32   -> HAL_DMA_IRQHandler
+        32   -> HAL_GPIO_WritePin
+        32   -> HAL_SPI_GetState
+        32   -> HAL_SPI_TransmitReceive_DMA
+      32   S2LPSpiWriteRegisters
+        32   -> HAL_DMA_IRQHandler
+        32   -> HAL_GPIO_WritePin
+        32   -> HAL_SPI_GetState
+        32   -> HAL_SPI_TransmitReceive_DMA
+      40   SdkEvalSpiDeinit
+        40   -> HAL_GPIO_Init
+        40   -> HAL_SPI_DeInit
+        40   -> HAL_SPI_GetState
+        40   -> S2LPGetSPIPrescaler
+       0   SdkEvalSpiRawTC
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable12
+       4  ??DataTable12_1
+       4  ??DataTable12_2
+       4  ??DataTable12_3
+       4  ??DataTable12_4
+       4  ??DataTable12_5
+       4  ??DataTable3
+       4  ??DataTable4
+       4  ??DataTable4_1
+       4  ??DataTable4_2
+       4  ??DataTable4_3
+       4  ??DataTable4_4
+       4  ??DataTable5
+       4  ??DataTable6
+       4  ??DataTable6_1
+       4  ??DataTable6_2
+       4  ??DataTable6_3
+       8  ??Subroutine2_0
+     228  ?Subroutine0
+     194  ?Subroutine1
+      32  HAL_SPI_TxRxCpltCallback
+      12  NUCLEO_SPI_DMA_RX_IRQHandler
+      12  NUCLEO_SPI_DMA_TX_IRQHandler
+       6  S2LPGetSpiInUse
+       6  S2LPSetSpiInUse
+     202  S2LPSpiCommandStrobes
+     324  S2LPSpiInit
+     276  S2LPSpiRaw
+      16  S2LPSpiReadFifo
+      16  S2LPSpiReadRegisters
+      32  S2LPSpiWriteFifo
+      32  S2LPSpiWriteRegisters
+     212  SdkEvalSpiDeinit
+       2  SdkEvalSpiRawTC
+      88  SpiHandle
+     144  hdma_tx
+          hdma_rx
+     132  rx_buff
+     132  tx_buff
+       2  waiting_irq
+          spi_in_use
+
+ 
+   498 bytes in section .bss
+ 1'678 bytes in section .text
+ 
+ 1'676 bytes of CODE memory (+ 2 bytes shared)
+   498 bytes of DATA memory
+
+Errors: none
+Warnings: none

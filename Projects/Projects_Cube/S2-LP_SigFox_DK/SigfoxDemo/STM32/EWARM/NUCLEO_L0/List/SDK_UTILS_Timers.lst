@@ -1,0 +1,948 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  11:53:17
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                    
+#    Endian                   =  little
+#    Source file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\Utils\STM32\src\SDK_UTILS_Timers.c
+#    Command line             =
+#        -f C:\Users\dvone\AppData\Local\Temp\EW9DC.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\Utils\STM32\src\SDK_UTILS_Timers.c
+#        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
+#        STM32L053xx -lC
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List
+#        -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+#        --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.4\arm\inc\c\DLib_Config_Normal.h" -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\BSP\SDK_Eval_STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\CMSIS\STM32L0xx\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\S2LP_Middleware\STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\Utils\STM32\inc\\
+#        -Ohz --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.4\arm\CMSIS\Core\Include\\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.4\arm\CMSIS\DSP\Include\\")
+#    Locale                   =  C
+#    List file                =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\SDK_UTILS_Timers.lst
+#    Object file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\SDK_UTILS_Timers.o
+#    Runtime model:              
+#      __SystemLibrary        =  DLib
+#      __dlib_file_descriptor =  0
+#      __dlib_version         =  6
+#
+###############################################################################
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\Utils\STM32\src\SDK_UTILS_Timers.c
+      1          /**
+      2          * @file    SDK_UTILS_Timers.c
+      3          * @author  LowPower RF BU - AMG
+      4          * @version 4.1.0
+      5          * @date    September, 2019
+      6          * @brief   SDK UTILS timers configuration.
+      7          * @details
+      8          *
+      9          * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+     10          * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+     11          * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+     12          * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+     13          * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+     14          * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+     15          *
+     16          * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
+     17          * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
+     18          * IN THE ROOT DIRECTORY OF THIS FIRMWARE PACKAGE.
+     19          *
+     20          * <h2><center>&copy; COPYRIGHT 2019 STMicroelectronics</center></h2>
+     21          */
+     22          
+     23          
+     24          /* Includes ------------------------------------------------------------------*/
+     25          #include "SDK_UTILS_Timers.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void __NVIC_SetPriority(IRQn_Type, uint32_t)
+   \                     __NVIC_SetPriority: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0x00C2             LSLS     R2,R0,#+3
+   \        0x4   0x2318             MOVS     R3,#+24
+   \        0x6   0x4013             ANDS     R3,R3,R2
+   \        0x8   0x24FF             MOVS     R4,#+255
+   \        0xA   0x409C             LSLS     R4,R4,R3
+   \        0xC   0x43E2             MVNS     R2,R4
+   \        0xE   0x0789             LSLS     R1,R1,#+30
+   \       0x10   0x0E09             LSRS     R1,R1,#+24
+   \       0x12   0x4099             LSLS     R1,R1,R3
+   \       0x14   0x0003             MOVS     R3,R0
+   \       0x16   0xD404             BMI      ??__NVIC_SetPriority_0
+   \       0x18   0x....             LDR      R0,??DataTable11  ;; 0xe000e400
+   \       0x1A   0x089B             LSRS     R3,R3,#+2
+   \       0x1C   0x009B             LSLS     R3,R3,#+2
+   \       0x1E   0x18C0             ADDS     R0,R0,R3
+   \       0x20   0xE006             B        ??__NVIC_SetPriority_1
+   \                     ??__NVIC_SetPriority_0: (+1)
+   \       0x22   0x....             LDR      R3,??DataTable11_1  ;; 0xe000ed1c
+   \       0x24   0x0700             LSLS     R0,R0,#+28
+   \       0x26   0x0F00             LSRS     R0,R0,#+28
+   \       0x28   0x3808             SUBS     R0,R0,#+8
+   \       0x2A   0x0880             LSRS     R0,R0,#+2
+   \       0x2C   0x0080             LSLS     R0,R0,#+2
+   \       0x2E   0x1818             ADDS     R0,R3,R0
+   \                     ??__NVIC_SetPriority_1: (+1)
+   \       0x30   0x6803             LDR      R3,[R0, #+0]
+   \       0x32   0x401A             ANDS     R2,R2,R3
+   \       0x34   0x4311             ORRS     R1,R1,R2
+   \       0x36   0x6001             STR      R1,[R0, #+0]
+   \       0x38   0xBD10             POP      {R4,PC}          ;; return
+     26          
+     27          /**
+     28          * @addtogroup SDK_EVAL_NUCLEO
+     29          * @{
+     30          */
+     31          
+     32          /**
+     33          * @addtogroup SDK_EVAL_Timers
+     34          * @{
+     35          */
+     36          
+     37          
+     38          /**
+     39          * @defgroup SDK_EVAL_Timers_Private_TypesDefinitions           SDK EVAL Timers Private Types Definitions
+     40          * @{
+     41          */
+     42          
+     43          /**
+     44          *@}
+     45          */
+     46          
+     47          
+     48          /**
+     49          * @defgroup SDK_EVAL_Timers_Private_Defines                    SDK EVAL Timers Private Defines
+     50          * @{
+     51          */
+     52          
+     53          /**
+     54          * @brief  Absolute value macro.
+     55          * @param  x: Value on which apply the abs function.
+     56          * @retval None
+     57          */
+     58          #define ABS(x)  (x>0?x:-x)
+     59          
+     60          /**
+     61          *@}
+     62          */
+     63          
+     64          
+     65          /**
+     66          * @defgroup SDK_EVAL_Timers_Private_Macros                     SDK EVAL Timers Private Macros
+     67          * @{
+     68          */
+     69          
+     70          
+     71          /**
+     72          *@}
+     73          */
+     74          
+     75          /**
+     76          * @defgroup SDK_EVAL_Timers_Private_Variables                  SDK EVAL Timers Private Variables
+     77          * @{
+     78          */
+
+   \                                 In section .bss, align 4
+     79          volatile uint32_t lSystickCounter = 0;
+     80          volatile uint8_t xApplTimerIRQRaised = 0;
+     81          static TIMER_InfoType TimerAppliInfo;
+   \                     TimerAppliInfo:
+   \        0x0                      DS8 12
+   \                     lSystickCounter:
+   \        0xC                      DS8 4
+
+   \                                 In section .bss, align 1
+   \                     xApplTimerIRQRaised:
+   \        0x0                      DS8 1
+     82          
+     83          /**
+     84          *@}
+     85          */
+     86          
+     87          /**
+     88          * @defgroup SDK_EVAL_Timers_Private_FunctionPrototypes         SDK EVAL Timers Private Function Prototypes
+     89          * @{
+     90          */
+     91          
+     92          /**
+     93          *@}
+     94          */
+     95          
+     96          
+     97          /**
+     98          * @defgroup SDK_EVAL_Timers_Private_Functions                  SDK EVAL Timers Private Functions
+     99          * @{
+    100          */
+
+   \                                 In section .text, align 2, keep-with-next
+    101          static void appliTimerCallback(uint32_t time)
+    102          {
+    103            xApplTimerIRQRaised=1;
+   \                     appliTimerCallback: (+1)
+   \        0x0   0x2001             MOVS     R0,#+1
+   \        0x2   0x....             LDR      R1,??DataTable11_2
+   \        0x4   0x7008             STRB     R0,[R1, #+0]
+    104          }
+   \        0x6   0x4770             BX       LR               ;; return
+    105          
+    106          /**
+    107          * @brief  Computes two integer value prescaler and period such that Cycles = prescaler * period.
+    108          * @param  lCycles the specified cycles for the desired timer value.
+    109          * @param  pnPrescaler prescaler factor.
+    110          * @param  pnCounter period factor.
+    111          * @retval None.
+    112          */
+
+   \                                 In section .text, align 2, keep-with-next
+    113          void SdkEvalTimersFindFactors(uint32_t lCycles, uint16_t *pnPrescaler, uint16_t *pnCounter)
+    114          {
+   \                     SdkEvalTimersFindFactors: (+1)
+   \        0x0   0xB5FC             PUSH     {R2-R7,LR}
+   \        0x2   0x0007             MOVS     R7,R0
+   \        0x4   0x000E             MOVS     R6,R1
+   \        0x6   0x0014             MOVS     R4,R2
+    115            uint16_t b0;
+    116            uint16_t a0;
+    117            long err, err_min=lCycles;
+   \        0x8   0x9700             STR      R7,[SP, #+0]
+    118          
+    119            *pnPrescaler = a0 = ((lCycles-1)/0xffff) + 1;
+   \        0xA   0x1E78             SUBS     R0,R7,#+1
+   \        0xC   0x....             LDR      R1,??DataTable11_3  ;; 0xffff
+   \        0xE   0x....'....        BL       __aeabi_uidiv
+   \       0x12   0x1C45             ADDS     R5,R0,#+1
+    120            *pnCounter = b0 = lCycles / *pnPrescaler;
+   \       0x14   0x0038             MOVS     R0,R7
+   \       0x16   0xB2A9             UXTH     R1,R5
+   \       0x18   0x....'....        BL       __aeabi_uidiv
+   \       0x1C   0x8035             STRH     R5,[R6, #+0]
+   \       0x1E   0x8020             STRH     R0,[R4, #+0]
+   \       0x20   0x9701             STR      R7,[SP, #+4]
+   \       0x22   0x0007             MOVS     R7,R0
+   \       0x24   0xE001             B        ??SdkEvalTimersFindFactors_0
+    121          
+    122            for (; *pnPrescaler < 0xffff-1; (*pnPrescaler)++) {
+   \                     ??SdkEvalTimersFindFactors_1: (+1)
+   \       0x26   0x1C49             ADDS     R1,R1,#+1
+   \       0x28   0x8031             STRH     R1,[R6, #+0]
+   \                     ??SdkEvalTimersFindFactors_0: (+1)
+   \       0x2A   0x8831             LDRH     R1,[R6, #+0]
+   \       0x2C   0x....             LDR      R2,??DataTable11_4  ;; 0xfffe
+   \       0x2E   0x4291             CMP      R1,R2
+   \       0x30   0xDA26             BGE      ??SdkEvalTimersFindFactors_2
+    123              *pnCounter = lCycles / *pnPrescaler;
+   \       0x32   0x9801             LDR      R0,[SP, #+4]
+   \       0x34   0x....'....        BL       __aeabi_uidiv
+   \       0x38   0x8020             STRH     R0,[R4, #+0]
+    124              err = (long)*pnPrescaler * (long)*pnCounter - (long)lCycles;
+   \       0x3A   0x8831             LDRH     R1,[R6, #+0]
+   \       0x3C   0x8820             LDRH     R0,[R4, #+0]
+   \       0x3E   0x000A             MOVS     R2,R1
+   \       0x40   0x0003             MOVS     R3,R0
+   \       0x42   0x435A             MULS     R2,R3,R2
+   \       0x44   0x9B01             LDR      R3,[SP, #+4]
+   \       0x46   0x1AD2             SUBS     R2,R2,R3
+    125              if (ABS(err) > (*pnPrescaler / 2)) {
+   \       0x48   0x0013             MOVS     R3,R2
+   \       0x4A   0xD500             BPL      ??SdkEvalTimersFindFactors_3
+   \       0x4C   0x425B             RSBS     R3,R3,#+0
+   \                     ??SdkEvalTimersFindFactors_3: (+1)
+   \       0x4E   0x0849             LSRS     R1,R1,#+1
+   \       0x50   0x4299             CMP      R1,R3
+   \       0x52   0xDA06             BGE      ??SdkEvalTimersFindFactors_4
+    126                (*pnCounter)++;
+   \       0x54   0x1C40             ADDS     R0,R0,#+1
+   \       0x56   0x8020             STRH     R0,[R4, #+0]
+    127                err = (long)*pnPrescaler * (long)*pnCounter - (long)lCycles;
+   \       0x58   0x8831             LDRH     R1,[R6, #+0]
+   \       0x5A   0xB280             UXTH     R0,R0
+   \       0x5C   0x4341             MULS     R1,R0,R1
+   \       0x5E   0x9801             LDR      R0,[SP, #+4]
+   \       0x60   0x1A0A             SUBS     R2,R1,R0
+    128              }
+    129              if (ABS(err) < ABS(err_min)) {
+   \                     ??SdkEvalTimersFindFactors_4: (+1)
+   \       0x62   0x0010             MOVS     R0,R2
+   \       0x64   0xD500             BPL      ??SdkEvalTimersFindFactors_5
+   \       0x66   0x4240             RSBS     R0,R0,#+0
+   \                     ??SdkEvalTimersFindFactors_5: (+1)
+   \       0x68   0x9B00             LDR      R3,[SP, #+0]
+   \       0x6A   0x2B00             CMP      R3,#+0
+   \       0x6C   0xD500             BPL      ??SdkEvalTimersFindFactors_6
+   \       0x6E   0x425B             RSBS     R3,R3,#+0
+   \                     ??SdkEvalTimersFindFactors_6: (+1)
+   \       0x70   0x8831             LDRH     R1,[R6, #+0]
+   \       0x72   0x4298             CMP      R0,R3
+   \       0x74   0xDAD7             BGE      ??SdkEvalTimersFindFactors_1
+    130                err_min = err;
+   \       0x76   0x9200             STR      R2,[SP, #+0]
+    131                a0 = *pnPrescaler;
+   \       0x78   0x000D             MOVS     R5,R1
+    132                b0 = *pnCounter;
+   \       0x7A   0x8827             LDRH     R7,[R4, #+0]
+    133                if (err == 0) break;
+   \       0x7C   0x2A00             CMP      R2,#+0
+   \       0x7E   0xD1D2             BNE      ??SdkEvalTimersFindFactors_1
+    134              }
+    135            }
+    136          
+    137            *pnPrescaler = a0;
+   \                     ??SdkEvalTimersFindFactors_2: (+1)
+   \       0x80   0x8035             STRH     R5,[R6, #+0]
+    138            *pnCounter = b0;
+   \       0x82   0x8027             STRH     R7,[R4, #+0]
+    139          }
+   \       0x84   0xBDF3             POP      {R0,R1,R4-R7,PC}  ;; return
+    140          
+    141          /**
+    142           * @brief  Enables or Disables a specific Timer with its IRQ.
+    143           * @param  timerID: timer to be set.
+    144           *          This parameter can be a pointer to @ref TIM_TypeDef
+    145           * @param  enable: specifies if a timer has to be enabled or disabled.
+    146           *
+    147           * @retval The timeout value
+    148           */
+
+   \                                 In section .text, align 2, keep-with-next
+    149          uint32_t SdkEvalTimersState(TimerID_Type timerID, TIM_HandleTypeDef *tim, uint8_t enable)
+    150          {
+   \                     SdkEvalTimersState: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0x0003             MOVS     R3,R0
+   \        0x4   0x0008             MOVS     R0,R1
+    151            uint32_t nRet = 0;
+   \        0x6   0x2100             MOVS     R1,#+0
+   \        0x8   0x2400             MOVS     R4,#+0
+    152          
+    153            switch(timerID)
+   \        0xA   0x2B01             CMP      R3,#+1
+   \        0xC   0xD002             BEQ      ??SdkEvalTimersState_0
+   \        0xE   0x2B02             CMP      R3,#+2
+   \       0x10   0xD00E             BEQ      ??SdkEvalTimersState_1
+   \       0x12   0xE00B             B        ??SdkEvalTimersState_2
+    154            {
+    155            case APPL_TIMER_ID:
+    156              {
+    157          	if (enable) {
+   \                     ??SdkEvalTimersState_0: (+1)
+   \       0x14   0x....             LDR      R0,??DataTable11_5
+   \       0x16   0x2A00             CMP      R2,#+0
+   \       0x18   0xD007             BEQ      ??SdkEvalTimersState_3
+    158          	  TimerAppliInfo.enabled = 0;
+   \       0x1A   0x7281             STRB     R1,[R0, #+10]
+    159          	  TimerAppliInfo.timeout = SdkGetCurrentSysTick() + TimerAppliInfo.delay;
+   \       0x1C   0x68C1             LDR      R1,[R0, #+12]
+   \       0x1E   0x8902             LDRH     R2,[R0, #+8]
+   \       0x20   0x188C             ADDS     R4,R1,R2
+   \       0x22   0x6044             STR      R4,[R0, #+4]
+    160          	  nRet = TimerAppliInfo.timeout;
+    161          	  TimerAppliInfo.callback = appliTimerCallback;
+   \       0x24   0x....             LDR      R1,??DataTable11_6
+   \       0x26   0x6001             STR      R1,[R0, #+0]
+    162          	  TimerAppliInfo.enabled = 1;
+   \       0x28   0x2101             MOVS     R1,#+1
+   \                     ??SdkEvalTimersState_3: (+1)
+   \       0x2A   0x7281             STRB     R1,[R0, #+10]
+    163          	}
+    164          	else {
+    165          	  TimerAppliInfo.enabled = 0;
+    166          	}
+    167          
+    168          	break;
+    169              }
+    170            case GP_TIMER_ID:
+    171              {
+    172          	((uint8_t)enable)?(HAL_TIM_Base_Start_IT(tim)):(HAL_TIM_Base_Stop_IT(tim));
+    173          	break;
+    174              }
+    175            }
+    176          
+    177            return nRet;
+   \                     ??SdkEvalTimersState_2: (+1)
+   \       0x2C   0x0020             MOVS     R0,R4
+   \       0x2E   0xBD10             POP      {R4,PC}          ;; return
+   \                     ??SdkEvalTimersState_1: (+1)
+   \       0x30   0x2A00             CMP      R2,#+0
+   \       0x32   0xD002             BEQ      ??SdkEvalTimersState_4
+   \       0x34   0x....'....        BL       HAL_TIM_Base_Start_IT
+   \       0x38   0xE7F8             B        ??SdkEvalTimersState_2
+   \                     ??SdkEvalTimersState_4: (+1)
+   \       0x3A   0x....'....        BL       HAL_TIM_Base_Stop_IT
+   \       0x3E   0xE7F5             B        ??SdkEvalTimersState_2
+    178          }
+    179          
+    180          /**
+    181          * @brief  Configures the specified timer to raise an interrupt every time the counter
+    182          *         reaches the nPeriod value counting with a prescaler of nPrescaler.
+    183          * @note   The specified timer is configured but not enabled.
+    184          * @param  TIM_TimeBaseStructure Timer Handler of the timer to be set.
+    185          *          This parameter can be a pointer to @ref TIM_HandleTypeDef .
+    186          * @param  nPrescaler prescaler factor.
+    187          * @param  nPeriod period factor.
+    188          * @retval None.
+    189          */
+
+   \                                 In section .text, align 2, keep-with-next
+    190          void SdkEvalTimersTimConfig(TIM_HandleTypeDef* TIM_TimeBaseStructure, uint16_t nPrescaler, uint16_t nPeriod)
+    191          {
+   \                     SdkEvalTimersTimConfig: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x0005             MOVS     R5,R0
+    192            TIM_TypeDef *xTim=TIM_TimeBaseStructure->Instance;
+   \        0x4   0x6828             LDR      R0,[R5, #+0]
+   \        0x6   0x0006             MOVS     R6,R0
+    193          
+    194            /* disable the timer */
+    195            __HAL_TIM_DISABLE(TIM_TimeBaseStructure);
+   \        0x8   0x2401             MOVS     R4,#+1
+   \        0xA   0x43E4             MVNS     R4,R4            ;; #-2
+   \        0xC   0x6A03             LDR      R3,[R0, #+32]
+   \        0xE   0x....             LDR      R7,??DataTable11_7  ;; 0x1111
+   \       0x10   0x401F             ANDS     R7,R7,R3
+   \       0x12   0xD102             BNE      ??SdkEvalTimersTimConfig_0
+   \       0x14   0x6803             LDR      R3,[R0, #+0]
+   \       0x16   0x4023             ANDS     R3,R3,R4
+   \       0x18   0x6003             STR      R3,[R0, #+0]
+    196          
+    197            /* Configure the timer in update mode */
+    198            __HAL_TIM_DISABLE_IT(TIM_TimeBaseStructure, TIM_IT_UPDATE);
+   \                     ??SdkEvalTimersTimConfig_0: (+1)
+   \       0x1A   0x68C3             LDR      R3,[R0, #+12]
+   \       0x1C   0x4023             ANDS     R3,R3,R4
+   \       0x1E   0x60C3             STR      R3,[R0, #+12]
+    199          
+    200            /* put the timer clock on */
+    201            if(xTim == TIM2) {
+   \       0x20   0x....             LDR      R0,??DataTable11_8  ;; 0x40021034
+   \       0x22   0x2380             MOVS     R3,#+128
+   \       0x24   0x05DB             LSLS     R3,R3,#+23       ;; #+1073741824
+   \       0x26   0x429E             CMP      R6,R3
+   \       0x28   0xD102             BNE      ??SdkEvalTimersTimConfig_1
+    202              __HAL_RCC_TIM2_CLK_ENABLE();
+   \       0x2A   0x6843             LDR      R3,[R0, #+4]
+   \       0x2C   0x2701             MOVS     R7,#+1
+   \       0x2E   0xE00C             B        ??SdkEvalTimersTimConfig_2
+    203            }
+    204            else if(xTim==TIM3) {
+    205              __HAL_RCC_TIM3_CLK_ENABLE();
+    206            }
+    207            else if(xTim==TIM4) {
+   \                     ??SdkEvalTimersTimConfig_1: (+1)
+   \       0x30   0x....             LDR      R3,??DataTable11_9  ;; 0x40010800
+   \       0x32   0x429E             CMP      R6,R3
+   \       0x34   0xD104             BNE      ??SdkEvalTimersTimConfig_3
+    208              __HAL_RCC_TIM4_CLK_ENABLE();
+   \       0x36   0x6803             LDR      R3,[R0, #+0]
+   \       0x38   0x2704             MOVS     R7,#+4
+   \       0x3A   0x431F             ORRS     R7,R7,R3
+   \       0x3C   0x6007             STR      R7,[R0, #+0]
+   \       0x3E   0xE006             B        ??SdkEvalTimersTimConfig_4
+    209            }
+    210            else if(xTim==TIM6) {
+   \                     ??SdkEvalTimersTimConfig_3: (+1)
+   \       0x40   0x....             LDR      R3,??DataTable11_10  ;; 0x40001000
+   \       0x42   0x429E             CMP      R6,R3
+   \       0x44   0xD103             BNE      ??SdkEvalTimersTimConfig_4
+    211              __HAL_RCC_TIM6_CLK_ENABLE();
+   \       0x46   0x6843             LDR      R3,[R0, #+4]
+   \       0x48   0x2710             MOVS     R7,#+16
+   \                     ??SdkEvalTimersTimConfig_2: (+1)
+   \       0x4A   0x431F             ORRS     R7,R7,R3
+   \       0x4C   0x6047             STR      R7,[R0, #+4]
+    212            }
+    213            else if(xTim==TIM7) {
+    214              __HAL_RCC_TIM7_CLK_ENABLE();
+    215            }
+    216          
+    217            /* Time base configuration */
+    218            TIM_TimeBaseStructure->Init.Prescaler         = nPrescaler;
+   \                     ??SdkEvalTimersTimConfig_4: (+1)
+   \       0x4E   0x6069             STR      R1,[R5, #+4]
+    219            TIM_TimeBaseStructure->Init.Period            = nPeriod;
+   \       0x50   0x60EA             STR      R2,[R5, #+12]
+    220            TIM_TimeBaseStructure->Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
+   \       0x52   0x2000             MOVS     R0,#+0
+   \       0x54   0x6128             STR      R0,[R5, #+16]
+    221            TIM_TimeBaseStructure->Init.CounterMode       = TIM_COUNTERMODE_UP;
+   \       0x56   0x60A8             STR      R0,[R5, #+8]
+    222          
+    223            /* Init the time base structure */
+    224            HAL_TIM_Base_Init(TIM_TimeBaseStructure);
+   \       0x58   0x0028             MOVS     R0,R5
+   \       0x5A   0x....'....        BL       HAL_TIM_Base_Init
+    225          
+    226          
+    227            /* NVIC configuration */
+    228            if(xTim == TIM2) {
+   \       0x5E   0x2080             MOVS     R0,#+128
+   \       0x60   0x05C0             LSLS     R0,R0,#+23       ;; #+1073741824
+   \       0x62   0x4286             CMP      R6,R0
+   \       0x64   0xD009             BEQ      ??SdkEvalTimersTimConfig_5
+    229              HAL_NVIC_SetPriority(TIM2_IRQn, NUCLEO_TIMx_PRIORITY, 0);
+    230              HAL_NVIC_EnableIRQ(TIM2_IRQn);
+    231            }
+    232            else if(xTim == TIM3) {
+    233              HAL_NVIC_SetPriority(TIM3_IRQn, NUCLEO_TIMx_PRIORITY, 0);
+    234              HAL_NVIC_EnableIRQ(TIM3_IRQn);
+    235            }
+    236            else if(xTim == TIM4) {
+   \       0x66   0x....             LDR      R0,??DataTable11_9  ;; 0x40010800
+   \       0x68   0x4286             CMP      R6,R0
+   \       0x6A   0xD10D             BNE      ??SdkEvalTimersTimConfig_6
+    237              HAL_NVIC_SetPriority(TIM4_IRQn, NUCLEO_TIMx_PRIORITY, 0);
+   \       0x6C   0x2200             MOVS     R2,#+0
+   \       0x6E   0x2101             MOVS     R1,#+1
+   \       0x70   0x2014             MOVS     R0,#+20
+   \       0x72   0x....'....        BL       HAL_NVIC_SetPriority
+    238              HAL_NVIC_EnableIRQ(TIM4_IRQn);
+   \       0x76   0x2014             MOVS     R0,#+20
+   \       0x78   0xE00F             B        ??SdkEvalTimersTimConfig_7
+    239            }
+   \                     ??SdkEvalTimersTimConfig_5: (+1)
+   \       0x7A   0x2200             MOVS     R2,#+0
+   \       0x7C   0x2101             MOVS     R1,#+1
+   \       0x7E   0x200F             MOVS     R0,#+15
+   \       0x80   0x....'....        BL       HAL_NVIC_SetPriority
+   \       0x84   0x200F             MOVS     R0,#+15
+   \       0x86   0xE008             B        ??SdkEvalTimersTimConfig_7
+    240            else if(xTim == TIM6) {
+   \                     ??SdkEvalTimersTimConfig_6: (+1)
+   \       0x88   0x....             LDR      R0,??DataTable11_10  ;; 0x40001000
+   \       0x8A   0x4286             CMP      R6,R0
+   \       0x8C   0xD107             BNE      ??SdkEvalTimersTimConfig_8
+    241              HAL_NVIC_SetPriority(TIM6_IRQn, NUCLEO_TIMx_PRIORITY, 0);
+    242              HAL_NVIC_EnableIRQ(TIM6_IRQn);
+    243            }
+    244            else if(xTim == TIM7) {
+    245              HAL_NVIC_SetPriority(TIM7_IRQn, NUCLEO_TIMx_PRIORITY, 0);
+   \       0x8E   0x2200             MOVS     R2,#+0
+   \       0x90   0x2101             MOVS     R1,#+1
+   \       0x92   0x2011             MOVS     R0,#+17
+   \       0x94   0x....'....        BL       HAL_NVIC_SetPriority
+    246              HAL_NVIC_EnableIRQ(TIM7_IRQn);
+   \       0x98   0x2011             MOVS     R0,#+17
+   \                     ??SdkEvalTimersTimConfig_7: (+1)
+   \       0x9A   0x....'....        BL       HAL_NVIC_EnableIRQ
+    247            }
+    248          
+    249            /* Clear the timer pending bit */
+    250            __HAL_TIM_CLEAR_FLAG(TIM_TimeBaseStructure, TIM_FLAG_UPDATE);
+   \                     ??SdkEvalTimersTimConfig_8: (+1)
+   \       0x9E   0x6828             LDR      R0,[R5, #+0]
+   \       0xA0   0x6104             STR      R4,[R0, #+16]
+    251          }
+   \       0xA2   0xBDF1             POP      {R0,R4-R7,PC}    ;; return
+    252          
+    253          /**
+    254           * @brief  Resets the counter of a specific timer.
+    255           * @param  timerID: timer to be reset.
+    256           *          This parameter can be a pointer to @ref TimerID_Type
+    257           * @retval None
+    258           */
+
+   \                                 In section .text, align 2, keep-with-next
+    259          void SdkEvalTimersResetCounter(TimerID_Type timerID) { }
+   \                     SdkEvalTimersResetCounter: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    260          
+
+   \                                 In section .text, align 2, keep-with-next
+    261          void SdkEvalTimerTimestampReset(void)
+    262          {
+    263            lSystickCounter = 0;
+   \                     SdkEvalTimerTimestampReset: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x....             LDR      R1,??DataTable11_5
+   \        0x4   0x60C8             STR      R0,[R1, #+12]
+    264            SysTick->VAL = 0;
+   \        0x6   0x....             LDR      R1,??DataTable11_11  ;; 0xe000e018
+   \        0x8   0x6008             STR      R0,[R1, #+0]
+    265          }
+   \        0xA   0x4770             BX       LR               ;; return
+    266          
+
+   \                                 In section .text, align 2, keep-with-next
+    267          void SdkEvalTimersTimConfig_ms(TimerID_Type timerID, uint16_t ms)
+    268          {
+    269            TimerAppliInfo.enabled = 0;
+   \                     SdkEvalTimersTimConfig_ms: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable11_5
+   \        0x2   0x2200             MOVS     R2,#+0
+   \        0x4   0x7282             STRB     R2,[R0, #+10]
+    270            TimerAppliInfo.delay = ms;
+   \        0x6   0x8101             STRH     R1,[R0, #+8]
+    271          }
+   \        0x8   0x4770             BX       LR               ;; return
+    272          
+
+   \                                 In section .text, align 2, keep-with-next
+    273          void SdkEvalUpdateTimerValue(void) { }
+   \                     SdkEvalUpdateTimerValue: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    274          
+
+   \                                 In section .text, align 2, keep-with-next
+    275          uint32_t SdkEvalGetTimerValue(void)
+    276          {
+   \                     SdkEvalGetTimerValue: (+1)
+   \        0x0   0xB5F0             PUSH     {R4-R7,LR}
+    277            SysTick->CTRL;
+   \        0x2   0x....             LDR      R4,??DataTable11_12  ;; 0xe000e010
+   \        0x4   0x6820             LDR      R0,[R4, #+0]
+   \        0x6   0x....             LDR      R0,??DataTable11_5
+    278            uint32_t reload, ticks;
+    279          
+    280            do {
+    281              reload = lSystickCounter;
+   \                     ??SdkEvalGetTimerValue_0: (+1)
+   \        0x8   0x68C5             LDR      R5,[R0, #+12]
+    282              ticks = SysTick->VAL;
+   \        0xA   0x68A6             LDR      R6,[R4, #+8]
+    283            } while (SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk);
+   \        0xC   0x6821             LDR      R1,[R4, #+0]
+   \        0xE   0x03C9             LSLS     R1,R1,#+15
+   \       0x10   0xD4FA             BMI      ??SdkEvalGetTimerValue_0
+    284          
+    285            return (reload*1000+(SysTick->LOAD-ticks)/CLOCK_FREQUENCY_MHZ);
+   \       0x12   0x27FA             MOVS     R7,#+250
+   \       0x14   0x00BF             LSLS     R7,R7,#+2        ;; #+1000
+   \       0x16   0x437D             MULS     R5,R7,R5
+   \       0x18   0x....             LDR      R0,??DataTable11_13
+   \       0x1A   0x6800             LDR      R0,[R0, #+0]
+   \       0x1C   0x0039             MOVS     R1,R7
+   \       0x1E   0x....'....        BL       __aeabi_uidiv
+   \       0x22   0x0039             MOVS     R1,R7
+   \       0x24   0x....'....        BL       __aeabi_uidiv
+   \       0x28   0x0001             MOVS     R1,R0
+   \       0x2A   0x6860             LDR      R0,[R4, #+4]
+   \       0x2C   0x1B80             SUBS     R0,R0,R6
+   \       0x2E   0x....'....        BL       __aeabi_uidiv
+   \       0x32   0x1828             ADDS     R0,R5,R0
+   \       0x34   0xBDF0             POP      {R4-R7,PC}       ;; return
+    286          }
+    287          
+
+   \                                 In section .text, align 2
+    288          __weak void SysTickUserAction(uint32_t counter) { }
+   \                     SysTickUserAction: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    289          
+    290          /**
+    291          * @brief  This function handles SysTick Handler.
+    292          * @param  None
+    293          * @retval None
+    294          */
+
+   \                                 In section .text, align 2, keep-with-next
+    295          void SysTick_Handler(void)
+    296          {
+   \                     SysTick_Handler: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    297            lSystickCounter++;
+   \        0x2   0x....             LDR      R4,??DataTable11_5
+   \        0x4   0x68E0             LDR      R0,[R4, #+12]
+   \        0x6   0x1C40             ADDS     R0,R0,#+1
+   \        0x8   0x60E0             STR      R0,[R4, #+12]
+    298            if (TimerAppliInfo.enabled && (TimerAppliInfo.timeout == lSystickCounter)) {
+   \        0xA   0x7AA0             LDRB     R0,[R4, #+10]
+   \        0xC   0x2800             CMP      R0,#+0
+   \        0xE   0xD00A             BEQ      ??SysTick_Handler_0
+   \       0x10   0x6860             LDR      R0,[R4, #+4]
+   \       0x12   0x68E1             LDR      R1,[R4, #+12]
+   \       0x14   0x4288             CMP      R0,R1
+   \       0x16   0xD106             BNE      ??SysTick_Handler_0
+    299              TimerAppliInfo.callback(lSystickCounter);
+   \       0x18   0x68E0             LDR      R0,[R4, #+12]
+   \       0x1A   0x6821             LDR      R1,[R4, #+0]
+   \       0x1C   0x4788             BLX      R1
+    300              TimerAppliInfo.timeout = lSystickCounter + TimerAppliInfo.delay;
+   \       0x1E   0x68E0             LDR      R0,[R4, #+12]
+   \       0x20   0x8921             LDRH     R1,[R4, #+8]
+   \       0x22   0x1840             ADDS     R0,R0,R1
+   \       0x24   0x6060             STR      R0,[R4, #+4]
+    301            }
+    302            SysTickUserAction(lSystickCounter);
+   \                     ??SysTick_Handler_0: (+1)
+   \       0x26   0x68E0             LDR      R0,[R4, #+12]
+   \       0x28   0x....'....        BL       SysTickUserAction
+    303          }
+   \       0x2C   0xBD10             POP      {R4,PC}          ;; return
+    304          
+    305          /**
+    306          * @brief  This function implements return the current
+    307          *         systick with a step of 1 ms.
+    308          * @param  lTimeMs desired delay expressed in ms.
+    309          * @retval None
+    310          */
+
+   \                                 In section .text, align 2, keep-with-next
+    311          uint32_t SdkGetCurrentSysTick(void)
+    312          {
+    313            return lSystickCounter;
+   \                     SdkGetCurrentSysTick: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable11_5
+   \        0x2   0x68C0             LDR      R0,[R0, #+12]
+   \        0x4   0x4770             BX       LR               ;; return
+    314          }
+    315          
+
+   \                                 In section .text, align 2, keep-with-next
+    316          void SdkStartSysTick(void)
+    317          {
+   \                     SdkStartSysTick: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+    318            SysTick_Config(CLOCK_FREQUENCY);
+   \        0x2   0x....             LDR      R0,??DataTable11_13
+   \        0x4   0x6800             LDR      R0,[R0, #+0]
+   \        0x6   0x21FA             MOVS     R1,#+250
+   \        0x8   0x0089             LSLS     R1,R1,#+2        ;; #+1000
+   \        0xA   0x....'....        BL       __aeabi_uidiv
+   \        0xE   0x1E40             SUBS     R0,R0,#+1
+   \       0x10   0x2400             MOVS     R4,#+0
+   \       0x12   0x2600             MOVS     R6,#+0
+   \       0x14   0x43F6             MVNS     R6,R6            ;; #-1
+   \       0x16   0x2180             MOVS     R1,#+128
+   \       0x18   0x0449             LSLS     R1,R1,#+17       ;; #+16777216
+   \       0x1A   0x4288             CMP      R0,R1
+   \       0x1C   0xD208             BCS      ??SdkStartSysTick_0
+   \       0x1E   0x....             LDR      R5,??DataTable11_12  ;; 0xe000e010
+   \       0x20   0x6068             STR      R0,[R5, #+4]
+   \       0x22   0x2103             MOVS     R1,#+3
+   \       0x24   0x0030             MOVS     R0,R6
+   \       0x26   0x....'....        BL       __NVIC_SetPriority
+   \       0x2A   0x60AC             STR      R4,[R5, #+8]
+   \       0x2C   0x2007             MOVS     R0,#+7
+   \       0x2E   0x6028             STR      R0,[R5, #+0]
+    319            NVIC_SetPriority (SysTick_IRQn, 0); /* set Priority for Systick Interrupt */
+   \                     ??SdkStartSysTick_0: (+1)
+   \       0x30   0x2100             MOVS     R1,#+0
+   \       0x32   0x0030             MOVS     R0,R6
+   \       0x34   0x....'....        BL       __NVIC_SetPriority
+    320            lSystickCounter = 0;
+   \       0x38   0x....             LDR      R0,??DataTable11_5
+   \       0x3A   0x60C4             STR      R4,[R0, #+12]
+    321          }
+   \       0x3C   0xBD70             POP      {R4-R6,PC}       ;; return
+    322          
+    323          /**
+    324          * @brief  This function implements a delay using the microcontroller
+    325          *         Systick with a step of 1 ms.
+    326          * @param  lTimeMs desired delay expressed in ms.
+    327          * @retval None
+    328          */
+
+   \                                 In section .text, align 2, keep-with-next
+    329          void SdkDelayMs(volatile uint32_t lTimeMs)
+    330          {
+   \                     SdkDelayMs: (+1)
+   \        0x0   0xB401             PUSH     {R0}
+    331            uint32_t nWaitPeriod = ~lSystickCounter;
+   \        0x2   0x....             LDR      R0,??DataTable11_5
+   \        0x4   0x68C1             LDR      R1,[R0, #+12]
+   \        0x6   0x43CA             MVNS     R2,R1
+    332          
+    333            if(nWaitPeriod<lTimeMs) {
+   \        0x8   0x9B00             LDR      R3,[SP, #+0]
+   \        0xA   0x429A             CMP      R2,R3
+   \        0xC   0xD20B             BCS      ??SdkDelayMs_0
+    334              while(lSystickCounter != 0xFFFFFFFF);
+   \                     ??SdkDelayMs_1: (+1)
+   \        0xE   0x68C1             LDR      R1,[R0, #+12]
+   \       0x10   0x2300             MOVS     R3,#+0
+   \       0x12   0x43DB             MVNS     R3,R3            ;; #-1
+   \       0x14   0x4299             CMP      R1,R3
+   \       0x16   0xD1FA             BNE      ??SdkDelayMs_1
+    335              nWaitPeriod = lTimeMs-nWaitPeriod;
+   \       0x18   0x9900             LDR      R1,[SP, #+0]
+   \       0x1A   0x1A89             SUBS     R1,R1,R2
+    336            }
+    337            else
+    338              nWaitPeriod = lTimeMs+(~nWaitPeriod);
+    339          
+    340            while( lSystickCounter != nWaitPeriod );
+   \                     ??SdkDelayMs_2: (+1)
+   \       0x1C   0x68C2             LDR      R2,[R0, #+12]
+   \       0x1E   0x428A             CMP      R2,R1
+   \       0x20   0xD1FC             BNE      ??SdkDelayMs_2
+    341          }
+   \       0x22   0xB001             ADD      SP,SP,#+4
+   \       0x24   0x4770             BX       LR               ;; return
+   \                     ??SdkDelayMs_0: (+1)
+   \       0x26   0x9A00             LDR      R2,[SP, #+0]
+   \       0x28   0x1851             ADDS     R1,R2,R1
+   \       0x2A   0xE7F7             B        ??SdkDelayMs_2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11:
+   \        0x0   0xE000'E400        DC32     0xe000e400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_1:
+   \        0x0   0xE000'ED1C        DC32     0xe000ed1c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_2:
+   \        0x0   0x....'....        DC32     xApplTimerIRQRaised
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_3:
+   \        0x0   0x0000'FFFF        DC32     0xffff
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_4:
+   \        0x0   0x0000'FFFE        DC32     0xfffe
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_5:
+   \        0x0   0x....'....        DC32     TimerAppliInfo
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_6:
+   \        0x0   0x....'....        DC32     appliTimerCallback
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_7:
+   \        0x0   0x0000'1111        DC32     0x1111
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_8:
+   \        0x0   0x4002'1034        DC32     0x40021034
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_9:
+   \        0x0   0x4001'0800        DC32     0x40010800
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_10:
+   \        0x0   0x4000'1000        DC32     0x40001000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_11:
+   \        0x0   0xE000'E018        DC32     0xe000e018
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_12:
+   \        0x0   0xE000'E010        DC32     0xe000e010
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_13:
+   \        0x0   0x....'....        DC32     SystemCoreClock
+    342          
+    343          /**
+    344          *@}
+    345          */
+    346          
+    347          
+    348          /**
+    349          *@}
+    350          */
+    351          
+    352          
+    353          /**
+    354          *@}
+    355          */
+    356          
+    357          
+    358          /******************* (C) COPYRIGHT 2019 STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       4   SdkDelayMs
+      20   SdkEvalGetTimerValue
+        20 __aeabi_uidiv
+       0   SdkEvalTimerTimestampReset
+      28   SdkEvalTimersFindFactors
+        28 __aeabi_uidiv
+       0   SdkEvalTimersResetCounter
+       8   SdkEvalTimersState
+         8   -> HAL_TIM_Base_Start_IT
+         8   -> HAL_TIM_Base_Stop_IT
+      24   SdkEvalTimersTimConfig
+        24   -> HAL_NVIC_EnableIRQ
+        24   -> HAL_NVIC_SetPriority
+        24   -> HAL_TIM_Base_Init
+       0   SdkEvalTimersTimConfig_ms
+       0   SdkEvalUpdateTimerValue
+       0   SdkGetCurrentSysTick
+      16   SdkStartSysTick
+        16   -> __NVIC_SetPriority
+        16 __aeabi_uidiv
+       0   SysTickUserAction
+       8   SysTick_Handler
+         8   -- Indirect call
+         8   -> SysTickUserAction
+       8   __NVIC_SetPriority
+       0   appliTimerCallback
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable11
+       4  ??DataTable11_1
+       4  ??DataTable11_10
+       4  ??DataTable11_11
+       4  ??DataTable11_12
+       4  ??DataTable11_13
+       4  ??DataTable11_2
+       4  ??DataTable11_3
+       4  ??DataTable11_4
+       4  ??DataTable11_5
+       4  ??DataTable11_6
+       4  ??DataTable11_7
+       4  ??DataTable11_8
+       4  ??DataTable11_9
+      44  SdkDelayMs
+      54  SdkEvalGetTimerValue
+      12  SdkEvalTimerTimestampReset
+     134  SdkEvalTimersFindFactors
+       2  SdkEvalTimersResetCounter
+      64  SdkEvalTimersState
+     164  SdkEvalTimersTimConfig
+      10  SdkEvalTimersTimConfig_ms
+       2  SdkEvalUpdateTimerValue
+       6  SdkGetCurrentSysTick
+      62  SdkStartSysTick
+       2  SysTickUserAction
+      46  SysTick_Handler
+      16  TimerAppliInfo
+          lSystickCounter
+      58  __NVIC_SetPriority
+       8  appliTimerCallback
+       1  xApplTimerIRQRaised
+
+ 
+  17 bytes in section .bss
+ 724 bytes in section .text
+ 
+ 722 bytes of CODE memory (+ 2 bytes shared)
+  17 bytes of DATA memory
+
+Errors: none
+Warnings: none

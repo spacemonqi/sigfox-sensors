@@ -1,0 +1,169 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  11:53:13
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                    
+#    Endian                   =  little
+#    Source file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\S2LP_Middleware\STM32\src\TCXO\S2LP_AUX_TCXO_AUTO.c
+#    Command line             =
+#        -f C:\Users\dvone\AppData\Local\Temp\EWF91B.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\S2LP_Middleware\STM32\src\TCXO\S2LP_AUX_TCXO_AUTO.c
+#        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
+#        STM32L053xx -lC
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List
+#        -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+#        --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.4\arm\inc\c\DLib_Config_Normal.h" -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\BSP\SDK_Eval_STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\CMSIS\STM32L0xx\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\S2LP_Middleware\STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\Utils\STM32\inc\\
+#        -Ohz --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.4\arm\CMSIS\Core\Include\\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.4\arm\CMSIS\DSP\Include\\")
+#    Locale                   =  C
+#    List file                =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\S2LP_AUX_TCXO_AUTO.lst
+#    Object file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\S2LP_AUX_TCXO_AUTO.o
+#    Runtime model:              
+#      __SystemLibrary        =  DLib
+#      __dlib_file_descriptor =  0
+#      __dlib_version         =  6
+#
+###############################################################################
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\S2LP_Middleware\STM32\src\TCXO\S2LP_AUX_TCXO_AUTO.c
+      1          /**
+      2           * @file    S2LP_TCXO_AUTO.c
+      3           * @author  LowPower RF BU - AMG
+      4           * @version V1.0.0
+      5           * @date    March, 2020
+      6           * @brief   This file provides an implementation of TCXO function when
+      7           * TCXO is autodetected by the EEPROM in ST Evaluation kits. Users are normally
+      8           * not interested in this file since it is useful only for ST Eval kit.
+      9           * Please have a look at S2LP_TCXO_YES.c for a template file for users.
+     10           * @details
+     11           *
+     12           * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+     13           * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+     14           * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+     15           * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+     16           * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+     17           * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+     18           *
+     19           * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
+     20           * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
+     21           * IN THE ROOT DIRECTORY OF THIS FIRMWARE PACKAGE.
+     22           *
+     23           * <h2><center>&copy; COPYRIGHT 2020 STMicroelectronics</center></h2>
+     24           */
+     25          
+     26          /* Includes ------------------------------------------------------------------*/
+     27          #include "S2LP_Middleware_Config.h"
+     28          #include "S2LP_AUX_TCXO.h"
+     29          
+     30          /** @addtogroup S2LP_MIDDLEWARE_STM32                     S2LP Middleware - STM32
+     31          * @{
+     32          */
+     33          
+     34          /** @defgroup S2LP_AUX_TCXO_AUTO						S2LP AUX TCXO AUTO
+     35            * @brief  S2-LP TCXO handling module.
+     36            * This module exports all the main operations to deal with TCXO.
+     37            * @{
+     38          */
+     39          
+     40          /** @defgroup S2LP_AUX_TCXO_AUTO_Functions			S2LP AUX TCXO Auto exported functions
+     41          * @{
+     42          */
+     43          
+     44          
+     45          /**
+     46           * @brief  TCXO initialization function.
+     47           * This function automatically sets the TCXO according to the information stored in the device EEPROM.
+     48           * This function can be redefined for special needs.
+     49           * @param  None
+     50           * @retval None
+     51           */
+
+   \                                 In section .text, align 2
+     52          __weak void TCXO_Init()
+     53          {
+     54            /* Not implemented: at the moment there isn't any eval kit with TCXO */
+     55          }
+   \                     TCXO_Init: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+     56          
+     57          
+     58          /**
+     59           * @brief  TCXO Operation function.
+     60           * This function configures the TCXO according to the desired status.
+     61           * This function can be redefined for special needs.
+     62           * @param  operation Specifies the operation to perform.
+     63           *         This parameter can be one of following parameters:
+     64           *         @arg TCXO_ON: Turns on TCXO
+     65           *         @arg TCXO_OFF: Turns off TCXO
+     66           * @retval None
+     67           */
+
+   \                                 In section .text, align 2
+     68          __weak void TCXO_Operation(TCXO_OperationType operation)
+     69          {
+     70            /* Not implemented: at the moment there isn't any eval kit with TCXO */
+     71          }
+   \                     TCXO_Operation: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+     72          
+     73          /**
+     74          * @}
+     75          */
+     76          
+     77          /**
+     78          * @}
+     79          */
+     80          
+     81          /**
+     82          * @}
+     83          */
+     84          
+     85          /******************* (C) COPYRIGHT 2020 STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   TCXO_Init
+       0   TCXO_Operation
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       2  TCXO_Init
+       2  TCXO_Operation
+
+ 
+ 4 bytes in section .text
+ 
+ 0 bytes of CODE memory (+ 4 bytes shared)
+
+Errors: none
+Warnings: none

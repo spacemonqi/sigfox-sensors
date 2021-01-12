@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\SigFox_PushButton_Project.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>Build</name>
+      <member>
+        <project>SigFox_PushButton_Project</project>
+        <configuration>NUCLEO_F0</configuration>
+      </member>
+      <member>
+        <project>SigFox_PushButton_Project</project>
+        <configuration>NUCLEO_F4</configuration>
+      </member>
+      <member>
+        <project>SigFox_PushButton_Project</project>
+        <configuration>NUCLEO_L0</configuration>
+      </member>
+      <member>
+        <project>SigFox_PushButton_Project</project>
+        <configuration>NUCLEO_L1</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>
+
+

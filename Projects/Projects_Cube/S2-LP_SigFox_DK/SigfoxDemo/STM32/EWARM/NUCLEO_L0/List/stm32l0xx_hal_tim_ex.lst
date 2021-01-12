@@ -1,0 +1,556 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  11:53:31
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                    
+#    Endian                   =  little
+#    Source file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_tim_ex.c
+#    Command line             =
+#        -f C:\Users\dvone\AppData\Local\Temp\EW41F4.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_tim_ex.c
+#        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
+#        STM32L053xx -lC
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List
+#        -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+#        --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.4\arm\inc\c\DLib_Config_Normal.h" -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\BSP\SDK_Eval_STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\CMSIS\STM32L0xx\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\S2LP_Middleware\STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\Utils\STM32\inc\\
+#        -Ohz --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.4\arm\CMSIS\Core\Include\\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.4\arm\CMSIS\DSP\Include\\")
+#    Locale                   =  C
+#    List file                =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\stm32l0xx_hal_tim_ex.lst
+#    Object file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_tim_ex.o
+#    Runtime model:              
+#      __SystemLibrary        =  DLib
+#      __dlib_file_descriptor =  0
+#      __dlib_version         =  6
+#
+###############################################################################
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_tim_ex.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    stm32l0xx_hal_tim_ex.c
+      4            * @author  MCD Application Team
+      5            * @brief   TIM HAL module driver.
+      6            *          This file provides firmware functions to manage the following
+      7            *          functionalities of the Timer Extended peripheral:
+      8            *           + Time Master and Slave synchronization configuration
+      9            *           + Timer remapping capabilities configuration
+     10            @verbatim
+     11            ==============================================================================
+     12                                ##### TIMER Extended features #####
+     13            ==============================================================================
+     14            [..]
+     15              The Timer Extended features include:
+     16              (#) Synchronization circuit to control the timer with external signals and to
+     17                  interconnect several timers together.
+     18          
+     19            @endverbatim
+     20            ******************************************************************************
+     21              * @attention
+     22            *
+     23            * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+     24            * All rights reserved.</center></h2>
+     25            *
+     26            * This software component is licensed by ST under BSD 3-Clause license,
+     27            * the "License"; You may not use this file except in compliance with the
+     28            * License. You may obtain a copy of the License at:
+     29            *                        opensource.org/licenses/BSD-3-Clause
+     30            *
+     31            ******************************************************************************
+     32          */
+     33          
+     34          /* Includes ------------------------------------------------------------------*/
+     35          #include "stm32l0xx_hal.h"
+     36          
+     37          /** @addtogroup STM32L0xx_HAL_Driver
+     38            * @{
+     39            */
+     40          
+     41          /** @defgroup TIMEx TIMEx
+     42            * @brief TIM Extended HAL module driver
+     43            * @{
+     44            */
+     45          
+     46          #ifdef HAL_TIM_MODULE_ENABLED
+     47          
+     48          /* Private typedef -----------------------------------------------------------*/
+     49          /* Private define ------------------------------------------------------------*/
+     50          /* Private macro -------------------------------------------------------------*/
+     51          /* Private variables ---------------------------------------------------------*/
+     52          /* Private function prototypes -----------------------------------------------*/
+     53          
+     54          /* Exported functions --------------------------------------------------------*/
+     55          /** @defgroup TIMEx_Exported_Functions TIM Extended Exported Functions
+     56            * @{
+     57            */
+     58          /** @defgroup TIMEx_Exported_Functions_Group5 Extended Peripheral Control functions
+     59            * @brief    Peripheral Control functions
+     60            *
+     61          @verbatim
+     62            ==============================================================================
+     63                              ##### Peripheral Control functions #####
+     64            ==============================================================================
+     65            [..]
+     66              This section provides functions allowing to:
+     67                (+) Configure Master synchronization.
+     68                (+) Configure timer remapping capabilities.
+     69          
+     70          @endverbatim
+     71            * @{
+     72            */
+     73          
+     74          /**
+     75            * @brief  Configures the TIM in master mode.
+     76            * @param  htim TIM handle.
+     77            * @param  sMasterConfig pointer to a TIM_MasterConfigTypeDef structure that
+     78            *         contains the selected trigger output (TRGO) and the Master/Slave
+     79            *         mode.
+     80            * @retval HAL status
+     81            */
+
+   \                                 In section .text, align 2, keep-with-next
+     82          HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
+     83                                                                  TIM_MasterConfigTypeDef *sMasterConfig)
+     84          {
+   \                     HAL_TIMEx_MasterConfigSynchronization: (+1)
+   \        0x0   0xB5F0             PUSH     {R4-R7,LR}
+     85            uint32_t tmpcr2;
+     86            uint32_t tmpsmcr;
+     87          
+     88            /* Check the parameters */
+     89            assert_param(IS_TIM_SYNCHRO_INSTANCE(htim->Instance));
+     90            assert_param(IS_TIM_TRGO_SOURCE(sMasterConfig->MasterOutputTrigger));
+     91            assert_param(IS_TIM_MSM_STATE(sMasterConfig->MasterSlaveMode));
+     92          
+     93            /* Check input state */
+     94            __HAL_LOCK(htim);
+   \        0x2   0x2238             MOVS     R2,#+56
+   \        0x4   0x5C82             LDRB     R2,[R0, R2]
+   \        0x6   0x2A01             CMP      R2,#+1
+   \        0x8   0xD101             BNE      ??HAL_TIMEx_MasterConfigSynchronization_0
+   \        0xA   0x2002             MOVS     R0,#+2
+   \        0xC   0xBDF0             POP      {R4-R7,PC}
+   \                     ??HAL_TIMEx_MasterConfigSynchronization_0: (+1)
+   \        0xE   0x0002             MOVS     R2,R0
+   \       0x10   0x3238             ADDS     R2,R2,#+56
+   \       0x12   0x2301             MOVS     R3,#+1
+   \       0x14   0x7013             STRB     R3,[R2, #+0]
+     95          
+     96            /* Change the handler state */
+     97            htim->State = HAL_TIM_STATE_BUSY;
+   \       0x16   0x2402             MOVS     R4,#+2
+   \       0x18   0x2539             MOVS     R5,#+57
+   \       0x1A   0x5544             STRB     R4,[R0, R5]
+     98          
+     99            /* Get the TIMx CR2 register value */
+    100            tmpcr2 = htim->Instance->CR2;
+   \       0x1C   0x6804             LDR      R4,[R0, #+0]
+   \       0x1E   0x6865             LDR      R5,[R4, #+4]
+    101          
+    102            /* Get the TIMx SMCR register value */
+    103            tmpsmcr = htim->Instance->SMCR;
+   \       0x20   0x68A6             LDR      R6,[R4, #+8]
+    104          
+    105            /* Reset the MMS Bits */
+    106            tmpcr2 &= ~TIM_CR2_MMS;
+    107            /* Select the TRGO source */
+    108            tmpcr2 |=  sMasterConfig->MasterOutputTrigger;
+    109          
+    110            /* Reset the MSM Bit */
+    111            tmpsmcr &= ~TIM_SMCR_MSM;
+    112            /* Set master mode */
+    113            tmpsmcr |= sMasterConfig->MasterSlaveMode;
+   \       0x22   0x2780             MOVS     R7,#+128
+   \       0x24   0x43BE             BICS     R6,R6,R7
+   \       0x26   0x684F             LDR      R7,[R1, #+4]
+   \       0x28   0x4337             ORRS     R7,R7,R6
+    114          
+    115            /* Update TIMx CR2 */
+    116            htim->Instance->CR2 = tmpcr2;
+   \       0x2A   0x2670             MOVS     R6,#+112
+   \       0x2C   0x43B5             BICS     R5,R5,R6
+   \       0x2E   0x6809             LDR      R1,[R1, #+0]
+   \       0x30   0x4329             ORRS     R1,R1,R5
+   \       0x32   0x6061             STR      R1,[R4, #+4]
+    117          
+    118            /* Update TIMx SMCR */
+    119            htim->Instance->SMCR = tmpsmcr;
+   \       0x34   0x6801             LDR      R1,[R0, #+0]
+   \       0x36   0x608F             STR      R7,[R1, #+8]
+    120          
+    121            /* Change the htim state */
+    122            htim->State = HAL_TIM_STATE_READY;
+   \       0x38   0x2139             MOVS     R1,#+57
+   \       0x3A   0x5443             STRB     R3,[R0, R1]
+    123          
+    124            __HAL_UNLOCK(htim);
+   \       0x3C   0x2000             MOVS     R0,#+0
+   \       0x3E   0x7010             STRB     R0,[R2, #+0]
+    125          
+    126            return HAL_OK;
+   \       0x40   0xBDF0             POP      {R4-R7,PC}       ;; return
+    127          }
+    128          
+    129          /**
+    130            * @brief  Configures the TIMx Remapping input capabilities.
+    131            @if STM32L073xx
+    132            * @note   It is not possible to connect TIM2 and TIM21 on PB5(AF4) at the same time.
+    133            *         When selecting TIM3_TI2_GPIOB5_AF4, Channel2 of TIM3 will be
+    134            *         connected to PB5(AF4) and Channel2 of TIM21 will be connected to
+    135            *         some other GPIOs. (refer to alternate functions for more details)
+    136            *         When selecting TIM3_TI2_GPIO_DEF, Channel2 of Timer 3 will be
+    137            *         connected an GPIO (other than PB5(AF4)) and Channel2 of TIM21
+    138            *         will be connected to PB5(AF4).
+    139            * @note   When TIM2 ETR is fed with HSI48, this ETR must be prescaled internally
+    140            *         to the TIMER2 because the maximum system frequency is 32 MHz
+    141            @endif
+    142            * @param  htim TIM handle.
+    143            * @param  Remap specifies the TIM remapping source.
+    144            @if STM32L073xx
+    145            *         For TIM2, the parameter is a combination of 2 fields (field1 | field2):
+    146            *
+    147            *                   field1 can have the following values:
+    148            *           @arg TIM2_ETR_GPIO:      TIM2  ETR connected to GPIO (default):
+    149            *                                    PA0(AF5) or PA5(AF2) or PA15(AF2) or PE9(AF2)
+    150            *           @arg TIM2_ETR_HSI48:     TIM2  ETR connected to HSI48
+    151            *           @arg TIM2_ETR_HSI16:     TIM2  ETR connected to HSI16
+    152            *           @arg TIM2_ETR_LSE:       TIM2  ETR connected to LSE
+    153            *           @arg TIM2_ETR_COMP2_OUT: TIM2  ETR connected to COMP2 output
+    154            *           @arg TIM2_ETR_COMP1_OUT: TIM2  ETR connected to COMP1 output
+    155            *
+    156            *                   field2 can have the following values:
+    157            *           @arg TIM2_TI4_GPIO :     TIM2  TI4 connected to GPIO1(default):
+    158            *                                    PA3(AF2) or PB11(AF2) or PE12(AF0)
+    159            *           @arg TIM2_TI4_COMP1:     TIM2  TI4 connected to COMP1
+    160            *           @arg TIM2_TI4_COMP2:     TIM2  TI4 connected to COMP2
+    161            @endif
+    162            @if STM32L031xx
+    163            *         For TIM2, the parameter is a combination of 2 fields (field1 | field2):
+    164            *
+    165            *                   field1 can have the following values:
+    166            *           @arg TIM2_ETR_GPIO:      TIM2  ETR connected to GPIO (default):
+    167            *                                    PA0(AF5) or PA5(AF2) or PA15(AF2)
+    168            *           @arg TIM2_ETR_HSI16:     TIM2  ETR connected to HS16 (HSIOUT)
+    169            *           @arg TIM2_ETR_LSE:       TIM2  ETR connected to LSE
+    170            *           @arg TIM2_ETR_COMP2_OUT: TIM2  ETR connected to COMP2 output
+    171            *           @arg TIM2_ETR_COMP1_OUT: TIM2  ETR connected to COMP1 output
+    172            *
+    173            *                   field2 can have the following values:
+    174            *           @arg TIM2_TI4_GPIO :     TIM2  TI4 connected to GPIO (default):
+    175            *                                    PA3(AF2) or PB11(AF2) or PB1(AF5)
+    176            *           @arg TIM2_TI4_COMP1_OUT: TIM2  TI4 connected to COMP1 output
+    177            *           @arg TIM2_TI4_COMP2_OUT: TIM2  TI4 connected to COMP2 output
+    178            @endif
+    179            @if STM32L011xx
+    180            *         For TIM2, the parameter is a combination of 2 fields (field1 | field2):
+    181            *
+    182            *                   field1 can have the following values:
+    183            *           @arg TIM2_ETR_GPIO:      TIM2  ETR connected to GPIO (default):
+    184            *                                    PA0(AF5) or PA5(AF2) or PA15(AF2)
+    185            *           @arg TIM2_ETR_HSI16:     TIM2  ETR connected to HS16 (HSIOUT)
+    186            *           @arg TIM2_ETR_LSE:       TIM2  ETR connected to LSE
+    187            *           @arg TIM2_ETR_COMP2_OUT: TIM2  ETR connected to COMP2 output
+    188            *           @arg TIM2_ETR_COMP1_OUT: TIM2  ETR connected to COMP1 output
+    189            *
+    190            *                   field2 can have the following values:
+    191            *           @arg TIM2_TI4_GPIO :     TIM2  TI4 connected to GPIO (default):
+    192            *                                    PA3(AF2) or PB11(AF2) or PB1(AF5)
+    193            *           @arg TIM2_TI4_COMP1_OUT: TIM2  TI4 connected to COMP1 output
+    194            *           @arg TIM2_TI4_COMP2_OUT: TIM2  TI4 connected to COMP2 output
+    195            @endif
+    196            @if STM32L051xx
+    197            *         For TIM2, the parameter is a combination of 2 fields (field1 | field2):
+    198            *
+    199            *                   field1 can have the following values:
+    200            *           @arg TIM2_ETR_GPIO:      TIM2  ETR connected to GPIO (default):
+    201            *                                    PA0(AF5) or PA5(AF2) or PA15(AF2) or PE9(AF2)
+    202            *           @arg TIM2_ETR_HSI48:     TIM2  ETR connected to HSI48
+    203            *           @arg TIM2_ETR_LSE:       TIM2  ETR connected to LSE
+    204            *           @arg TIM2_ETR_COMP2_OUT: TIM2  ETR connected to COMP2 output
+    205            *           @arg TIM2_ETR_COMP1_OUT: TIM2  ETR connected to COMP1 output
+    206            *
+    207            *                   field2 can have the following values:
+    208            *           @arg TIM2_TI4_GPIO:      TIM2  TI4 connected to GPIO1(default):
+    209            *                                    PA3(AF2) or PB11(AF2) or PE12(AF0)
+    210            *           @arg TIM2_TI4_COMP1:     TIM2  TI4 connected to COMP1
+    211            *           @arg TIM2_TI4_COMP2:     TIM2  TI4 connected to COMP2
+    212            *           @arg TIM2_TI4_GPIO2:     TIM2  TI4 connected to GPIO2 :
+    213            *                                    PA3(AF2) or PB11(AF2) or PE12(AF0)
+    214            @endif
+    215            @if STM32L073xx
+    216            *
+    217            *         For TIM3, the parameter is a combination of 4 fields (field1 | field2 | field3 | field4):
+    218            *
+    219            *                   field1 can have the following values:
+    220            *           @arg TIM3_ETR_GPIO:      TIM3  ETR connected to GPIO (default):
+    221            *                                    PE2(AF2) or PD2(AF2) or PE2(AF2)
+    222            *           @arg TIM3_ETR_HSI:       TIM3 ETR connected to HSI
+    223            *
+    224            *                   field2 can have the following values:
+    225            *           @arg TIM3_TI1_USB_SOF:   TIM3 TI1 connected to USB_SOF (default)
+    226            *           @arg TIM3_TI1_GPIO:      TIM3 TI1 connected to GPIO :
+    227            *                                    PE3(AF2) or PA6(AF2) or PC6(AF2) or PB4(AF2)
+    228            *
+    229            *                   field3 can have the following values:
+    230            *           @arg TIM3_TI2_GPIOB5_AF4:TIM3 TI3 connected to P5(AF4)
+    231            *                                    (refer to note)
+    232            *           @arg TIM3_TI2_GPIO_DEF:  TIM3 TI3 connected to GPIO (default):
+    233            *                                    PA7(AF2) or PB5(AF4) or PC7(AF2) or PE7(AF2)
+    234            *
+    235            *                   field4 can have the following values:
+    236            *           @arg TIM3_TI4_GPIO_DEF:  TIM3 TI4 connected to GPIO:
+    237            *                                    PB1(AF2) or PE6(AF2)
+    238            *           @arg TIM3_TI4_GPIOC9_AF2:TIM3 TI4 connected to PC9(AF)2
+    239            @endif
+    240            @if STM32L073xx
+    241            *         For TIM21, the parameter is a combination of 3 fields (field1 | field2 | field3):
+    242            *
+    243            *                   field1 can have the following values:
+    244            *           @arg TIM21_ETR_GPIO:     TIM21 ETR connected to GPIO(default) :
+    245            *                                    PC9(AF0) or PA1(AF5)
+    246            *           @arg TIM21_ETR_COMP2_OUT:TIM21 ETR connected to COMP2 output
+    247            *           @arg TIM21_ETR_COMP1_OUT:TIM21 ETR connected to COMP1 output
+    248            *           @arg TIM21_ETR_LSE:      TIM21 ETR connected to LSE
+    249            *
+    250            *                   field2 can have the following values:
+    251            *           @arg TIM21_TI1_MCO:      TIM21 TI1 connected to MCO
+    252            *           @arg TIM21_TI1_RTC_WKUT_IT: TIM21 TI1 connected to RTC WAKEUP interrupt
+    253            *           @arg TIM21_TI1_HSE_RTC:  TIM21 TI1 connected to HSE_RTC
+    254            *           @arg TIM21_TI1_MSI:      TIM21 TI1 connected to MSI clock
+    255            *           @arg TIM21_TI1_LSE:      TIM21 TI1 connected to LSE
+    256            *           @arg TIM21_TI1_LSI:      TIM21 TI1 connected to LSI
+    257            *           @arg TIM21_TI1_COMP1_OUT:TIM21 TI1 connected to COMP1_OUT
+    258            *           @arg TIM21_TI1_GPIO:     TIM21 TI1 connected to GPIO(default):
+    259            *                                    PA2(AF0) or PB13(AF6) or PE5(AF0) or PD0(AF0)
+    260            *
+    261            *                   field3 can have the following values:
+    262            *           @arg TIM21_TI2_GPIO:     TIM21 TI2 connected to GPIO(default):
+    263            *                                    PA3(AF0) or PB14(AF6) or PE6(AF0) or PD7(AF1)
+    264            *           @arg TIM21_TI2_COMP2_OUT:TIM21 TI2 connected to COMP2 output
+    265            @endif
+    266            @if STM32L031xx
+    267            *         For TIM21, the parameter is a combination of 3 fields (field1 | field2 | field3):
+    268            *
+    269            *                   field1 can have the following values:
+    270            *           @arg TIM21_ETR_GPIO:     TIM21 ETR connected to GPIO(default) :
+    271            *                                    PA1(AF5)
+    272            *           @arg TIM21_ETR_COMP2_OUT:TIM21 ETR connected to COMP2 output
+    273            *           @arg TIM21_ETR_COMP1_OUT:TIM21 ETR connected to COMP1 output
+    274            *           @arg TIM21_ETR_LSE:      TIM21 ETR connected to LSE
+    275            *
+    276            *                   field2 can have the following values:
+    277            *           @arg TIM21_TI1_MCO:      TIM21 TI1 connected to MCO
+    278            *           @arg TIM21_TI1_RTC_WKUT_IT: TIM21 TI1 connected to RTC WAKEUP interrupt
+    279            *           @arg TIM21_TI1_HSE_RTC:  TIM21 TI1 connected to HSE_RTC
+    280            *           @arg TIM21_TI1_MSI:      TIM21 TI1 connected to MSI clock
+    281            *           @arg TIM21_TI1_LSE:      TIM21 TI1 connected to LSE
+    282            *           @arg TIM21_TI1_LSI:      TIM21 TI1 connected to LSI
+    283            *           @arg TIM21_TI1_COMP1_OUT:TIM21 TI1 connected to COMP1_OUT
+    284            *
+    285            *                   field3 can have the following values:
+    286            *           @arg TIM21_TI2_GPIO:     TIM21 TI2 connected to GPIO(default):
+    287            *                                    PA3(AF0) or PB14(AF6)
+    288            *           @arg TIM21_TI2_COMP2_OUT:TIM21 TI2 connected to COMP2 output
+    289            @endif
+    290            @if STM32L011xx
+    291            *         For TIM21, the parameter is a combination of 3 fields (field1 | field2 | field3):
+    292            *
+    293            *                   field1 can have the following values:
+    294            *           @arg TIM21_ETR_GPIO:     TIM21 ETR connected to GPIO(default) :
+    295            *                                    PA1(AF5)
+    296            *           @arg TIM21_ETR_COMP2_OUT:TIM21 ETR connected to COMP2 output
+    297            *           @arg TIM21_ETR_COMP1_OUT:TIM21 ETR connected to COMP1 output
+    298            *           @arg TIM21_ETR_LSE:      TIM21 ETR connected to LSE
+    299            *
+    300            *                   field2 can have the following values:
+    301            *           @arg TIM21_TI1_MCO:      TIM21 TI1 connected to MCO
+    302            *           @arg TIM21_TI1_RTC_WKUT_IT: TIM21 TI1 connected to RTC WAKEUP interrupt
+    303            *           @arg TIM21_TI1_HSE_RTC:  TIM21 TI1 connected to HSE_RTC
+    304            *           @arg TIM21_TI1_MSI:      TIM21 TI1 connected to MSI clock
+    305            *           @arg TIM21_TI1_LSE:      TIM21 TI1 connected to LSE
+    306            *           @arg TIM21_TI1_LSI:      TIM21 TI1 connected to LSI
+    307            *           @arg TIM21_TI1_COMP1_OUT:TIM21 TI1 connected to COMP1_OUT
+    308            *
+    309            *                   field3 can have the following values:
+    310            *           @arg TIM21_TI2_GPIO:     TIM21 TI2 connected to GPIO(default):
+    311            *                                    PA3(AF0) or PB14(AF6)
+    312            *           @arg TIM21_TI2_COMP2_OUT:TIM21 TI2 connected to COMP2 output
+    313            @endif
+    314            @if STM32L051xx
+    315            *         For TIM21, the parameter is a combination of 3 fields (field1 | field2 | field3):
+    316            *
+    317            *                   field1 can have the following values:
+    318            *           @arg TIM21_ETR_GPIO:     TIM21 ETR connected to GPIO(default) :
+    319            *                                    PC9(AF0) or PA1(AF5)
+    320            *           @arg TIM21_ETR_COMP2_OUT:TIM21 ETR connected to COMP2 output
+    321            *           @arg TIM21_ETR_COMP1_OUT:TIM21 ETR connected to COMP1 output
+    322            *           @arg TIM21_ETR_LSE:      TIM21 ETR connected to LSE
+    323            *
+    324            *                   field2 can have the following values:
+    325            *           @arg TIM21_TI1_MCO:      TIM21 TI1 connected to MCO
+    326            *           @arg TIM21_TI1_RTC_WKUT_IT: TIM21 TI1 connected to RTC WAKEUP interrupt
+    327            *           @arg TIM21_TI1_HSE_RTC:  TIM21 TI1 connected to HSE_RTC
+    328            *           @arg TIM21_TI1_MSI:      TIM21 TI1 connected to MSI clock
+    329            *           @arg TIM21_TI1_LSE:      TIM21 TI1 connected to LSE
+    330            *           @arg TIM21_TI1_LSI:      TIM21 TI1 connected to LSI
+    331            *           @arg TIM21_TI1_COMP1_OUT:TIM21 TI1 connected to COMP1_OUT
+    332            *           @arg TIM21_TI1_GPIO:     TIM21 TI1 connected to GPIO(default):
+    333            *                                    PA2(AF0) or PB13(AF6) or PE5(AF0) or PD0(AF0)
+    334            *
+    335            *                   field3 can have the following values:
+    336            *           @arg TIM21_TI2_GPIO:     TIM21 TI2 connected to GPIO(default):
+    337            *                                    PA3(AF0) or PB14(AF6) or PE6(AF0) or PD7(AF1)
+    338            *           @arg TIM21_TI2_COMP2_OUT:TIM21 TI2 connected to COMP2 output
+    339            @endif
+    340            @if STM32L073xx
+    341            *
+    342            *         For TIM22, the parameter can have the following values:
+    343            *           @arg TIM22_ETR_LSE:      TIM22 ETR connected to LSE
+    344            *           @arg TIM22_ETR_COMP2_OUT:TIM22 ETR connected to COMP2 output
+    345            *           @arg TIM22_ETR_COMP1_OUT:TIM22 ETR connected to COMP1 output
+    346            *           @arg TIM22_ETR_GPIO:     TIM22 ETR connected to GPIO(default):
+    347            *                                    PC8(AF0) or PA4(AF5)
+    348            *           @arg TIM22_TI1_GPIO:     TIM22 TI1 connected to GPIO(default):
+    349            *                                    PC6(AF0) or PA6(AF5) or PB4(AF4) or PE0(AF3)
+    350            *           @arg TIM22_TI1_COMP2_OUT:TIM22 TI1 connected to COMP2 output
+    351            *           @arg TIM22_TI1_COMP1_OUT:TIM22 TI1 connected to COMP1 output
+    352            @endif
+    353            @if STM32L031xx
+    354            *
+    355            *         For TIM22, the parameter is a combination of 2 fields (field1 | field2):
+    356            *
+    357            *                   field1 can have the following values:
+    358            *           @arg TIM22_ETR_LSE:      TIM22 ETR connected to LSE
+    359            *           @arg TIM22_ETR_COMP2_OUT:TIM22 ETR connected to COMP2 output
+    360            *           @arg TIM22_ETR_COMP1_OUT:TIM22 ETR connected to COMP1 output
+    361            *           @arg TIM22_ETR_GPIO:     TIM22 ETR connected to GPIO(default):
+    362            *                                    PA4(AF5)
+    363            *
+    364            *                   field2 can have the following values:
+    365            *           @arg TIM22_TI1_GPIO:     TIM22 TI1 connected to GPIO(default):
+    366            *                                    PC0(AF6) or PA5(AF6) or PB4(AF4)
+    367            *           @arg TIM22_TI1_COMP2_OUT:TIM22 TI1 connected to COMP2 output
+    368            *           @arg TIM22_TI1_COMP1_OUT:TIM22 TI1 connected to COMP1 output
+    369            *
+    370            @endif
+    371            @if STM32L051xx
+    372            *
+    373            *         For TIM22, the parameter is a combination of 2 fields (field1 | field2):
+    374            *
+    375            *                   field1 can have the following values:
+    376            *           @arg TIM22_ETR_LSE:      TIM22 ETR connected to LSE
+    377            *           @arg TIM22_ETR_COMP2_OUT:TIM22 ETR connected to COMP2 output
+    378            *           @arg TIM22_ETR_COMP1_OUT:TIM22 ETR connected to COMP1 output
+    379            *           @arg TIM22_ETR_GPIO:     TIM22 ETR connected to GPIO(default):
+    380            *                                    PC8(AF0) or PA4(AF5)
+    381            *
+    382            *                   field2 can have the following values:
+    383            *           @arg TIM22_TI1_GPIO:     TIM22 TI1 connected to GPIO(default):
+    384            *                                    PC6(AF0) or PA6(AF5) or PB4(AF4) or PE0(AF3)
+    385            *           @arg TIM22_TI1_COMP2_OUT:TIM22 TI1 connected to COMP2 output
+    386            *           @arg TIM22_TI1_COMP1_OUT:TIM22 TI1 connected to COMP1 output
+    387            @endif
+    388            *
+    389            * @retval HAL status
+    390            */
+
+   \                                 In section .text, align 2, keep-with-next
+    391          HAL_StatusTypeDef HAL_TIMEx_RemapConfig(TIM_HandleTypeDef *htim, uint32_t Remap)
+    392          {
+    393            __HAL_LOCK(htim);
+   \                     HAL_TIMEx_RemapConfig: (+1)
+   \        0x0   0x2238             MOVS     R2,#+56
+   \        0x2   0x5C82             LDRB     R2,[R0, R2]
+   \        0x4   0x2A01             CMP      R2,#+1
+   \        0x6   0xD101             BNE      ??HAL_TIMEx_RemapConfig_0
+   \        0x8   0x2002             MOVS     R0,#+2
+   \        0xA   0x4770             BX       LR
+   \                     ??HAL_TIMEx_RemapConfig_0: (+1)
+   \        0xC   0x2201             MOVS     R2,#+1
+   \        0xE   0x2338             MOVS     R3,#+56
+   \       0x10   0x54C2             STRB     R2,[R0, R3]
+    394          
+    395            /* Check parameters */
+    396            assert_param(IS_TIM_REMAP(htim->Instance, Remap));
+    397          
+    398            /* Set the Timer remapping configuration */
+    399            WRITE_REG(htim->Instance->OR, Remap);
+   \       0x12   0x6802             LDR      R2,[R0, #+0]
+   \       0x14   0x6511             STR      R1,[R2, #+80]
+    400          
+    401            __HAL_UNLOCK(htim);
+   \       0x16   0x2100             MOVS     R1,#+0
+   \       0x18   0x54C1             STRB     R1,[R0, R3]
+    402          
+    403            return HAL_OK;
+   \       0x1A   0x2000             MOVS     R0,#+0
+   \       0x1C   0x4770             BX       LR               ;; return
+    404          }
+    405          
+    406          /**
+    407            * @}
+    408            */
+    409          
+    410          /**
+    411            * @}
+    412            */
+    413          
+    414          
+    415          #endif /* HAL_TIM_MODULE_ENABLED */
+    416          /**
+    417            * @}
+    418            */
+    419          
+    420          /**
+    421            * @}
+    422            */
+    423          
+    424          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      20   HAL_TIMEx_MasterConfigSynchronization
+       0   HAL_TIMEx_RemapConfig
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      66  HAL_TIMEx_MasterConfigSynchronization
+      30  HAL_TIMEx_RemapConfig
+
+ 
+ 96 bytes in section .text
+ 
+ 96 bytes of CODE memory
+
+Errors: none
+Warnings: none

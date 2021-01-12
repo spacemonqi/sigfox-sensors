@@ -1,0 +1,875 @@
+###############################################################################
+#
+# IAR ELF Linker V8.50.9.278/W32 for ARM                  12/Jan/2021  11:53:33
+# Copyright 2007-2020 IAR Systems AB.
+#
+#    Output file  =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Exe\ST_SIGFOX_PB_NUCLEO_L0.out
+#    Map file     =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\ST_SIGFOX_PB_NUCLEO_L0.map
+#    Command line =
+#        -f C:\Users\dvone\AppData\Local\Temp\EW495A.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\main.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\mcu_api_stm32.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\nvm_api.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\rf_api.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\S2LP_AUX_EEPROM.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\S2LP_AUX_FEM_AUTO.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\S2LP_AUX_TCXO_AUTO.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\S2LP_AUX_UTILS.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\S2LP_CORE_GPIO.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\S2LP_CORE_SPI.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\SDK_EVAL_Button.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\SDK_EVAL_Led.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\SDK_UTILS_Flash.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\SDK_UTILS_Timers.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\ST_Init.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\ST_Sigfox_Init.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\startup_stm32l053xx.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_cortex.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_dma.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_flash.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_flash_ex.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_gpio.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_pwr.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_pwr_ex.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_rcc.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_rcc_ex.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_rtc.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_rtc_ex.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_spi.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_tim.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_tim_ex.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_it.o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\system_stm32l0xx.o
+#        --redirect _Printf=_PrintfLargeNoMb --redirect _Scanf=_ScanfSmallNoMb
+#        --no_out_extension -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Exe\ST_SIGFOX_PB_NUCLEO_L0.out
+#        --map
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\ST_SIGFOX_PB_NUCLEO_L0.map
+#        --config
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\stm32l053xx_flash.icf
+#        --semihosting
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\bin\SFX_LIB_MON_CortexM0+.a
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\bin\ST_RETRIEVER_LIB_CM0+.a
+#        --entry __iar_program_start --vfe --text_out locale)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because no calls to memory allocation
+functions were found in the application outside of system library
+functions, and there are calls to deallocation functions in the
+application.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at address 0x800'0000 { ro section .intvec };
+"P1":  place in [from 0x800'0000 to 0x800'ffff] { ro };
+define block CSTACK with size = 1'792, alignment = 8 { };
+define block HEAP with size = 512, alignment = 8 { };
+"P2":  place in [from 0x2000'0000 to 0x2000'1fff] {
+          rw, block CSTACK, block HEAP };
+define block BLOCK_SIGFOXUSER_FLASH_DATA
+   with fixed order, size = 256, alignment = 128 {
+      section .noinit.sigfox_board_data, section .noinit.sigfox_nvm_data };
+"A1":  place at address 0x800'ff00 { block BLOCK_SIGFOXUSER_FLASH_DATA };
+initialize by copy { rw };
+
+No sections matched the following patterns:
+
+  section .noinit.sigfox_board_data  in block BLOCK_SIGFOXUSER_FLASH_DATA
+
+
+  Section                 Kind         Address    Size  Object
+  -------                 ----         -------    ----  ------
+"A0":                                             0xc0
+  .intvec                 ro code   0x800'0000    0xc0  startup_stm32l053xx.o [1]
+                                  - 0x800'00c0    0xc0
+
+"P1":                                           0x7240
+  .text                   ro code   0x800'00c0  0x1312  rf_api.o [1]
+  .text                   ro code   0x800'13d2     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'13d4   0x56c  mcu_api_stm32.o [1]
+  .text                   ro code   0x800'1940    0x56  ABImemset.o [6]
+  .text                   ro code   0x800'1996     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'1998    0x4e  ABImemcpy.o [6]
+  .text                   ro code   0x800'19e6     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'19e8   0x1f4  S2LP_AUX_UTILS.o [1]
+  .text                   ro code   0x800'1bdc    0x6a  I64DivMod.o [6]
+  .text                   ro code   0x800'1c46     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'1c48    0x32  I64Mul.o [6]
+  .text                   ro code   0x800'1c7a     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'1c7c    0x5e  I32DivMod.o [6]
+  .text                   ro code   0x800'1cda     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'1cdc   0x4a2  S2LP_CORE_SPI.o [1]
+  .text                   ro code   0x800'217e     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'2180    0xa0  S2LP_AUX_FEM_AUTO.o [1]
+  .text                   ro code   0x800'2220   0x684  stm32l0xx_hal_rcc.o [1]
+  .text                   ro code   0x800'28a4   0x1c4  stm32l0xx_hal_gpio.o [1]
+  .text                   ro code   0x800'2a68    0x4c  stm32l0xx_hal_pwr.o [1]
+  .text                   ro code   0x800'2ab4   0x1c4  stm32l0xx_hal_rcc_ex.o [1]
+  .text                   ro code   0x800'2c78    0xac  stm32l0xx_hal_cortex.o [1]
+  .text                   ro code   0x800'2d24   0x1f6  SDK_UTILS_Timers.o [1]
+  .text                   ro code   0x800'2f1a     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'2f1c   0x13a  stm32l0xx_hal_tim.o [1]
+  .text                   ro code   0x800'3056     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'3058   0x1bc  stm32l0xx_hal_rtc_ex.o [1]
+  .text                   ro code   0x800'3214   0x294  S2LP_CORE_GPIO.o [1]
+  .text                   ro code   0x800'34a8   0x150  main.o [1]
+  .text                   ro code   0x800'35f8   0xb68  retriever_api.o [3]
+  .text                   ro code   0x800'4160   0x1e8  nvm_api.o [1]
+  .text                   ro code   0x800'4348    0x70  ST_Init.o [1]
+  .text                   ro code   0x800'43b8     0x2  S2LP_AUX_TCXO_AUTO.o [1]
+  .text                   ro code   0x800'43ba     0x2  S2LP_AUX_TCXO_AUTO.o [1]
+  .text                   ro code   0x800'43bc   0x35a  S2LP_AUX_EEPROM.o [1]
+  .text                   ro code   0x800'4716     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'4718    0x20  FltCmpEq.o [5]
+  .text                   ro code   0x800'4738    0x20  IxxToFlt.o [5]
+  .text                   ro code   0x800'4758    0xb0  FltMul.o [5]
+  .text                   ro code   0x800'4808    0xa4  FltDiv.o [5]
+  .text                   ro code   0x800'48ac    0x3a  FltToS32.o [5]
+  .text                   ro code   0x800'48e6     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'48e8     0x2  I64DivZer.o [6]
+  .text                   ro code   0x800'48ea     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'48ec     0x2  IntDivZer.o [6]
+  .text                   ro code   0x800'48ee     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'48f0   0x5fa  stm32l0xx_hal_spi.o [1]
+  .text                   ro code   0x800'4eea     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'4eec   0x212  stm32l0xx_hal_dma.o [1]
+  .text                   ro code   0x800'50fe     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'5100    0xa4  S2LP_AUX_FEM_AUTO.o [1]
+  .text                   ro code   0x800'51a4    0x34  stm32l0xx_hal.o [1]
+  .text                   ro code   0x800'51d8     0xc  stm32l0xx_hal.o [1]
+  .text                   ro code   0x800'51e4     0x2  stm32l0xx_hal_rtc_ex.o [1]
+  .text                   ro code   0x800'51e6     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'51e8    0x64  SDK_EVAL_Led.o [1]
+  .text                   ro code   0x800'524c   0x26c  ST_Sigfox_Init.o [1]
+  .text                   ro code   0x800'54b8   0x264  sigfox_api.o [2]
+  .text                   ro code   0x800'571c    0x40  SDK_UTILS_Flash.o [1]
+  .text                   ro code   0x800'575c    0x32  stm32l0xx_hal.o [1]
+  .text                   ro code   0x800'578e     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'5790    0xa0  SDK_EVAL_Button.o [1]
+  .text                   ro code   0x800'5830     0x2  stm32l0xx_hal_spi.o [1]
+  .text                   ro code   0x800'5832     0x2  stm32l0xx_hal_spi.o [1]
+  .text                   ro code   0x800'5834     0x2  stm32l0xx_hal_spi.o [1]
+  .text                   ro code   0x800'5836     0x2  stm32l0xx_hal_spi.o [1]
+  .text                   ro code   0x800'5838   0xe9e  sigfox_internal.o [2]
+  .text                   ro code   0x800'66d6     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'66d8   0x194  stm32l0xx_hal_flash.o [1]
+  .text                   ro code   0x800'686c    0xa8  stm32l0xx_hal_flash_ex.o [1]
+  .text                   ro code   0x800'6914    0x64  sigfox_pn.o [2]
+  .text                   ro code   0x800'6978    0x78  sigfox_hmac.o [2]
+  .text                   ro code   0x800'69f0    0x74  sigfox_crc.o [2]
+  .text                   ro code   0x800'6a64    0x90  sigfox_scramb.o [2]
+  .text                   ro code   0x800'6af4   0x1d4  sigfox_decode.o [2]
+  .rodata                 const     0x800'6cc8   0x100  retriever_api.o [3]
+  .rodata                 const     0x800'6dc8   0x100  retriever_api.o [3]
+  .rodata                 const     0x800'6ec8   0x100  retriever_api.o [3]
+  .text                   ro code   0x800'6fc8    0xbc  stm32l0xx_it.o [1]
+  .text                   ro code   0x800'7084    0x74  system_stm32l0xx.o [1]
+  .rodata                 const     0x800'70f8    0x3c  mcu_api_stm32.o [1]
+  .text                   ro code   0x800'7134    0x3c  zero_init3.o [6]
+  .text                   ro code   0x800'7170    0x3c  packbits_init_single.o [6]
+  .rodata                 const     0x800'71ac    0x2c  rf_api.o [1]
+  .text                   ro code   0x800'71d8    0x28  data_init.o [6]
+  .iar.init_table         const     0x800'7200    0x20  - Linker created -
+  .text                   ro code   0x800'7220    0x1e  cmain.o [6]
+  .text                   ro code   0x800'723e     0x4  low_level_init.o [4]
+  .text                   ro code   0x800'7242     0x8  exit.o [4]
+  .text                   ro code   0x800'724a     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'724c     0xa  cexit.o [6]
+  .text                   ro code   0x800'7256     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'7258    0x14  exit.o [7]
+  .text                   ro code   0x800'726c    0x1c  cstartup_M.o [6]
+  .text                   ro code   0x800'7288    0x10  startup_stm32l053xx.o [1]
+  .rodata                 const     0x800'7298     0x4  S2LP_AUX_FEM_AUTO.o [1]
+  .text                   ro code   0x800'729c     0x2  startup_stm32l053xx.o [1]
+  .text                   ro code   0x800'729e     0x2  startup_stm32l053xx.o [1]
+  .rodata                 const     0x800'72a0     0x0  zero_init3.o [6]
+  .rodata                 const     0x800'72a0     0x0  packbits_init_single.o [6]
+  Initializer bytes       const     0x800'72a0    0x60  <for P2-1>
+                                  - 0x800'7300  0x7240
+
+"A1":                                            0x100
+  BLOCK_SIGFOXUSER_FLASH_DATA
+                                    0x800'ff00   0x100  <Block>
+    .noinit.sigfox_nvm_data
+                          uninit    0x800'ff00    0x80  SDK_UTILS_Flash.o [1]
+    BLOCK_SIGFOXUSER_FLASH_DATA
+                          uninit    0x800'ff80    0x80  <Block tail>
+                                  - 0x801'0000   0x100
+
+"P2", part 1 of 3:                               0x240
+  P2-1                             0x2000'0000   0x240  <Init block>
+    .data                 inited   0x2000'0000    0x74  mcu_api_stm32.o [1]
+    .data                 inited   0x2000'0074   0x130  rf_api.o [1]
+    .data                 inited   0x2000'01a4     0x8  S2LP_AUX_UTILS.o [1]
+    .data                 inited   0x2000'01ac    0x10  S2LP_CORE_GPIO.o [1]
+    .data                 inited   0x2000'01bc     0x4  system_stm32l0xx.o [1]
+    .data                 inited   0x2000'01c0    0x80  retriever_api.o [3]
+                                 - 0x2000'0240   0x240
+
+"P2", part 2 of 3:                               0x588
+  .bss                    zero     0x2000'0240   0x1f4  mcu_api_stm32.o [1]
+  .bss                    zero     0x2000'0434    0xb0  retriever_api.o [3]
+  .bss                    zero     0x2000'04e4    0x90  S2LP_CORE_SPI.o [1]
+  .bss                    zero     0x2000'0574    0x84  S2LP_CORE_SPI.o [1]
+  .bss                    zero     0x2000'05f8    0x84  S2LP_CORE_SPI.o [1]
+  .bss                    zero     0x2000'067c    0x74  S2LP_AUX_EEPROM.o [1]
+  .bss                    zero     0x2000'06f0    0x58  S2LP_CORE_SPI.o [1]
+  .bss                    zero     0x2000'0748    0x20  sigfox_hmac.o [2]
+  .bss                    zero     0x2000'0768    0x18  stm32l0xx_hal_flash.o [1]
+  .bss                    zero     0x2000'0780    0x10  nvm_api.o [1]
+  .bss                    zero     0x2000'0790    0x10  SDK_UTILS_Flash.o [1]
+  .bss                    zero     0x2000'07a0    0x10  SDK_UTILS_Timers.o [1]
+  .bss                    zero     0x2000'07b0     0x8  sigfox_api.o [2]
+  .bss                    zero     0x2000'07b8     0x4  stm32l0xx_hal.o [1]
+  .bss                    zero     0x2000'07bc     0x3  rf_api.o [1]
+  .bss                    zero     0x2000'07bf     0x2  S2LP_CORE_SPI.o [1]
+  .bss                    zero     0x2000'07c1     0x1  main.o [1]
+  .bss                    zero     0x2000'07c2     0x1  mcu_api_stm32.o [1]
+  .bss                    zero     0x2000'07c3     0x1  S2LP_AUX_EEPROM.o [1]
+  .bss                    zero     0x2000'07c4     0x1  S2LP_AUX_FEM_AUTO.o [1]
+  .bss                    zero     0x2000'07c5     0x1  S2LP_AUX_UTILS.o [1]
+  .bss                    zero     0x2000'07c6     0x1  SDK_UTILS_Timers.o [1]
+                                 - 0x2000'07c7   0x587
+
+"P2", part 3 of 3:                               0x700
+  CSTACK                           0x2000'07c8   0x700  <Block>
+    CSTACK                uninit   0x2000'07c8   0x700  <Block tail>
+                                 - 0x2000'0ec8   0x700
+
+Unused ranges:
+
+         From           To    Size
+         ----           --    ----
+   0x800'7300   0x800'feff  0x8c00
+  0x2000'0ec8  0x2000'1fff  0x1138
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address      Size
+          -------      ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x587:
+          0x2000'0240  0x587
+
+Copy/packbits (__iar_packbits_init_single3)
+    1 source range, total size 0x60 (16% of destination):
+           0x800'72a0   0x60
+    1 destination range, total size 0x240:
+          0x2000'0000  0x240
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                    ro code  ro data  rw data
+    ------                    -------  -------  -------
+command line/config:
+    ---------------------------------------------------
+    Total:
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj: [1]
+    S2LP_AUX_EEPROM.o             858               117
+    S2LP_AUX_FEM_AUTO.o           324        4        1
+    S2LP_AUX_TCXO_AUTO.o            4
+    S2LP_AUX_UTILS.o              500        1        9
+    S2LP_CORE_GPIO.o              660        3       16
+    S2LP_CORE_SPI.o             1'186               498
+    SDK_EVAL_Button.o             160
+    SDK_EVAL_Led.o                100
+    SDK_UTILS_Flash.o              64               144
+    SDK_UTILS_Timers.o            502                17
+    ST_Init.o                     112
+    ST_Sigfox_Init.o              620
+    main.o                        336                 1
+    mcu_api_stm32.o             1'388       79      617
+    nvm_api.o                     488                16
+    rf_api.o                    4'882       95      307
+    startup_stm32l053xx.o         252
+    stm32l0xx_hal.o               114                 4
+    stm32l0xx_hal_cortex.o        172
+    stm32l0xx_hal_dma.o           530
+    stm32l0xx_hal_flash.o         404                24
+    stm32l0xx_hal_flash_ex.o      168
+    stm32l0xx_hal_gpio.o          452
+    stm32l0xx_hal_pwr.o            76
+    stm32l0xx_hal_rcc.o         1'668
+    stm32l0xx_hal_rcc_ex.o        452
+    stm32l0xx_hal_rtc_ex.o        446
+    stm32l0xx_hal_spi.o         1'538
+    stm32l0xx_hal_tim.o           314
+    stm32l0xx_it.o                188
+    system_stm32l0xx.o            116                 4
+    ---------------------------------------------------
+    Total:                     19'074      182    1'775
+
+SFX_LIB_MON_CortexM0+.a: [2]
+    sigfox_api.o                  612                 8
+    sigfox_crc.o                  116
+    sigfox_decode.o               468
+    sigfox_hmac.o                 120                32
+    sigfox_internal.o           3'742
+    sigfox_pn.o                   100
+    sigfox_scramb.o               144
+    ---------------------------------------------------
+    Total:                      5'302                40
+
+ST_RETRIEVER_LIB_CM0+.a: [3]
+    retriever_api.o             2'920      790      304
+    ---------------------------------------------------
+    Total:                      2'920      790      304
+
+dl6M_tln.a: [4]
+    exit.o                          8
+    low_level_init.o                4
+    ---------------------------------------------------
+    Total:                         12
+
+m6M_tl.a: [5]
+    FltCmpEq.o                     32
+    FltDiv.o                      164
+    FltMul.o                      176
+    FltToS32.o                     58
+    IxxToFlt.o                     32
+    ---------------------------------------------------
+    Total:                        462
+
+rt6M_tl.a: [6]
+    ABImemcpy.o                    78
+    ABImemset.o                    86
+    I32DivMod.o                    94
+    I64DivMod.o                   106
+    I64DivZer.o                     2
+    I64Mul.o                       50
+    IntDivZer.o                     2
+    cexit.o                        10
+    cmain.o                        30
+    cstartup_M.o                   28
+    data_init.o                    40
+    packbits_init_single.o         60
+    zero_init3.o                   60
+    ---------------------------------------------------
+    Total:                        646
+
+shb_l.a: [7]
+    exit.o                         20
+    ---------------------------------------------------
+    Total:                         20
+
+    Linker created                          32    1'920
+-------------------------------------------------------
+    Grand Total:               28'436    1'004    4'039
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address   Size  Type      Object
+-----                       -------   ----  ----      ------
+.iar.init_table$$Base    0x800'7200          --   Gb  - Linker created -
+.iar.init_table$$Limit   0x800'7220          --   Gb  - Linker created -
+?main                    0x800'7221         Code  Gb  cmain.o [6]
+AES128_CBC_decrypt_internal
+                         0x800'3e8b   0xaa  Code  Gb  retriever_api.o [3]
+AES128_CBC_encrypt       0x800'3d23  0x168  Code  Gb  retriever_api.o [3]
+AHBPrescTable            0x800'70dc   0x10  Data  Gb  system_stm32l0xx.o [1]
+AddRoundKey              0x800'36c3   0x3a  Code  Lc  retriever_api.o [3]
+Appli_Exti_CB            0x800'34a9    0x8  Code  Gb  main.o [1]
+BLOCK_SIGFOXUSER_FLASH_DATA$$Base
+                         0x800'ff00          --   Gb  - Linker created -
+BLOCK_SIGFOXUSER_FLASH_DATA$$Limit
+                         0x801'0000          --   Gb  - Linker created -
+BlockCopy                0x800'3ccf   0x20  Code  Lc  retriever_api.o [3]
+ButtonInit               0x800'4387   0x1a  Code  Gb  ST_Init.o [1]
+ButtonSetIRQ             0x800'43a1    0xc  Code  Gb  ST_Init.o [1]
+CSTACK$$Base            0x2000'07c8          --   Gb  - Linker created -
+CSTACK$$Limit           0x2000'0ec8          --   Gb  - Linker created -
+Cipher                   0x800'37bd   0xca  Code  Lc  retriever_api.o [3]
+Configure_RTC_Clock      0x800'152b   0x4a  Code  Lc  mcu_api_stm32.o [1]
+DMA_SetConfig            0x800'50d7   0x28  Code  Lc  stm32l0xx_hal_dma.o [1]
+EXTI0_1_IRQHandler       0x800'6fd1   0x1e  Code  Gb  stm32l0xx_it.o [1]
+EXTI2_3_IRQHandler       0x800'6fef   0x1e  Code  Gb  stm32l0xx_it.o [1]
+EXTI4_15_IRQHandler      0x800'700d   0x72  Code  Gb  stm32l0xx_it.o [1]
+EepromCsPinInitialization
+                         0x800'44f9   0x3c  Code  Gb  S2LP_AUX_EEPROM.o [1]
+EepromCsXnucleoPinInitialization
+                         0x800'4535   0x5c  Code  Gb  S2LP_AUX_EEPROM.o [1]
+EepromIdentification     0x800'1b1b   0x5e  Code  Gb  S2LP_AUX_UTILS.o [1]
+EepromRead               0x800'4591   0x4c  Code  Gb  S2LP_AUX_EEPROM.o [1]
+EepromSPICSHigh          0x800'43df   0x20  Code  Gb  S2LP_AUX_EEPROM.o [1]
+EepromSPICSLow           0x800'43bd   0x22  Code  Gb  S2LP_AUX_EEPROM.o [1]
+EepromSetSrwd            0x800'46c1    0xa  Code  Gb  S2LP_AUX_EEPROM.o [1]
+EepromSpiHandle         0x2000'067c   0x58  Data  Lc  S2LP_AUX_EEPROM.o [1]
+EepromSpiInitialization
+                         0x800'43ff   0xfa  Code  Gb  S2LP_AUX_EEPROM.o [1]
+EepromStatus             0x800'46b5    0xc  Code  Gb  S2LP_AUX_EEPROM.o [1]
+EepromWaitEndWriteOperation
+                         0x800'45dd   0x44  Code  Gb  S2LP_AUX_EEPROM.o [1]
+EepromWrite              0x800'4647   0x5e  Code  Gb  S2LP_AUX_EEPROM.o [1]
+EepromWriteEnable        0x800'4621   0x26  Code  Gb  S2LP_AUX_EEPROM.o [1]
+EraseInitStruct         0x2000'0790    0xc  Data  Lc  SDK_UTILS_Flash.o [1]
+FEM_Init                 0x800'5101   0xa4  Code  Wk  S2LP_AUX_FEM_AUTO.o [1]
+FEM_Operation            0x800'2181   0xa0  Code  Wk  S2LP_AUX_FEM_AUTO.o [1]
+FLASH_PageErase          0x800'68e9   0x22  Code  Gb  stm32l0xx_hal_flash_ex.o [1]
+FLASH_SetErrorCode       0x800'67b1   0xa4  Code  Lc  stm32l0xx_hal_flash.o [1]
+FLASH_WaitForLastOperation
+                         0x800'6741   0x6c  Code  Gb  stm32l0xx_hal_flash.o [1]
+Fatal_Error              0x800'34b1   0x16  Code  Gb  main.o [1]
+FlashErase               0x800'571d   0x3c  Code  Gb  SDK_UTILS_Flash.o [1]
+HAL_DMA_IRQHandler       0x800'4ff3   0xe4  Code  Gb  stm32l0xx_hal_dma.o [1]
+HAL_DMA_Init             0x800'4eed   0x88  Code  Gb  stm32l0xx_hal_dma.o [1]
+HAL_DMA_Start_IT         0x800'4f85   0x6e  Code  Gb  stm32l0xx_hal_dma.o [1]
+HAL_FLASHEx_Erase        0x800'686d   0x6a  Code  Gb  stm32l0xx_hal_flash_ex.o [1]
+HAL_FLASH_GetError       0x800'673b    0x6  Code  Gb  stm32l0xx_hal_flash.o [1]
+HAL_FLASH_Lock           0x800'6723   0x10  Code  Gb  stm32l0xx_hal_flash.o [1]
+HAL_FLASH_Unlock         0x800'66d9   0x4a  Code  Gb  stm32l0xx_hal_flash.o [1]
+HAL_GPIO_EXTI_Callback   0x800'160b   0x38  Code  Gb  mcu_api_stm32.o [1]
+HAL_GPIO_EXTI_IRQHandler
+                         0x800'2a35   0x14  Code  Gb  stm32l0xx_hal_gpio.o [1]
+HAL_GPIO_Init            0x800'28a5  0x178  Code  Gb  stm32l0xx_hal_gpio.o [1]
+HAL_GPIO_ReadPin         0x800'2a1d    0xc  Code  Gb  stm32l0xx_hal_gpio.o [1]
+HAL_GPIO_WritePin        0x800'2a29    0xc  Code  Gb  stm32l0xx_hal_gpio.o [1]
+HAL_GetTick              0x800'51d9    0xc  Code  Wk  stm32l0xx_hal.o [1]
+HAL_Init                 0x800'575d   0x2c  Code  Gb  stm32l0xx_hal.o [1]
+HAL_InitTick             0x800'51a5   0x34  Code  Wk  stm32l0xx_hal.o [1]
+HAL_NVIC_DisableIRQ      0x800'2ccf   0x1a  Code  Gb  stm32l0xx_hal_cortex.o [1]
+HAL_NVIC_EnableIRQ       0x800'2cbd   0x12  Code  Gb  stm32l0xx_hal_cortex.o [1]
+HAL_NVIC_SetPriority     0x800'2cb3    0x8  Code  Gb  stm32l0xx_hal_cortex.o [1]
+HAL_PWR_EnableBkUpAccess
+                         0x800'2a69    0x8  Code  Gb  stm32l0xx_hal_pwr.o [1]
+HAL_PWR_EnterSTOPMode    0x800'2a71   0x30  Code  Gb  stm32l0xx_hal_pwr.o [1]
+HAL_RCCEx_PeriphCLKConfig
+                         0x800'2ab5  0x196  Code  Gb  stm32l0xx_hal_rcc_ex.o [1]
+HAL_RCC_ClockConfig      0x800'26a5  0x15c  Code  Gb  stm32l0xx_hal_rcc.o [1]
+HAL_RCC_GetSysClockFreq
+                         0x800'2811   0x6c  Code  Gb  stm32l0xx_hal_rcc.o [1]
+HAL_RCC_OscConfig        0x800'2221  0x472  Code  Gb  stm32l0xx_hal_rcc.o [1]
+HAL_RTCEx_DeactivateWakeUpTimer
+                         0x800'314b   0x7c  Code  Gb  stm32l0xx_hal_rtc_ex.o [1]
+HAL_RTCEx_SetWakeUpTimer_IT
+                         0x800'3059   0xba  Code  Gb  stm32l0xx_hal_rtc_ex.o [1]
+HAL_RTCEx_WakeUpTimerIRQHandler
+                         0x800'31c9   0x30  Code  Gb  stm32l0xx_hal_rtc_ex.o [1]
+HAL_SPI_GetState         0x800'4cbd    0x6  Code  Gb  stm32l0xx_hal_spi.o [1]
+HAL_SPI_Init             0x800'48f1   0x7c  Code  Gb  stm32l0xx_hal_spi.o [1]
+HAL_SPI_TransmitReceive
+                         0x800'4971  0x214  Code  Gb  stm32l0xx_hal_spi.o [1]
+HAL_SPI_TransmitReceive_DMA
+                         0x800'4b8d  0x114  Code  Gb  stm32l0xx_hal_spi.o [1]
+HAL_SPI_TxRxCpltCallback
+                         0x800'2141   0x20  Code  Gb  S2LP_CORE_SPI.o [1]
+HAL_SYSTICK_Config       0x800'2ce9   0x28  Code  Gb  stm32l0xx_hal_cortex.o [1]
+HAL_TIM_Base_Init        0x800'2f1d   0x2c  Code  Gb  stm32l0xx_hal_tim.o [1]
+HAL_TIM_Base_Start       0x800'2f49   0x20  Code  Gb  stm32l0xx_hal_tim.o [1]
+HAL_TIM_Base_Start_IT    0x800'2f8f   0x1e  Code  Gb  stm32l0xx_hal_tim.o [1]
+HAL_TIM_Base_Stop        0x800'2f69   0x1e  Code  Gb  stm32l0xx_hal_tim.o [1]
+HAL_TIM_Base_Stop_IT     0x800'2fad   0x1e  Code  Gb  stm32l0xx_hal_tim.o [1]
+HardFault_Handler        0x800'6fcb    0x2  Code  Gb  stm32l0xx_it.o [1]
+InvCipher                0x800'389d  0x432  Code  Lc  retriever_api.o [3]
+InvShiftRows             0x800'3787   0x36  Code  Lc  retriever_api.o [3]
+InvSubBytes              0x800'374d    0xa  Code  Lc  retriever_api.o [3]
+IsButtonPressed          0x800'43ad    0xa  Code  Gb  ST_Init.o [1]
+Iv                      0x2000'0204    0x4  Data  Lc  retriever_api.o [3]
+Key                     0x2000'0200    0x4  Data  Lc  retriever_api.o [3]
+KeyExpansion_dec         0x800'35f9   0xca  Code  Lc  retriever_api.o [3]
+LedBlink                 0x800'34c7   0x2a  Code  Gb  main.o [1]
+MCU_API_aes_128_cbc_encrypt
+                         0x800'172f   0x10  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_delay            0x800'16f9   0x36  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_free             0x800'16e9    0x4  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_get_device_id_and_payload_encryption_flag
+                         0x800'18e5   0x12  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_get_nv_mem       0x800'173f    0xa  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_get_voltage_temperature
+                         0x800'16ed    0xc  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_malloc           0x800'16c1   0x14  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_malloc::mem     0x2000'0240  0x1f4  Data  Lc  mcu_api_stm32.o [1]
+MCU_API_report_test_result
+                         0x800'18d9    0xa  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_set_nv_mem       0x800'1749    0xa  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_timer_start      0x800'1805   0x64  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_timer_start_carrier_sense
+                         0x800'1753   0xa8  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_timer_stop       0x800'186d   0x12  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_timer_stop_carrier_sense
+                         0x800'1891   0x2c  Code  Gb  mcu_api_stm32.o [1]
+MCU_API_timer_wait_for_end
+                         0x800'18bd   0x16  Code  Gb  mcu_api_stm32.o [1]
+MainCs_AfrGpioReg       0x2000'06d4    0x8  Data  Lc  S2LP_AUX_EEPROM.o [1]
+MainCs_ModerGpioReg     0x2000'06dc    0x4  Data  Lc  S2LP_AUX_EEPROM.o [1]
+MainCs_OdrGpioReg       0x2000'06ec    0x4  Data  Lc  S2LP_AUX_EEPROM.o [1]
+MainCs_OspeedrGpioReg   0x2000'06e4    0x4  Data  Lc  S2LP_AUX_EEPROM.o [1]
+MainCs_OtyperGpioReg    0x2000'06e0    0x4  Data  Lc  S2LP_AUX_EEPROM.o [1]
+MainCs_PupdrGpioReg     0x2000'06e8    0x4  Data  Lc  S2LP_AUX_EEPROM.o [1]
+NMI_Handler              0x800'6fc9    0x2  Code  Gb  stm32l0xx_it.o [1]
+NVM_Read                 0x800'4207   0x14  Code  Gb  nvm_api.o [1]
+NVM_ReadRecord           0x800'422f   0x9e  Code  Gb  nvm_api.o [1]
+NVM_Write                0x800'421b   0x14  Code  Gb  nvm_api.o [1]
+NVM_WriteRecord          0x800'42cd   0x72  Code  Gb  nvm_api.o [1]
+PAGEError               0x2000'079c    0x4  Data  Gb  SDK_UTILS_Flash.o [1]
+PLLMulTable              0x800'70ec    0xc  Data  Gb  system_stm32l0xx.o [1]
+PendSV_Handler           0x800'6fcf    0x2  Code  Gb  stm32l0xx_it.o [1]
+RETURN_CODE              0x800'590d    0x8  Code  Gb  sigfox_internal.o [2]
+RF_API_change_frequency
+                         0x800'0eb1   0xc0  Code  Gb  rf_api.o [1]
+RF_API_init              0x800'0a61  0x3b6  Code  Gb  rf_api.o [1]
+RF_API_send              0x800'0e51   0x58  Code  Gb  rf_api.o [1]
+RF_API_stop              0x800'0e25   0x26  Code  Gb  rf_api.o [1]
+RF_API_wait_for_clear_channel
+                         0x800'1075  0x188  Code  Gb  rf_api.o [1]
+RF_API_wait_frame        0x800'0f75   0xf6  Code  Gb  rf_api.o [1]
+RTC_IRQHandler           0x800'1643   0x50  Code  Gb  mcu_api_stm32.o [1]
+Rcon                     0x800'6ec8  0x100  Data  Lc  retriever_api.o [3]
+Region$$Table$$Base      0x800'7200          --   Gb  - Linker created -
+Region$$Table$$Limit     0x800'7220          --   Gb  - Linker created -
+RoundKey                0x2000'0434   0xb0  Data  Lc  retriever_api.o [3]
+RtcHandler              0x2000'000c   0x24  Data  Lc  mcu_api_stm32.o [1]
+S2LPEvalGetHasEeprom     0x800'46f1    0x6  Code  Gb  S2LP_AUX_EEPROM.o [1]
+S2LPEvalSetHasEeprom     0x800'46f7    0x6  Code  Gb  S2LP_AUX_EEPROM.o [1]
+S2LPGetFrequencyBand     0x800'19f1   0x16  Code  Gb  S2LP_AUX_UTILS.o [1]
+S2LPGetFrequencyBand::band_frequencies
+                         0x800'1bb8   0x18  Data  Lc  S2LP_AUX_UTILS.o [1]
+S2LPGetSPIPrescaler      0x800'1b85   0x14  Code  Gb  S2LP_AUX_UTILS.o [1]
+S2LPGetSpiInUse          0x800'2161    0x6  Code  Gb  S2LP_CORE_SPI.o [1]
+S2LPIRQEnable            0x800'3421   0x1a  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LPIRQEnableEx          0x800'343b   0x26  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LPIRQInit              0x800'3415    0xc  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LPManagementGetRangeExtender
+                         0x800'19e9    0x6  Code  Gb  S2LP_AUX_UTILS.o [1]
+S2LPManagementGetXtalFrequency
+                         0x800'1a07    0x6  Code  Gb  S2LP_AUX_UTILS.o [1]
+S2LPManagementIdentificationRFBoard
+                         0x800'1a0d  0x10e  Code  Gb  S2LP_AUX_UTILS.o [1]
+S2LPShutdownCheck        0x800'3405   0x10  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LPShutdownEnter        0x800'33cd   0x10  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LPShutdownExit         0x800'33dd   0x28  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LPShutdownInit         0x800'3371   0x3e  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LPSpiInit              0x800'1cdd  0x144  Code  Gb  S2LP_CORE_SPI.o [1]
+S2LPSpiRaw               0x800'202d  0x114  Code  Gb  S2LP_CORE_SPI.o [1]
+S2LPSpiReadRegisters     0x800'1e21   0x10  Code  Gb  S2LP_CORE_SPI.o [1]
+S2LPSpiWriteRegisters    0x800'1e31   0x20  Code  Gb  S2LP_CORE_SPI.o [1]
+S2LP_Middleware_GpioGetPin
+                         0x800'3369    0x8  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LP_Middleware_GpioInit
+                         0x800'3215   0x84  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LP_Middleware_GpioInitEx
+                         0x800'3299   0x88  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LP_Middleware_GpioInterruptCmd
+                         0x800'3321   0x22  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LP_Middleware_GpioTriggerFalling
+                         0x800'3351    0x8  Code  Gb  S2LP_CORE_GPIO.o [1]
+S2LP_Middleware_GpioTriggerRising
+                         0x800'3345    0xa  Code  Gb  S2LP_CORE_GPIO.o [1]
+SIGFOX_API_open          0x800'54b9  0x186  Code  Gb  sigfox_api.o [2]
+SIGFOX_API_send_frame    0x800'563f   0x40  Code  Gb  sigfox_api.o [2]
+SIGFOX_API_set_std_config
+                         0x800'5689   0x72  Code  Gb  sigfox_api.o [2]
+SIGFOX_CRC_crc16         0x800'69f1   0x3a  Code  Gb  sigfox_crc.o [2]
+SIGFOX_CRC_crc8          0x800'6a35   0x30  Code  Gb  sigfox_crc.o [2]
+SIGFOX_DECODE_decode_frame
+                         0x800'6af5   0xe2  Code  Gb  sigfox_decode.o [2]
+SIGFOX_DECODE_dewhitening
+                         0x800'6bd7   0xa0  Code  Lc  sigfox_decode.o [2]
+SIGFOX_DECODE_dewhitening_pn
+                         0x800'6c85   0x22  Code  Lc  sigfox_decode.o [2]
+SIGFOX_HMAC_compute_aes
+                         0x800'6979   0x78  Code  Gb  sigfox_hmac.o [2]
+SIGFOX_INT_build_frame   0x800'5e51  0x2f8  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_compute_carrier_sense_frequency
+                         0x800'5a7d   0x2c  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_compute_channels
+                         0x800'5915  0x164  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_compute_uplink_frequency
+                         0x800'6625   0x88  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_dc_lbt_channel_pn_max
+                         0x800'58c7   0x28  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_dc_lbt_channel_pn_min
+                         0x800'58ef   0x1e  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_downlink_configuration
+                         0x800'64cd   0x3a  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_encrypt_decrypt_frame
+                         0x800'5d0d  0x11e  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_execute_carrier_sense
+                         0x800'61cb   0x40  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_execute_communication_sequence
+                         0x800'5ae7  0x174  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_get_device_id_and_payload_encryption_flag
+                         0x800'66b5   0x22  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_get_macro_channel_index
+                         0x800'587b   0x4c  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_get_max_micro_channel
+                         0x800'584f   0x2c  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_get_received_frames
+                         0x800'6507  0x11e  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_prepare_transmission
+                         0x800'5c5d   0x8c  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_process_downlink
+                         0x800'6483   0x4a  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_process_uplink
+                         0x800'620b  0x278  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_randomize     0x800'5839   0x16  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_send_single_frame
+                         0x800'614d   0x7e  Code  Gb  sigfox_internal.o [2]
+SIGFOX_INT_store_nvm     0x800'5aa9   0x3e  Code  Gb  sigfox_internal.o [2]
+SIGFOX_PN_next_pn        0x800'6915   0x64  Code  Gb  sigfox_pn.o [2]
+SIGFOX_SCRAMB_compute    0x800'6a65   0x7e  Code  Gb  sigfox_scramb.o [2]
+SPI_DMAError             0x800'4d85   0x22  Code  Lc  stm32l0xx_hal_spi.o [1]
+SPI_DMAHalfReceiveCplt   0x800'4d71    0xa  Code  Lc  stm32l0xx_hal_spi.o [1]
+SPI_DMAHalfTransmitReceiveCplt
+                         0x800'4d7b    0xa  Code  Lc  stm32l0xx_hal_spi.o [1]
+SPI_DMAReceiveCplt       0x800'4cc3   0x50  Code  Lc  stm32l0xx_hal_spi.o [1]
+SPI_DMATransmitReceiveCplt
+                         0x800'4d13   0x56  Code  Lc  stm32l0xx_hal_spi.o [1]
+SPI_EndRxTransaction     0x800'4e43   0x60  Code  Lc  stm32l0xx_hal_spi.o [1]
+SPI_EndRxTxTransaction   0x800'4ea3   0x40  Code  Lc  stm32l0xx_hal_spi.o [1]
+SPI_WaitFlagStateUntilTimeout
+                         0x800'4da7   0x9a  Code  Lc  stm32l0xx_hal_spi.o [1]
+ST_Init                  0x800'4349   0x3e  Code  Gb  ST_Init.o [1]
+ST_MANUF_report_CB       0x800'43b7    0x2  Code  Gb  ST_Init.o [1]
+ST_MCU_API_GPIO_LowPower
+                         0x800'14d7    0x8  Code  Gb  mcu_api_stm32.o [1]
+ST_MCU_API_GPIO_Restore
+                         0x800'14df    0x8  Code  Gb  mcu_api_stm32.o [1]
+ST_MCU_API_GpioIRQ       0x800'18f7    0x8  Code  Gb  mcu_api_stm32.o [1]
+ST_MCU_API_SetSysClock   0x800'13d5   0x5c  Code  Gb  mcu_api_stm32.o [1]
+ST_MCU_API_Shutdown      0x800'18ff   0x22  Code  Gb  mcu_api_stm32.o [1]
+ST_MCU_API_SpiRaw        0x800'1921    0xa  Code  Gb  mcu_api_stm32.o [1]
+ST_MCU_API_TimerCalibration
+                         0x800'1575   0x96  Code  Gb  mcu_api_stm32.o [1]
+ST_MCU_API_WaitForInterrupt
+                         0x800'14e7   0x44  Code  Gb  mcu_api_stm32.o [1]
+ST_RF_API_GetFIFOState   0x800'09dd    0x6  Code  Gb  rf_api.o [1]
+ST_RF_API_Get_Continuous_TX_or_MONARCH_Scan_Flag
+                         0x800'136f    0x6  Code  Gb  rf_api.o [1]
+ST_RF_API_S2LP_IRQ_CB    0x800'1215  0x13e  Code  Gb  rf_api.o [1]
+ST_RF_API_StartRx        0x800'1395    0xa  Code  Gb  rf_api.o [1]
+ST_RF_API_StartTx        0x800'1375   0x18  Code  Gb  rf_api.o [1]
+ST_RF_API_StopRxTx       0x800'13a7   0x12  Code  Gb  rf_api.o [1]
+ST_RF_API_Timer_CB       0x800'11fd    0x6  Code  Gb  rf_api.o [1]
+ST_RF_API_Timer_Channel_Clear_CB
+                         0x800'1203    0x8  Code  Gb  rf_api.o [1]
+ST_RF_API_get_ramp_duration
+                         0x800'1369    0x6  Code  Gb  rf_api.o [1]
+ST_RF_API_set_pa         0x800'1361    0x8  Code  Gb  rf_api.o [1]
+ST_RF_API_set_xtal_freq
+                         0x800'1353    0x8  Code  Gb  rf_api.o [1]
+ST_Sigfox_Init           0x800'5369   0x4c  Code  Gb  ST_Sigfox_Init.o [1]
+SVC_Handler              0x800'6fcd    0x2  Code  Gb  stm32l0xx_it.o [1]
+SdkDelayMs               0x800'2ec5   0x2c  Code  Gb  SDK_UTILS_Timers.o [1]
+SdkEvalGetDaughterBoardType
+                         0x800'1b7f    0x6  Code  Gb  S2LP_AUX_UTILS.o [1]
+SdkEvalLedInit           0x800'51e9   0x3c  Code  Gb  SDK_EVAL_Led.o [1]
+SdkEvalLedOn             0x800'5225    0x6  Code  Gb  SDK_EVAL_Led.o [1]
+SdkEvalLedToggle         0x800'5237    0xc  Code  Gb  SDK_EVAL_Led.o [1]
+SdkEvalPushButtonGetState
+                         0x800'5815    0xe  Code  Gb  SDK_EVAL_Button.o [1]
+SdkEvalPushButtonInit    0x800'5791   0x2e  Code  Gb  SDK_EVAL_Button.o [1]
+SdkEvalPushButtonIrq     0x800'57bf   0x56  Code  Gb  SDK_EVAL_Button.o [1]
+SdkEvalSetDaughterBoardType
+                         0x800'1b79    0x6  Code  Gb  S2LP_AUX_UTILS.o [1]
+SdkEvalTimersFindFactors
+                         0x800'2d2d   0x86  Code  Gb  SDK_UTILS_Timers.o [1]
+SdkEvalTimersState       0x800'2db3   0x40  Code  Gb  SDK_UTILS_Timers.o [1]
+SdkEvalTimersTimConfig   0x800'2df3   0xa4  Code  Gb  SDK_UTILS_Timers.o [1]
+SetNVMInitial            0x800'41c7   0x40  Code  Gb  nvm_api.o [1]
+ShiftRows                0x800'3709   0x36  Code  Lc  retriever_api.o [3]
+SpiHandle               0x2000'06f0   0x58  Data  Lc  S2LP_CORE_SPI.o [1]
+St_Sigfox_Open_RCZ       0x800'524d  0x11a  Code  Gb  ST_Sigfox_Init.o [1]
+SubBytes                 0x800'36fd    0xc  Code  Lc  retriever_api.o [3]
+SysTick_Handler          0x800'2e97   0x2e  Code  Gb  SDK_UTILS_Timers.o [1]
+SystemCoreClock         0x2000'01bc    0x4  Data  Gb  system_stm32l0xx.o [1]
+SystemInit               0x800'7085   0x40  Code  Gb  system_stm32l0xx.o [1]
+TCXO_Init                0x800'43bb    0x2  Code  Wk  S2LP_AUX_TCXO_AUTO.o [1]
+TCXO_Operation           0x800'43b9    0x2  Code  Wk  S2LP_AUX_TCXO_AUTO.o [1]
+TIM2_IRQHandler          0x800'1693   0x26  Code  Gb  mcu_api_stm32.o [1]
+TIM_Base_SetConfig       0x800'2ff9   0x4e  Code  Lc  stm32l0xx_hal_tim.o [1]
+Tim2_Handler            0x2000'0038   0x3c  Data  Lc  mcu_api_stm32.o [1]
+TimerAppliInfo          0x2000'07a0    0xc  Data  Lc  SDK_UTILS_Timers.o [1]
+XorWithIv                0x800'3cef   0x34  Code  Lc  retriever_api.o [3]
+__NVIC_SetPriority       0x800'2c79   0x3a  Code  Lc  stm32l0xx_hal_cortex.o [1]
+__aeabi_cfcmpeq          0x800'4719         Code  Gb  FltCmpEq.o [5]
+__aeabi_f2iz             0x800'48ad         Code  Gb  FltToS32.o [5]
+__aeabi_fdiv             0x800'4809         Code  Gb  FltDiv.o [5]
+__aeabi_fmul             0x800'4759         Code  Gb  FltMul.o [5]
+__aeabi_idiv0            0x800'48ed         Code  Gb  IntDivZer.o [6]
+__aeabi_ldiv0            0x800'48e9         Code  Gb  I64DivZer.o [6]
+__aeabi_lmul             0x800'1c49         Code  Gb  I64Mul.o [6]
+__aeabi_memclr           0x800'1961         Code  Gb  ABImemset.o [6]
+__aeabi_memclr4          0x800'1965         Code  Gb  ABImemset.o [6]
+__aeabi_memclr8          0x800'1965         Code  Gb  ABImemset.o [6]
+__aeabi_memcpy           0x800'19cd         Code  Gb  ABImemcpy.o [6]
+__aeabi_memcpy4          0x800'1999         Code  Gb  ABImemcpy.o [6]
+__aeabi_memcpy8          0x800'1999         Code  Gb  ABImemcpy.o [6]
+__aeabi_memset           0x800'1941         Code  Gb  ABImemset.o [6]
+__aeabi_ui2f             0x800'4739         Code  Gb  IxxToFlt.o [5]
+__aeabi_uldivmod         0x800'1bdd         Code  Gb  I64DivMod.o [6]
+__cmain                  0x800'7221         Code  Gb  cmain.o [6]
+__exit                   0x800'7259   0x14  Code  Gb  exit.o [7]
+__iar_Memcpy             0x800'19d9         Code  Gb  ABImemcpy.o [6]
+__iar_Memset4_word       0x800'1969         Code  Gb  ABImemset.o [6]
+__iar_Memset_word        0x800'194d         Code  Gb  ABImemset.o [6]
+__iar_data_init3         0x800'71d9   0x28  Code  Gb  data_init.o [6]
+__iar_packbits_init_single3
+                         0x800'7171   0x3c  Code  Gb  packbits_init_single.o [6]
+__iar_program_start      0x800'726d         Code  Gb  cstartup_M.o [6]
+__iar_small_idiv         0x800'1c7d         Code  Gb  I32DivMod.o [6]
+__iar_small_idivmod      0x800'1c7d         Code  Gb  I32DivMod.o [6]
+__iar_small_uidiv        0x800'1ca5         Code  Gb  I32DivMod.o [6]
+__iar_small_uidivmod     0x800'1ca5         Code  Gb  I32DivMod.o [6]
+__iar_zero_init3         0x800'7135   0x3c  Code  Gb  zero_init3.o [6]
+__low_level_init         0x800'723f    0x4  Code  Gb  low_level_init.o [4]
+__vector_table           0x800'0000         Data  Gb  startup_stm32l053xx.o [1]
+_blockPointer           0x2000'0784    0x4  Data  Lc  nvm_api.o [1]
+_boardDataAddress       0x2000'078c    0x4  Data  Lc  nvm_api.o [1]
+_call_main               0x800'722d         Code  Gb  cmain.o [6]
+_daughterBoard          0x2000'07c5    0x1  Data  Lc  S2LP_AUX_UTILS.o [1]
+_encryptedPayload       0x2000'07c2    0x1  Data  Lc  mcu_api_stm32.o [1]
+_exit                    0x800'724d         Code  Gb  cexit.o [6]
+_isBypassEnabled        0x2000'07c4    0x1  Data  Lc  S2LP_AUX_FEM_AUTO.o [1]
+_main                    0x800'7237         Code  Gb  cmain.o [6]
+_msgSq                  0x2000'0781    0x1  Data  Lc  nvm_api.o [1]
+_nvmType                0x2000'0780    0x1  Data  Lc  nvm_api.o [1]
+_s2lpFIFOState          0x2000'07be    0x1  Data  Lc  rf_api.o [1]
+_setBlockState           0x800'4161   0x34  Code  Lc  nvm_api.o [1]
+_sfxDataAddress         0x2000'0788    0x4  Data  Lc  nvm_api.o [1]
+_writeRecordInternal     0x800'4195   0x32  Code  Lc  nvm_api.o [1]
+aes_in                  0x2000'0748   0x20  Data  Gb  sigfox_hmac.o [2]
+appliTimerCallback       0x800'2d25    0x8  Code  Lc  SDK_UTILS_Timers.o [1]
+bSwap                   0x2000'07bd    0x1  Data  Lc  rf_api.o [1]
+bfSize                  0x2000'07bc    0x1  Data  Gb  rf_api.o [1]
+but_pressed             0x2000'07c1    0x1  Data  Lc  main.o [1]
+carrier_sense_tim_started
+                        0x2000'0005    0x1  Data  Lc  mcu_api_stm32.o [1]
+cbc_data                0x2000'01d4   0x28  Data  Lc  retriever_api.o [3]
+enc_utils_encrypt        0x800'40f3   0x1e  Code  Gb  retriever_api.o [3]
+enc_utils_get_id         0x800'4131   0x22  Code  Gb  retriever_api.o [3]
+enc_utils_retrieve_data
+                         0x800'3f87  0x16c  Code  Gb  retriever_api.o [3]
+enc_utils_set_public_key
+                         0x800'4111   0x20  Code  Gb  retriever_api.o [3]
+exit                     0x800'7243    0x8  Code  Gb  exit.o [4]
+fsync_lut_tx             0x800'5ce8   0x24  Data  Gb  sigfox_internal.o [2]
+g_state                 0x2000'07b0    0x1  Data  Gb  sigfox_api.o [2]
+get_integrity_cksum      0x800'3f45   0x42  Code  Gb  retriever_api.o [3]
+hdma_rx                 0x2000'052c   0x48  Data  Lc  S2LP_CORE_SPI.o [1]
+hdma_tx                 0x2000'04e4   0x48  Data  Lc  S2LP_CORE_SPI.o [1]
+iiv                     0x2000'0208    0x4  Data  Lc  retriever_api.o [3]
+lSystickCounter         0x2000'07ac    0x4  Data  Gb  SDK_UTILS_Timers.o [1]
+log_alpha                0x800'6cb8   0x10  Data  Gb  sigfox_decode.o [2]
+low_power               0x2000'0004    0x1  Data  Lc  mcu_api_stm32.o [1]
+lut_in                   0x800'6ae4    0x4  Data  Lc  sigfox_scramb.o [2]
+lut_in_out               0x800'6ae8    0xc  Data  Lc  sigfox_scramb.o [2]
+main                     0x800'34f1  0x102  Code  Gb  main.o [1]
+n_intermediate_tim_irq  0x2000'0034    0x4  Data  Lc  mcu_api_stm32.o [1]
+next_rtc_wakeup         0x2000'0030    0x4  Data  Lc  mcu_api_stm32.o [1]
+notify_end              0x2000'0002    0x1  Data  Lc  mcu_api_stm32.o [1]
+nvm_data                 0x800'ff00   0x80  Data  Gb  SDK_UTILS_Flash.o [1]
+pFlash                  0x2000'0768   0x18  Data  Gb  stm32l0xx_hal_flash.o [1]
+pn9_next                 0x800'0965   0x18  Code  Gb  rf_api.o [1]
+pn9_next_byte            0x800'097d   0x16  Code  Gb  rf_api.o [1]
+pow_alpha                0x800'6ca8   0x10  Data  Gb  sigfox_decode.o [2]
+privGetXtalFrequency     0x800'0575    0x6  Code  Lc  rf_api.o [1]
+priv_ST_MANUF_CmdStrobe
+                         0x800'012d   0x16  Code  Lc  rf_api.o [1]
+priv_ST_MANUF_Get_Ramps_Settings
+                         0x800'057b   0x52  Code  Lc  rf_api.o [1]
+priv_ST_MANUF_ReadRegisters
+                         0x800'0171   0x42  Code  Lc  rf_api.o [1]
+priv_ST_MANUF_SpiRaw_Ramp
+                         0x800'00c1   0x66  Code  Lc  rf_api.o [1]
+priv_ST_MANUF_WriteRegisters
+                         0x800'0143   0x2e  Code  Lc  rf_api.o [1]
+priv_ST_MANUF_generateFIFORampsBuffer
+                         0x800'01b5  0x3c0  Code  Gb  rf_api.o [1]
+priv_ST_MANUF_rf_load_first_ramp_up
+                         0x800'09e3   0x5c  Code  Lc  rf_api.o [1]
+priv_ST_MANUF_tx_rf_dbpsk_init
+                         0x800'05d1  0x388  Code  Lc  rf_api.o [1]
+priv_ST_MANUF_tx_rf_dbpsk_single_bit
+                         0x800'0993   0x4a  Code  Lc  rf_api.o [1]
+priv_ST_MCU_API_delay    0x800'16b9    0x8  Code  Lc  mcu_api_stm32.o [1]
+public_key              0x2000'0210   0x10  Data  Lc  retriever_api.o [3]
+public_key               0x800'5e40   0x10  Data  Gb  sigfox_internal.o [2]
+rampBuffer              0x2000'0108   0x54  Data  Gb  rf_api.o [1]
+real_key_backup         0x2000'020c    0x4  Data  Lc  retriever_api.o [3]
+rs                      0x2000'07b4    0x4  Data  Gb  sigfox_api.o [2]
+rsbox                    0x800'6dc8  0x100  Data  Lc  retriever_api.o [3]
+rtc_in_use              0x2000'0001    0x1  Data  Lc  mcu_api_stm32.o [1]
+rtc_in_use_for_cs       0x2000'0003    0x1  Data  Lc  mcu_api_stm32.o [1]
+rtc_irq                 0x2000'0000    0x1  Data  Lc  mcu_api_stm32.o [1]
+rtc_presc               0x2000'0008    0x2  Data  Lc  mcu_api_stm32.o [1]
+rx_buff                 0x2000'05f8   0x84  Data  Lc  S2LP_CORE_SPI.o [1]
+s2lp_irq_raised         0x2000'0006    0x1  Data  Lc  mcu_api_stm32.o [1]
+s_RfModuleBand          0x2000'01a4    0x1  Data  Lc  S2LP_AUX_UTILS.o [1]
+s_RfRangeExtender       0x2000'01a5    0x1  Data  Lc  S2LP_AUX_UTILS.o [1]
+s_RfXtalFrequency       0x2000'01a8    0x4  Data  Lc  S2LP_AUX_UTILS.o [1]
+s_S2LPCut               0x2000'01a6    0x1  Data  Lc  S2LP_AUX_UTILS.o [1]
+s_eeprom                0x2000'07c3    0x1  Data  Lc  S2LP_AUX_EEPROM.o [1]
+s_id                    0x2000'01c8    0x4  Data  Lc  retriever_api.o [3]
+s_pac                   0x2000'01c0    0x8  Data  Lc  retriever_api.o [3]
+s_vectcM2SGpioExtiIrqn   0x800'34a4    0x4  Data  Lc  S2LP_CORE_GPIO.o [1]
+s_vectnM2SGpioPin        0x800'346c    0x8  Data  Lc  S2LP_CORE_GPIO.o [1]
+s_vectxM2SGpioPuPd       0x800'3484   0x10  Data  Lc  S2LP_CORE_GPIO.o [1]
+s_vectxM2SGpioSpeed      0x800'3474   0x10  Data  Lc  S2LP_CORE_GPIO.o [1]
+s_vectxM2sGpioExtiMode   0x800'3494   0x10  Data  Lc  S2LP_CORE_GPIO.o [1]
+sbox                     0x800'6cc8  0x100  Data  Lc  retriever_api.o [3]
+setGpioLowPower          0x800'1431   0x32  Code  Lc  mcu_api_stm32.o [1]
+setGpioRestore           0x800'1463   0x74  Code  Lc  mcu_api_stm32.o [1]
+spi_in_use              0x2000'07c0    0x1  Data  Lc  S2LP_CORE_SPI.o [1]
+st_manuf                0x2000'0074   0x94  Data  Lc  rf_api.o [1]
+start_idx               0x2000'01d0    0x1  Data  Lc  retriever_api.o [3]
+start_idx_backup        0x2000'01cf    0x1  Data  Lc  retriever_api.o [3]
+state                   0x2000'01fc    0x4  Data  Lc  retriever_api.o [3]
+test_key                0x2000'0220   0x10  Data  Lc  retriever_api.o [3]
+tx_buff                 0x2000'0574   0x84  Data  Lc  S2LP_CORE_SPI.o [1]
+use_public_key          0x2000'01ce    0x1  Data  Lc  retriever_api.o [3]
+use_test_id             0x2000'01cc    0x1  Data  Lc  retriever_api.o [3]
+use_test_key            0x2000'01cd    0x1  Data  Lc  retriever_api.o [3]
+uwTick                  0x2000'07b8    0x4  Data  Gb  stm32l0xx_hal.o [1]
+vectpxM2SGpioPort       0x2000'01ac   0x10  Data  Gb  S2LP_CORE_GPIO.o [1]
+waiting_irq             0x2000'07bf    0x1  Data  Lc  S2LP_CORE_SPI.o [1]
+xApplTimerIRQRaised     0x2000'07c6    0x1  Data  Gb  SDK_UTILS_Timers.o [1]
+xtime                    0x800'373f    0xe  Code  Lc  retriever_api.o [3]
+zeroIV                  0x2000'0230   0x10  Data  Gb  retriever_api.o [3]
+zeroes                  0x2000'015c   0x48  Data  Lc  rf_api.o [1]
+
+
+[1] = C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+[2] = SFX_LIB_MON_CortexM0+.a
+[3] = ST_RETRIEVER_LIB_CM0+.a
+[4] = dl6M_tln.a
+[5] = m6M_tl.a
+[6] = rt6M_tl.a
+[7] = shb_l.a
+
+  28'436 bytes of readonly  code memory
+   1'004 bytes of readonly  data memory
+   4'039 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

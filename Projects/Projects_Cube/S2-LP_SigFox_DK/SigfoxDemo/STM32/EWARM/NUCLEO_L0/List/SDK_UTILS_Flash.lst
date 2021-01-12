@@ -1,0 +1,596 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  11:53:17
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                    
+#    Endian                   =  little
+#    Source file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\Utils\STM32\src\SDK_UTILS_Flash.c
+#    Command line             =
+#        -f C:\Users\dvone\AppData\Local\Temp\EW76A.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\Utils\STM32\src\SDK_UTILS_Flash.c
+#        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
+#        STM32L053xx -lC
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List
+#        -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+#        --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.4\arm\inc\c\DLib_Config_Normal.h" -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\BSP\SDK_Eval_STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\CMSIS\STM32L0xx\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\S2LP_Middleware\STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\Utils\STM32\inc\\
+#        -Ohz --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.4\arm\CMSIS\Core\Include\\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.4\arm\CMSIS\DSP\Include\\")
+#    Locale                   =  C
+#    List file                =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\SDK_UTILS_Flash.lst
+#    Object file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\SDK_UTILS_Flash.o
+#    Runtime model:              
+#      __SystemLibrary        =  DLib
+#      __dlib_file_descriptor =  0
+#      __dlib_version         =  6
+#
+###############################################################################
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\Utils\STM32\src\SDK_UTILS_Flash.c
+      1          /**
+      2          * @file    SDK_UTILS_Flash.c
+      3          * @author  AMS RF application team
+      4          * @version 1.0.1
+      5          * @date    July, 2019
+      6          * @brief   SDK EVAL flash management
+      7          * @details
+      8          *
+      9          * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+     10          * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+     11          * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+     12          * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+     13          * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+     14          * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+     15          *
+     16          * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
+     17          * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
+     18          * IN THE ROOT DIRECTORY OF THIS FIRMWARE PACKAGE.
+     19          *
+     20          * <h2><center>&copy; COPYRIGHT 2018 STMicroelectronics</center></h2>
+     21          */
+     22          
+     23          /* Includes ------------------------------------------------------------------*/
+     24          #include "SDK_EVAL_Config.h"
+     25          #include "SDK_UTILS_Flash.h"
+     26          #include "string.h"
+     27          
+
+   \                                 In section .noinit.sigfox_board_data, align 4
+     28          NO_INIT_SECTION( uint8_t board_data[FLASH_PAGE_SIZE], ".noinit.sigfox_board_data");
+   \                     board_data:
+   \        0x0                      DS8 128
+
+   \                                 In section .noinit.sigfox_nvm_data, align 4
+     29          NO_INIT_SECTION( uint8_t nvm_data[FLASH_PAGE_SIZE], ".noinit.sigfox_nvm_data");
+   \                     nvm_data:
+   \        0x0                      DS8 128
+     30          
+     31          /**
+     32          * @addtogroup SDK_EVAL_NUCLEO
+     33          * @{
+     34          */
+     35          
+     36          
+     37          /**
+     38          * @defgroup SDK_FLASH              SDK FLASH Management
+     39          * @{
+     40          */
+     41          
+
+   \                                 In section .bss, align 4
+     42          static FLASH_EraseInitTypeDef EraseInitStruct; /* Variable used for Erase procedure */
+   \                     EraseInitStruct:
+   \        0x0                      DS8 12
+     43          uint32_t  PAGEError = 0;
+   \                     PAGEError:
+   \        0xC                      DS8 4
+     44          
+     45          /**
+     46          * @defgroup FLASH Functions
+     47          * @{
+     48          */
+     49          
+     50          #if defined(STM32F401xE)
+     51          static uint32_t GetSector(uint32_t address)
+     52          {
+     53            uint32_t sector = 0;
+     54          
+     55            if((address < ADDR_FLASH_SECTOR_1) && (address >= ADDR_FLASH_SECTOR_0))
+     56            {
+     57              sector = FLASH_SECTOR_0;
+     58            }
+     59            else if((address < ADDR_FLASH_SECTOR_2) && (address >= ADDR_FLASH_SECTOR_1))
+     60            {
+     61              sector = FLASH_SECTOR_1;
+     62            }
+     63            else if((address < ADDR_FLASH_SECTOR_3) && (address >= ADDR_FLASH_SECTOR_2))
+     64            {
+     65              sector = FLASH_SECTOR_2;
+     66            }
+     67            else if((address < ADDR_FLASH_SECTOR_4) && (address >= ADDR_FLASH_SECTOR_3))
+     68            {
+     69              sector = FLASH_SECTOR_3;
+     70            }
+     71            else if((address < ADDR_FLASH_SECTOR_5) && (address >= ADDR_FLASH_SECTOR_4))
+     72            {
+     73              sector = FLASH_SECTOR_4;
+     74            }
+     75            else if((address < ADDR_FLASH_SECTOR_6) && (address >= ADDR_FLASH_SECTOR_5))
+     76            {
+     77              sector = FLASH_SECTOR_5;
+     78            }
+     79            else if((address < ADDR_FLASH_SECTOR_7) && (address >= ADDR_FLASH_SECTOR_6))
+     80            {
+     81              sector = FLASH_SECTOR_6;
+     82            }
+     83            else if(address == ADDR_FLASH_SECTOR_7)
+     84            {
+     85              sector = FLASH_SECTOR_7;
+     86            }
+     87          
+     88            return sector;
+     89          }
+     90          #endif
+     91          
+
+   \                                 In section .text, align 2, keep-with-next
+     92          static uint32_t GetNumberOfPagesByBytes(uint32_t nBytesCount)
+     93          {
+   \                     GetNumberOfPagesByBytes: (+1)
+   \        0x0   0x0001             MOVS     R1,R0
+     94            uint32_t nRet, nTmp;
+     95          
+     96            nTmp = nBytesCount % FLASH_PAGE_SIZE;
+     97            nRet = (!nTmp)?(nBytesCount/FLASH_PAGE_SIZE):(nBytesCount/FLASH_PAGE_SIZE)+1;
+   \        0x2   0x09C8             LSRS     R0,R1,#+7
+   \        0x4   0x0649             LSLS     R1,R1,#+25
+   \        0x6   0xD000             BEQ      ??GetNumberOfPagesByBytes_0
+   \        0x8   0x1C40             ADDS     R0,R0,#+1
+     98          
+     99            return nRet;
+   \                     ??GetNumberOfPagesByBytes_0: (+1)
+   \        0xA   0x4770             BX       LR               ;; return
+    100          }
+    101          
+
+   \                                 In section .text, align 2, keep-with-next
+    102          FLS_RW_StatusTypeDef FlashRead(uint32_t nAddress, uint16_t cNbBytes, uint8_t* pcBuffer)
+    103          {
+   \                     FlashRead: (+1)
+   \        0x0   0xB5FE             PUSH     {R1-R7,LR}
+    104            FLS_RW_StatusTypeDef frRetStatus = FLS_RW_OK;
+   \        0x2   0x2500             MOVS     R5,#+0
+   \        0x4   0x2400             MOVS     R4,#+0
+    105            volatile uint32_t tmp;
+    106            uint8_t i, count4;
+    107            uint16_t pageIdx;
+    108          
+    109          #if DEBUG_FLASH
+    110            nAddress = FLASH_USER_START_ADDR;
+    111          #endif
+    112          
+    113            //	if(cNbBytes > FLASH_PAGE_SIZE*MAX_NO_OF_PAGES)
+    114            //		frRetStatus = FLS_RW_OUT_OF_RANGE;
+    115          
+    116            if(pcBuffer == NULL)
+   \        0x6   0x2A00             CMP      R2,#+0
+   \        0x8   0xD029             BEQ      ??FlashRead_0
+    117              frRetStatus = FLS_RW_ERROR;
+    118          
+    119            if(frRetStatus == FLS_RW_OK)
+    120            {
+    121              for(i=0; i<cNbBytes; i++)
+   \        0xA   0x0007             MOVS     R7,R0
+   \        0xC   0x4668             MOV      R0,SP
+   \        0xE   0x8001             STRH     R1,[R0, #+0]
+   \       0x10   0x9202             STR      R2,[SP, #+8]
+   \       0x12   0xE00E             B        ??FlashRead_1
+    122              {
+    123                count4  = (i-((i/4)*4));	/* Counts 0...3 and restarts */
+    124                pageIdx = (i/4)*4;		/* Every 4 bytes moves ahead */
+    125          
+    126          	if(CheckFlashAddress(nAddress+pageIdx) == FLS_RW_OK || nAddress == UID_BASE )
+    127          	{
+    128          	  tmp = *((__IO uint32_t *)(nAddress+pageIdx));
+   \                     ??FlashRead_2: (+1)
+   \       0x14   0x9801             LDR      R0,[SP, #+4]
+   \       0x16   0x6800             LDR      R0,[R0, #+0]
+   \       0x18   0x9001             STR      R0,[SP, #+4]
+    129          	  pcBuffer[i] = (tmp&(0xFF000000>>(count4*8)))>>(24-(count4*8));
+   \       0x1A   0x9901             LDR      R1,[SP, #+4]
+   \       0x1C   0x20FF             MOVS     R0,#+255
+   \       0x1E   0x0600             LSLS     R0,R0,#+24       ;; #-16777216
+   \       0x20   0x00F2             LSLS     R2,R6,#+3
+   \       0x22   0x40D0             LSRS     R0,R0,R2
+   \       0x24   0x4008             ANDS     R0,R0,R1
+   \       0x26   0x2118             MOVS     R1,#+24
+   \       0x28   0x1A89             SUBS     R1,R1,R2
+   \       0x2A   0x40C8             LSRS     R0,R0,R1
+   \       0x2C   0x9902             LDR      R1,[SP, #+8]
+   \       0x2E   0x5548             STRB     R0,[R1, R5]
+    130          	}
+   \       0x30   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??FlashRead_1: (+1)
+   \       0x32   0x4668             MOV      R0,SP
+   \       0x34   0x8800             LDRH     R0,[R0, #+0]
+   \       0x36   0x4285             CMP      R5,R0
+   \       0x38   0xDA12             BGE      ??FlashRead_3
+   \       0x3A   0x1068             ASRS     R0,R5,#+1
+   \       0x3C   0x0F80             LSRS     R0,R0,#+30
+   \       0x3E   0x1940             ADDS     R0,R0,R5
+   \       0x40   0x1080             ASRS     R0,R0,#+2
+   \       0x42   0x0081             LSLS     R1,R0,#+2
+   \       0x44   0x1A6E             SUBS     R6,R5,R1
+   \       0x46   0x0480             LSLS     R0,R0,#+18
+   \       0x48   0x0C00             LSRS     R0,R0,#+16
+   \       0x4A   0x1838             ADDS     R0,R7,R0
+   \       0x4C   0x9001             STR      R0,[SP, #+4]
+   \       0x4E   0x9801             LDR      R0,[SP, #+4]
+   \       0x50   0x....'....        BL       CheckFlashAddress
+   \       0x54   0x2800             CMP      R0,#+0
+   \       0x56   0xD0DD             BEQ      ??FlashRead_2
+   \       0x58   0x....             LDR      R0,??DataTable3  ;; 0x1ff80050
+   \       0x5A   0x4287             CMP      R7,R0
+   \       0x5C   0xD0DA             BEQ      ??FlashRead_2
+    131          	else
+    132          	{
+    133          	  frRetStatus = FLS_RW_ERROR;
+   \                     ??FlashRead_0: (+1)
+   \       0x5E   0x2401             MOVS     R4,#+1
+    134          	  break;
+    135          	}
+    136              }
+    137            }
+    138          
+    139            return frRetStatus;
+   \                     ??FlashRead_3: (+1)
+   \       0x60   0x0020             MOVS     R0,R4
+   \       0x62   0xBDFE             POP      {R1-R7,PC}       ;; return
+    140          }
+    141          
+
+   \                                 In section .text, align 2, keep-with-next
+    142          FLS_RW_StatusTypeDef FlashWrite(uint32_t nAddress, uint16_t cNbBytes, uint8_t* pcBuffer, uint8_t eraseBeforeWrite)
+    143          {
+   \                     FlashWrite: (+1)
+   \        0x0   0xB5FB             PUSH     {R0,R1,R3-R7,LR}
+   \        0x2   0xB082             SUB      SP,SP,#+8
+   \        0x4   0x0016             MOVS     R6,R2
+    144            uint8_t i, count4;
+    145            uint16_t pageIdx;
+    146            uint32_t temp_word;
+    147            uint32_t __attribute__ ((unused)) error_code;
+    148          
+    149            FLS_RW_StatusTypeDef frRetStatus = FLS_RW_OK;
+   \        0x6   0x2500             MOVS     R5,#+0
+    150          
+    151            //	if(cNbBytes > FLASH_PAGE_SIZE*MAX_NO_OF_PAGES)
+    152            //		frRetStatus = FLS_RW_OUT_OF_RANGE;
+    153          
+    154            if(GetNumberOfPagesByBytes(cNbBytes) > MAX_NO_OF_PAGES)
+   \        0x8   0x460C             MOV      R4,R1
+   \        0xA   0x0020             MOVS     R0,R4
+   \        0xC   0x....'....        BL       GetNumberOfPagesByBytes
+   \       0x10   0x2821             CMP      R0,#+33
+   \       0x12   0xD300             BCC      ??FlashWrite_0
+    155              frRetStatus = FLS_RW_OUT_OF_RANGE;
+   \       0x14   0x2502             MOVS     R5,#+2
+   \                     ??FlashWrite_0: (+1)
+   \       0x16   0x9600             STR      R6,[SP, #+0]
+    156          
+    157            if(pcBuffer == NULL)
+   \       0x18   0x2E00             CMP      R6,#+0
+   \       0x1A   0xD100             BNE      ??FlashWrite_1
+    158              frRetStatus = FLS_RW_ERROR;
+   \       0x1C   0x2501             MOVS     R5,#+1
+   \                     ??FlashWrite_1: (+1)
+   \       0x1E   0x4668             MOV      R0,SP
+   \       0x20   0x7C00             LDRB     R0,[R0, #+16]
+   \       0x22   0x9F02             LDR      R7,[SP, #+8]
+    159          
+    160          #if DEBUG_FLASH
+    161            nAddress = FLASH_USER_START_ADDR;
+    162          #endif
+    163          
+    164            if (eraseBeforeWrite)
+   \       0x24   0x2800             CMP      R0,#+0
+   \       0x26   0xD007             BEQ      ??FlashWrite_2
+    165              frRetStatus = FlashErase(nAddress, GetNumberOfPagesByBytes(cNbBytes));
+   \       0x28   0x0020             MOVS     R0,R4
+   \       0x2A   0x....'....        BL       GetNumberOfPagesByBytes
+   \       0x2E   0x0001             MOVS     R1,R0
+   \       0x30   0x0038             MOVS     R0,R7
+   \       0x32   0x....'....        BL       FlashErase
+   \       0x36   0x0005             MOVS     R5,R0
+    166          
+    167            if(frRetStatus == FLS_RW_OK)
+   \                     ??FlashWrite_2: (+1)
+   \       0x38   0x0028             MOVS     R0,R5
+   \       0x3A   0xD133             BNE      ??FlashWrite_3
+    168            {
+    169              temp_word = 0;
+   \       0x3C   0x2000             MOVS     R0,#+0
+   \       0x3E   0x9001             STR      R0,[SP, #+4]
+    170          
+    171              /* Unlock the Flash to enable the flash control register access */
+    172              HAL_FLASH_Unlock();
+   \       0x40   0x....'....        BL       HAL_FLASH_Unlock
+    173          
+    174              for(i=0; i<cNbBytes; i++)
+   \       0x44   0x2400             MOVS     R4,#+0
+   \       0x46   0x9E00             LDR      R6,[SP, #+0]
+   \       0x48   0x9B01             LDR      R3,[SP, #+4]
+   \       0x4A   0xE001             B        ??FlashWrite_4
+    175              {
+    176                count4  = i-((i/4)*4);	/* Counts 0...3 and restarts */
+    177                pageIdx = (i/4)*4; 	/* Every 4 bytes writes page */
+    178          
+    179                temp_word |= ((uint32_t)pcBuffer[i])<<(24-(8*count4));
+    180          
+    181                if((i == cNbBytes-1) || count4 == 3 )/* Write every 4 bytes or if bytes in args are less than 4 */
+    182                {
+    183          	  if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, nAddress+pageIdx, temp_word) == HAL_OK)
+    184          	  {
+    185          	    temp_word = 0;
+   \                     ??FlashWrite_5: (+1)
+   \       0x4C   0x2300             MOVS     R3,#+0
+    186          	  }
+   \                     ??FlashWrite_6: (+1)
+   \       0x4E   0x1C64             ADDS     R4,R4,#+1
+   \                     ??FlashWrite_4: (+1)
+   \       0x50   0x4668             MOV      R0,SP
+   \       0x52   0x8980             LDRH     R0,[R0, #+12]
+   \       0x54   0x4284             CMP      R4,R0
+   \       0x56   0xDA23             BGE      ??FlashWrite_7
+   \       0x58   0x1060             ASRS     R0,R4,#+1
+   \       0x5A   0x0F80             LSRS     R0,R0,#+30
+   \       0x5C   0x1900             ADDS     R0,R0,R4
+   \       0x5E   0x1080             ASRS     R0,R0,#+2
+   \       0x60   0x0082             LSLS     R2,R0,#+2
+   \       0x62   0x1AA1             SUBS     R1,R4,R2
+   \       0x64   0xB2C9             UXTB     R1,R1
+   \       0x66   0x0480             LSLS     R0,R0,#+18
+   \       0x68   0x9300             STR      R3,[SP, #+0]
+   \       0x6A   0x5D33             LDRB     R3,[R6, R4]
+   \       0x6C   0x469C             MOV      R12,R3
+   \       0x6E   0x2318             MOVS     R3,#+24
+   \       0x70   0x00CA             LSLS     R2,R1,#+3
+   \       0x72   0x1A9A             SUBS     R2,R3,R2
+   \       0x74   0x4663             MOV      R3,R12
+   \       0x76   0x4093             LSLS     R3,R3,R2
+   \       0x78   0x9A00             LDR      R2,[SP, #+0]
+   \       0x7A   0x4313             ORRS     R3,R3,R2
+   \       0x7C   0x466A             MOV      R2,SP
+   \       0x7E   0x8992             LDRH     R2,[R2, #+12]
+   \       0x80   0x1E52             SUBS     R2,R2,#+1
+   \       0x82   0x4294             CMP      R4,R2
+   \       0x84   0xD001             BEQ      ??FlashWrite_8
+   \       0x86   0x2903             CMP      R1,#+3
+   \       0x88   0xD1E1             BNE      ??FlashWrite_6
+   \                     ??FlashWrite_8: (+1)
+   \       0x8A   0x001A             MOVS     R2,R3
+   \       0x8C   0x0C00             LSRS     R0,R0,#+16
+   \       0x8E   0x1839             ADDS     R1,R7,R0
+   \       0x90   0x2002             MOVS     R0,#+2
+   \       0x92   0x....'....        BL       HAL_FLASH_Program
+   \       0x96   0x2800             CMP      R0,#+0
+   \       0x98   0xD0D8             BEQ      ??FlashWrite_5
+    187          	  else
+    188          	  {
+    189          	    error_code = HAL_FLASH_GetError();
+   \       0x9A   0x....'....        BL       HAL_FLASH_GetError
+    190          	    frRetStatus = FLS_RW_ERROR;
+   \       0x9E   0x2501             MOVS     R5,#+1
+    191          
+    192          	    break;
+    193          	  }
+    194                }
+    195              }
+    196          
+    197              HAL_FLASH_Lock();
+   \                     ??FlashWrite_7: (+1)
+   \       0xA0   0x....'....        BL       HAL_FLASH_Lock
+    198            }
+    199          
+    200            return frRetStatus;
+   \                     ??FlashWrite_3: (+1)
+   \       0xA4   0x0028             MOVS     R0,R5
+   \       0xA6   0xB005             ADD      SP,SP,#+20
+   \       0xA8   0xBDF0             POP      {R4-R7,PC}       ;; return
+    201          }
+    202          
+
+   \                                 In section .text, align 2, keep-with-next
+    203          FLS_RW_StatusTypeDef FlashErase(uint32_t nAddress, uint32_t nPages)
+    204          {
+   \                     FlashErase: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+   \        0x4   0x000E             MOVS     R6,R1
+    205            uint32_t __attribute__ ((unused)) error_code;
+    206            FLS_RW_StatusTypeDef frRetStatus = FLS_RW_ERROR;
+   \        0x6   0x2501             MOVS     R5,#+1
+    207          
+    208            /* Unlock the Flash to enable the flash control register access */
+    209            if(HAL_FLASH_Unlock() == HAL_OK)
+   \        0x8   0x....'....        BL       HAL_FLASH_Unlock
+   \        0xC   0x2800             CMP      R0,#+0
+   \        0xE   0xD111             BNE      ??FlashErase_0
+   \       0x10   0x0021             MOVS     R1,R4
+    210            {
+    211          #if defined(STM32F401xE)
+    212              EraseInitStruct.TypeErase		= FLASH_TYPEERASE_SECTORS;
+    213              EraseInitStruct.Sector		= GetSector(nAddress);
+    214              EraseInitStruct.NbSectors		= nPages;
+    215              EraseInitStruct.VoltageRange	= FLASH_VOLTAGE_RANGE_3;
+    216          #else
+    217              EraseInitStruct.TypeErase   = FLASH_TYPEERASE_PAGES;
+   \       0x12   0x....             LDR      R0,??DataTable3_1
+   \       0x14   0x2400             MOVS     R4,#+0
+   \       0x16   0x6004             STR      R4,[R0, #+0]
+    218              EraseInitStruct.PageAddress = nAddress;
+   \       0x18   0x6041             STR      R1,[R0, #+4]
+    219              EraseInitStruct.NbPages     = nPages;
+   \       0x1A   0x6086             STR      R6,[R0, #+8]
+    220          #endif
+    221          
+    222              if(HAL_FLASHEx_Erase(&EraseInitStruct, &PAGEError) == HAL_OK)
+   \       0x1C   0x0001             MOVS     R1,R0
+   \       0x1E   0x310C             ADDS     R1,R1,#+12
+   \       0x20   0x....'....        BL       HAL_FLASHEx_Erase
+   \       0x24   0x2800             CMP      R0,#+0
+   \       0x26   0xD105             BNE      ??FlashErase_0
+    223              {
+    224                if(HAL_FLASH_Lock() == HAL_OK)
+   \       0x28   0x....'....        BL       HAL_FLASH_Lock
+   \       0x2C   0x2800             CMP      R0,#+0
+   \       0x2E   0xD101             BNE      ??FlashErase_0
+    225          	frRetStatus = FLS_RW_OK;
+   \       0x30   0x2500             MOVS     R5,#+0
+   \       0x32   0xE001             B        ??FlashErase_1
+    226              }
+    227            }
+    228          
+    229            if(frRetStatus == FLS_RW_ERROR)
+    230            {
+    231              error_code = HAL_FLASH_GetError();
+   \                     ??FlashErase_0: (+1)
+   \       0x34   0x....'....        BL       HAL_FLASH_GetError
+    232            }
+    233          
+    234            return frRetStatus;
+   \                     ??FlashErase_1: (+1)
+   \       0x38   0x0028             MOVS     R0,R5
+   \       0x3A   0xBD70             POP      {R4-R6,PC}       ;; return
+    235          }
+    236          
+
+   \                                 In section .text, align 2, keep-with-next
+    237          FLS_RW_StatusTypeDef CheckFlashAddress(uint32_t nAddress)
+    238          {
+    239          #if defined(STM32F401xE)
+    240            if(IS_FLASH_ADDRESS(nAddress))
+    241          #else
+    242            if(IS_FLASH_PROGRAM_ADDRESS(nAddress))
+   \                     CheckFlashAddress: (+1)
+   \        0x0   0x2180             MOVS     R1,#+128
+   \        0x2   0x0509             LSLS     R1,R1,#+20       ;; #+134217728
+   \        0x4   0x4288             CMP      R0,R1
+   \        0x6   0xD309             BCC      ??CheckFlashAddress_0
+   \        0x8   0x....             LDR      R2,??DataTable3_2  ;; 0x1ff8007c
+   \        0xA   0x6812             LDR      R2,[R2, #+0]
+   \        0xC   0x0292             LSLS     R2,R2,#+10
+   \        0xE   0x....             LDR      R3,??DataTable3_3  ;; 0x3fffc00
+   \       0x10   0x4013             ANDS     R3,R3,R2
+   \       0x12   0x1859             ADDS     R1,R3,R1
+   \       0x14   0x4288             CMP      R0,R1
+   \       0x16   0xD201             BCS      ??CheckFlashAddress_0
+    243          #endif
+    244              return FLS_RW_OK;
+   \       0x18   0x2000             MOVS     R0,#+0
+   \       0x1A   0x4770             BX       LR
+    245            else
+    246              return FLS_RW_ERROR;
+   \                     ??CheckFlashAddress_0: (+1)
+   \       0x1C   0x2001             MOVS     R0,#+1
+   \       0x1E   0x4770             BX       LR               ;; return
+    247          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \        0x0   0x1FF8'0050        DC32     0x1ff80050
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_1:
+   \        0x0   0x....'....        DC32     EraseInitStruct
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_2:
+   \        0x0   0x1FF8'007C        DC32     0x1ff8007c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_3:
+   \        0x0   0x03FF'FC00        DC32     0x3fffc00
+    248          
+    249          /**
+    250          * @}
+    251          */
+    252          
+    253          
+    254          /******************* (C) COPYRIGHT 2018 STMicroelectronics *****END OF FILE*****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   CheckFlashAddress
+      16   FlashErase
+        16   -> HAL_FLASHEx_Erase
+        16   -> HAL_FLASH_GetError
+        16   -> HAL_FLASH_Lock
+        16   -> HAL_FLASH_Unlock
+      32   FlashRead
+        32   -> CheckFlashAddress
+      40   FlashWrite
+        40   -> FlashErase
+        40   -> GetNumberOfPagesByBytes
+        40   -> HAL_FLASH_GetError
+        40   -> HAL_FLASH_Lock
+        40   -> HAL_FLASH_Program
+        40   -> HAL_FLASH_Unlock
+       0   GetNumberOfPagesByBytes
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable3
+       4  ??DataTable3_1
+       4  ??DataTable3_2
+       4  ??DataTable3_3
+      32  CheckFlashAddress
+      16  EraseInitStruct
+          PAGEError
+      60  FlashErase
+     100  FlashRead
+     170  FlashWrite
+      12  GetNumberOfPagesByBytes
+     128  board_data
+     128  nvm_data
+
+ 
+  16 bytes in section .bss
+ 128 bytes in section .noinit.sigfox_board_data
+ 128 bytes in section .noinit.sigfox_nvm_data
+ 390 bytes in section .text
+ 
+ 390 bytes of CODE memory
+ 272 bytes of DATA memory
+
+Errors: none
+Warnings: none

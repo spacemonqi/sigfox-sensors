@@ -1,0 +1,316 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  11:53:16
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                    
+#    Endian                   =  little
+#    Source file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\BSP\SDK_Eval_STM32\src\SDK_EVAL_Led.c
+#    Command line             =
+#        -f C:\Users\dvone\AppData\Local\Temp\EW65F.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\BSP\SDK_Eval_STM32\src\SDK_EVAL_Led.c
+#        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
+#        STM32L053xx -lC
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List
+#        -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+#        --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.4\arm\inc\c\DLib_Config_Normal.h" -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\BSP\SDK_Eval_STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\CMSIS\STM32L0xx\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\S2LP_Middleware\STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\Utils\STM32\inc\\
+#        -Ohz --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.4\arm\CMSIS\Core\Include\\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.4\arm\CMSIS\DSP\Include\\")
+#    Locale                   =  C
+#    List file                =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\SDK_EVAL_Led.lst
+#    Object file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\SDK_EVAL_Led.o
+#    Runtime model:              
+#      __SystemLibrary        =  DLib
+#      __dlib_file_descriptor =  0
+#      __dlib_version         =  6
+#
+###############################################################################
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\BSP\SDK_Eval_STM32\src\SDK_EVAL_Led.c
+      1          /**
+      2          * @file    SDK_EVAL_Led.c
+      3          * @author  AMS VMA RF application team
+      4          * @version V2.0.0
+      5          * @date    November 29, 2018
+      6          * @brief   This file provides all the low level API to manage LEDs for eval board.
+      7          * @details
+      8          *
+      9          * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+     10          * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+     11          * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+     12          * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+     13          * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+     14          * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+     15          *
+     16          * THIS SOURCE CODE IS PROTECTED BY A LICENSE.
+     17          * FOR MORE INFORMATION PLEASE CAREFULLY READ THE LICENSE AGREEMENT FILE LOCATED
+     18          * IN THE ROOT DIRECTORY OF THIS FIRMWARE PACKAGE.
+     19          *
+     20          * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+     21          */
+     22          
+     23          
+     24          /* Includes ------------------------------------------------------------------*/
+     25          #include "SDK_EVAL_Led.h"
+     26          
+     27          /**
+     28          * @brief  Get the IO pin associate to the required LED
+     29          * @param  xLed: LED name @ref SdkEvalLed
+     30          *         This parameter can be one of following parameters:
+     31          *         @arg LED1
+     32          * @retval led_pin: IO pin name associated to that LED
+     33          */
+
+   \                                 In section .text, align 2, keep-with-next
+     34          uint32_t Get_LedGpioPin(SdkEvalLed xLed)
+     35          {
+     36            uint32_t led_pin;
+     37            switch (xLed)
+     38            {
+     39              case(LED1):
+     40          	led_pin = SDK_EVAL_LED1_PIN;
+     41          	break;
+     42            default:
+     43              led_pin = SDK_EVAL_LED1_PIN;
+     44              break;
+     45            }
+     46            return (led_pin);
+   \                     Get_LedGpioPin: (+1)
+   \        0x0   0x2020             MOVS     R0,#+32
+   \        0x2   0x4770             BX       LR               ;; return
+     47          }
+     48          
+     49          /**
+     50          * @brief  Configures LEDs.
+     51          * @param  xLed Specifies the Led to be configured @ref SdkEvalLed.
+     52          *         This parameter can be one of following parameters:
+     53          *         @arg LED1
+     54          * @retval None.
+     55          */
+
+   \                                 In section .text, align 2, keep-with-next
+     56          void SdkEvalLedInit(SdkEvalLed xLed)
+     57          {
+   \                     SdkEvalLedInit: (+1)
+   \        0x0   0xB518             PUSH     {R3,R4,LR}
+   \        0x2   0xB085             SUB      SP,SP,#+20
+     58            SDK_EVAL_LED1_CLK();
+   \        0x4   0x2001             MOVS     R0,#+1
+   \        0x6   0x....             LDR      R1,??DataTable3  ;; 0x4002102c
+   \        0x8   0x680A             LDR      R2,[R1, #+0]
+   \        0xA   0x4302             ORRS     R2,R2,R0
+   \        0xC   0x600A             STR      R2,[R1, #+0]
+   \        0xE   0x6809             LDR      R1,[R1, #+0]
+   \       0x10   0x4001             ANDS     R1,R1,R0
+   \       0x12   0x9100             STR      R1,[SP, #+0]
+   \       0x14   0x9900             LDR      R1,[SP, #+0]
+     59            GPIO_InitTypeDef  GPIO_InitStructure;
+     60          
+     61            /* Configure the GPIO_LED pin */
+     62            GPIO_InitStructure.Pin = SDK_EVAL_LED1_PIN;
+   \       0x16   0x2120             MOVS     R1,#+32
+   \       0x18   0x9100             STR      R1,[SP, #+0]
+     63            GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+   \       0x1A   0x9001             STR      R0,[SP, #+4]
+     64            GPIO_InitStructure.Pull = GPIO_NOPULL;
+   \       0x1C   0x2100             MOVS     R1,#+0
+   \       0x1E   0x9102             STR      R1,[SP, #+8]
+     65            GPIO_InitStructure.Speed = GPIO_SPEED_MEDIUM;
+   \       0x20   0x9003             STR      R0,[SP, #+12]
+     66            HAL_GPIO_Init(SDK_EVAL_LED1_PORT, &GPIO_InitStructure);
+   \       0x22   0x24A0             MOVS     R4,#+160
+   \       0x24   0x05E4             LSLS     R4,R4,#+23       ;; #+1342177280
+   \       0x26   0x4669             MOV      R1,SP
+   \       0x28   0x0020             MOVS     R0,R4
+   \       0x2A   0x....'....        BL       HAL_GPIO_Init
+     67          
+     68            HAL_GPIO_WritePin(SDK_EVAL_LED1_PORT, SDK_EVAL_LED1_PIN, GPIO_PIN_RESET);
+   \       0x2E   0x2200             MOVS     R2,#+0
+   \       0x30   0x2120             MOVS     R1,#+32
+   \       0x32   0x0020             MOVS     R0,R4
+   \       0x34   0x....'....        BL       HAL_GPIO_WritePin
+     69          }
+   \       0x38   0xB006             ADD      SP,SP,#+24
+   \       0x3A   0xBD10             POP      {R4,PC}          ;; return
+     70          
+     71          /**
+     72          * @brief  Turns selected LED On.
+     73          * @param  xLed Specifies the Led to be set on  @ref SdkEvalLed.
+     74          *         This parameter can be one of following parameters:
+     75          *         @arg LED1
+     76          * @retval None.
+     77          */
+
+   \                                 In section .text, align 2, keep-with-next
+     78          void SdkEvalLedOn(SdkEvalLed xLed)
+     79          {
+   \                     SdkEvalLedOn: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     80            HAL_GPIO_WritePin(SDK_EVAL_LED1_PORT, SDK_EVAL_LED1_PIN, GPIO_PIN_SET);
+   \        0x2   0x2201             MOVS     R2,#+1
+   \        0x4   0x....             B.N      ?Subroutine0
+     81          }
+
+   \                                 In section .text, align 2, keep-with-next
+   \                     ?Subroutine0: (+1)
+   \        0x0   0x2120             MOVS     R1,#+32
+   \        0x2   0x20A0             MOVS     R0,#+160
+   \        0x4   0x05C0             LSLS     R0,R0,#+23       ;; #+1342177280
+   \        0x6   0x....'....        BL       HAL_GPIO_WritePin
+   \        0xA   0xBD01             POP      {R0,PC}          ;; return
+     82          
+     83          /**
+     84          * @brief  Turns selected LED Off.
+     85          * @param  xLed Specifies the Led to be set off @ref SdkEvalLed.
+     86          *         This parameter can be one of following parameters:
+     87          *         @arg LED1
+     88          * @retval None.
+     89          */
+
+   \                                 In section .text, align 2, keep-with-next
+     90          void SdkEvalLedOff(SdkEvalLed xLed)
+     91          {
+   \                     SdkEvalLedOff: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     92            HAL_GPIO_WritePin(SDK_EVAL_LED1_PORT, SDK_EVAL_LED1_PIN, GPIO_PIN_RESET);
+   \        0x2   0x2200             MOVS     R2,#+0
+   \        0x4                      REQUIRE ?Subroutine0
+   \        0x4                      ;; // Fall through to label ?Subroutine0
+     93          }
+     94          
+     95          /**
+     96          * @brief  Toggles the selected LED.
+     97          * @param  xLed Specifies the Led to be toggled @ref SdkEvalLed.@ref SdkEvalLed.
+     98          *         This parameter can be one of following parameters:
+     99          *         @arg LED1
+    100          * @retval None.
+    101          */
+
+   \                                 In section .text, align 2, keep-with-next
+    102          void SdkEvalLedToggle(SdkEvalLed xLed)
+    103          {
+    104            SDK_EVAL_LED1_PORT->ODR ^= SDK_EVAL_LED1_PIN;
+   \                     SdkEvalLedToggle: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable3_1  ;; 0x50000014
+   \        0x2   0x6801             LDR      R1,[R0, #+0]
+   \        0x4   0x2220             MOVS     R2,#+32
+   \        0x6   0x404A             EORS     R2,R2,R1
+   \        0x8   0x6002             STR      R2,[R0, #+0]
+    105          }
+   \        0xA   0x4770             BX       LR               ;; return
+    106          
+    107          /**
+    108          * @brief  Returns the status of a specified led.
+    109          * @param  xLed Specifies the Led to be read @ref SdkEvalLed.
+    110          *         This parameter can be one of following parameters:
+    111          *         @arg LED1
+    112          * @retval FlagStatus: status of the LED @ref FlagStatus
+    113          *         This parameter can be: SET or RESET.
+    114          */
+
+   \                                 In section .text, align 2, keep-with-next
+    115          FlagStatus SdkEvalLedGetState(SdkEvalLed xLed)
+    116          {
+    117            if(SDK_EVAL_LED1_PORT->IDR & SDK_EVAL_LED1_PIN)
+   \                     SdkEvalLedGetState: (+1)
+   \        0x0   0x....             LDR      R0,??DataTable3_2  ;; 0x50000010
+   \        0x2   0x6800             LDR      R0,[R0, #+0]
+   \        0x4   0x2120             MOVS     R1,#+32
+   \        0x6   0x4008             ANDS     R0,R0,R1
+   \        0x8   0x1E40             SUBS     R0,R0,#+1
+   \        0xA   0x4180             SBCS     R0,R0,R0
+   \        0xC   0x0FC0             LSRS     R0,R0,#+31
+    118              return RESET;
+    119            else
+    120              return SET;
+   \        0xE   0x4770             BX       LR               ;; return
+    121          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \        0x0   0x4002'102C        DC32     0x4002102c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_1:
+   \        0x0   0x5000'0014        DC32     0x50000014
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_2:
+   \        0x0   0x5000'0010        DC32     0x50000010
+    122          
+    123          /**
+    124          * @}
+    125          */
+    126          
+    127          /**
+    128          * @}
+    129          */
+    130          
+    131          /**
+    132          * @}
+    133          */
+    134          
+    135          /******************* (C) COPYRIGHT 2015 STMicroelectronics *****END OF FILE****/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   Get_LedGpioPin
+       0   SdkEvalLedGetState
+      32   SdkEvalLedInit
+        32   -> HAL_GPIO_Init
+        32   -> HAL_GPIO_WritePin
+       8   SdkEvalLedOff
+         8   -> HAL_GPIO_WritePin
+       8   SdkEvalLedOn
+         8   -> HAL_GPIO_WritePin
+       0   SdkEvalLedToggle
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable3
+       4  ??DataTable3_1
+       4  ??DataTable3_2
+      12  ?Subroutine0
+       4  Get_LedGpioPin
+      16  SdkEvalLedGetState
+      60  SdkEvalLedInit
+       4  SdkEvalLedOff
+       6  SdkEvalLedOn
+      12  SdkEvalLedToggle
+
+ 
+ 126 bytes in section .text
+ 
+ 126 bytes of CODE memory
+
+Errors: none
+Warnings: none

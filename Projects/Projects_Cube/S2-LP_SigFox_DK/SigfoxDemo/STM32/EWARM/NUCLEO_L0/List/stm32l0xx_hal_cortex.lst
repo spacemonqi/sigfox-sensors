@@ -1,0 +1,837 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  11:53:20
+# Copyright 1999-2020 IAR Systems AB.
+#
+#    Cpu mode                    
+#    Endian                   =  little
+#    Source file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_cortex.c
+#    Command line             =
+#        -f C:\Users\dvone\AppData\Local\Temp\EW1394.tmp
+#        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_cortex.c
+#        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
+#        STM32L053xx -lC
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List
+#        -o
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj
+#        --debug --endian=little --cpu=Cortex-M0+ -e --fpu=None --dlib_config
+#        "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        8.4\arm\inc\c\DLib_Config_Normal.h" -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\Sigfox_Libs\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\ST_API\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\BSP\SDK_Eval_STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\MCU\CMSIS\STM32L0xx\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\S2LP_Middleware\STM32\inc\\
+#        -I
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\..\..\..\..\..\Drivers\Utils\STM32\inc\\
+#        -Ohz --use_c++_inline -I "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 8.4\arm\CMSIS\Core\Include\\" -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 8.4\arm\CMSIS\DSP\Include\\")
+#    Locale                   =  C
+#    List file                =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\stm32l0xx_hal_cortex.lst
+#    Object file              =
+#        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\stm32l0xx_hal_cortex.o
+#    Runtime model:              
+#      __SystemLibrary        =  DLib
+#      __dlib_file_descriptor =  0
+#      __dlib_version         =  6
+#
+###############################################################################
+
+C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Drivers\MCU\STM32_HAL\STM32L0xx_HAL_Driver\src\stm32l0xx_hal_cortex.c
+      1          /**
+      2            ******************************************************************************
+      3            * @file    stm32l0xx_hal_cortex.c
+      4            * @author  MCD Application Team
+      5            * @brief   CORTEX HAL module driver.
+      6            *          This file provides firmware functions to manage the following 
+      7            *          functionalities of the CORTEX:
+      8            *           + Initialization and Configuration functions
+      9            *           + Peripheral Control functions 
+     10            *
+     11            @verbatim  
+     12            ==============================================================================
+     13                                  ##### How to use this driver #####
+     14            ==============================================================================
+     15              [..]  
+     16              *** How to configure Interrupts using CORTEX HAL driver ***
+     17              ===========================================================
+     18              [..]     
+     19              This section provides functions allowing to configure the NVIC interrupts (IRQ).
+     20              The Cortex M0+ exceptions are managed by CMSIS functions.
+     21                (#) Enable and Configure the priority of the selected IRQ Channels. 
+     22                       The priority can be 0..3. 
+     23          
+     24                  -@- Lower priority values gives higher priority.
+     25                  -@- Priority Order:
+     26                      (#@) Lowest priority.
+     27                      (#@) Lowest hardware priority (IRQn position).  
+     28              
+     29               (#)  Configure the priority of the selected IRQ Channels using HAL_NVIC_SetPriority() 
+     30          
+     31               (#)  Enable the selected IRQ Channels using HAL_NVIC_EnableIRQ() 
+     32                
+     33              [..]  
+     34              *** How to configure Systick using CORTEX HAL driver ***
+     35              ========================================================
+     36              [..]
+     37              Setup SysTick Timer for time base.
+     38                     
+     39             (+) The HAL_SYSTICK_Config()function calls the SysTick_Config() function which
+     40                 is a CMSIS function that:
+     41                  (++) Configures the SysTick Reload register with value passed as function parameter.
+     42                  (++) Configures the SysTick IRQ priority to the lowest value (0x03).
+     43                  (++) Resets the SysTick Counter register.
+     44                  (++) Configures the SysTick Counter clock source to be Core Clock Source (HCLK).
+     45                  (++) Enables the SysTick Interrupt.
+     46                  (++) Starts the SysTick Counter.
+     47          	
+     48             (+) You can change the SysTick Clock source to be HCLK_Div8 by calling the function
+     49                 HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK_DIV8) just after the
+     50                 HAL_SYSTICK_Config() function call. The HAL_SYSTICK_CLKSourceConfig() function is defined
+     51                 inside the stm32l0xx_hal_cortex.c file.
+     52          
+     53             (+) You can change the SysTick IRQ priority by calling the
+     54                 HAL_NVIC_SetPriority(SysTick_IRQn,...) function just after the HAL_SYSTICK_Config() function 
+     55                 call. The HAL_NVIC_SetPriority() call the NVIC_SetPriority() function which is a CMSIS function.
+     56          
+     57             (+) To adjust the SysTick time base, use the following formula:
+     58                                      
+     59                 Reload Value = SysTick Counter Clock (Hz) x  Desired Time base (s)
+     60                 (++) Reload Value is the parameter to be passed for HAL_SYSTICK_Config() function
+     61                 (++) Reload Value should not exceed 0xFFFFFF
+     62             
+     63            @endverbatim
+     64            ******************************************************************************
+     65            * @attention
+     66            *
+     67            * <h2><center>&copy; Copyright(c) 2016 STMicroelectronics.
+     68            * All rights reserved.</center></h2>
+     69            *
+     70            * This software component is licensed by ST under BSD 3-Clause license,
+     71            * the "License"; You may not use this file except in compliance with the
+     72            * License. You may obtain a copy of the License at:
+     73            *                        opensource.org/licenses/BSD-3-Clause
+     74            *
+     75            ******************************************************************************  
+     76            */
+     77          
+     78          /* Includes ------------------------------------------------------------------*/
+     79          #include "stm32l0xx_hal.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void __NVIC_SetPriority(IRQn_Type, uint32_t)
+   \                     __NVIC_SetPriority: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0x00C2             LSLS     R2,R0,#+3
+   \        0x4   0x2318             MOVS     R3,#+24
+   \        0x6   0x4013             ANDS     R3,R3,R2
+   \        0x8   0x24FF             MOVS     R4,#+255
+   \        0xA   0x409C             LSLS     R4,R4,R3
+   \        0xC   0x43E2             MVNS     R2,R4
+   \        0xE   0x0789             LSLS     R1,R1,#+30
+   \       0x10   0x0E09             LSRS     R1,R1,#+24
+   \       0x12   0x4099             LSLS     R1,R1,R3
+   \       0x14   0x0003             MOVS     R3,R0
+   \       0x16   0xD404             BMI      ??__NVIC_SetPriority_0
+   \       0x18   0x....             LDR      R0,??DataTable12  ;; 0xe000e400
+   \       0x1A   0x089B             LSRS     R3,R3,#+2
+   \       0x1C   0x009B             LSLS     R3,R3,#+2
+   \       0x1E   0x18C0             ADDS     R0,R0,R3
+   \       0x20   0xE006             B        ??__NVIC_SetPriority_1
+   \                     ??__NVIC_SetPriority_0: (+1)
+   \       0x22   0x....             LDR      R3,??DataTable12_1  ;; 0xe000ed1c
+   \       0x24   0x0700             LSLS     R0,R0,#+28
+   \       0x26   0x0F00             LSRS     R0,R0,#+28
+   \       0x28   0x3808             SUBS     R0,R0,#+8
+   \       0x2A   0x0880             LSRS     R0,R0,#+2
+   \       0x2C   0x0080             LSLS     R0,R0,#+2
+   \       0x2E   0x1818             ADDS     R0,R3,R0
+   \                     ??__NVIC_SetPriority_1: (+1)
+   \       0x30   0x6803             LDR      R3,[R0, #+0]
+   \       0x32   0x401A             ANDS     R2,R2,R3
+   \       0x34   0x4311             ORRS     R1,R1,R2
+   \       0x36   0x6001             STR      R1,[R0, #+0]
+   \       0x38   0xBD10             POP      {R4,PC}          ;; return
+     80          
+     81          /** @addtogroup STM32L0xx_HAL_Driver
+     82            * @{
+     83            */
+     84          
+     85          #ifdef HAL_CORTEX_MODULE_ENABLED
+     86          
+     87          /** @addtogroup CORTEX
+     88            * @brief CORTEX HAL module driver
+     89            * @{
+     90            */
+     91          
+     92          /* Private types -------------------------------------------------------------*/
+     93          /* Private variables ---------------------------------------------------------*/
+     94          /* Private constants ---------------------------------------------------------*/
+     95          /* Private macros ------------------------------------------------------------*/
+     96          /* Private functions ---------------------------------------------------------*/
+     97          /* Exported functions --------------------------------------------------------*/
+     98          
+     99          /** @addtogroup CORTEX_Exported_Functions
+    100            * @{
+    101            */
+    102          
+    103          
+    104          /** @addtogroup CORTEX_Exported_Functions_Group1 Initialization and de-initialization functions 
+    105           *  @brief    Initialization and Configuration functions 
+    106           *
+    107          @verbatim    
+    108            ==============================================================================
+    109                        ##### Initialization and Configuration functions #####
+    110            ==============================================================================
+    111              [..]
+    112                This section provides the CORTEX HAL driver functions allowing to configure Interrupts
+    113                Systick functionalities 
+    114          
+    115          @endverbatim
+    116            * @{
+    117            */
+    118          
+    119          /**
+    120            * @brief  Sets the priority of an interrupt.
+    121            * @param  IRQn External interrupt number .
+    122            *         This parameter can be an enumerator of  IRQn_Type enumeration
+    123            *         (For the complete STM32 Devices IRQ Channels list, please refer to stm32l0xx.h file)
+    124            * @param  PreemptPriority The pre-emption priority for the IRQn channel.
+    125            *         This parameter can be a value between 0 and 3.
+    126            *         A lower priority value indicates a higher priority 
+    127            * @param  SubPriority the subpriority level for the IRQ channel.
+    128            *         with stm32l0xx devices, this parameter is a dummy value and it is ignored, because 
+    129            *         no subpriority supported in Cortex M0+ based products.   
+    130            * @retval None
+    131            */
+
+   \                                 In section .text, align 2, keep-with-next
+    132          void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t SubPriority)
+    133          { 
+   \                     HAL_NVIC_SetPriority: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    134              /* Check the parameters */
+    135            assert_param(IS_NVIC_PREEMPTION_PRIORITY(PreemptPriority));
+    136            NVIC_SetPriority(IRQn,PreemptPriority);
+   \        0x2   0x....'....        BL       __NVIC_SetPriority
+    137          }
+   \        0x6   0xBD01             POP      {R0,PC}          ;; return
+    138          
+    139          /**
+    140            * @brief  Enable a device specific interrupt in the NVIC interrupt controller.
+    141            * @note   To configure interrupts priority correctly, the NVIC_PriorityGroupConfig()
+    142            *         function should be called before. 
+    143            * @param  IRQn External interrupt number .
+    144            *         This parameter can be an enumerator of  IRQn_Type enumeration
+    145            *         (For the complete STM32 Devices IRQ Channels list, please refer to stm32l0xx.h file)  
+    146            * @retval None
+    147            */
+
+   \                                 In section .text, align 4, keep-with-next
+    148          void HAL_NVIC_EnableIRQ(IRQn_Type IRQn)
+    149          {
+    150            /* Check the parameters */
+    151            assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
+    152            
+    153            /* Enable interrupt */
+    154            NVIC_EnableIRQ(IRQn);
+   \                     HAL_NVIC_EnableIRQ: (+1)
+   \        0x0   0x0001             MOVS     R1,R0
+   \        0x2   0xD405             BMI      ??HAL_NVIC_EnableIRQ_0
+   \        0x4   0x2101             MOVS     R1,#+1
+   \        0x6   0x06C0             LSLS     R0,R0,#+27
+   \        0x8   0x0EC0             LSRS     R0,R0,#+27
+   \        0xA   0x4081             LSLS     R1,R1,R0
+   \        0xC   0x....             LDR      R0,??DataTable12_2  ;; 0xe000e100
+   \        0xE   0x6001             STR      R1,[R0, #+0]
+    155          }
+   \                     ??HAL_NVIC_EnableIRQ_0: (+1)
+   \       0x10   0x4770             BX       LR               ;; return
+    156          
+    157          /**
+    158            * @brief  Disable a device specific interrupt in the NVIC interrupt controller.
+    159            * @param  IRQn External interrupt number .
+    160            *         This parameter can be an enumerator of IRQn_Type enumeration
+    161            *         (For the complete STM32 Devices IRQ Channels list, please refer to stm32l0xx.h file)  
+    162            * @retval None
+    163            */
+
+   \                                 In section .text, align 2, keep-with-next
+    164          void HAL_NVIC_DisableIRQ(IRQn_Type IRQn)
+    165          {
+    166              /* Check the parameters */
+    167            assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
+    168            
+    169            /* Disable interrupt */
+    170            NVIC_DisableIRQ(IRQn);
+   \                     HAL_NVIC_DisableIRQ: (+1)
+   \        0x0   0x0001             MOVS     R1,R0
+   \        0x2   0xD409             BMI      ??HAL_NVIC_DisableIRQ_0
+   \        0x4   0x2101             MOVS     R1,#+1
+   \        0x6   0x06C0             LSLS     R0,R0,#+27
+   \        0x8   0x0EC0             LSRS     R0,R0,#+27
+   \        0xA   0x4081             LSLS     R1,R1,R0
+   \        0xC   0x....             LDR      R0,??DataTable12_3  ;; 0xe000e180
+   \        0xE   0x6001             STR      R1,[R0, #+0]
+   \       0x10   0xF3BF 0x8F4F      DSB      SY
+   \       0x14   0xF3BF 0x8F6F      ISB      SY
+    171          }
+   \                     ??HAL_NVIC_DisableIRQ_0: (+1)
+   \       0x18   0x4770             BX       LR               ;; return
+    172          
+    173          /**
+    174            * @brief  Initiate a system reset request to reset the MCU.
+    175            * @retval None
+    176            */
+
+   \                                 In section .text, align 2, keep-with-next
+    177          void HAL_NVIC_SystemReset(void)
+    178          {
+    179            /* System Reset */
+    180            NVIC_SystemReset();
+   \                     HAL_NVIC_SystemReset: (+1)
+   \        0x0   0xF3BF 0x8F4F      DSB      SY
+   \        0x4   0x....             LDR      R0,??DataTable12_4  ;; 0x5fa0004
+   \        0x6   0x....             LDR      R1,??DataTable12_5  ;; 0xe000ed0c
+   \        0x8   0x6008             STR      R0,[R1, #+0]
+   \        0xA   0xF3BF 0x8F4F      DSB      SY
+   \                     ??HAL_NVIC_SystemReset_0: (+1)
+   \        0xE   0xBF00             Nop
+   \       0x10   0xE7FD             B        ??HAL_NVIC_SystemReset_0
+    181          }
+    182          
+    183          /**
+    184            * @brief  Initialize the System Timer with interrupt enabled and start the System Tick Timer (SysTick)
+    185            *         Counter is in free running mode to generate periodic interrupts.
+    186            * @param  TicksNumb Specifies the ticks Number of ticks between two interrupts.
+    187            * @retval status:  - 0  Function succeeded.
+    188            *                  - 1  Function failed.
+    189            */
+
+   \                                 In section .text, align 2, keep-with-next
+    190          uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb)
+    191          {
+   \                     HAL_SYSTICK_Config: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    192             return SysTick_Config(TicksNumb);
+   \        0x2   0x1E40             SUBS     R0,R0,#+1
+   \        0x4   0x2180             MOVS     R1,#+128
+   \        0x6   0x0449             LSLS     R1,R1,#+17       ;; #+16777216
+   \        0x8   0x4288             CMP      R0,R1
+   \        0xA   0xD301             BCC      ??HAL_SYSTICK_Config_0
+   \        0xC   0x2001             MOVS     R0,#+1
+   \        0xE   0xBD10             POP      {R4,PC}
+   \                     ??HAL_SYSTICK_Config_0: (+1)
+   \       0x10   0x....             LDR      R4,??DataTable12_6  ;; 0xe000e010
+   \       0x12   0x6060             STR      R0,[R4, #+4]
+   \       0x14   0x2103             MOVS     R1,#+3
+   \       0x16   0x2000             MOVS     R0,#+0
+   \       0x18   0x43C0             MVNS     R0,R0            ;; #-1
+   \       0x1A   0x....'....        BL       __NVIC_SetPriority
+   \       0x1E   0x2000             MOVS     R0,#+0
+   \       0x20   0x60A0             STR      R0,[R4, #+8]
+   \       0x22   0x2107             MOVS     R1,#+7
+   \       0x24   0x6021             STR      R1,[R4, #+0]
+   \       0x26   0xBD10             POP      {R4,PC}          ;; return
+    193          }
+    194          /**
+    195            * @}
+    196            */
+    197          
+    198          /** @addtogroup CORTEX_Exported_Functions_Group2 Peripheral Control functions 
+    199           *  @brief   Cortex control functions 
+    200           *
+    201          @verbatim   
+    202            ==============================================================================
+    203                                ##### Peripheral Control functions #####
+    204            ==============================================================================  
+    205              [..]
+    206                This subsection provides a set of functions allowing to control the CORTEX
+    207                (NVIC, SYSTICK) functionalities. 
+    208           
+    209                
+    210          @endverbatim
+    211            * @{
+    212            */
+    213          
+    214          
+    215          /**
+    216            * @brief  Gets the priority of an interrupt.
+    217            * @param  IRQn External interrupt number.
+    218            *         This parameter can be an enumerator of IRQn_Type enumeration
+    219            *         (For the complete STM32 Devices IRQ Channels list, please refer to the appropriate CMSIS device file (stm32l0xxxx.h))
+    220            * @retval None
+    221            */
+
+   \                                 In section .text, align 2, keep-with-next
+    222          uint32_t HAL_NVIC_GetPriority(IRQn_Type IRQn)
+    223          {
+   \                     HAL_NVIC_GetPriority: (+1)
+   \        0x0   0x0001             MOVS     R1,R0
+    224            /* Get priority for Cortex-M system or device specific interrupts */
+    225            return NVIC_GetPriority(IRQn);
+   \        0x2   0x00C8             LSLS     R0,R1,#+3
+   \        0x4   0x2218             MOVS     R2,#+24
+   \        0x6   0x4002             ANDS     R2,R2,R0
+   \        0x8   0x000B             MOVS     R3,R1
+   \        0xA   0x2003             MOVS     R0,#+3
+   \        0xC   0x2B00             CMP      R3,#+0
+   \        0xE   0xD404             BMI      ??HAL_NVIC_GetPriority_0
+   \       0x10   0x....             LDR      R1,??DataTable12  ;; 0xe000e400
+   \       0x12   0x089B             LSRS     R3,R3,#+2
+   \       0x14   0x009B             LSLS     R3,R3,#+2
+   \       0x16   0x58C9             LDR      R1,[R1, R3]
+   \       0x18   0xE006             B        ??HAL_NVIC_GetPriority_1
+   \                     ??HAL_NVIC_GetPriority_0: (+1)
+   \       0x1A   0x....             LDR      R3,??DataTable12_1  ;; 0xe000ed1c
+   \       0x1C   0x0709             LSLS     R1,R1,#+28
+   \       0x1E   0x0F09             LSRS     R1,R1,#+28
+   \       0x20   0x3908             SUBS     R1,R1,#+8
+   \       0x22   0x0889             LSRS     R1,R1,#+2
+   \       0x24   0x0089             LSLS     R1,R1,#+2
+   \       0x26   0x5859             LDR      R1,[R3, R1]
+   \                     ??HAL_NVIC_GetPriority_1: (+1)
+   \       0x28   0x40D1             LSRS     R1,R1,R2
+   \       0x2A   0x0989             LSRS     R1,R1,#+6
+   \       0x2C   0x4008             ANDS     R0,R0,R1
+   \       0x2E   0x4770             BX       LR               ;; return
+    226          }
+    227          
+    228          /**
+    229            * @brief  Sets Pending bit of an external interrupt.
+    230            * @param  IRQn External interrupt number
+    231            *         This parameter can be an enumerator of IRQn_Type enumeration
+    232            *         (For the complete STM32 Devices IRQ Channels list, please refer to stm32l0xx.h file)  
+    233            * @retval None
+    234            */
+
+   \                                 In section .text, align 2, keep-with-next
+    235          void HAL_NVIC_SetPendingIRQ(IRQn_Type IRQn)
+    236          { 
+    237            /* Set interrupt pending */
+    238            NVIC_SetPendingIRQ(IRQn);
+   \                     HAL_NVIC_SetPendingIRQ: (+1)
+   \        0x0   0x0001             MOVS     R1,R0
+   \        0x2   0xD405             BMI      ??HAL_NVIC_SetPendingIRQ_0
+   \        0x4   0x2101             MOVS     R1,#+1
+   \        0x6   0x06C0             LSLS     R0,R0,#+27
+   \        0x8   0x0EC0             LSRS     R0,R0,#+27
+   \        0xA   0x4081             LSLS     R1,R1,R0
+   \        0xC   0x....             LDR      R0,??DataTable12_7  ;; 0xe000e200
+   \        0xE   0x6001             STR      R1,[R0, #+0]
+    239          }
+   \                     ??HAL_NVIC_SetPendingIRQ_0: (+1)
+   \       0x10   0x4770             BX       LR               ;; return
+    240          
+    241          /**
+    242            * @brief  Get Pending Interrupt (read the pending register in the NVIC 
+    243            *         and return the pending bit for the specified interrupt).
+    244            * @param  IRQn External interrupt number .
+    245            *          This parameter can be an enumerator of  IRQn_Type enumeration
+    246            *          (For the complete STM32 Devices IRQ Channels list, please refer to stm32l0xx.h file)  
+    247            * @retval status: - 0  Interrupt status is not pending.
+    248            *                 - 1  Interrupt status is pending.
+    249            */
+
+   \                                 In section .text, align 2, keep-with-next
+    250          uint32_t HAL_NVIC_GetPendingIRQ(IRQn_Type IRQn)
+    251          { 
+    252            /* Return 1 if pending else 0 */
+    253            return NVIC_GetPendingIRQ(IRQn);
+   \                     HAL_NVIC_GetPendingIRQ: (+1)
+   \        0x0   0x0001             MOVS     R1,R0
+   \        0x2   0xD407             BMI      ??HAL_NVIC_GetPendingIRQ_0
+   \        0x4   0x....             LDR      R1,??DataTable12_7  ;; 0xe000e200
+   \        0x6   0x6809             LDR      R1,[R1, #+0]
+   \        0x8   0x06C0             LSLS     R0,R0,#+27
+   \        0xA   0x0EC0             LSRS     R0,R0,#+27
+   \        0xC   0x40C1             LSRS     R1,R1,R0
+   \        0xE   0x07C8             LSLS     R0,R1,#+31
+   \       0x10   0x0FC0             LSRS     R0,R0,#+31
+   \       0x12   0x4770             BX       LR
+   \                     ??HAL_NVIC_GetPendingIRQ_0: (+1)
+   \       0x14   0x2000             MOVS     R0,#+0
+   \       0x16   0x4770             BX       LR               ;; return
+    254          }
+    255          
+    256          /**
+    257            * @brief  Clear the pending bit of an external interrupt.
+    258            * @param  IRQn External interrupt number .
+    259            *         This parameter can be an enumerator of IRQn_Type enumeration
+    260            *         (For the complete STM32 Devices IRQ Channels list, please refer to stm32l0xx.h file)  
+    261            * @retval None
+    262            */
+
+   \                                 In section .text, align 2, keep-with-next
+    263          void HAL_NVIC_ClearPendingIRQ(IRQn_Type IRQn)
+    264          { 
+    265            /* Clear pending interrupt */
+    266            NVIC_ClearPendingIRQ(IRQn);
+   \                     HAL_NVIC_ClearPendingIRQ: (+1)
+   \        0x0   0x0001             MOVS     R1,R0
+   \        0x2   0xD405             BMI      ??HAL_NVIC_ClearPendingIRQ_0
+   \        0x4   0x2101             MOVS     R1,#+1
+   \        0x6   0x06C0             LSLS     R0,R0,#+27
+   \        0x8   0x0EC0             LSRS     R0,R0,#+27
+   \        0xA   0x4081             LSLS     R1,R1,R0
+   \        0xC   0x....             LDR      R0,??DataTable12_8  ;; 0xe000e280
+   \        0xE   0x6001             STR      R1,[R0, #+0]
+    267          }
+   \                     ??HAL_NVIC_ClearPendingIRQ_0: (+1)
+   \       0x10   0x4770             BX       LR               ;; return
+    268          
+    269          
+    270          /**
+    271            * @brief  Configure the SysTick clock source.
+    272            * @param  CLKSource specifies the SysTick clock source.
+    273            *          This parameter can be one of the following values:
+    274            *             @arg SYSTICK_CLKSOURCE_HCLK_DIV8: AHB clock divided by 8 selected as SysTick clock source.
+    275            *             @arg SYSTICK_CLKSOURCE_HCLK: AHB clock selected as SysTick clock source.
+    276            * @retval None
+    277            */
+
+   \                                 In section .text, align 2, keep-with-next
+    278          void HAL_SYSTICK_CLKSourceConfig(uint32_t CLKSource)
+    279          {
+    280            /* Check the parameters */
+    281            assert_param(IS_SYSTICK_CLK_SOURCE(CLKSource));
+    282            if (CLKSource == SYSTICK_CLKSOURCE_HCLK)
+   \                     HAL_SYSTICK_CLKSourceConfig: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable12_6  ;; 0xe000e010
+   \        0x2   0x2804             CMP      R0,#+4
+   \        0x4   0x6808             LDR      R0,[R1, #+0]
+   \        0x6   0xD103             BNE      ??HAL_SYSTICK_CLKSourceConfig_0
+    283            {
+    284              SysTick->CTRL |= SYSTICK_CLKSOURCE_HCLK;
+   \        0x8   0x2204             MOVS     R2,#+4
+   \        0xA   0x4302             ORRS     R2,R2,R0
+   \        0xC   0x600A             STR      R2,[R1, #+0]
+   \        0xE   0x4770             BX       LR
+    285            }
+    286            else
+    287            {
+    288              SysTick->CTRL &= ~SYSTICK_CLKSOURCE_HCLK;
+   \                     ??HAL_SYSTICK_CLKSourceConfig_0: (+1)
+   \       0x10   0x2204             MOVS     R2,#+4
+   \       0x12   0x4390             BICS     R0,R0,R2
+   \       0x14   0x6008             STR      R0,[R1, #+0]
+    289            }
+    290          }
+   \       0x16   0x4770             BX       LR               ;; return
+    291          
+    292          /**
+    293            * @brief  Handle SYSTICK interrupt request.
+    294            * @retval None
+    295            */
+
+   \                                 In section .text, align 2, keep-with-next
+    296          void HAL_SYSTICK_IRQHandler(void)
+    297          {
+   \                     HAL_SYSTICK_IRQHandler: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    298            HAL_SYSTICK_Callback();
+   \        0x2   0x....'....        BL       HAL_SYSTICK_Callback
+    299          }
+   \        0x6   0xBD01             POP      {R0,PC}          ;; return
+    300          
+    301          /**
+    302            * @brief  SYSTICK callback.
+    303            * @retval None
+    304            */
+
+   \                                 In section .text, align 2
+    305          __weak void HAL_SYSTICK_Callback(void)
+    306          {
+    307            /* NOTE : This function should not be modified, when the callback is needed,
+    308                      the HAL_SYSTICK_Callback could be implemented in the user file
+    309             */
+    310          }
+   \                     HAL_SYSTICK_Callback: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    311          
+    312          #if (__MPU_PRESENT == 1U)
+    313          /**
+    314            * @brief  Disable the MPU.
+    315            * @retval None
+    316            */
+
+   \                                 In section .text, align 2, keep-with-next
+    317          void HAL_MPU_Disable(void)
+    318          {
+    319          
+    320            /*Data Memory Barrier setup */
+    321            __DMB();
+   \                     HAL_MPU_Disable: (+1)
+   \        0x0   0xF3BF 0x8F5F      DMB      SY
+    322            /* Disable the MPU */
+    323            MPU->CTRL = 0;
+   \        0x4   0x2000             MOVS     R0,#+0
+   \        0x6   0x....             LDR      R1,??DataTable12_9  ;; 0xe000ed94
+   \        0x8   0x6008             STR      R0,[R1, #+0]
+    324          }
+   \        0xA   0x4770             BX       LR               ;; return
+    325          
+    326          /**
+    327            * @brief  Enable the MPU.
+    328            * @param  MPU_Control Specifies the control mode of the MPU during hard fault,
+    329            *          NMI, FAULTMASK and privileged access to the default memory
+    330            *          This parameter can be one of the following values:
+    331            *            @arg MPU_HFNMI_PRIVDEF_NONE
+    332            *            @arg MPU_HARDFAULT_NMI
+    333            *            @arg MPU_PRIVILEGED_DEFAULT
+    334            *            @arg MPU_HFNMI_PRIVDEF
+    335            * @retval None
+    336            */
+    337          
+
+   \                                 In section .text, align 2, keep-with-next
+    338          void HAL_MPU_Enable(uint32_t MPU_Control)
+    339          {
+    340            /* Enable the MPU */
+    341             MPU->CTRL   = MPU_Control | MPU_CTRL_ENABLE_Msk;
+   \                     HAL_MPU_Enable: (+1)
+   \        0x0   0x2101             MOVS     R1,#+1
+   \        0x2   0x4301             ORRS     R1,R1,R0
+   \        0x4   0x....             LDR      R0,??DataTable12_9  ;; 0xe000ed94
+   \        0x6   0x6001             STR      R1,[R0, #+0]
+    342            /* Data Synchronization Barrier setup */
+    343            __DSB();
+   \        0x8   0xF3BF 0x8F4F      DSB      SY
+    344            /* Instruction Synchronization Barrier setup */
+    345            __ISB();
+   \        0xC   0xF3BF 0x8F6F      ISB      SY
+    346          
+    347          }
+   \       0x10   0x4770             BX       LR               ;; return
+    348          
+    349          /**
+    350            * @brief  Initialize and configure the Region and the memory to be protected.
+    351            * @param  MPU_Init Pointer to a MPU_Region_InitTypeDef structure that contains
+    352            *                the initialization and configuration information.
+    353            * @retval None
+    354            */
+
+   \                                 In section .text, align 2, keep-with-next
+    355          void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init)
+    356          {
+    357            /* Check the parameters */
+    358            assert_param(IS_MPU_REGION_NUMBER(MPU_Init->Number));
+    359            assert_param(IS_MPU_REGION_ENABLE(MPU_Init->Enable));
+    360          
+    361            /* Set the Region number */
+    362            MPU->RNR = MPU_Init->Number;
+   \                     HAL_MPU_ConfigRegion: (+1)
+   \        0x0   0x....             LDR      R1,??DataTable12_10  ;; 0xe000ed98
+   \        0x2   0x7942             LDRB     R2,[R0, #+5]
+   \        0x4   0x600A             STR      R2,[R1, #+0]
+    363          
+    364            if ((MPU_Init->Enable) == MPU_REGION_ENABLE)
+   \        0x6   0x7902             LDRB     R2,[R0, #+4]
+   \        0x8   0x2A01             CMP      R2,#+1
+   \        0xA   0xD11A             BNE      ??HAL_MPU_ConfigRegion_0
+    365            {
+    366              /* Check the parameters */
+    367              assert_param(IS_MPU_INSTRUCTION_ACCESS(MPU_Init->DisableExec));
+    368              assert_param(IS_MPU_REGION_PERMISSION_ATTRIBUTE(MPU_Init->AccessPermission));
+    369              assert_param(IS_MPU_ACCESS_SHAREABLE(MPU_Init->IsShareable));
+    370              assert_param(IS_MPU_ACCESS_CACHEABLE(MPU_Init->IsCacheable));
+    371              assert_param(IS_MPU_ACCESS_BUFFERABLE(MPU_Init->IsBufferable));
+    372              assert_param(IS_MPU_SUB_REGION_DISABLE(MPU_Init->SubRegionDisable));
+    373              assert_param(IS_MPU_REGION_SIZE(MPU_Init->Size));
+    374          
+    375              /* Set the base adsress and set the 4 LSB to 0 */
+    376              MPU->RBAR = (MPU_Init->BaseAddress) & 0xfffffff0U;
+   \        0xC   0x6802             LDR      R2,[R0, #+0]
+   \        0xE   0x230F             MOVS     R3,#+15
+   \       0x10   0x439A             BICS     R2,R2,R3
+   \       0x12   0x604A             STR      R2,[R1, #+4]
+    377          
+    378              /* Fill the field RASR */
+    379              MPU->RASR = ((uint32_t)MPU_Init->DisableExec        << MPU_RASR_XN_Pos)   |
+    380                          ((uint32_t)MPU_Init->AccessPermission   << MPU_RASR_AP_Pos)   |
+    381                          ((uint32_t)MPU_Init->IsShareable        << MPU_RASR_S_Pos)    |
+    382                          ((uint32_t)MPU_Init->IsCacheable        << MPU_RASR_C_Pos)    |
+    383                          ((uint32_t)MPU_Init->IsBufferable       << MPU_RASR_B_Pos)    |
+    384                          ((uint32_t)MPU_Init->SubRegionDisable   << MPU_RASR_SRD_Pos)  |
+    385                          ((uint32_t)MPU_Init->Size               << MPU_RASR_SIZE_Pos) |
+    386                          ((uint32_t)MPU_Init->Enable             << MPU_RASR_ENABLE_Pos);
+   \       0x14   0x7A82             LDRB     R2,[R0, #+10]
+   \       0x16   0x0712             LSLS     R2,R2,#+28
+   \       0x18   0x7A43             LDRB     R3,[R0, #+9]
+   \       0x1A   0x061B             LSLS     R3,R3,#+24
+   \       0x1C   0x4313             ORRS     R3,R3,R2
+   \       0x1E   0x7AC2             LDRB     R2,[R0, #+11]
+   \       0x20   0x0492             LSLS     R2,R2,#+18
+   \       0x22   0x431A             ORRS     R2,R2,R3
+   \       0x24   0x7B03             LDRB     R3,[R0, #+12]
+   \       0x26   0x045B             LSLS     R3,R3,#+17
+   \       0x28   0x4313             ORRS     R3,R3,R2
+   \       0x2A   0x7B42             LDRB     R2,[R0, #+13]
+   \       0x2C   0x0412             LSLS     R2,R2,#+16
+   \       0x2E   0x431A             ORRS     R2,R2,R3
+   \       0x30   0x79C3             LDRB     R3,[R0, #+7]
+   \       0x32   0x021B             LSLS     R3,R3,#+8
+   \       0x34   0x4313             ORRS     R3,R3,R2
+   \       0x36   0x7982             LDRB     R2,[R0, #+6]
+   \       0x38   0x0052             LSLS     R2,R2,#+1
+   \       0x3A   0x431A             ORRS     R2,R2,R3
+   \       0x3C   0x7900             LDRB     R0,[R0, #+4]
+   \       0x3E   0x4310             ORRS     R0,R0,R2
+   \       0x40   0xE001             B        ??HAL_MPU_ConfigRegion_1
+    387            }
+    388            else
+    389            {
+    390              MPU->RBAR = 0x00U;
+   \                     ??HAL_MPU_ConfigRegion_0: (+1)
+   \       0x42   0x2000             MOVS     R0,#+0
+   \       0x44   0x6048             STR      R0,[R1, #+4]
+    391              MPU->RASR = 0x00U;
+   \                     ??HAL_MPU_ConfigRegion_1: (+1)
+   \       0x46   0x6088             STR      R0,[R1, #+8]
+    392            }
+    393          }
+   \       0x48   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12:
+   \        0x0   0xE000'E400        DC32     0xe000e400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_1:
+   \        0x0   0xE000'ED1C        DC32     0xe000ed1c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_2:
+   \        0x0   0xE000'E100        DC32     0xe000e100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_3:
+   \        0x0   0xE000'E180        DC32     0xe000e180
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_4:
+   \        0x0   0x05FA'0004        DC32     0x5fa0004
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_5:
+   \        0x0   0xE000'ED0C        DC32     0xe000ed0c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_6:
+   \        0x0   0xE000'E010        DC32     0xe000e010
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_7:
+   \        0x0   0xE000'E200        DC32     0xe000e200
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_8:
+   \        0x0   0xE000'E280        DC32     0xe000e280
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_9:
+   \        0x0   0xE000'ED94        DC32     0xe000ed94
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable12_10:
+   \        0x0   0xE000'ED98        DC32     0xe000ed98
+    394          #endif /* __MPU_PRESENT */
+    395          
+    396          
+    397          /**
+    398            * @}
+    399            */
+    400          
+    401          /**
+    402            * @}
+    403            */
+    404          
+    405          /**
+    406            * @}
+    407            */
+    408          
+    409          #endif /* HAL_CORTEX_MODULE_ENABLED */
+    410          /**
+    411            * @}
+    412            */
+    413          
+    414          /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+    415          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   HAL_MPU_ConfigRegion
+       0   HAL_MPU_Disable
+       0   HAL_MPU_Enable
+       0   HAL_NVIC_ClearPendingIRQ
+       0   HAL_NVIC_DisableIRQ
+       0   HAL_NVIC_EnableIRQ
+       0   HAL_NVIC_GetPendingIRQ
+       0   HAL_NVIC_GetPriority
+       0   HAL_NVIC_SetPendingIRQ
+       8   HAL_NVIC_SetPriority
+         8   -> __NVIC_SetPriority
+       0   HAL_NVIC_SystemReset
+       0   HAL_SYSTICK_CLKSourceConfig
+       0   HAL_SYSTICK_Callback
+       8   HAL_SYSTICK_Config
+         8   -> __NVIC_SetPriority
+       8   HAL_SYSTICK_IRQHandler
+         8   -> HAL_SYSTICK_Callback
+       8   __NVIC_SetPriority
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable12
+       4  ??DataTable12_1
+       4  ??DataTable12_10
+       4  ??DataTable12_2
+       4  ??DataTable12_3
+       4  ??DataTable12_4
+       4  ??DataTable12_5
+       4  ??DataTable12_6
+       4  ??DataTable12_7
+       4  ??DataTable12_8
+       4  ??DataTable12_9
+      74  HAL_MPU_ConfigRegion
+      12  HAL_MPU_Disable
+      18  HAL_MPU_Enable
+      18  HAL_NVIC_ClearPendingIRQ
+      26  HAL_NVIC_DisableIRQ
+      18  HAL_NVIC_EnableIRQ
+      24  HAL_NVIC_GetPendingIRQ
+      48  HAL_NVIC_GetPriority
+      18  HAL_NVIC_SetPendingIRQ
+       8  HAL_NVIC_SetPriority
+      18  HAL_NVIC_SystemReset
+      24  HAL_SYSTICK_CLKSourceConfig
+       2  HAL_SYSTICK_Callback
+      40  HAL_SYSTICK_Config
+       8  HAL_SYSTICK_IRQHandler
+      58  __NVIC_SetPriority
+
+ 
+ 458 bytes in section .text
+ 
+ 456 bytes of CODE memory (+ 2 bytes shared)
+
+Errors: none
+Warnings: none
