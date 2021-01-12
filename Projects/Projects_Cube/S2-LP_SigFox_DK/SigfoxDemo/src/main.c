@@ -33,6 +33,7 @@ To use the project with IAR Embedded Workbench for ARM, please follow the instru
 
 /* a flag to understand if the button has been pressed */
 static volatile uint8_t but_pressed=0;
+ST_MCU_API_LowPower(0);
 
 void Appli_Exti_CB(uint32_t GPIO_Pin)
 {
@@ -165,11 +166,11 @@ int main(void)
   while(1)
   {
 #if  !(defined(BLUENRG2_DEVICE) || defined(BLUENRG1_DEVICE))
-    /* Go in low power with the STM32 waiting for an external interrupt */
-    ST_MCU_API_GPIO_LowPower();
-    HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_STOPENTRY_WFI);
-    ST_MCU_API_SetSysClock();
-    ST_MCU_API_GPIO_Restore();
+    // /* Go in low power with the STM32 waiting for an external interrupt */
+    // ST_MCU_API_GPIO_LowPower();
+    // HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_STOPENTRY_WFI);
+    // ST_MCU_API_SetSysClock();
+    // ST_MCU_API_GPIO_Restore();
 #endif
 
     if(but_pressed)

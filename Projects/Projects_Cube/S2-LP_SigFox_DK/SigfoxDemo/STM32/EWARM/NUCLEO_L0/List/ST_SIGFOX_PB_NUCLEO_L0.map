@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V8.50.9.278/W32 for ARM                  12/Jan/2021  11:53:33
+# IAR ELF Linker V8.50.9.278/W32 for ARM                  12/Jan/2021  12:25:43
 # Copyright 2007-2020 IAR Systems AB.
 #
 #    Output file  =
@@ -8,7 +8,7 @@
 #    Map file     =
 #        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\List\ST_SIGFOX_PB_NUCLEO_L0.map
 #    Command line =
-#        -f C:\Users\dvone\AppData\Local\Temp\EW495A.tmp
+#        -f C:\Users\dvone\AppData\Local\Temp\EWB9A1.tmp
 #        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\main.o
 #        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\mcu_api_stm32.o
 #        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\STM32\EWARM\NUCLEO_L0\Obj\nvm_api.o
