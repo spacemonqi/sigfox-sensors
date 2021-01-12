@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  13:02:14
+# IAR ANSI C/C++ Compiler V8.50.9.278/W32 for ARM         12/Jan/2021  13:32:46
 # Copyright 1999-2020 IAR Systems AB.
 #
 #    Cpu mode                    
@@ -8,7 +8,7 @@
 #    Source file              =
 #        C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c
 #    Command line             =
-#        -f C:\Users\dvone\AppData\Local\Temp\EW2974.tmp
+#        -f C:\Users\dvone\AppData\Local\Temp\EW1F0F.tmp
 #        (C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c
 #        -D USE_STM32L0XX_NUCLEO -D USE_HAL_DRIVER -D USE_SYSTICK_DELAY -D
 #        STM32L053xx -lC
@@ -85,390 +85,281 @@ C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_
      32          #endif
      33          
      34          /* a flag to understand if the button has been pressed */
-
-   \                                 In section .bss, align 1
      35          static volatile uint8_t but_pressed=0;
-   \                     but_pressed:
-   \        0x0                      DS8 1
      36          
+     37          // Initialization of the DHT11
+     38          void DHT11_Start(void)
+     39          {
+     40            Set_Pin_Output(DHT11_Port, DHT11_Pin); //to set the pin as output
+                   ^
+Warning[Pe223]: function "Set_Pin_Output" declared implicitly
 
-   \                                 In section .text, align 2, keep-with-next
-     37          void Appli_Exti_CB(uint32_t GPIO_Pin)
-     38          {
-     39            /* set the button pressed flag */
-     40            but_pressed=1;
-   \                     Appli_Exti_CB: (+1)
-   \        0x0   0x2001             MOVS     R0,#+1
-   \        0x2   0x....             LDR      R1,??DataTable1
-   \        0x4   0x7008             STRB     R0,[R1, #+0]
-     41          }
-   \        0x6   0x4770             BX       LR               ;; return
-     42          
-     43          /**
-     44          * @brief  Blink the LED indefinitely stucking the application.
-     45          * @param  None
-     46          * @retval None
-     47          */
+    Set_Pin_Output(DHT11_Port, DHT11_Pin); //to set the pin as output
+                   ^
+"C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c",40  Error[Pe020]: 
+          identifier "DHT11_Port" is undefined
 
-   \                                 In section .text, align 2, keep-with-next
-     48          void Fatal_Error(void)
-     49          {
-   \                     Fatal_Error: (+1)
-   \        0x0   0xB580             PUSH     {R7,LR}
-     50            SdkEvalLedInit(LED2);
-   \        0x2   0x2000             MOVS     R0,#+0
-   \        0x4   0x....'....        BL       SdkEvalLedInit
-     51          
-     52            while(1)
-     53            {
-     54              SdkDelayMs(100);
-   \                     ??Fatal_Error_0: (+1)
-   \        0x8   0x2064             MOVS     R0,#+100
-   \        0xA   0x....'....        BL       SdkDelayMs
-     55              SdkEvalLedToggle(LED2);
-   \        0xE   0x2000             MOVS     R0,#+0
-   \       0x10   0x....'....        BL       SdkEvalLedToggle
-   \       0x14   0xE7F8             B        ??Fatal_Error_0
+    Set_Pin_Output(DHT11_Port, DHT11_Pin); //to set the pin as output
+                               ^
+"C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c",40  Error[Pe020]: 
+          identifier "DHT11_Pin" is undefined
+     41            HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, 0); //to pull the pin low
+                                     ^
+Error[Pe020]: identifier "DHT11_PORT" is undefined
+
+    HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, 0); //to pull the pin low
+                                  ^
+"C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c",41  Error[Pe020]: 
+          identifier "DHT11_PIN" is undefined
+
+    HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, 0); //to pull the pin low
+                                             ^
+"C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c",41  Warning[Pe188]: 
+          enumerated type mixed with another type
+     42            delay(18000); //wait for 18ms
+                   ^
+Warning[Pe223]: function "delay" declared implicitly
+     43            Set_Pin_Input(DHT11_PORT, DHT11_PIN); //to set the pin as input
+                   ^
+Warning[Pe223]: function "Set_Pin_Input" declared implicitly
+     44          }
+     45            
+     46          // Check that the DHT11 pin is high
+     47          uint8_t Check_Response(void)
+     48          {
+     49            uint8_t Response = 0;
+     50            delay(40);
+                   ^
+Warning[Pe223]: function "delay" declared implicitly
+     51            if (!(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN)))
+                                          ^
+Error[Pe020]: identifier "DHT11_PORT" is undefined
+
+    if (!(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN)))
+                                       ^
+"C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c",51  Error[Pe020]: 
+          identifier "DHT11_PIN" is undefined
+     52            {
+     53              delay(80);
+     54              if ((HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))) Response = 1;
+     55              else Response = -1;
      56            }
-     57          }
+     57            while ((HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))); // wait for low on the pin
+                                            ^
+Error[Pe020]: identifier "DHT11_PORT" is undefined
+
+    while ((HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))); // wait for low on the pin
+                                         ^
+"C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c",57  Error[Pe020]: 
+          identifier "DHT11_PIN" is undefined
      58          
-     59          /**
-     60          * @brief  Let the application led blinks.
-     61          * @param  times Number of toggles.
-     62          * @retval None
-     63          */
+     59            return Response;
+     60          }
+     61          
+     62          // Read the DHT11 data
+     63          uint8_t DHT11_Read(void)
+     64          {
+     65            uint8_t i,j;
+     66            for (j=0;j<8;j++)
+     67            {
+     68              while (!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))); // wait for the pin to go high
+                                              ^
+Error[Pe020]: identifier "DHT11_PORT" is undefined
 
-   \                                 In section .text, align 2, keep-with-next
-     64          void LedBlink(SdkEvalLed led, uint8_t times)
-     65          {
-   \                     LedBlink: (+1)
-   \        0x0   0xB570             PUSH     {R4-R6,LR}
-   \        0x2   0x0005             MOVS     R5,R0
-   \        0x4   0x000C             MOVS     R4,R1
-     66            SdkEvalLedInit(led);
-   \        0x6   0x....'....        BL       SdkEvalLedInit
-     67          
-     68            for(uint8_t i=0;i<times;i++)
-   \        0xA   0x2600             MOVS     R6,#+0
-   \        0xC   0xE006             B        ??LedBlink_0
-     69            {
-     70              SdkEvalLedToggle(led);
-   \                     ??LedBlink_1: (+1)
-   \        0xE   0x0028             MOVS     R0,R5
-   \       0x10   0x....'....        BL       SdkEvalLedToggle
-     71              SdkDelayMs(50);
-   \       0x14   0x2032             MOVS     R0,#+50
-   \       0x16   0x....'....        BL       SdkDelayMs
-     72            }
-   \       0x1A   0x1C76             ADDS     R6,R6,#+1
-   \                     ??LedBlink_0: (+1)
-   \       0x1C   0xB2F0             UXTB     R0,R6
-   \       0x1E   0x42A0             CMP      R0,R4
-   \       0x20   0xD3F5             BCC      ??LedBlink_1
-   \       0x22   0x0028             MOVS     R0,R5
-     73          
-     74            SdkEvalLedOn(led);
-   \       0x24   0x....'....        BL       SdkEvalLedOn
-     75          }
-   \       0x28   0xBD70             POP      {R4-R6,PC}       ;; return
-     76          
-     77          /**
-     78          * @brief  System main function.
-     79          * @param  None.
-     80          * @retval The function never returns.
-     81          */
+      while (!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))); // wait for the pin to go high
+                                           ^
+"C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c",68  Error[Pe020]: 
+          identifier "DHT11_PIN" is undefined
 
-   \                                 In section .text, align 2, keep-with-next
-     82          int main(void)
-     83          {
-   \                     main: (+1)
-   \        0x0   0xB578             PUSH     {R3-R6,LR}
-   \        0x2   0xB08D             SUB      SP,SP,#+52
-     84            /* Some local variables to handle the workflow */
-     85            ST_SFX_ERR stSfxRetErr;
-     86            uint8_t ret_err, use_public_key = 0;
-   \        0x4   0x2600             MOVS     R6,#+0
-   \        0x6   0x2500             MOVS     R5,#+0
-     87          
-     88            /* Some variables to store the application data to transmit */
-     89            uint32_t cust_counter=0;
-   \        0x8   0x2400             MOVS     R4,#+0
-   \        0xA   0xA801             ADD      R0,SP,#+4
-   \        0xC   0x2100             MOVS     R1,#+0
-   \        0xE   0x2200             MOVS     R2,#+0
-   \       0x10   0x2300             MOVS     R3,#+0
-   \       0x12   0xC00E             STM      R0!,{R1-R3}
-     90            uint8_t customer_data[12]={0};
-     91            uint8_t customer_resp[8];
-     92          
-     93            /* Prevent the MCU from going into Low Power mode */
-     94            ST_MCU_API_LowPower(0);
-   \       0x14   0x2000             MOVS     R0,#+0
-   \       0x16   0x....'....        BL       ST_MCU_API_LowPower
-     95          
-     96            /* System initialization function */
-     97            ret_err = ST_Init();
-     98          
-     99            if(ret_err)
-   \       0x1A   0x....'....        BL       ST_Init
-   \       0x1E   0x0600             LSLS     R0,R0,#+24
-   \       0x20   0xD001             BEQ      ??main_0
-    100              Fatal_Error();
-   \       0x22   0x....'....        BL       Fatal_Error
-    101          
-    102            SdkDelayMs(10); //Wait for CS to rise
-   \                     ??main_0: (+1)
-   \       0x26   0x200A             MOVS     R0,#+10
-   \       0x28   0x....'....        BL       SdkDelayMs
-    103          
-    104            /* Reset S2LP */
-    105            S2LPShutdownEnter();
-   \       0x2C   0x....'....        BL       S2LPShutdownEnter
-    106            SdkDelayMs(10);
-   \       0x30   0x200A             MOVS     R0,#+10
-   \       0x32   0x....'....        BL       SdkDelayMs
-    107            S2LPShutdownExit();
-   \       0x36   0x....'....        BL       S2LPShutdownExit
-    108          
-    109            /* Set the Push Button 2 as an input. If the application is started with the
-    110            PUSH BUTTON 2 pressed, the public KEY is used by the applicaiton.
-    111            This is useful for testing purposes or to use the SNEK emulator to receive
-    112            Sigfox messages. */
-    113            if (ButtonInit())
-   \       0x3A   0x....'....        BL       ButtonInit
-   \       0x3E   0x2800             CMP      R0,#+0
-   \       0x40   0xD00B             BEQ      ??main_1
-    114            {
-    115              use_public_key=1;
-   \       0x42   0x2501             MOVS     R5,#+1
-    116              LedBlink(LED3, 1);
-   \       0x44   0x2101             MOVS     R1,#+1
-   \       0x46   0x2000             MOVS     R0,#+0
-   \       0x48   0x....'....        BL       LedBlink
-    117          
-    118              while(IsButtonPressed());	/* Wait until button is pressed */
-   \                     ??main_2: (+1)
-   \       0x4C   0x....'....        BL       IsButtonPressed
-   \       0x50   0x2800             CMP      R0,#+0
-   \       0x52   0xD1FB             BNE      ??main_2
+      while (!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))); // wait for the pin to go high
+                                                      ^
+"C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c",68  Error[Pe029]: 
+          expected an expression
+     69              delay(40) // wait for 40us - bit length of "0" is 26-28us; thus if the pin is high after 40us, the bit is "1"
+                     ^
+Warning[Pe223]: function "delay" declared implicitly
+     70              if (!(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))) 
+                     ^
+Error[Pe065]: expected a ";"
+     71              {
+     72                i&= ~(1<<(7-j)); // if the pin is low, write a 0
+     73              }
+     74              else i|= (1<<(7-j)); // if the pin is high, write a 1
+                                        ^
+Warning[Pe012]: parsing restarts here after previous syntax error
+     75              while ((HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))); // wait for the pin to gow low
+                                              ^
+Error[Pe020]: identifier "DHT11_PORT" is undefined
+
+      while ((HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))); // wait for the pin to gow low
+                                           ^
+"C:\Users\dvone\Desktop\Divigraph\SigfoxDemo\Projects\Projects_Cube\S2-LP_SigFox_DK\SigfoxDemo\src\main.c",75  Error[Pe020]: 
+          identifier "DHT11_PIN" is undefined
+     76            }
+     77            return i;
+                          ^
+Warning[Pe549]: variable "i" is used before its value is set
+     78          }
+     79          
+     80          //Button Interrupt
+     81          void Appli_Exti_CB(uint32_t GPIO_Pin)
+     82          {
+     83            /* set the button pressed flag */
+     84            but_pressed=1;
+     85          }
+     86          
+     87          // Blinks the LED
+     88          void LedBlink(SdkEvalLed led, uint8_t times)
+     89          {
+     90            SdkEvalLedInit(led);
+     91          
+     92            for(uint8_t i=0;i<times;i++)
+     93            {
+     94              SdkEvalLedToggle(led);
+     95              SdkDelayMs(50);
+     96            }
+     97          
+     98            SdkEvalLedOn(led);
+     99          }
+    100          
+    101          // Blinks the LED indefinitely, causing the application to get stuck
+    102          void Fatal_Error(void)
+    103          {
+    104            SdkEvalLedInit(LED2);
+    105          
+    106            while(1)
+    107            {
+    108              SdkDelayMs(100);
+    109              SdkEvalLedToggle(LED2);
+    110            }
+    111          }
+    112          
+    113          // Main function
+    114          int main(void)
+    115          {
+    116            /* Some local variables to handle the workflow */
+    117            ST_SFX_ERR stSfxRetErr;
+    118            uint8_t ret_err, use_public_key = 0;
     119          
-    120              LedBlink(LED3, 1);
-   \       0x54   0x2101             MOVS     R1,#+1
-   \       0x56   0x....'....        BL       LedBlink
-    121            }
-    122          
-    123            /* The low level driver uses the internal RTC as a timer while the STM32 is in low power.
-    124            This function calibrates the RTC using an auxiliary general purpose timer in order to
-    125            increase its precision. */
-    126            ST_MCU_API_TimerCalibration(500);
-   \                     ??main_1: (+1)
-   \       0x5A   0x20FA             MOVS     R0,#+250
-   \       0x5C   0x0040             LSLS     R0,R0,#+1        ;; #+500
-   \       0x5E   0x....'....        BL       ST_MCU_API_TimerCalibration
+    120            /* Some variables to store the application data to transmit */
+    121            uint32_t cust_counter=0;
+    122            uint8_t customer_data[12]={0};
+    123            uint8_t customer_resp[8];
+    124          
+    125            /* Prevent the MCU from going into Low Power mode */
+    126            ST_MCU_API_LowPower(0);
     127          
-    128            /* Initialize push button 2 on the board as an interrupt */
-    129            ButtonSetIRQ();
-   \       0x62   0x....'....        BL       ButtonSetIRQ
+    128            /* System initialization function */
+    129            ret_err = ST_Init();
     130          
-    131            if(S2LPEvalGetHasEeprom())
-   \       0x66   0x....'....        BL       S2LPEvalGetHasEeprom
-   \       0x6A   0x2800             CMP      R0,#+0
-   \       0x6C   0xD00E             BEQ      ??main_3
-    132            {
-    133              /* Shutdown S2-LP in order to read EEPROM */
-    134              ST_MCU_API_Shutdown(1);
-   \       0x6E   0x2001             MOVS     R0,#+1
-   \       0x70   0x....'....        BL       ST_MCU_API_Shutdown
-    135              SdkDelayMs(1);
-   \       0x74   0x2001             MOVS     R0,#+1
-   \       0x76   0x....'....        BL       SdkDelayMs
-    136          
-    137              /* Set EEPROM CS */
-    138             if(SdkEvalGetDaughterBoardType() == FKI_SERIES)
-   \       0x7A   0x....'....        BL       SdkEvalGetDaughterBoardType
-   \       0x7E   0x2800             CMP      R0,#+0
-   \       0x80   0xD102             BNE      ??main_4
-    139          	EepromCsPinInitialization();
-   \       0x82   0x....'....        BL       EepromCsPinInitialization
-   \       0x86   0xE001             B        ??main_3
-    140             else
-    141          	EepromCsXnucleoPinInitialization();
-   \                     ??main_4: (+1)
-   \       0x88   0x....'....        BL       EepromCsXnucleoPinInitialization
-    142            }
-    143          
-    144            /* Init the Sigfox Library and the device for Sigfox communication*/
-    145            NVM_BoardDataType boardData;
-    146            stSfxRetErr = ST_Sigfox_Init(&boardData, 1);
-    147          
-    148            if(stSfxRetErr != ST_SFX_ERR_NONE)
-   \                     ??main_3: (+1)
-   \       0x8C   0x2101             MOVS     R1,#+1
-   \       0x8E   0xA806             ADD      R0,SP,#+24
-   \       0x90   0x....'....        BL       ST_Sigfox_Init
-   \       0x94   0x2800             CMP      R0,#+0
-   \       0x96   0xD001             BEQ      ??main_5
-    149              Fatal_Error();
-   \       0x98   0x....'....        BL       Fatal_Error
-    150          
-    151            if(use_public_key)
-   \                     ??main_5: (+1)
-   \       0x9C   0x2D00             CMP      R5,#+0
-   \       0x9E   0xD002             BEQ      ??main_6
-    152              enc_utils_set_public_key(1);
-   \       0xA0   0x2001             MOVS     R0,#+1
-   \       0xA2   0x....'....        BL       enc_utils_set_public_key
-    153          
-    154            SdkEvalLedInit(LED1);
-   \                     ??main_6: (+1)
-   \       0xA6   0x2000             MOVS     R0,#+0
-   \       0xA8   0x....'....        BL       SdkEvalLedInit
-    155            SdkEvalLedOn(LED1);
-   \       0xAC   0x2000             MOVS     R0,#+0
-   \       0xAE   0x....'....        BL       SdkEvalLedOn
-   \       0xB2   0x....             LDR      R5,??DataTable1
-    156          
-    157            /* application main loop */
-    158            while(1)
-    159            {
-    160              // /* Go in low power with the STM32 waiting for an external interrupt */
-    161              // ST_MCU_API_GPIO_LowPower();
-    162              // HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_STOPENTRY_WFI);
-    163              // ST_MCU_API_SetSysClock();
-    164              // ST_MCU_API_GPIO_Restore();
-    165          
-    166              if(but_pressed)
-   \                     ??main_7: (+1)
-   \       0xB4   0x7828             LDRB     R0,[R5, #+0]
-   \       0xB6   0x2800             CMP      R0,#+0
-   \       0xB8   0xD0FC             BEQ      ??main_7
-    167              {
-    168                LedBlink(LED3, 6);
-   \       0xBA   0x2106             MOVS     R1,#+6
-   \       0xBC   0x2000             MOVS     R0,#+0
-   \       0xBE   0x....'....        BL       LedBlink
-    169          
-    170                /* If the interrupt is raised, prepare the buffer to send with a 4-bytes counter */
-    171                cust_counter++;
-   \       0xC2   0x1C64             ADDS     R4,R4,#+1
-    172          
-    173          	for(uint8_t i=0;i<4;i++)
-   \       0xC4   0x2000             MOVS     R0,#+0
-    174          	  customer_data[i]=(uint8_t)(cust_counter>>((3-i)*8));
-   \                     ??main_8: (+1)
-   \       0xC6   0x2103             MOVS     R1,#+3
-   \       0xC8   0x1A09             SUBS     R1,R1,R0
-   \       0xCA   0x00C9             LSLS     R1,R1,#+3
-   \       0xCC   0x0022             MOVS     R2,R4
-   \       0xCE   0x40CA             LSRS     R2,R2,R1
-   \       0xD0   0xA901             ADD      R1,SP,#+4
-   \       0xD2   0x540A             STRB     R2,[R1, R0]
-   \       0xD4   0x1C40             ADDS     R0,R0,#+1
-   \       0xD6   0x2804             CMP      R0,#+4
-   \       0xD8   0xDBF5             BLT      ??main_8
+    131            if(ret_err)
+    132              Fatal_Error();
+    133          
+    134            SdkDelayMs(10); //Wait for CS to rise
+    135          
+    136            /* Reset S2LP */
+    137            S2LPShutdownEnter();
+    138            SdkDelayMs(10);
+    139            S2LPShutdownExit();
+    140          
+    141            /* Set the Push Button 2 as an input. If the application is started with the
+    142            PUSH BUTTON 2 pressed, the public KEY is used by the applicaiton.
+    143            This is useful for testing purposes or to use the SNEK emulator to receive
+    144            Sigfox messages. */
+    145            if (ButtonInit())
+    146            {
+    147              use_public_key=1;
+    148              LedBlink(LED3, 1);
+    149          
+    150              while(IsButtonPressed());	/* Wait until button is pressed */
+    151          
+    152              LedBlink(LED3, 1);
+    153            }
+    154          
+    155            /* The low level driver uses the internal RTC as a timer while the STM32 is in low power.
+    156            This function calibrates the RTC using an auxiliary general purpose timer in order to
+    157            increase its precision. */
+    158            ST_MCU_API_TimerCalibration(500);
+    159          
+    160            /* Initialize push button 2 on the board as an interrupt */
+    161            ButtonSetIRQ();
+    162          
+    163            if(S2LPEvalGetHasEeprom())
+    164            {
+    165              /* Shutdown S2-LP in order to read EEPROM */
+    166              ST_MCU_API_Shutdown(1);
+    167              SdkDelayMs(1);
+    168          
+    169              /* Set EEPROM CS */
+    170             if(SdkEvalGetDaughterBoardType() == FKI_SERIES)
+    171          	EepromCsPinInitialization();
+    172             else
+    173          	EepromCsXnucleoPinInitialization();
+    174            }
     175          
-    176                /* Call the send_frame function */
-    177                SIGFOX_API_send_frame(customer_data,4,customer_resp,2,0);
-   \       0xDA   0x9600             STR      R6,[SP, #+0]
-   \       0xDC   0x2302             MOVS     R3,#+2
-   \       0xDE   0xAA04             ADD      R2,SP,#+16
-   \       0xE0   0x2104             MOVS     R1,#+4
-   \       0xE2   0xA801             ADD      R0,SP,#+4
-   \       0xE4   0x....'....        BL       SIGFOX_API_send_frame
-    178          
-    179                LedBlink(LED3, 6);
-   \       0xE8   0x2106             MOVS     R1,#+6
-   \       0xEA   0x2000             MOVS     R0,#+0
-   \       0xEC   0x....'....        BL       LedBlink
-    180                but_pressed=0;
-   \       0xF0   0x702E             STRB     R6,[R5, #+0]
-   \       0xF2   0xE7DF             B        ??main_7
-    181              }
-    182            }
-    183          }
-
-   \                                 In section .text, align 4, keep-with-next
-   \                     ??DataTable1:
-   \        0x0   0x....'....        DC32     but_pressed
-    184          
-    185          #ifdef  USE_FULL_ASSERT
-    186          /**
-    187          * @brief  Reports the name of the source file and the source line number
-    188          *         where the assert_param error has occurred.
-    189          * @param file: pointer to the source file name
-    190          * @param line: assert_param error line source number
-    191          * @retval : None
-    192          */
-    193          void assert_failed(uint8_t* file, uint32_t line)
-    194          {
-    195            /* User can add his own implementation to report the file name and line number */
-    196            //printf("Wrong parameters value: file %s on line %d\r\n", file, line);
+    176            /* Init the Sigfox Library and the device for Sigfox communication*/
+    177            NVM_BoardDataType boardData;
+    178            stSfxRetErr = ST_Sigfox_Init(&boardData, 1);
+    179          
+    180            if(stSfxRetErr != ST_SFX_ERR_NONE)
+    181              Fatal_Error();
+    182          
+    183            if(use_public_key)
+    184              enc_utils_set_public_key(1);
+    185          
+    186            SdkEvalLedInit(LED1);
+    187            SdkEvalLedOn(LED1);
+    188          
+    189            /* application main loop */
+    190            while(1)
+    191            {
+    192              // /* Go in low power with the STM32 waiting for an external interrupt */
+    193              // ST_MCU_API_GPIO_LowPower();
+    194              // HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON,PWR_STOPENTRY_WFI);
+    195              // ST_MCU_API_SetSysClock();
+    196              // ST_MCU_API_GPIO_Restore();
     197          
-    198            /* Infinite loop */
-    199            while (1)
-    200            {
-    201            }
-    202          }
-    203          #endif
+    198              if(but_pressed)
+    199              {
+    200                LedBlink(LED3, 6);
+    201          
+    202                /* If the interrupt is raised, prepare the buffer to send with a 4-bytes counter */
+    203                cust_counter++;
     204          
-    205          
-    206          /******************* (C) COPYRIGHT 2018 STMicroelectronics *****END OF FILE*****/
+    205          	for(uint8_t i=0;i<4;i++)
+    206          	  customer_data[i]=(uint8_t)(cust_counter>>((3-i)*8));
+    207          
+    208                /* Call the send_frame function */
+    209                SIGFOX_API_send_frame(customer_data,4,customer_resp,2,0);
+    210          
+    211                LedBlink(LED3, 6);
+    212                but_pressed=0;
+    213              }
+    214            }
+    215          }
+    216          
+    217          #ifdef  USE_FULL_ASSERT
+    218          /**
+    219          * @brief  Reports the name of the source file and the source line number
+    220          *         where the assert_param error has occurred.
+    221          * @param file: pointer to the source file name
+    222          * @param line: assert_param error line source number
+    223          * @retval : None
+    224          */
+    225          void assert_failed(uint8_t* file, uint32_t line)
+    226          {
+    227            /* User can add his own implementation to report the file name and line number */
+    228            //printf("Wrong parameters value: file %s on line %d\r\n", file, line);
+    229          
+    230            /* Infinite loop */
+    231            while (1)
+    232            {
+    233            }
+    234          }
+    235          #endif
+    236          
+    237          
+    238          /******************* (C) COPYRIGHT 2018 STMicroelectronics *****END OF FILE*****/
 
-   Maximum stack usage in bytes:
-
-   .cstack Function
-   ------- --------
-       0   Appli_Exti_CB
-       8   Fatal_Error
-         8   -> SdkDelayMs
-         8   -> SdkEvalLedInit
-         8   -> SdkEvalLedToggle
-      16   LedBlink
-        16   -> SdkDelayMs
-        16   -> SdkEvalLedInit
-        16   -> SdkEvalLedOn
-        16   -> SdkEvalLedToggle
-      72   main
-        72   -> ButtonInit
-        72   -> ButtonSetIRQ
-        72   -> EepromCsPinInitialization
-        72   -> EepromCsXnucleoPinInitialization
-        72   -> Fatal_Error
-        72   -> IsButtonPressed
-        72   -> LedBlink
-        72   -> S2LPEvalGetHasEeprom
-        72   -> S2LPShutdownEnter
-        72   -> S2LPShutdownExit
-        72   -> SIGFOX_API_send_frame
-        72   -> ST_Init
-        72   -> ST_MCU_API_LowPower
-        72   -> ST_MCU_API_Shutdown
-        72   -> ST_MCU_API_TimerCalibration
-        72   -> ST_Sigfox_Init
-        72   -> SdkDelayMs
-        72   -> SdkEvalGetDaughterBoardType
-        72   -> SdkEvalLedInit
-        72   -> SdkEvalLedOn
-        72   -> enc_utils_set_public_key
-
-
-   Section sizes:
-
-   Bytes  Function/Label
-   -----  --------------
-       4  ??DataTable1
-       8  Appli_Exti_CB
-      22  Fatal_Error
-      42  LedBlink
-       1  but_pressed
-     244  main
-
- 
-   1 byte  in section .bss
- 320 bytes in section .text
- 
- 320 bytes of CODE memory
-   1 byte  of DATA memory
-
-Errors: none
-Warnings: none
+Errors: 14
+Warnings: 8

@@ -34,33 +34,57 @@ To use the project with IAR Embedded Workbench for ARM, please follow the instru
 /* a flag to understand if the button has been pressed */
 static volatile uint8_t but_pressed=0;
 
+// Initialization of the DHT11
+void DHT11_Start(void)
+{
+  Set_Pin_Output(DHT11_Port, DHT11_Pin); //to set the pin as output
+  HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, 0); //to pull the pin low
+  delay(18000); //wait for 18ms
+  Set_Pin_Input(DHT11_PORT, DHT11_PIN); //to set the pin as input
+}
+  
+// Check that the DHT11 pin is high
+uint8_t Check_Response(void)
+{
+  uint8_t Response = 0;
+  delay(40);
+  if (!(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN)))
+  {
+    delay(80);
+    if ((HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))) Response = 1;
+    else Response = -1;
+  }
+  while ((HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))); // wait for low on the pin
+
+  return Response;
+}
+
+// Read the DHT11 data
+uint8_t DHT11_Read(void)
+{
+  uint8_t i,j;
+  for (j=0;j<8;j++)
+  {
+    while (!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))); // wait for the pin to go high
+    delay(40) // wait for 40us - bit length of "0" is 26-28us; thus if the pin is high after 40us, the bit is "1"
+    if (!(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))) 
+    {
+      i&= ~(1<<(7-j)); // if the pin is low, write a 0
+    }
+    else i|= (1<<(7-j)); // if the pin is high, write a 1
+    while ((HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN))); // wait for the pin to gow low
+  }
+  return i;
+}
+
+//Button Interrupt
 void Appli_Exti_CB(uint32_t GPIO_Pin)
 {
   /* set the button pressed flag */
   but_pressed=1;
 }
 
-/**
-* @brief  Blink the LED indefinitely stucking the application.
-* @param  None
-* @retval None
-*/
-void Fatal_Error(void)
-{
-  SdkEvalLedInit(LED2);
-
-  while(1)
-  {
-    SdkDelayMs(100);
-    SdkEvalLedToggle(LED2);
-  }
-}
-
-/**
-* @brief  Let the application led blinks.
-* @param  times Number of toggles.
-* @retval None
-*/
+// Blinks the LED
 void LedBlink(SdkEvalLed led, uint8_t times)
 {
   SdkEvalLedInit(led);
@@ -74,11 +98,19 @@ void LedBlink(SdkEvalLed led, uint8_t times)
   SdkEvalLedOn(led);
 }
 
-/**
-* @brief  System main function.
-* @param  None.
-* @retval The function never returns.
-*/
+// Blinks the LED indefinitely, causing the application to get stuck
+void Fatal_Error(void)
+{
+  SdkEvalLedInit(LED2);
+
+  while(1)
+  {
+    SdkDelayMs(100);
+    SdkEvalLedToggle(LED2);
+  }
+}
+
+// Main function
 int main(void)
 {
   /* Some local variables to handle the workflow */
@@ -110,13 +142,13 @@ int main(void)
   PUSH BUTTON 2 pressed, the public KEY is used by the applicaiton.
   This is useful for testing purposes or to use the SNEK emulator to receive
   Sigfox messages. */
-  if (ButtonInit())
+  if (ButtonInit()) 
   {
     use_public_key=1;
     LedBlink(LED3, 1);
 
     while(IsButtonPressed());	/* Wait until button is pressed */
-
+  
     LedBlink(LED3, 1);
   }
 
