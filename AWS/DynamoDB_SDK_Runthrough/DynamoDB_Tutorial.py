@@ -75,14 +75,14 @@ def get_movie(title, year, dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-        table = dynamodb.Table('Movies')
+    table = dynamodb.Table('Movies')
 
-        try:
-            response = table.get_item(Key={'year': year, 'title': title})
-        except ClientError as e:
-            print(e.response['Error']['Message'])
-        else:
-            return response['Item']
+    try:
+        response = table.get_item(Key={'year': year, 'title': title})
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        return response['Item']
 
 def update_movie(title, year, rating, plot, actors, dynamodb=None):
     if not dynamodb:
@@ -302,6 +302,6 @@ if __name__ == '__main__':
     print(f"Scanning for movies released from {query_range[0]} to {query_range[1]}...")
     scan_movies(query_range, print_movies)
 
-    # Delete the table
-    delete_movie_table()
-    print("Movies table deleted.")
+    # # Delete the table
+    # delete_movie_table()
+    # print("Movies table deleted.")
