@@ -45,6 +45,10 @@ def create_sigfox_table(dynamodb=None):
         ProvisionedThroughput={
             'ReadCapacityUnits': 10,
             'WriteCapacityUnits': 10
+        },
+        StreamSpecification={
+            'StreamEnabled': True,
+            'StreamViewType': 'NEW_AND_OLD_IMAGES'
         }
     )
     return table
@@ -108,8 +112,6 @@ if __name__ == '__main__':
 
     # # Put all items
     # deviceId = '12CAC94'
-    # timestamp = 1610442045307
-    # data = 2
     # deviceTypeId = '5ff717c325643206e8d57c11'
     # seqNumber = 25
     # time = 1610442043
@@ -117,14 +119,12 @@ if __name__ == '__main__':
     #     timestamp = 161044204530+x
     #     data = round(1000*math.sin(0.1*x) * math.cos(x))
     #     item_resp = put_item(deviceId, timestamp, data, deviceTypeId, seqNumber, time)
-    #     print("Put item successful")
-    #     # pprint(item_resp, sort_dicts=False)
+    #     print("Put item " + x)
 
     # Create a DataFrame
     columns = ['deviceId', 'timestamp', 'data', 'deviceTypeId', 'seqNumber', 'time']
-    index = range(0, 100)
+    index = range(0, 1000)
     df_sigfox = pd.DataFrame(index=index, columns=columns)
-    # print(df_sigfox.head())
 
     # Get all items
     table = scan_items()['Items']
@@ -135,29 +135,16 @@ if __name__ == '__main__':
         df_sigfox.loc[i] = item_dict
     print(df_sigfox.head(10))
 
-    # Plot the data
-    input("Press Enter")
+    # Plot all items
     fig = go.FigureWidget()
     fig.update_layout(title='Sigfox Demo Data', xaxis_title='Timestamp', yaxis_title='Data')
     fig.add_trace(go.Scatter(x=df_sigfox.timestamp, y=df_sigfox.data, mode='lines+markers', name='Sigfox Data'))
     fig.show()
 
-    # input("Press Enter")
-    # for i in range(20):
-    #     item_dict = {'deviceId': '12CAC94', 'timestamp': 161044204530+i, 'data': i**3, 'deviceTypeId': '5ff717c325643206e8d57c11', 'seqNumber' : 25, 'time' : 161044204530+i}
-    #     df_sigfox.loc[i] = item_dict
-    # fig.add_trace(go.Scatter(x=df_sigfox.timestamp, y=df_sigfox.data, mode='lines+markers', name='Sigfox Data'))
-    # fig.show()
-
-    # # Get an item
-    # deviceId = '12CAC94'
-    # timestamp = 1610442045307
-    # item = get_item(deviceId, timestamp)
-    # if item:
-    #     print("Get item successful")
-    #     pprint(item, sort_dicts=False)
-    #
-    #
-    # # Add an item to the DataFrame
-    # item_dict = {'deviceId': deviceId, 'timestamp': timestamp, 'data': data, 'deviceTypeId': deviceTypeId, 'seqNumber' : seqNumber, 'time' : time}
-    # df_sigfox.loc[1] = item_dict
+    # Get an item
+    deviceId = '12CAC94'
+    timestamp = 1610442045307
+    item = get_item(deviceId, timestamp)
+    if item:
+        print("Get item successful")
+        pprint(item, sort_dicts=False)
