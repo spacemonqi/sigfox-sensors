@@ -1,10 +1,11 @@
-import datetime
+from datetime import datetime
+from datetime import timedelta
 
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-# import plotly
 from plotly.subplots import make_subplots
+import plotly
 from dash.dependencies import Input, Output
 
 # pip install pyorbital
@@ -31,7 +32,7 @@ app.layout = html.Div(
 @app.callback(Output('live-update-text', 'children'),
               Input('interval-component', 'n_intervals'))
 def update_metrics(n):
-    lon, lat, alt = satellite.get_lonlatalt(datetime.datetime.now())
+    lon, lat, alt = satellite.get_lonlatalt(datetime.now())
     style = {'padding': '5px', 'fontSize': '16px'}
     return [
         html.Span('Longitude: {0:.2f}'.format(lon), style=style),
@@ -53,19 +54,23 @@ def update_graph_live(n):
     }
 
     # Collect some data
-    for i in range(180):
-        time = datetime.datetime.now() - datetime.timedelta(seconds=i*20)
-        lon, lat, alt = satellite.get_lonlatalt(
-            time
-        )
+    for i in range(10):
+        time = datetime.now() - timedelta(seconds=i*20)
+        lon, lat, alt = satellite.get_lonlatalt(time)
         data['Longitude'].append(lon)
         data['Latitude'].append(lat)
         data['Altitude'].append(alt)
         data['time'].append(time)
+    print(data['Longitude'])
+    print(data['Latitude'])
+    print(data['Altitude'])
+    print(data['time'])
 
     # Create the graph with subplots
     fig = make_subplots(rows=2, cols=1, vertical_spacing=0.2)
-    fig['layout']['margin'] = {'l': 30, 'r': 10, 'b': 30, 't': 10}
+    fig['layout']['margin'] = {
+        'l': 30, 'r': 10, 'b': 30, 't': 10
+    }
     fig['layout']['legend'] = {'x': 0, 'y': 1, 'xanchor': 'left'}
 
     fig.append_trace({
