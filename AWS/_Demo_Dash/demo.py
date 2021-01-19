@@ -25,7 +25,7 @@ import sys
 
 #----------------------------------------------------------------------------------------------------------------------#
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+demo = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 tableName = 'sigfox_demo'
 num_items = 30
@@ -191,15 +191,8 @@ def scan_to_dataframe(df):
         df.loc[i] = item_dict
     return df
 
-def init_plot():
-    fig = go.FigureWidget()
-    fig.update_layout(title='Sigfox Demo Data', xaxis_title='Timestamp', yaxis_title='Data')
-    return fig
-
 def plot_items(df):
     fig = px.line(df, x=df.timestamp, y=df.data, title='Sigfox Data')
-    # if show:
-    #     fig.show()
     return fig
 
 def last_timestamp(df, num_items):
@@ -225,49 +218,41 @@ def append_to_dataframe(df, new_items):
     return df, num_items
 
 #----------------------------------------------------------------------------------------------------------------------#
-# Reinialize table if reset is True
-if reset:
-
-    # Delete the previous table
-    delete_sigfox_table_AWS()
-    print("Previous sigfox table deleted.")
-
-    # Create the table
-    sigfox_table = create_sigfox_table_AWS()
-    print("Creating a new sigfox table")
-    print("Table status: ", sigfox_table.table_status)
-
-    # Fill the table
-    populate_table()
-
-# Create a DataFrame
-df_empty = create_dataframe()
-
-# Scan the table to the DataFrame
-df_sigfox = scan_to_dataframe(df_empty)
-
-# # Initialize the graph
-# sigfoxGraph = init_plot()
-
-# Plot the data on the graph
-sigfoxFig = plot_items(df_sigfox)
-
-# Set the layout for the application
-app.layout = html.Div([
-    dcc.Graph(
-        id='sigfox-demo',
-        figure=sigfoxFig
-    )
-])
-
 if __name__ == '__main__':
 
+    # Reinialize table if reset is True
+    if reset:
+        # Delete the previous table
+        delete_sigfox_table_AWS()
+        print("Previous sigfox table deleted.")
+
+        # Create the table
+        sigfox_table = create_sigfox_table_AWS()
+        print("Creating a new sigfox table")
+        print("Table status: ", sigfox_table.table_status)
+
+        # Fill the table
+        populate_table()
+
+        # Create a DataFrame
+        df_empty = create_dataframe()
+
+        # Scan the table to the DataFrame
+        df_sigfox = scan_to_dataframe(df_empty)
+
+        # Plot the data on the graph
+        sigfoxFig = plot_items(df_sigfox)
+
+    # Set the layout for the application
+    demo.layout = html.Div([
+        dcc.Graph(
+            id='sigfox-demo',
+            figure=sigfoxFig
+        )
+    ])
+
     # Run the server
-    app.run_server(debug=True)
-
-    input('Exit')
-    sys.exit()
-
+    demo.run_server() # set debug=True  THIS LINE FUCKS EVERYTHING
 
     while(True):
 
@@ -285,7 +270,6 @@ if __name__ == '__main__':
         print(new_items)
 
         if len(new_items):
-            print(len(new_items))
             # Add the new items to the dataframe
             df_sigfox, num_items = append_to_dataframe(df_sigfox, new_items)
             # Plot the data on the graph
