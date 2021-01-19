@@ -23,6 +23,7 @@ import numpy as np
 
 import time
 import sys
+import os
 
 
 # Visit http://127.0.0.1:8050/ in your web browser.
@@ -78,6 +79,17 @@ def delete_sigfox_table_AWS(dynamodb=None):
     table = dynamodb.Table(tableName)
     table.delete()
 
+def scan_items_AWS(dynamodb=None):
+    if not dynamodb:
+        if online:
+            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
+        else:
+            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
+
+            table = dynamodb.Table(tableName)
+            response = table.scan()
+            return response
+
 def put_item_AWS(deviceId, timestamp, data, deviceTypeId, seqNumber, time, dynamodb=None):
     if not dynamodb:
         if online:
@@ -100,49 +112,21 @@ def put_item_AWS(deviceId, timestamp, data, deviceTypeId, seqNumber, time, dynam
     )
     return response
 
-def get_item_AWS(deviceId, timestamp, dynamodb=None):
-    if not dynamodb:
-        if online:
-            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
-        else:
-            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
-
-    table = dynamodb.Table(tableName)
-
-    try:
-        response = table.get_item(Key={'deviceId': deviceId, 'timestamp': timestamp})
-    except ClientError as e:
-        print(e.response['Error']['Message'])
-    else:
-        return response['Item']
-
-def query_and_project_items_AWS(deviceId, last_timestamp, dynamodb=None):
-    if not dynamodb:
-        if online:
-            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
-        else:
-            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
-
-    table = dynamodb.Table(tableName)
-
-    # Expression attribute names can only reference items in the projection expression.
-    response = table.query(
-        ProjectionExpression='#id, #ts, payload',
-        ExpressionAttributeNames={'#id': 'deviceId', '#ts': 'timestamp'},
-        KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(last_timestamp+1, 2147483647)
-    )
-    return response['Items']
-
-def scan_items_AWS(dynamodb=None):
-    if not dynamodb:
-        if online:
-            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
-        else:
-            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
-
-    table = dynamodb.Table(tableName)
-    response = table.scan()
-    return response
+# def get_item_AWS(deviceId, timestamp, dynamodb=None):
+#     if not dynamodb:
+#         if online:
+#             dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
+#         else:
+#             dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
+#
+#     table = dynamodb.Table(tableName)
+#
+#     try:
+#         response = table.get_item(Key={'deviceId': deviceId, 'timestamp': timestamp})
+#     except ClientError as e:
+#         print(e.response['Error']['Message'])
+#     else:
+#         return response['Item']
 
 #----------------------------------------------------------------------------------------------------------------------#
 def now():
@@ -160,16 +144,6 @@ def populate_table():
         if (x % 10 == 0):
             print("Put " + str(x) + " items")
 
-def add_item():
-    deviceId = '12CAC94'
-    deviceTypeId = '5ff717c325643206e8d57c11'
-    seqNumber = 25
-    timestamp = now()
-    time = timestamp
-    data = round(1000*math.sin(0.1*random.randint(0,30)) * math.cos(random.randint(0,30)))
-    item_resp = put_item_AWS(deviceId, timestamp, data, deviceTypeId, seqNumber, time)
-    print("Put item")
-
 def create_dataframe():
     columns = ['deviceId', 'timestamp', 'data', 'deviceTypeId', 'seqNumber', 'time']
     index = range(0)
@@ -185,31 +159,31 @@ def scan_to_dataframe(df):
         df.loc[i] = item_dict
     return df
 
-def plot_items(df):
-    fig = px.line(df, x=df.timestamp, y=df.data, title='Sigfox Data')
-    return fig
+# def plot_items(df):
+#     fig = px.line(df, x=df.timestamp, y=df.data, title='Sigfox Data')
+#     return fig
 
-def last_timestamp(df, num_items):
-    str = datetime.strftime(df.timestamp[num_items - 1], "%a %b %d %H:%M:%S %Y")
-    dt = datetime.strptime(str, "%a %b %d %H:%M:%S %Y")
-    timestamp = datetime.timestamp(dt)
-    return(round(timestamp))
+# def last_timestamp(df, num_items):
+#     str = datetime.strftime(df.timestamp[num_items - 1], "%a %b %d %H:%M:%S %Y")
+#     dt = datetime.strptime(str, "%a %b %d %H:%M:%S %Y")
+#     timestamp = datetime.timestamp(dt)
+#     return(round(timestamp))
 
-def append_to_dataframe(df, new_items):
-
-    prev_num_items = len(df.index)
-
-    i = 0
-    for new_item in new_items:
-        item_dict = {'deviceId': new_item['deviceId'], 'timestamp': datetime.fromtimestamp(int(new_item['timestamp'])),
-                    'data': new_item['payload']['data'], 'deviceTypeId': new_item['payload']['deviceTypeId'],
-                    'seqNumber': new_item['payload']['seqNumber'], 'time': new_item['payload']['time']}
-        df.loc[i+prev_num_items] = item_dict
-        i += 1
-
-    num_items = len(df.index)
-
-    return df, num_items
+# def append_to_dataframe(df, new_items):
+#
+#     prev_num_items = len(df.index)
+#
+#     i = 0
+#     for new_item in new_items:
+#         item_dict = {'deviceId': new_item['deviceId'], 'timestamp': datetime.fromtimestamp(int(new_item['timestamp'])),
+#                     'data': new_item['payload']['data'], 'deviceTypeId': new_item['payload']['deviceTypeId'],
+#                     'seqNumber': new_item['payload']['seqNumber'], 'time': new_item['payload']['time']}
+#         df.loc[i+prev_num_items] = item_dict
+#         i += 1
+#
+#     num_items = len(df.index)
+#
+#     return df, num_items
 
 #----------------------------------------------------------------------------------------------------------------------#
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -218,7 +192,7 @@ demo = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 tableName = 'sigfox_demo'
 num_items = 30
 online = 0
-reset = 0
+reset = 1
 # show = 0
 
 #----------------------------------------------------------------------------------------------------------------------#
@@ -242,9 +216,6 @@ df_empty = create_dataframe()
 # Scan the table to the DataFrame
 df_sigfox = scan_to_dataframe(df_empty)
 
-# Plot the data on the graph
-# sigfoxFig = plot_items(df_sigfox)
-
 demo.layout = html.Div(
     html.Div([
         html.H4('Sigfox Demo Data'),
@@ -260,7 +231,6 @@ demo.layout = html.Div(
 @demo.callback(Output('sigfox-demo', 'figure'), Input('interval-component', 'n_intervals'))
 def update_graph_live(n):
 
-    print(n)
     data = {
         'time': [],
         'payload_data': []
@@ -311,36 +281,38 @@ def update_graph_live(n):
 #
 #     return fig
 
+# os.system('python add.py')
+
 #----------------------------------------------------------------------------------------------------------------------#
 if __name__ == '__main__':
     # Run the server
-    demo.run_server(debug=True) # THIS LINE FUCKS EVERYTHING
-
-    input('exit')
-    sys.exit()
-
-    while(True):
-
-        # Add a new item
-        if (input('Add item? y/n\n') == 'y'):
-            add_item()
-
-        # Set the deviceId and timestamp of the most recent item
-        deviceId = '12CAC94'
-        timestamp = last_timestamp(df_sigfox, num_items)
-        print(timestamp)
-
-        # Get all items that are newer than the most recent known item
-        new_items = query_and_project_items_AWS(deviceId, timestamp)
-        print(new_items)
-
-        if len(new_items):
-            # Add the new items to the dataframe
-            df_sigfox, num_items = append_to_dataframe(df_sigfox, new_items)
-            # Plot the data on the graph
-            plot_items(sigfoxGraph, df_sigfox)
-
-        print('num_items' + str(num_items) + '\n')
-        print(df_sigfox.tail(5))
-
-        new_items.clear()
+    demo.run_server(debug=True)
+    #
+    # input('exit')
+    # sys.exit()
+    #
+    # while(True):
+    #
+    #     # Add a new item
+    #     if (input('Add item? y/n\n') == 'y'):
+    #         add_item()
+    #
+    #     # Set the deviceId and timestamp of the most recent item
+    #     deviceId = '12CAC94'
+    #     timestamp = last_timestamp(df_sigfox, num_items)
+    #     print(timestamp)
+    #
+    #     # Get all items that are newer than the most recent known item
+    #     new_items = query_and_project_items_AWS(deviceId, timestamp)
+    #     print(new_items)
+    #
+    #     if len(new_items):
+    #         # Add the new items to the dataframe
+    #         df_sigfox, num_items = append_to_dataframe(df_sigfox, new_items)
+    #         # Plot the data on the graph
+    #         plot_items(sigfoxGraph, df_sigfox)
+    #
+    #     print('num_items' + str(num_items) + '\n')
+    #     print(df_sigfox.tail(5))
+    #
+    #     new_items.clear()
