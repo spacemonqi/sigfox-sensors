@@ -218,8 +218,8 @@ demo = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 tableName = 'sigfox_demo'
 num_items = 30
 online = 0
-reset = 1
-show = 0
+reset = 0
+# show = 0
 
 #----------------------------------------------------------------------------------------------------------------------#
 # Reinialize table if reset is True
@@ -259,32 +259,57 @@ demo.layout = html.Div(
 
 @demo.callback(Output('sigfox-demo', 'figure'), Input('interval-component', 'n_intervals'))
 def update_graph_live(n):
+
+    print(n)
     data = {
         'time': [],
-        'Altitude': []
+        'payload_data': []
     }
 
-    for i in range(180):
-        time = datetime.now() - timedelta(seconds=i*20)
-        alt = random.random()
-        data['Altitude'].append(alt)
+    for i in range(len(df_sigfox.index)):
+        time = df_sigfox.timestamp[i]
+        payload_data = df_sigfox.data[i]
         data['time'].append(time)
-    print(data['Altitude'])
-    print(data['time'])
+        data['payload_data'].append(payload_data)
 
     fig = make_subplots(rows=1, cols=1, vertical_spacing=0.2)
-    fig['layout']['margin'] = {'l': 30, 'r': 10, 'b': 30, 't': 10}
-    fig['layout']['legend'] = {'x': 0, 'y': 1, 'xanchor': 'left'}
 
     fig.append_trace({
         'x': data['time'],
-        'y': data['Altitude'],
-        'name': 'Altitude',
+        'y': data['payload_data'],
+        'name': 'payload_data',
         'mode': 'lines+markers',
         'type': 'scatter'
     }, 1, 1)
 
     return fig
+
+# @demo.callback(Output('sigfox-demo', 'figure'), Input('interval-component', 'n_intervals'))
+# def update_graph_live(n):
+#
+#     print(n)
+#     data = {
+#         'time': [],
+#         'Altitude': []
+#     }
+#
+#     for i in range(180):
+#         time = datetime.now() - timedelta(seconds=i*20)
+#         alt = random.random()
+#         data['Altitude'].append(alt)
+#         data['time'].append(time)
+#
+#     fig = make_subplots(rows=1, cols=1, vertical_spacing=0.2)
+#
+#     fig.append_trace({
+#         'x': data['time'],
+#         'y': data['Altitude'],
+#         'name': 'Altitude',
+#         'mode': 'lines+markers',
+#         'type': 'scatter'
+#     }, 1, 1)
+#
+#     return fig
 
 #----------------------------------------------------------------------------------------------------------------------#
 if __name__ == '__main__':
