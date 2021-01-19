@@ -2,36 +2,30 @@ from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
 import boto3
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from decimal import Decimal
 from pprint import pprint
 import json
+
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+import plotly.express as px
+
+from dash.dependencies import Input, Output
+import dash_html_components as html
+import dash_core_components as dcc
+import dash
 
 import math
 import random
 import pandas as pd
 import numpy as np
-import plotly.graph_objects as go
-import plotly.express as px
-
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
 
 import time
 import sys
 
+
 # Visit http://127.0.0.1:8050/ in your web browser.
-
-#----------------------------------------------------------------------------------------------------------------------#
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-demo = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
-tableName = 'sigfox_demo'
-num_items = 30
-online = 0
-reset = 1
-show = 0
 
 #----------------------------------------------------------------------------------------------------------------------#
 def create_sigfox_table_AWS(dynamodb=None):
@@ -218,41 +212,87 @@ def append_to_dataframe(df, new_items):
     return df, num_items
 
 #----------------------------------------------------------------------------------------------------------------------#
-if __name__ == '__main__':
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+demo = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-    # Reinialize table if reset is True
-    if reset:
-        # Delete the previous table
-        delete_sigfox_table_AWS()
-        print("Previous sigfox table deleted.")
+tableName = 'sigfox_demo'
+num_items = 30
+online = 0
+reset = 1
+show = 0
 
-        # Create the table
-        sigfox_table = create_sigfox_table_AWS()
-        print("Creating a new sigfox table")
-        print("Table status: ", sigfox_table.table_status)
+#----------------------------------------------------------------------------------------------------------------------#
+# Reinialize table if reset is True
+if reset:
+    # Delete the previous table
+    delete_sigfox_table_AWS()
+    print("Previous sigfox table deleted.")
 
-        # Fill the table
-        populate_table()
+    # Create the table
+    sigfox_table = create_sigfox_table_AWS()
+    print("Creating a new sigfox table")
+    print("Table status: ", sigfox_table.table_status)
 
-        # Create a DataFrame
-        df_empty = create_dataframe()
+    # Fill the table
+    populate_table()
 
-        # Scan the table to the DataFrame
-        df_sigfox = scan_to_dataframe(df_empty)
+# Create a DataFrame
+df_empty = create_dataframe()
 
-        # Plot the data on the graph
-        sigfoxFig = plot_items(df_sigfox)
+# Scan the table to the DataFrame
+df_sigfox = scan_to_dataframe(df_empty)
 
-    # Set the layout for the application
-    demo.layout = html.Div([
-        dcc.Graph(
-            id='sigfox-demo',
-            figure=sigfoxFig
+# Plot the data on the graph
+# sigfoxFig = plot_items(df_sigfox)
+
+demo.layout = html.Div(
+    html.Div([
+        html.H4('Sigfox Demo Data'),
+        dcc.Graph(id='sigfox-demo'),
+        dcc.Interval(
+            id='interval-component',
+            interval=1*1000, # in milliseconds
+            n_intervals=0
         )
     ])
+)
 
+@demo.callback(Output('sigfox-demo', 'figure'), Input('interval-component', 'n_intervals'))
+def update_graph_live(n):
+    data = {
+        'time': [],
+        'Altitude': []
+    }
+
+    for i in range(180):
+        time = datetime.now() - timedelta(seconds=i*20)
+        alt = random.random()
+        data['Altitude'].append(alt)
+        data['time'].append(time)
+    print(data['Altitude'])
+    print(data['time'])
+
+    fig = make_subplots(rows=1, cols=1, vertical_spacing=0.2)
+    fig['layout']['margin'] = {'l': 30, 'r': 10, 'b': 30, 't': 10}
+    fig['layout']['legend'] = {'x': 0, 'y': 1, 'xanchor': 'left'}
+
+    fig.append_trace({
+        'x': data['time'],
+        'y': data['Altitude'],
+        'name': 'Altitude',
+        'mode': 'lines+markers',
+        'type': 'scatter'
+    }, 1, 1)
+
+    return fig
+
+#----------------------------------------------------------------------------------------------------------------------#
+if __name__ == '__main__':
     # Run the server
     demo.run_server(debug=True) # THIS LINE FUCKS EVERYTHING
+
+    input('exit')
+    sys.exit()
 
     while(True):
 
