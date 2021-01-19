@@ -8,6 +8,7 @@ from pprint import pprint
 import json
 
 import math
+import random
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
@@ -18,9 +19,9 @@ import sys
 #----------------------------------------------------------------------------------------------------------------------#
 tableName = 'sigfox_demo'
 num_items = 30
-online = False
-reset = False
-show = False
+online = 0
+reset = 1
+show = 1
 
 #----------------------------------------------------------------------------------------------------------------------#
 def create_sigfox_table_AWS(dynamodb=None):
@@ -122,9 +123,9 @@ def query_and_project_items_AWS(deviceId, last_timestamp, dynamodb=None):
 
     # Expression attribute names can only reference items in the projection expression.
     response = table.query(
-        ProjectionExpression="#id, #ts",
+        ProjectionExpression='#id, #ts, payload',
         ExpressionAttributeNames={'#id': 'deviceId', '#ts': 'timestamp'},
-        KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(last_timestamp, 2147483647)
+        KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(last_timestamp+1, 2147483647)
     )
     return response['Items']
 
@@ -140,17 +141,30 @@ def scan_items_AWS(dynamodb=None):
     return response
 
 #----------------------------------------------------------------------------------------------------------------------#
-def populate_table(now):
+def now():
+    return round(datetime.timestamp(datetime.now()))
+
+def populate_table():
     deviceId = '12CAC94'
     deviceTypeId = '5ff717c325643206e8d57c11'
     seqNumber = 25
-    time = now
     for x in range(num_items):
-        timestamp = now + 60 * x
+        timestamp = now() + x - num_items
+        time = timestamp
         data = round(1000*math.sin(0.1*x) * math.cos(x))
         item_resp = put_item_AWS(deviceId, timestamp, data, deviceTypeId, seqNumber, time)
         if (x % 10 == 0):
             print("Put " + str(x) + " items")
+
+def add_item():
+    deviceId = '12CAC94'
+    deviceTypeId = '5ff717c325643206e8d57c11'
+    seqNumber = 25
+    timestamp = now()
+    time = timestamp
+    data = round(1000*math.sin(0.1*random.randint(0,30)) * math.cos(random.randint(0,30)))
+    item_resp = put_item_AWS(deviceId, timestamp, data, deviceTypeId, seqNumber, time)
+    print("Put item")
 
 def create_dataframe():
     columns = ['deviceId', 'timestamp', 'data', 'deviceTypeId', 'seqNumber', 'time']
@@ -159,11 +173,11 @@ def create_dataframe():
     return df
 
 def scan_to_dataframe(df):
-    table = scan_items_AWS()['Items']
+    all_items = scan_items_AWS()['Items']
     for i in range(num_items):
-        item_dict = {'deviceId': table[i]['deviceId'], 'timestamp': datetime.fromtimestamp(int(table[i]['timestamp'])),
-                    'data': table[i]['payload']['data'], 'deviceTypeId': table[i]['payload']['deviceTypeId'],
-                    'seqNumber': table[i]['payload']['seqNumber'], 'time': table[i]['payload']['time']}
+        item_dict = {'deviceId': all_items[i]['deviceId'], 'timestamp': datetime.fromtimestamp(int(all_items[i]['timestamp'])),
+                    'data': all_items[i]['payload']['data'], 'deviceTypeId': all_items[i]['payload']['deviceTypeId'],
+                    'seqNumber': all_items[i]['payload']['seqNumber'], 'time': all_items[i]['payload']['time']}
         df.loc[i] = item_dict
     return df
 
@@ -177,29 +191,30 @@ def plot_items(fig, df_sigfox):
     if show:
         fig.show()
 
-def last_timestamp(df):
+def last_timestamp(df, num_items):
     str = datetime.strftime(df.timestamp[num_items - 1], "%a %b %d %H:%M:%S %Y")
     dt = datetime.strptime(str, "%a %b %d %H:%M:%S %Y")
     timestamp = datetime.timestamp(dt)
-    return(round(timestamp)+1)
+    return(round(timestamp))
 
 def append_to_dataframe(df, new_items):
-    print(df.tail(20))
+
     prev_num_items = len(df.index)
-    print('ni ' + str(num_items))
-    print('pni ' + str(prev_num_items))
-    for i in range(prev_num_items, num_items):
-        print(new_items[i-prev_num_items])
-        print(i)
-        input()
-        df.loc[i] = new_items[i-prev_num_items]
-    print(df.tail(50))
+
+    i = 0
+    for new_item in new_items:
+        item_dict = {'deviceId': new_item['deviceId'], 'timestamp': datetime.fromtimestamp(int(new_item['timestamp'])),
+                    'data': new_item['payload']['data'], 'deviceTypeId': new_item['payload']['deviceTypeId'],
+                    'seqNumber': new_item['payload']['seqNumber'], 'time': new_item['payload']['time']}
+        df.loc[i+prev_num_items] = item_dict
+        i += 1
+
+    num_items = len(df.index)
+
+    return df, num_items
 
 #----------------------------------------------------------------------------------------------------------------------#
 if __name__ == '__main__':
-
-    # Obtain the current timestamp
-    now = round(datetime.timestamp(datetime.now()))
 
     # Reinialize table if reset is True
     if reset:
@@ -214,7 +229,7 @@ if __name__ == '__main__':
         print("Table status: ", sigfox_table.table_status)
 
         # Fill the table
-        populate_table(now)
+        populate_table()
 
     # Create a DataFrame
     df_empty = create_dataframe()
@@ -230,22 +245,27 @@ if __name__ == '__main__':
 
     while(True):
 
+        # Add a new item
+        if (input('Add item? y/n\n') == 'y'):
+            add_item()
+
         # Set the deviceId and timestamp of the most recent item
         deviceId = '12CAC94'
-        timestamp = last_timestamp(df_sigfox)
+        timestamp = last_timestamp(df_sigfox, num_items)
+        print(timestamp)
 
         # Get all items that are newer than the most recent known item
-        new_items = query_and_project_items_AWS(deviceId, now) # change now to timestamp
+        new_items = query_and_project_items_AWS(deviceId, timestamp)
+        print(new_items)
 
-        if new_items:
-            print(new_items) #what happens to the data????
-
-            # Update the number of items
-            # num_items += len(new_items)
-
+        if len(new_items):
+            print(len(new_items))
             # Add the new items to the dataframe
-            # append_to_dataframe(df_sigfox, new_items)
+            df_sigfox, num_items = append_to_dataframe(df_sigfox, new_items)
+            # Plot the data on the graph
+            plot_items(sigfoxGraph, df_sigfox)
 
-        sys.exit()
+        print('num_items' + str(num_items) + '\n')
+        print(df_sigfox.tail(5))
 
-        # time.sleep(1)
+        new_items.clear()
