@@ -252,7 +252,7 @@ if __name__ == '__main__':
     ])
 
     # Run the server
-    demo.run_server() # set debug=True  THIS LINE FUCKS EVERYTHING
+    demo.run_server(debug=True) # THIS LINE FUCKS EVERYTHING
 
     while(True):
 
