@@ -120,6 +120,16 @@ demo.layout = html.Div(
 @demo.callback(Output('sigfox-demo', 'figure'), Input('interval-component', 'n_intervals'))
 def update_graph_live(n):
 
+    # # This should replace the SCAN operation
+    # # Get all items that are newer than the most recent known item
+    # deviceId = '12CAC94'
+    # timestamp = last_timestamp(df_sigfox)
+    # new_items = query_and_project_items_AWS(deviceId, timestamp)
+    #
+    # # Add the new items to the dataframe
+    # if len(new_items):
+    #     df_sigfox = append_to_dataframe(df_sigfox, new_items)
+
     # Scan the table to a DataFrame
     df_sigfox = scan_to_dataframe()
 
