@@ -10,6 +10,7 @@ import json
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import plotly.express as px
+import plotly
 
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -20,6 +21,7 @@ import math
 import random
 import pandas as pd
 import numpy as np
+from collections import deque
 
 import time
 import sys
@@ -52,7 +54,7 @@ def query_and_project_items_AWS(deviceId, last_timestamp, dynamodb=None):
     response = table.query(
         ProjectionExpression='#id, #ts, payload',
         ExpressionAttributeNames={'#id': 'deviceId', '#ts': 'timestamp'},
-        KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(last_timestamp+1, 2147483647)
+        KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(int(last_timestamp)+1, 2147483647)
     )
     return response['Items']
 
@@ -66,34 +68,29 @@ def scan_to_dataframe():
     df = pd.DataFrame(index=index, columns=columns)
     all_items = scan_items_AWS()['Items']
     for i in range(len(all_items)):
-        item_dict = {'deviceId': all_items[i]['deviceId'], 'timestamp': datetime.fromtimestamp(int(all_items[i]['timestamp'])),
+        item_dict = {'deviceId': all_items[i]['deviceId'], 'timestamp': all_items[i]['timestamp'],
                     'data': all_items[i]['payload']['data'], 'deviceTypeId': all_items[i]['payload']['deviceTypeId'],
                     'seqNumber': all_items[i]['payload']['seqNumber'], 'time': all_items[i]['payload']['time']}
         df.loc[i] = item_dict
     return df
 
-# Call this:
 def last_timestamp(df):
     num_items = len(df.index)
-    str = datetime.strftime(df.timestamp[num_items - 1], "%a %b %d %H:%M:%S %Y")
-    dt = datetime.strptime(str, "%a %b %d %H:%M:%S %Y")
-    timestamp = datetime.timestamp(dt)
-    return(round(timestamp))
+    timestamp = df.timestamp[num_items-1]
+    return timestamp
 
 # Call this:
-def append_to_dataframe(df, new_items):
+def append_to_dataframe(new_items):
 
-    num_items = len(df.index)
+    num_items = len(df_sigfox.index)
 
     i = 0
     for new_item in new_items:
         item_dict = {'deviceId': new_item['deviceId'], 'timestamp': datetime.fromtimestamp(int(new_item['timestamp'])),
                     'data': new_item['payload']['data'], 'deviceTypeId': new_item['payload']['deviceTypeId'],
                     'seqNumber': new_item['payload']['seqNumber'], 'time': new_item['payload']['time']}
-        df.loc[i+num_items] = item_dict
+        df_sigfox.loc[i+num_items] = item_dict
         i += 1
-
-    return df
 
 #----------------------------------------------------------------------------------------------------------------------#
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -103,59 +100,75 @@ file = open("config.txt", 'r')
 tableName = file.readline().rstrip()
 online = int(file.readline())
 
-#----------------------------------------------------------------------------------------------------------------------#
+# Scan the table to a DataFrame
+df_sigfox = scan_to_dataframe()
+print(df_sigfox.tail(5))
+X = deque()
+Y = deque()
+for i in range(len(df_sigfox.index)):
+    X.append(datetime.fromtimestamp(int(df_sigfox['timestamp'][i])))
+    Y.append(df_sigfox['data'][i])
 
+#----------------------------------------------------------------------------------------------------------------------#
 demo.layout = html.Div(
     html.Div([
         html.H4('Sigfox Demo Data'),
-        dcc.Graph(id='sigfox-demo'),
+        dcc.Graph(id='sigfox-demo', animate=True),
         dcc.Interval(
-            id='interval-component',
+            id='graph-update',
             interval=1*1000, # in milliseconds
             n_intervals=0
         )
     ])
 )
 
-@demo.callback(Output('sigfox-demo', 'figure'), Input('interval-component', 'n_intervals'))
+@demo.callback(Output('sigfox-demo', 'figure'), Input('graph-update', 'n_intervals'))
 def update_graph_live(n):
 
-    # # This should replace the SCAN operation
-    # # Get all items that are newer than the most recent known item
-    # deviceId = '12CAC94'
-    # timestamp = last_timestamp(df_sigfox)
-    # new_items = query_and_project_items_AWS(deviceId, timestamp)
+    deviceId = '12CAC94'
+    timestamp = last_timestamp(df_sigfox)
+    post_timestamp = timestamp + timedelta(seconds=1)
+    new_items = query_and_project_items_AWS(deviceId, post_timestamp)
+    if len(new_items):
+        append_to_dataframe(new_items)
+
+    X.append(datetime.fromtimestamp(now()))
+    num_items = len(df_sigfox.index)
+    Y.append(df_sigfox['data'][num_items-1])
+
+    data = plotly.graph_objs.Scatter(
+			x=list(X),
+			y=list(Y),
+			name='Scatter',
+			mode= 'lines+markers'
+	)
+
+    return {'data': [data],
+			'layout' : go.Layout(xaxis=dict(range=[min(X),max(X)]),yaxis = dict(range = [min(Y),max(Y)]),)}
+
+    # data = {
+    #     'time': [],
+    #     'payload_data': []
+    # }
     #
-    # # Add the new items to the dataframe
-    # if len(new_items):
-    #     df_sigfox = append_to_dataframe(df_sigfox, new_items)
+    # for i in range(len(df_sigfox.index)):
+    #     time = df_sigfox.timestamp[i]
+    #     payload_data = df_sigfox.data[i]
+    #     data['time'].append(time)
+    #     data['payload_data'].append(payload_data)
+    #
+    # fig = make_subplots(rows=1, cols=1, vertical_spacing=0.2)
+    #
+    # fig.append_trace({
+    #     'x': data['time'],
+    #     'y': data['payload_data'],
+    #     'name': 'payload_data',
+    #     'mode': 'lines+markers',
+    #     'type': 'scatter'
+    # }, 1, 1)
 
-    # Scan the table to a DataFrame
-    df_sigfox = scan_to_dataframe()
-
-    data = {
-        'time': [],
-        'payload_data': []
-    }
-
-    for i in range(len(df_sigfox.index)):
-        time = df_sigfox.timestamp[i]
-        payload_data = df_sigfox.data[i]
-        data['time'].append(time)
-        data['payload_data'].append(payload_data)
-
-    fig = make_subplots(rows=1, cols=1, vertical_spacing=0.2)
-
-    fig.append_trace({
-        'x': data['time'],
-        'y': data['payload_data'],
-        'name': 'payload_data',
-        'mode': 'lines+markers',
-        'type': 'scatter'
-    }, 1, 1)
-
-    return fig
+    # return fig
 
 #----------------------------------------------------------------------------------------------------------------------#
 if __name__ == '__main__':
-    demo.run_server(debug=True)
+    demo.run_server()
