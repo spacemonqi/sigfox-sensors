@@ -54,7 +54,7 @@ def query_and_project_items_AWS(deviceId, last_timestamp, dynamodb=None):
     response = table.query(
         ProjectionExpression='#id, #ts, payload',
         ExpressionAttributeNames={'#id': 'deviceId', '#ts': 'timestamp'},
-        KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(int(last_timestamp)+1, 2147483647)
+        KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(last_timestamp+1, 2147483647)
     )
     return response['Items']
 
@@ -76,7 +76,7 @@ def scan_to_dataframe():
 
 def last_timestamp(df):
     num_items = len(df.index)
-    timestamp = df.timestamp[num_items-1]
+    timestamp = int(str(df.timestamp[num_items-1]))
     return timestamp
 
 # Call this:
@@ -86,7 +86,7 @@ def append_to_dataframe(new_items):
 
     i = 0
     for new_item in new_items:
-        item_dict = {'deviceId': new_item['deviceId'], 'timestamp': datetime.fromtimestamp(int(new_item['timestamp'])),
+        item_dict = {'deviceId': new_item['deviceId'], 'timestamp': new_item['timestamp'],
                     'data': new_item['payload']['data'], 'deviceTypeId': new_item['payload']['deviceTypeId'],
                     'seqNumber': new_item['payload']['seqNumber'], 'time': new_item['payload']['time']}
         df_sigfox.loc[i+num_items] = item_dict
@@ -127,8 +127,7 @@ def update_graph_live(n):
 
     deviceId = '12CAC94'
     timestamp = last_timestamp(df_sigfox)
-    post_timestamp = timestamp + timedelta(seconds=1)
-    new_items = query_and_project_items_AWS(deviceId, post_timestamp)
+    new_items = query_and_project_items_AWS(deviceId, timestamp)
     if len(new_items):
         append_to_dataframe(new_items)
 
