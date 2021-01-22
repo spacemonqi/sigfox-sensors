@@ -1,0 +1,5 @@
+setting,value
+tableName,sigfox_demo
+numInitItems,2
+reset,1
+online,0

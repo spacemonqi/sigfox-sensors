@@ -1,2 +1,0 @@
-sigfox_demo
-0

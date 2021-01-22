@@ -24,6 +24,7 @@ import numpy as np
 from collections import deque
 
 import time
+import csv
 import sys
 import os
 
@@ -96,9 +97,15 @@ def append_to_dataframe(new_items):
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 demo = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-file = open("config.txt", 'r')
-tableName = file.readline().rstrip()
-online = int(file.readline())
+config_dict = {}
+with open('config.txt', mode='r') as csv_file:
+    csv_reader = csv.DictReader(csv_file)
+    for row in csv_reader:
+        config_dict[row['setting']] = row['value']
+    csv_file.close()
+
+tableName = str(config_dict['tableName'])
+online = int(config_dict['online'])
 
 # Scan the table to a DataFrame
 df_sigfox = scan_to_dataframe()
@@ -144,29 +151,6 @@ def update_graph_live(n):
 
     return {'data': [data],
 			'layout' : go.Layout(xaxis=dict(range=[min(X),max(X)]),yaxis = dict(range = [min(Y),max(Y)]),)}
-
-    # data = {
-    #     'time': [],
-    #     'payload_data': []
-    # }
-    #
-    # for i in range(len(df_sigfox.index)):
-    #     time = df_sigfox.timestamp[i]
-    #     payload_data = df_sigfox.data[i]
-    #     data['time'].append(time)
-    #     data['payload_data'].append(payload_data)
-    #
-    # fig = make_subplots(rows=1, cols=1, vertical_spacing=0.2)
-    #
-    # fig.append_trace({
-    #     'x': data['time'],
-    #     'y': data['payload_data'],
-    #     'name': 'payload_data',
-    #     'mode': 'lines+markers',
-    #     'type': 'scatter'
-    # }, 1, 1)
-
-    # return fig
 
 #----------------------------------------------------------------------------------------------------------------------#
 if __name__ == '__main__':

@@ -23,6 +23,7 @@ import numpy as np
 
 import time
 import sys
+import csv
 import os
 
 #----------------------------------------------------------------------------------------------------------------------#
@@ -111,21 +112,23 @@ def populate_table(num_init_items):
         time = timestamp
         data = round(1000*math.sin(0.1*x) * math.cos(x))
         item_resp = put_item_AWS(deviceId, timestamp, data, deviceTypeId, seqNumber, time)
-        if (x % 10 == 0):
-            print("Put " + str(x) + " items")
+        # if (x % 10 == 0):
+    print('Added ' + str(num_init_items) + ' items.')
 
 #----------------------------------------------------------------------------------------------------------------------#
-tableName = 'sigfox_demo'
-num_init_items = 9
-online = 0
-reset = 1
+config_dict = {}
+with open('config.txt', mode='r') as csv_file:
+    csv_reader = csv.DictReader(csv_file)
+    for row in csv_reader:
+        config_dict[row['setting']] = row['value']
+    csv_file.close()
+
+tableName = str(config_dict['tableName'])
+num_init_items = int(config_dict['numInitItems'])
+online = int(config_dict['online'])
+reset = int(config_dict['reset'])
 
 if reset:
-    file = open("config.txt", 'w')
-    file.write(tableName + '\n')
-    file.write(str(online) + '\n')
-    file.close()
-
     # Delete the previous table
     delete_sigfox_table_AWS()
     print("Previous sigfox table deleted.")
