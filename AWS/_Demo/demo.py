@@ -80,7 +80,6 @@ def last_timestamp(df):
     timestamp = int(str(df.timestamp[num_items-1]))
     return timestamp
 
-# Call this:
 def append_to_dataframe(new_items):
 
     num_items = len(df_sigfox.index)
@@ -107,9 +106,8 @@ with open('config.txt', mode='r') as csv_file:
 tableName = str(config_dict['tableName'])
 online = int(config_dict['online'])
 
-# Scan the table to a DataFrame
 df_sigfox = scan_to_dataframe()
-print(df_sigfox.tail(5))
+
 X = deque()
 Y = deque()
 for i in range(len(df_sigfox.index)):
@@ -150,7 +148,7 @@ def update_graph_live(n):
 	)
 
     return {'data': [data],
-			'layout' : go.Layout(xaxis=dict(range=[min(X),max(X)]),yaxis = dict(range = [min(Y),max(Y)]),)}
+			'layout' : go.Layout(xaxis=dict(range=[min(X),max(X)]),yaxis = dict(range = [float(str(min(Y)))*1.1,float(str(max(Y)))*1.1]),)}
 
 #----------------------------------------------------------------------------------------------------------------------#
 if __name__ == '__main__':
