@@ -38,9 +38,9 @@ def scan_items_AWS(dynamodb=None):
         else:
             dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
 
-            table = dynamodb.Table(tableName)
-            response = table.scan()
-            return response
+        table = dynamodb.Table(tableName)
+        response = table.scan()
+        return response
 
 def query_and_project_items_AWS(deviceId, last_timestamp, dynamodb=None):
     if not dynamodb:

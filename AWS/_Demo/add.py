@@ -22,6 +22,7 @@ import pandas as pd
 import numpy as np
 
 import time
+import csv
 import sys
 
 #----------------------------------------------------------------------------------------------------------------------#
@@ -62,9 +63,15 @@ def add_item():
     print("Item added")
 
 #----------------------------------------------------------------------------------------------------------------------#
-tableName = 'sigfox_demo'
-num_items = 30
-online = 0
+config_dict = {}
+with open('config.txt', mode='r') as csv_file:
+    csv_reader = csv.DictReader(csv_file)
+    for row in csv_reader:
+        config_dict[row['setting']] = row['value']
+    csv_file.close()
+
+tableName = str(config_dict['tableName'])
+online = int(config_dict['online'])
 
 #----------------------------------------------------------------------------------------------------------------------#
 if __name__ == '__main__':
