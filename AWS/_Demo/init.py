@@ -112,7 +112,7 @@ def populate_table(num_init_items):
         time = timestamp
         data = round(1000*math.sin(0.1*x) * math.cos(x))
         item_resp = put_item_AWS(deviceId, timestamp, data, deviceTypeId, seqNumber, time)
-        # if (x % 10 == 0):
+    print("New table created.")
     print('Added ' + str(num_init_items) + ' items.')
 
 #----------------------------------------------------------------------------------------------------------------------#
@@ -129,16 +129,38 @@ online = int(config_dict['online'])
 reset = int(config_dict['reset'])
 
 if reset:
-    # Delete the previous table
-    delete_sigfox_table_AWS()
-    print("Previous sigfox table deleted.")
 
-    # Create the table
-    sigfox_table = create_sigfox_table_AWS()
-    print("Creating a new sigfox table")
-    print("Table status: ", sigfox_table.table_status)
+    # Check if a previous table exists, delete it if so
+    prev_table_exists = 1
+    try:
+        delete_sigfox_table_AWS()
+        print("Deleting previous table...")
+    except:
+        print("No previous tables exist.")
 
-    # Fill the table
-    populate_table(num_init_items)
+    # Wait for table to finish deleting, create a new one if done
+    while prev_table_exists:
+        try:
+            sigfox_table = create_sigfox_table_AWS()
+            print("Previous table deleted.")
+            print("Creating a new sigfox table")
+            prev_table_exists = 0
+        except:
+            print("Previous table status: DELETING" )
+            time.sleep(1)
+
+    # Wait for the table to finish creating, populate it if done
+    table_created = 0
+    while not table_created:
+        try:
+            populate_table(num_init_items)
+            table_created = 1
+        except:
+            try:
+                print("New table status: " + str(sigfox_table.table_status))
+            except:
+                print("New table status: INITIALIZING")
+        time.sleep(1)
+
 
 os.system('python demo.py')
