@@ -1,5 +1,5 @@
 setting,value
 tableName,sigfox_demo
-numInitItems,2
+numInitItems,5
 online,1
 reset,1

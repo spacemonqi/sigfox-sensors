@@ -70,14 +70,14 @@ def now():
     return round(datetime.timestamp(datetime.now()))
 
 def scan_to_dataframe():
-    columns = ['deviceId', 'timestamp', 'data', 'deviceTypeId', 'seqNumber', 'time']
+    columns = ['deviceId', 'timestamp', 'data', 'temperature', 'humidity', 'time']
     index = range(0)
     df = pd.DataFrame(index=index, columns=columns)
     all_items = scan_items_AWS()['Items']
     for i in range(len(all_items)):
         item_dict = {'deviceId': all_items[i]['deviceId'], 'timestamp': all_items[i]['timestamp'],
-                    'data': all_items[i]['payload']['data'], 'deviceTypeId': all_items[i]['payload']['deviceTypeId'],
-                    'seqNumber': all_items[i]['payload']['seqNumber'], 'time': all_items[i]['payload']['time']}
+                    'data': all_items[i]['payload']['data'], 'temperature': all_items[i]['payload']['temperature'],
+                    'humidity': all_items[i]['payload']['humidity']}
         df.loc[i] = item_dict
     return df
 
@@ -93,8 +93,8 @@ def append_to_dataframe(new_items):
     i = 0
     for new_item in new_items:
         item_dict = {'deviceId': new_item['deviceId'], 'timestamp': new_item['timestamp'],
-                    'data': new_item['payload']['data'], 'deviceTypeId': new_item['payload']['deviceTypeId'],
-                    'seqNumber': new_item['payload']['seqNumber'], 'time': new_item['payload']['time']}
+                    'data': new_item['payload']['data'], 'temperature': new_item['payload']['temperature'],
+                    'humidity': new_item['payload']['humidity']}
         df_sigfox.loc[i+num_items] = item_dict
         i += 1
 

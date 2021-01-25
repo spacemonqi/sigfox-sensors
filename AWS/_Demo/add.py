@@ -26,7 +26,7 @@ import csv
 import sys
 
 #----------------------------------------------------------------------------------------------------------------------#
-def put_item_AWS(deviceId, timestamp, data, deviceTypeId, seqNumber, time, dynamodb=None):
+def put_item_AWS(deviceId, timestamp, data, temperature, humidity, dynamodb=None):
     if not dynamodb:
         if online:
             dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
@@ -40,9 +40,8 @@ def put_item_AWS(deviceId, timestamp, data, deviceTypeId, seqNumber, time, dynam
             'timestamp': timestamp,
             'payload': {
                 'data': data,
-                'deviceTypeId': deviceTypeId,
-                'seqNumber' : seqNumber,
-                'time' : time
+                'temperature': temperature,
+                'humidity' : humidity
             }
         }
     )
@@ -54,12 +53,11 @@ def now():
 
 def add_item():
     deviceId = '12CAC94'
-    deviceTypeId = '5ff717c325643206e8d57c11'
-    seqNumber = 25
     timestamp = now()
-    time = timestamp
     data = round(1000*math.sin(0.1*random.randint(0,30)) * math.cos(random.randint(0,30)))
-    item_resp = put_item_AWS(deviceId, timestamp, data, deviceTypeId, seqNumber, time)
+    temperature = round(random.randint(40, 80))
+    humidity = round(np.random.normal(60, 20))
+    item_resp = put_item_AWS(deviceId, timestamp, data, temperature, humidity)
     print("Item added")
 
 #----------------------------------------------------------------------------------------------------------------------#
