@@ -7,7 +7,7 @@ from decimal import Decimal
 from pprint import pprint
 import json
 
-# from plotly.subplots import make_subplots
+from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import plotly.express as px
 import plotly
@@ -28,11 +28,7 @@ import csv
 import sys
 import os
 
-import sentry_sdk
-sentry_sdk.init(
-    "https://863cc4475bea402abbad256bae2de40c@o510423.ingest.sentry.io/5606062",
-    traces_sample_rate=1.0
-)
+import pdb
 
 # Visit http://127.0.0.1:8050/ in your web browser.
 
@@ -127,7 +123,7 @@ demo.layout = html.Div(
         dcc.Graph(id='sigfox-demo', animate=True),
         dcc.Interval(
             id='graph-update',
-            interval=2*1000, # in milliseconds
+            interval=5*1000, # in milliseconds
             n_intervals=0
         )
     ])
@@ -135,6 +131,8 @@ demo.layout = html.Div(
 
 @demo.callback(Output('sigfox-demo', 'figure'), Input('graph-update', 'n_intervals'))
 def update_graph_live(n):
+
+    # breakpoint()
 
     deviceId = '12CAC94'
     timestamp = last_timestamp(df_sigfox)
@@ -146,12 +144,29 @@ def update_graph_live(n):
     num_items = len(df_sigfox.index)
     Y.append(df_sigfox['data'][num_items-1])
 
-    data = plotly.graph_objs.Scatter(
-			x=list(X),
-			y=list(Y),
-			name='Scatter',
-			mode= 'lines+markers'
-	)
+    data = make_subplots(rows=3, cols=1)
+
+    data.append_trace(go.Scatter(
+        x = list(X),
+        y = list(Y)
+    ), row=1, col=1)
+
+    data.append_trace(go.Scatter(
+        x = list(X),
+        y = list(Y)
+    ), row=2, col=1)
+
+    data.append_trace(go.Scatter(
+        x = list(X),
+        y = list(Y)
+    ), row=3, col=1)
+
+    # data = go.Scatter(
+	# 		x=list(X),
+	# 		y=list(Y),
+	# 		name='Scatter',
+	# 		mode= 'lines+markers'
+	# )
 
     return {'data': [data],
 			'layout' : go.Layout(xaxis=dict(range=[min(X),max(X)]),yaxis = dict(range = [float(str(min(Y)))*1.1,float(str(max(Y)))*1.1]),)}
