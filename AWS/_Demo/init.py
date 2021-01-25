@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3
+
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
 import boto3
@@ -163,4 +165,4 @@ if reset:
         time.sleep(1)
 
 
-os.system('python demo.py')
+os.system("python3 demo.py")

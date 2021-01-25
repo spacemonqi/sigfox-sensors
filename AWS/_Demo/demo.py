@@ -7,7 +7,7 @@ from decimal import Decimal
 from pprint import pprint
 import json
 
-from plotly.subplots import make_subplots
+# from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import plotly.express as px
 import plotly
@@ -27,6 +27,12 @@ import time
 import csv
 import sys
 import os
+
+import sentry_sdk
+sentry_sdk.init(
+    "https://863cc4475bea402abbad256bae2de40c@o510423.ingest.sentry.io/5606062",
+    traces_sample_rate=1.0
+)
 
 # Visit http://127.0.0.1:8050/ in your web browser.
 

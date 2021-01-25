@@ -16,4 +16,4 @@ with open('config.txt', mode='w') as csv_file:
         csv_writer.writerow(item)
     csv_file.close()
 
-os.system('python init.py')
+os.system("python3 init.py")
