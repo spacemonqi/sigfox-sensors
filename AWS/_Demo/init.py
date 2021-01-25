@@ -151,8 +151,6 @@ if reset:
             print("Previous table status: DELETING" )
             time.sleep(1)
 
-    breakpoint()
-
     # Wait for the table to finish creating, populate it if done
     table_created = 0
     while not table_created:

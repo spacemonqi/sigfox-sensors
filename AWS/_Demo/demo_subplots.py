@@ -144,19 +144,64 @@ def update_graph_live(n):
     num_items = len(df_sigfox.index)
     Y.append(df_sigfox['data'][num_items-1])
 
-    data = go.Scatter(
-			x=list(X),
-			y=list(Y),
-			name='Scatter',
-			mode= 'lines+markers'
-	)
+    # data = make_subplots(rows=3, cols=1, vertical_spacing=0.5)
+    data = make_subplots(rows=3, cols=1)
 
-    return {'data': [data],
-			 'layout' : go.Layout(
-                                xaxis=dict(range=[min(X),max(X)]),
-                                yaxis = dict(range = [float(str(min(Y)))*1.1,float(str(max(Y)))*1.1])
-                        )
-    }
+    # data.append_trace({
+    #     'x': list(X),
+    #     'y': list(Y),
+    #     'name': 'payload_data_1',
+    #     'mode': 'lines+markers',
+    #     'type': 'scatter'
+    # }, 1, 1)
+    #
+    # data.append_trace({
+    #     'x': list(X),
+    #     'y': list(Y),
+    #     'name': 'payload_data_2',
+    #     'mode': 'lines+markers',
+    #     'type': 'scatter'
+    # }, 2, 1)
+    #
+    # data.append_trace({
+    #     'x': list(X),
+    #     'y': list(Y),
+        # 'name': 'payload_data_2',
+    #     'mode': 'lines+markers',
+    #     'type': 'scatter'
+    # }, 3, 1)
+
+    data.append_trace(go.Scatter(
+        x = list(X),
+        y = list(Y)
+        # name : 'payload_data_2',
+    ), row=1, col=1)
+
+    data.append_trace(go.Scatter(
+        x = list(X),
+        y = list(Y)
+    ), row=2, col=1)
+
+    data.append_trace(go.Scatter(
+        x = list(X),
+        y = list(Y)
+    ), row=3, col=1)
+
+    # data = go.Scatter(
+	# 		x=list(X),
+	# 		y=list(Y),
+	# 		name='Scatter',
+	# 		mode= 'lines+markers'
+	# )
+
+    return data
+
+    # return {'data': [data],
+	# 		 'layout' : go.Layout(
+    #                             xaxis=dict(range=[min(X),max(X)]),
+    #                             yaxis = dict(range = [float(str(min(Y)))*1.1,float(str(max(Y)))*1.1])
+    #                     )
+    # }
 
 #----------------------------------------------------------------------------------------------------------------------#
 if __name__ == '__main__':
