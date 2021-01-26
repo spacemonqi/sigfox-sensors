@@ -144,10 +144,10 @@ if reset:
     while prev_table_exists:
         try:
             sigfox_table = create_sigfox_table_AWS()
-            print("Previous table deleted.")
             print("Creating a new sigfox table")
             prev_table_exists = 0
-        except:
+        except Exception as e:
+            print(e)
             print("Previous table status: DELETING" )
             time.sleep(1)
 

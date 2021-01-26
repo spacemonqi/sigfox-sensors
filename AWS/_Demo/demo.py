@@ -123,7 +123,7 @@ demo.layout = html.Div(
         dcc.Graph(id='sigfox-demo', animate=True),
         dcc.Interval(
             id='graph-update',
-            interval=5*1000, # in milliseconds
+            interval=2*1000, # in milliseconds
             n_intervals=0
         )
     ])
