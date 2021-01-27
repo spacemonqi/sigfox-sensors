@@ -8,9 +8,9 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 
-def get_options(list_stocks):
+def get_options(list_data):
     dict_list = []
-    for i in list_stocks:
+    for i in list_data:
         dict_list.append({'label':i, 'value':i})
 
     return dict_list
@@ -34,12 +34,12 @@ app.layout = html.Div(children=[
                                                     html.P('''Select one or more readings from the dropdown below.'''),
                                                     html.Div(className='div-for-dropdown',
                                                              children=[
-                                                                dcc.Dropdown(id='stockselector',
-                                                                options=get_options(df['stock'].unique()),
+                                                                dcc.Dropdown(id='dataselector',
+                                                                options=get_options(df['data'].unique()),
                                                                 multi=True,
-                                                                value=[df['stock'].sort_values()[0]],
+                                                                value=[df['data'].sort_values()[0]],
                                                                 style={'backgroundColor': '#1E1E1E'},
-                                                                className='stockselector')
+                                                                className='dataselector')
                                                              ],
                                                              style={'color': '#1E1E1E'}
                                                     )
@@ -57,21 +57,21 @@ app.layout = html.Div(children=[
              )
 
 # Callback function to update the timeseries
-@app.callback(Output('timeseries', 'figure'), [Input('stockselector', 'value')])
+@app.callback(Output('timeseries', 'figure'), [Input('dataselector', 'value')])
 def update_timeseries(selected_dropdown_value):
-    ''' Draw traces of the feature 'value' based on the currently selected stocks'''
+    ''' Draw traces of the feature 'value' based on the currently selected data'''
 
     # Initialization
     trace = []
     df_sub = df
 
-    # Draw and append traces for each stock
-    for stock in selected_dropdown_value:
-        trace.append(go.Scatter(x=df_sub[df_sub['stock']==stock].index,
-                                y=df_sub[df_sub['stock']==stock]['value'],
+    # Draw and append traces for each data type
+    for data in selected_dropdown_value:
+        trace.append(go.Scatter(x=df_sub[df_sub['data']==data].index,
+                                y=df_sub[df_sub['data']==data]['value'],
                                 mode='lines',
                                 opacity=0.7,
-                                name=stock,
+                                name=data,
                                 textposition='bottom center'
                      )
         )
@@ -95,18 +95,18 @@ def update_timeseries(selected_dropdown_value):
 
     return figure
 
-@app.callback(Output('change', 'figure'), [Input('stockselector', 'value')])
+@app.callback(Output('change', 'figure'), [Input('dataselector', 'value')])
 def update_change(selected_dropdown_value):
-    ''' Draw traces of the feature 'change' based one the currently selected stocks '''
+    ''' Draw traces of the feature 'change' based one the currently selected data '''
     trace = []
     df_sub = df
-    # Draw and append traces for each stock
-    for stock in selected_dropdown_value:
-        trace.append(go.Scatter(x=df_sub[df_sub['stock'] == stock].index,
-                                 y=df_sub[df_sub['stock'] == stock]['change'],
+    # Draw and append traces for each data type
+    for data in selected_dropdown_value:
+        trace.append(go.Scatter(x=df_sub[df_sub['data'] == data].index,
+                                 y=df_sub[df_sub['data'] == data]['change'],
                                  mode='lines',
                                  opacity=0.7,
-                                 name=stock,
+                                 name=data,
                                  textposition='bottom center'))
     traces = [trace]
     data = [val for sublist in traces for val in sublist]
@@ -127,35 +127,6 @@ def update_change(selected_dropdown_value):
               }
 
     return figure
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # Run the app
 if __name__ == '__main__':

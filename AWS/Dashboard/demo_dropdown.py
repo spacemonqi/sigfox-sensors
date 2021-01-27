@@ -83,9 +83,7 @@ def last_timestamp(df):
     return timestamp
 
 def append_to_dataframe(new_items):
-
     num_items = len(df_sigfox.index)
-
     i = 0
     for new_item in new_items:
         item_dict = {'deviceId': new_item['deviceId'], 'timestamp': new_item['timestamp'],
@@ -123,7 +121,7 @@ demo.layout = html.Div(
         dcc.Graph(id='sigfox-demo', animate=True),
         dcc.Interval(
             id='graph-update',
-            interval=5*1000, # in milliseconds
+            interval=2*1000, # in milliseconds
             n_intervals=0
         )
     ])
