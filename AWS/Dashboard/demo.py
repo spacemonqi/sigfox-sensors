@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3
+
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
 import boto3
@@ -6,16 +8,6 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 from pprint import pprint
 import json
-
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
-import plotly.express as px
-import plotly
-
-from dash.dependencies import Input, Output
-import dash_html_components as html
-import dash_core_components as dcc
-import dash
 
 import math
 import random
@@ -29,8 +21,6 @@ import sys
 import os
 
 import pdb
-
-# Visit http://127.0.0.1:8050/ in your web browser.
 
 #----------------------------------------------------------------------------------------------------------------------#
 def scan_items_AWS(dynamodb=None):
@@ -95,9 +85,6 @@ def append_to_dataframe(new_items):
         i += 1
 
 #----------------------------------------------------------------------------------------------------------------------#
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-demo = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
 config_dict = {}
 with open('config.txt', mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
@@ -109,6 +96,9 @@ tableName = str(config_dict['tableName'])
 online = int(config_dict['online'])
 
 df_sigfox = scan_to_dataframe()
+print(df_sigfox.head(10))
+
+breakpoint()
 
 X = deque()
 Y = deque()
@@ -116,48 +106,19 @@ for i in range(len(df_sigfox.index)):
     X.append(datetime.fromtimestamp(int(df_sigfox['timestamp'][i])))
     Y.append(df_sigfox['data'][i])
 
-#----------------------------------------------------------------------------------------------------------------------#
-demo.layout = html.Div(
-    html.Div([
-        html.H4('Sigfox Demo Data'),
-        dcc.Graph(id='sigfox-demo', animate=True),
-        dcc.Interval(
-            id='graph-update',
-            interval=2*1000, # in milliseconds
-            n_intervals=0
-        )
-    ])
-)
 
-@demo.callback(Output('sigfox-demo', 'figure'), Input('graph-update', 'n_intervals'))
-def update_graph_live(n):
-
-    # breakpoint()
-
-    deviceId = '12CAC94'
-    timestamp = last_timestamp(df_sigfox)
-    new_items = query_and_project_items_AWS(deviceId, timestamp)
-    if len(new_items):
-        append_to_dataframe(new_items)
-
-    X.append(datetime.fromtimestamp(now()))
-    num_items = len(df_sigfox.index)
-    Y.append(df_sigfox['data'][num_items-1])
-
-    data = go.Scatter(
-			x=list(X),
-			y=list(Y),
-			name='Scatter',
-			mode= 'lines+markers'
-	)
-
-    return {'data': [data],
-			 'layout' : go.Layout(
-                                xaxis=dict(range=[min(X),max(X)]),
-                                yaxis = dict(range = [float(str(min(Y)))*1.1,float(str(max(Y)))*1.1])
-                        )
-    }
+# X.append(datetime.fromtimestamp(now()))
+# num_items = len(df_sigfox.index)
+# Y.append(df_sigfox['data'][num_items-1])
+#
+# with open('config.txt', mode='w') as csv_file:
+#     fieldnames = ['setting', 'value']
+#     csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+#     csv_writer.writeheader()
+#     for item in file_list:
+#         csv_writer.writerow(item)
+#     csv_file.close()
 
 #----------------------------------------------------------------------------------------------------------------------#
 if __name__ == '__main__':
-    demo.run_server()
+    pass

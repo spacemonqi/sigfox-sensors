@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3
+
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
 import boto3
@@ -7,18 +9,8 @@ from decimal import Decimal
 from pprint import pprint
 import json
 
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
-import plotly.express as px
-
-from dash.dependencies import Input, Output
-import dash_html_components as html
-import dash_core_components as dcc
-import dash
-
 import math
 import random
-import pandas as pd
 import numpy as np
 
 import time

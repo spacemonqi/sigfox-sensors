@@ -8,15 +8,6 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 from pprint import pprint
 
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
-import plotly.express as px
-
-from dash.dependencies import Input, Output
-import dash_html_components as html
-import dash_core_components as dcc
-import dash
-
 import pandas as pd
 import numpy as np
 import random
@@ -110,7 +101,7 @@ def populate_table(num_init_items):
     deviceId = '12CAC94'
     for x in range(num_init_items):
         timestamp = now() + x - num_init_items
-        data = round(1000*math.sin(0.1*x) * math.cos(x))
+        data = round(50*math.sin(0.1*x) * math.cos(x) + 50)
         temperature = round(random.randint(40, 80))
         humidity = round(np.random.normal(60, 20))
         item_resp = put_item_AWS(deviceId, timestamp, data, temperature, humidity)
@@ -128,42 +119,39 @@ with open('config.txt', mode='r') as csv_file:
 tableName = str(config_dict['tableName'])
 num_init_items = int(config_dict['numInitItems'])
 online = int(config_dict['online'])
-reset = int(config_dict['reset'])
 
-if reset:
+# Check if a previous table exists, delete it if so
+prev_table_exists = 1
+try:
+    delete_sigfox_table_AWS()
+    print("Deleting previous table...")
+except:
+    print("No previous tables exist.")
 
-    # Check if a previous table exists, delete it if so
-    prev_table_exists = 1
+# Wait for table to finish deleting, create a new one if done
+while prev_table_exists:
     try:
-        delete_sigfox_table_AWS()
-        print("Deleting previous table...")
-    except:
-        print("No previous tables exist.")
-
-    # Wait for table to finish deleting, create a new one if done
-    while prev_table_exists:
-        try:
-            sigfox_table = create_sigfox_table_AWS()
-            print("Creating a new sigfox table")
-            prev_table_exists = 0
-        except Exception as e:
-            print(e)
-            print("Previous table status: DELETING" )
-            time.sleep(1)
-
-    # Wait for the table to finish creating, populate it if done
-    table_created = 0
-    while not table_created:
-        try:
-            populate_table(num_init_items)
-            table_created = 1
-        except Exception as e:
-            print(e)
-            try:
-                print("New table status: " + str(sigfox_table.table_status))
-            except:
-                print("New table status: INITIALIZING")
+        sigfox_table = create_sigfox_table_AWS()
+        print("Creating a new sigfox table")
+        prev_table_exists = 0
+    except Exception as e:
+        # print(e)
+        print("Previous table status: DELETING" )
         time.sleep(1)
+
+# Wait for the table to finish creating, populate it if done
+table_created = 0
+while not table_created:
+    try:
+        populate_table(num_init_items)
+        table_created = 1
+    except Exception as e:
+        # print(e)
+        try:
+            print("New table status: " + str(sigfox_table.table_status))
+        except:
+            print("New table status: INITIALIZING")
+    time.sleep(1)
 
 
 os.system("python3 demo.py")

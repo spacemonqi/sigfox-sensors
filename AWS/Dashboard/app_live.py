@@ -1,3 +1,7 @@
+#!/usr/local/bin/python3
+
+import pdb
+
 import pandas as pd
 
 import dash
@@ -8,6 +12,8 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 
+# breakpoint()
+
 def get_options(list_data):
     dict_list = []
     for i in list_data:
@@ -17,7 +23,7 @@ def get_options(list_data):
 
 
 # Load data
-df = pd.read_csv('data/test.csv', index_col=0, parse_dates=True)
+df = pd.read_csv('data/data.csv', index_col=0, parse_dates=True)
 df.index = pd.to_datetime(df['Date'])
 
 # Initialize the app
@@ -67,7 +73,7 @@ def update_timeseries(selected_dropdown_value, n):
     ''' Draw traces of the feature 'value' based on the currently selected data'''
 
     # Load data
-    df = pd.read_csv('data/test.csv', index_col=0, parse_dates=True)
+    df = pd.read_csv('data/data.csv', index_col=0, parse_dates=True)
     df.index = pd.to_datetime(df['Date'])
 
     # Initialization
@@ -110,7 +116,7 @@ def update_change(selected_dropdown_value, n):
     ''' Draw traces of the feature 'change' based one the currently selected data '''
 
     # Load data
-    df = pd.read_csv('data/test.csv', index_col=0, parse_dates=True)
+    df = pd.read_csv('data/data.csv', index_col=0, parse_dates=True)
     df.index = pd.to_datetime(df['Date'])
 
     # Initialization
@@ -127,7 +133,7 @@ def update_change(selected_dropdown_value, n):
                                  textposition='bottom center'))
     traces = [trace]
     data = [val for sublist in traces for val in sublist]
-    
+
     # Define Figure
     figure = {'data': data,
               'layout': go.Layout(

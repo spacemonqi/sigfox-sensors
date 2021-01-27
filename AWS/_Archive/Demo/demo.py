@@ -132,8 +132,6 @@ demo.layout = html.Div(
 @demo.callback(Output('sigfox-demo', 'figure'), Input('graph-update', 'n_intervals'))
 def update_graph_live(n):
 
-    breakpoint()
-
     deviceId = '12CAC94'
     timestamp = last_timestamp(df_sigfox)
     new_items = query_and_project_items_AWS(deviceId, timestamp)
