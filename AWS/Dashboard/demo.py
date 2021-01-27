@@ -17,6 +17,7 @@ from collections import deque
 
 import time
 import csv
+from csv import DictWriter
 import sys
 import os
 
@@ -55,8 +56,21 @@ def query_and_project_items_AWS(deviceId, last_timestamp, dynamodb=None):
 def now():
     return round(datetime.timestamp(datetime.now()))
 
-def scan_to_dataframe():
-    columns = ['deviceId', 'timestamp', 'data', 'temperature', 'humidity', 'time']
+def read_params(filename):
+    config_dict = {}
+    with open(filename, mode='r') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            config_dict[row['setting']] = row['value']
+        csv_file.close()
+
+    tableName = str(config_dict['tableName'])
+    online = int(config_dict['online'])
+
+    return tableName, online
+
+def write_data_to_csv(filename):
+    columns = ['deviceId', 'timestamp', 'data', 'temperature', 'humidity']
     index = range(0)
     df = pd.DataFrame(index=index, columns=columns)
     all_items = scan_items_AWS()['Items']
@@ -65,60 +79,37 @@ def scan_to_dataframe():
                     'data': all_items[i]['payload']['data'], 'temperature': all_items[i]['payload']['temperature'],
                     'humidity': all_items[i]['payload']['humidity']}
         df.loc[i] = item_dict
-    return df
+    df.to_csv(filename, index=False, header=True)
+    last_timestamp = df.iloc[-1]['timestamp']
 
-def last_timestamp(df):
-    num_items = len(df.index)
-    timestamp = int(str(df.timestamp[num_items-1]))
-    return timestamp
+    return last_timestamp
 
-def append_to_dataframe(new_items):
+def append_data_to_csv(filename, new_items):
+    fieldnames = ['deviceId', 'timestamp', 'data', 'temperature', 'humidity']
+    with open(filename, mode='a', newline='') as csv_file:
+        for new_item in new_items:
+            # print(new_item)
+            item_dict = {'deviceId': new_item['deviceId'], 'timestamp': new_item['timestamp'],
+                        'data': new_item['payload']['data'], 'temperature': new_item['payload']['temperature'],
+                        'humidity': new_item['payload']['humidity']}
+            dictwriter = DictWriter(csv_file, fieldnames=fieldnames)
+            dictwriter.writerow(item_dict)
+            last_timestamp = item_dict['timestamp']
+        csv_file.close()
 
-    num_items = len(df_sigfox.index)
-
-    i = 0
-    for new_item in new_items:
-        item_dict = {'deviceId': new_item['deviceId'], 'timestamp': new_item['timestamp'],
-                    'data': new_item['payload']['data'], 'temperature': new_item['payload']['temperature'],
-                    'humidity': new_item['payload']['humidity']}
-        df_sigfox.loc[i+num_items] = item_dict
-        i += 1
-
-#----------------------------------------------------------------------------------------------------------------------#
-config_dict = {}
-with open('config.txt', mode='r') as csv_file:
-    csv_reader = csv.DictReader(csv_file)
-    for row in csv_reader:
-        config_dict[row['setting']] = row['value']
-    csv_file.close()
-
-tableName = str(config_dict['tableName'])
-online = int(config_dict['online'])
-
-df_sigfox = scan_to_dataframe()
-print(df_sigfox.head(10))
-
-breakpoint()
-
-X = deque()
-Y = deque()
-for i in range(len(df_sigfox.index)):
-    X.append(datetime.fromtimestamp(int(df_sigfox['timestamp'][i])))
-    Y.append(df_sigfox['data'][i])
-
-
-# X.append(datetime.fromtimestamp(now()))
-# num_items = len(df_sigfox.index)
-# Y.append(df_sigfox['data'][num_items-1])
-#
-# with open('config.txt', mode='w') as csv_file:
-#     fieldnames = ['setting', 'value']
-#     csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-#     csv_writer.writeheader()
-#     for item in file_list:
-#         csv_writer.writerow(item)
-#     csv_file.close()
+    return last_timestamp
 
 #----------------------------------------------------------------------------------------------------------------------#
-if __name__ == '__main__':
-    pass
+tableName, online = read_params('config/config.txt')
+
+last_timestamp = write_data_to_csv('data/sensor_data.csv')
+
+while True:
+    deviceId = '12CAC94'
+    new_items = query_and_project_items_AWS(deviceId, last_timestamp)
+    if len(new_items):
+        last_timestamp = append_data_to_csv('data/sensor_data.csv', new_items)
+    # print('buruh')
+    time.sleep(1)
+
+#----------------------------------------------------------------------------------------------------------------------#

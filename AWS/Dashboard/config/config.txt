@@ -1,4 +1,4 @@
 setting,value
 tableName,sigfox_demo
-numInitItems,50
+numInitItems,34
 online,0

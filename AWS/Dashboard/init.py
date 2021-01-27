@@ -101,7 +101,7 @@ def populate_table(num_init_items):
     deviceId = '12CAC94'
     for x in range(num_init_items):
         timestamp = now() + x - num_init_items
-        data = round(50*math.sin(0.1*x) * math.cos(x) + 50)
+        data = round(random.randint(0,100))
         temperature = round(random.randint(40, 80))
         humidity = round(np.random.normal(60, 20))
         item_resp = put_item_AWS(deviceId, timestamp, data, temperature, humidity)
@@ -110,7 +110,7 @@ def populate_table(num_init_items):
 
 #----------------------------------------------------------------------------------------------------------------------#
 config_dict = {}
-with open('config.txt', mode='r') as csv_file:
+with open('config/config.txt', mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for row in csv_reader:
         config_dict[row['setting']] = row['value']

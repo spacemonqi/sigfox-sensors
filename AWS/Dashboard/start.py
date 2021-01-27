@@ -18,7 +18,7 @@ file_list = [
     {'setting':'online',         'value':online}
 ]
 
-with open('config.txt', mode='w') as csv_file:
+with open('config/config.txt', mode='w') as csv_file:
     fieldnames = ['setting', 'value']
     csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
     csv_writer.writeheader()

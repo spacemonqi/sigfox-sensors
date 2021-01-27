@@ -46,7 +46,7 @@ def now():
 def add_item():
     deviceId = '12CAC94'
     timestamp = now()
-    data = round(1000*math.sin(0.1*random.randint(0,30)) * math.cos(random.randint(0,30)))
+    data = round(random.randint(0,100))
     temperature = round(random.randint(40, 80))
     humidity = round(np.random.normal(60, 20))
     item_resp = put_item_AWS(deviceId, timestamp, data, temperature, humidity)
@@ -54,7 +54,7 @@ def add_item():
 
 #----------------------------------------------------------------------------------------------------------------------#
 config_dict = {}
-with open('config.txt', mode='r') as csv_file:
+with open('config/config.txt', mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for row in csv_reader:
         config_dict[row['setting']] = row['value']
