@@ -1,8 +1,6 @@
 #!/usr/local/bin/python3
 
-from botocore.exceptions import ClientError
-from boto3.dynamodb.conditions import Key
-import boto3
+from aws_api import *
 
 from datetime import datetime, timedelta
 from decimal import Decimal
@@ -18,28 +16,6 @@ import csv
 import sys
 
 #----------------------------------------------------------------------------------------------------------------------#
-def put_item_AWS(deviceId, timestamp, data, temperature, humidity, dynamodb=None):
-    if not dynamodb:
-        if online:
-            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
-        else:
-            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
-
-    table = dynamodb.Table(tableName)
-    response = table.put_item(
-        Item={
-            'deviceId': deviceId,
-            'timestamp': timestamp,
-            'payload': {
-                'data': data,
-                'temperature': temperature,
-                'humidity' : humidity
-            }
-        }
-    )
-    return response
-
-#----------------------------------------------------------------------------------------------------------------------#
 def now():
     return round(datetime.timestamp(datetime.now()))
 
@@ -49,7 +25,7 @@ def add_item():
     data = round(random.randint(0,100))
     temperature = round(random.randint(40, 80))
     humidity = round(np.random.normal(60, 20))
-    item_resp = put_item_AWS(deviceId, timestamp, data, temperature, humidity)
+    item_resp = put_item_AWS(online, tableName, deviceId, timestamp, data, temperature, humidity)
     print("Item added")
 
 #----------------------------------------------------------------------------------------------------------------------#

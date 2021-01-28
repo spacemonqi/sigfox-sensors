@@ -1,8 +1,6 @@
 #!/usr/local/bin/python3
 
-from botocore.exceptions import ClientError
-from boto3.dynamodb.conditions import Key
-import boto3
+from aws_api import *
 
 from datetime import datetime, timedelta
 from decimal import Decimal
@@ -22,35 +20,6 @@ import sys
 import os
 
 import pdb
-
-#----------------------------------------------------------------------------------------------------------------------#
-def scan_items_AWS(dynamodb=None):
-    if not dynamodb:
-        if online:
-            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
-        else:
-            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
-
-        table = dynamodb.Table(tableName)
-        response = table.scan()
-        return response
-
-def query_and_project_items_AWS(deviceId, last_timestamp, dynamodb=None):
-    if not dynamodb:
-        if online:
-            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
-        else:
-            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
-
-    table = dynamodb.Table(tableName)
-
-    # Expression attribute names can only reference items in the projection expression.
-    response = table.query(
-        ProjectionExpression='#id, #ts, payload',
-        ExpressionAttributeNames={'#id': 'deviceId', '#ts': 'timestamp'},
-        KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(last_timestamp+1, 2147483647)
-    )
-    return response['Items']
 
 #----------------------------------------------------------------------------------------------------------------------#
 def now():
@@ -73,7 +42,7 @@ def write_data_to_csv(filename):
     columns = ['deviceId', 'timestamp', 'data', 'temperature', 'humidity']
     index = range(0)
     df = pd.DataFrame(index=index, columns=columns)
-    all_items = scan_items_AWS()['Items']
+    all_items = scan_items_AWS(online, tableName)['Items']
     for i in range(len(all_items)):
         item_dict = {'deviceId': all_items[i]['deviceId'], 'timestamp': all_items[i]['timestamp'],
                     'data': all_items[i]['payload']['data'], 'temperature': all_items[i]['payload']['temperature'],
@@ -83,7 +52,7 @@ def write_data_to_csv(filename):
     last_timestamp = df.iloc[-1]['timestamp']
 
     return last_timestamp
-
+    x
 def append_data_to_csv(filename, new_items):
     fieldnames = ['deviceId', 'timestamp', 'data', 'temperature', 'humidity']
     with open(filename, mode='a', newline='') as csv_file:
@@ -106,7 +75,7 @@ last_timestamp = write_data_to_csv('data/sensor_data.csv')
 
 while True:
     deviceId = '12CAC94'
-    new_items = query_and_project_items_AWS(deviceId, last_timestamp)
+    new_items = query_and_project_items_AWS(online, tableName, deviceId, last_timestamp)
     if len(new_items):
         last_timestamp = append_data_to_csv('data/sensor_data.csv', new_items)
     # print('buruh')
