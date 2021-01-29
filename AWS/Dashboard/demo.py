@@ -40,13 +40,13 @@ def read_params(filename):
 
 def write_data_to_csv(filename):
     data_types = ['temperature', 'humidity', 'gas']
-    columns = ['deviceId', 'timestamp', 'data', 'value', 'change']
+    columns = ['deviceid', 'timestamp', 'data', 'value', 'change']
     index = range(0)
     df = pd.DataFrame(index=index, columns=columns)
     all_items = scan_items_AWS(online, tableName)['Items']
     for i in range(len(all_items)):
         for data_type in data_types:
-            item_dict = {'deviceId': all_items[i]['deviceId'], 'timestamp': all_items[i]['timestamp'],
+            item_dict = {'deviceid': all_items[i]['deviceid'], 'timestamp': all_items[i]['timestamp'],
                         'data': all_items[i]['payload'][data_type], 'value': all_items[i]['payload'][data_type],
                         'humidity': all_items[i]['payload']['humidity']}
             df.loc[i] = item_dict
@@ -56,11 +56,11 @@ def write_data_to_csv(filename):
     return last_timestamp
 
 def append_data_to_csv(filename, new_items):
-    fieldnames = ['deviceId', 'timestamp', 'data', 'temperature', 'humidity']
+    fieldnames = ['deviceid', 'timestamp', 'data', 'temperature', 'humidity']
     with open(filename, mode='a', newline='') as csv_file:
         for new_item in new_items:
             # print(new_item)
-            item_dict = {'deviceId': new_item['deviceId'], 'timestamp': new_item['timestamp'],
+            item_dict = {'deviceid': new_item['deviceid'], 'timestamp': new_item['timestamp'],
                         'data': new_item['payload']['data'], 'temperature': new_item['payload']['temperature'],
                         'humidity': new_item['payload']['humidity']}
             dictwriter = DictWriter(csv_file, fieldnames=fieldnames)
@@ -76,8 +76,8 @@ tableName, online = read_params('config/config.txt')
 last_timestamp = write_data_to_csv('data/sensor_data.csv')
 
 while True:
-    deviceId = '12CAC94'
-    new_items = query_and_project_items_AWS(online, tableName, deviceId, last_timestamp)
+    deviceid = '12CAC94'
+    new_items = query_and_project_items_AWS(online, tableName, deviceid, last_timestamp)
     if len(new_items):
         last_timestamp = append_data_to_csv('data/sensor_data.csv', new_items)
     # print('buruh')
