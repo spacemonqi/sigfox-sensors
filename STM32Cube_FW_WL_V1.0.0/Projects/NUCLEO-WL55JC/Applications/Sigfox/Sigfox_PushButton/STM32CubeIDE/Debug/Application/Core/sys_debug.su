@@ -1,0 +1,3 @@
+stm32wlxx_ll_bus.h:449:22:LL_AHB2_GRP1_EnableClock	24	static
+stm32wlxx_ll_exti.h:337:22:LL_EXTI_EnableIT_32_63	16	static
+sys_debug.c:61:6:DBG_Init	32	static

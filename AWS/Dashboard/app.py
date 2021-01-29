@@ -3,6 +3,7 @@
 import pdb
 
 import pandas as pd
+from datetime import datetime, timedelta
 
 import dash
 import dash_html_components as html
@@ -21,10 +22,14 @@ def get_options(list_data):
 
     return dict_list
 
+# breakpoint()
 
 # Load data
 df = pd.read_csv('data/data.csv', index_col=0, parse_dates=True)
 df.index = pd.to_datetime(df['Date'])
+
+df = pd.read_csv('data/sensor_data.csv')
+df.index = datetime.fromtimestamp(df['timestamp'])
 
 # Initialize the app
 app = dash.Dash(__name__);
@@ -110,47 +115,47 @@ def update_timeseries(selected_dropdown_value, n):
 
     return figure
 
-# Callback function to update the change based on the dropdown
-@app.callback(Output('change', 'figure'), [Input('dataselector', 'value'), Input('graph-update', 'n_intervals')])
-def update_change(selected_dropdown_value, n):
-    ''' Draw traces of the feature 'change' based one the currently selected data '''
-
-    # Load data
-    df = pd.read_csv('data/data.csv', index_col=0, parse_dates=True)
-    df.index = pd.to_datetime(df['Date'])
-
-    # Initialization
-    trace = []
-    df_sub = df
-
-    # Draw and append traces for each data type
-    for data in selected_dropdown_value:
-        trace.append(go.Scatter(x=df_sub[df_sub['data'] == data].index,
-                                 y=df_sub[df_sub['data'] == data]['change'],
-                                 mode='lines',
-                                 opacity=0.7,
-                                 name=data,
-                                 textposition='bottom center'))
-    traces = [trace]
-    data = [val for sublist in traces for val in sublist]
-
-    # Define Figure
-    figure = {'data': data,
-              'layout': go.Layout(
-                  colorway=["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'],
-                  template='plotly_dark',
-                  paper_bgcolor='rgba(0, 0, 0, 0)',
-                  plot_bgcolor='rgba(0, 0, 0, 0)',
-                  margin={'t': 50},
-                  height=250,
-                  hovermode='x',
-                  autosize=True,
-                  title={'text': 'Daily Change', 'font': {'color': 'white'}, 'x': 0.5},
-                  xaxis={'showticklabels': False, 'range': [df_sub.index.min(), df_sub.index.max()]},
-              ),
-              }
-
-    return figure
+# # Callback function to update the change based on the dropdown
+# @app.callback(Output('change', 'figure'), [Input('dataselector', 'value'), Input('graph-update', 'n_intervals')])
+# def update_change(selected_dropdown_value, n):
+#     ''' Draw traces of the feature 'change' based one the currently selected data '''
+#
+#     # Load data
+#     df = pd.read_csv('data/data.csv', index_col=0, parse_dates=True)
+#     df.index = pd.to_datetime(df['Date'])
+#
+#     # Initialization
+#     trace = []
+#     df_sub = df
+#
+#     # Draw and append traces for each data type
+#     for data in selected_dropdown_value:
+#         trace.append(go.Scatter(x=df_sub[df_sub['data'] == data].index,
+#                                  y=df_sub[df_sub['data'] == data]['change'],
+#                                  mode='lines',
+#                                  opacity=0.7,
+#                                  name=data,
+#                                  textposition='bottom center'))
+#     traces = [trace]
+#     data = [val for sublist in traces for val in sublist]
+#
+#     # Define Figure
+#     figure = {'data': data,
+#               'layout': go.Layout(
+#                   colorway=["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'],
+#                   template='plotly_dark',
+#                   paper_bgcolor='rgba(0, 0, 0, 0)',
+#                   plot_bgcolor='rgba(0, 0, 0, 0)',
+#                   margin={'t': 50},
+#                   height=250,
+#                   hovermode='x',
+#                   autosize=True,
+#                   title={'text': 'Daily Change', 'font': {'color': 'white'}, 'x': 0.5},
+#                   xaxis={'showticklabels': False, 'range': [df_sub.index.min(), df_sub.index.max()]},
+#               ),
+#               }
+#
+#     return figure
 
 # Run the app
 if __name__ == '__main__':

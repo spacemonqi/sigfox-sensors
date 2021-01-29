@@ -1,0 +1,12 @@
+ee.c:180:9:EE_Init	24	static
+ee.c:240:9:EE_Read	32	static
+ee.c:254:9:EE_Write	32	static
+ee.c:317:9:EE_Clean	24	static
+ee.c:355:13:EE_Reset	24	static
+ee.c:371:16:EE_Recovery	48	static
+ee.c:492:16:EE_Transfer	40	static
+ee.c:573:16:EE_WriteEl	48	static
+ee.c:642:16:EE_ReadEl	48	static
+ee.c:691:16:EE_SetState	32	static
+ee.c:714:17:EE_GetState	24	static
+ee.c:741:17:EE_Crc	24	static

@@ -1,0 +1,5 @@
+stm32wlxx_ll_bus.h:1062:22:LL_APB1_GRP1_ForceReset	16	static
+stm32wlxx_ll_bus.h:1107:22:LL_APB1_GRP1_ReleaseReset	16	static
+stm32wlxx_ll_exti.h:266:22:LL_EXTI_EnableIT_0_31	16	static
+mn_lptim_if.c:63:6:MN_LPTIM_IF_Init	8	static
+mn_lptim_if.c:88:6:MN_LPTIM_IF_DeInit	64	static

@@ -1,0 +1,16 @@
+mcu_api.c:112:8:MCU_API_malloc	24	static
+mcu_api.c:142:8:MCU_API_free	16	static
+mcu_api.c:154:8:MCU_API_get_voltage_temperature	40	static
+mcu_api.c:176:8:MCU_API_delay	24	static
+mcu_api.c:246:8:MCU_API_get_nv_mem	16	static
+mcu_api.c:262:8:MCU_API_set_nv_mem	16	static
+mcu_api.c:279:8:MCU_API_timer_start_carrier_sense	24	static
+mcu_api.c:296:8:MCU_API_timer_start	32	static
+mcu_api.c:316:8:MCU_API_timer_stop	8	static
+mcu_api.c:332:8:MCU_API_timer_stop_carrier_sense	8	static
+mcu_api.c:348:8:MCU_API_timer_wait_for_end	8	static
+mcu_api.c:364:8:MCU_API_report_test_result	32	static
+mcu_api.c:409:8:MCU_API_get_version	16	static
+mcu_api.c:427:13:Delay_Lp	24	static
+mcu_api.c:455:13:OnTimerDelayEvt	16	static
+mcu_api.c:466:13:OnTimerTimeoutEvt	16	static

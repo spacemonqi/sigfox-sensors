@@ -39,20 +39,22 @@ def read_params(filename):
     return tableName, online
 
 def write_data_to_csv(filename):
-    columns = ['deviceId', 'timestamp', 'data', 'temperature', 'humidity']
+    data_types = ['temperature', 'humidity', 'gas']
+    columns = ['deviceId', 'timestamp', 'data', 'value', 'change']
     index = range(0)
     df = pd.DataFrame(index=index, columns=columns)
     all_items = scan_items_AWS(online, tableName)['Items']
     for i in range(len(all_items)):
-        item_dict = {'deviceId': all_items[i]['deviceId'], 'timestamp': all_items[i]['timestamp'],
-                    'data': all_items[i]['payload']['data'], 'temperature': all_items[i]['payload']['temperature'],
-                    'humidity': all_items[i]['payload']['humidity']}
-        df.loc[i] = item_dict
+        for data_type in data_types:
+            item_dict = {'deviceId': all_items[i]['deviceId'], 'timestamp': all_items[i]['timestamp'],
+                        'data': all_items[i]['payload'][data_type], 'value': all_items[i]['payload'][data_type],
+                        'humidity': all_items[i]['payload']['humidity']}
+            df.loc[i] = item_dict
     df.to_csv(filename, index=False, header=True)
     last_timestamp = df.iloc[-1]['timestamp']
 
     return last_timestamp
-    x
+
 def append_data_to_csv(filename, new_items):
     fieldnames = ['deviceId', 'timestamp', 'data', 'temperature', 'humidity']
     with open(filename, mode='a', newline='') as csv_file:

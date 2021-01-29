@@ -1,0 +1,6 @@
+se_nvm.c:62:8:SE_NVM_get	24	static
+se_nvm.c:80:8:SE_NVM_set	24	static
+se_nvm.c:97:16:SE_NVM_get_key_type	8	static
+se_nvm.c:108:7:SE_NVM_set_key_type	16	static
+se_nvm.c:119:8:SE_NVM_get_encrypt_flag	8	static
+se_nvm.c:130:7:SE_NVM_set_encrypt_flag	16	static

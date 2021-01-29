@@ -1,0 +1,15 @@
+stm32wlxx_ll_bus.h:449:22:LL_AHB2_GRP1_EnableClock	24	static
+board_resources.c:111:9:SYS_LED_Init	40	static
+board_resources.c:129:9:SYS_LED_DeInit	16	static
+board_resources.c:140:9:SYS_LED_On	16	static
+board_resources.c:147:9:SYS_LED_Off	16	static
+board_resources.c:154:9:SYS_LED_Toggle	16	static
+board_resources.c:161:9:SYS_LED_GetState	16	static
+board_resources.c:166:9:SYS_PB_Init	40	static
+board_resources.c:204:9:SYS_PB_DeInit	16	static
+board_resources.c:212:9:SYS_PB_GetState	16	static
+board_resources.c:217:6:SYS_PB_IRQHandler	16	static
+board_resources.c:222:13:SYS_PB_Callback	16	static
+board_resources.c:236:13:SYS_BUTTON1_EXTI_Callback	8	static
+board_resources.c:241:13:SYS_BUTTON3_EXTI_Callback	8	static
+board_resources.c:246:13:SYS_BUTTON2_EXTI_Callback	8	static

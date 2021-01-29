@@ -1,0 +1,4 @@
+sgfx_app.c:78:6:Sigfox_Init	32	static
+sgfx_app.c:170:6:HAL_GPIO_EXTI_Callback	16	static
+sgfx_app.c:212:20:st_sigfox_open	264	static
+sgfx_app.c:319:13:SendSigfox	88	static

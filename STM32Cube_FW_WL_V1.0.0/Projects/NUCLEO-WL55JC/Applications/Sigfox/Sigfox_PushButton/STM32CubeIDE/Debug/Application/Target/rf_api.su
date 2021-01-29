@@ -1,0 +1,16 @@
+rf_api.c:130:8:RF_API_init	64	static
+rf_api.c:222:8:RF_API_stop	8	static
+rf_api.c:237:8:RF_API_send	80	static
+rf_api.c:302:8:RF_API_start_continuous_transmission	72	static
+rf_api.c:347:8:RF_API_stop_continuous_transmission	8	static
+rf_api.c:361:8:RF_API_change_frequency	24	static
+rf_api.c:376:8:RF_API_wait_frame	32	static
+rf_api.c:418:8:RF_API_wait_for_clear_channel	32	static
+rf_api.c:460:8:RF_API_get_version	16	static
+rf_api.c:484:15:sfx_wait_end_of_rx	8	static
+rf_api.c:507:13:OnTxDone	8	static
+rf_api.c:521:13:OnRxDone	24	static
+rf_api.c:540:13:OnTxTimeout	8	static
+rf_api.c:553:13:OnRxTimeout	8	static
+rf_api.c:568:13:OnRxError	8	static
+rf_api.c:583:6:RF_API_isChannelFree	24	static
