@@ -61,9 +61,9 @@ def scan_items_AWS(online, tableName, dynamodb=None):
         else:
             dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
 
-            table = dynamodb.Table(tableName)
-            response = table.scan()
-            return response
+    table = dynamodb.Table(tableName)
+    response = table.scan()
+    return response
 
 def put_item_AWS(online, tableName, deviceId, timestamp, data, temperature, humidity, dynamodb=None):
     if not dynamodb:
@@ -93,12 +93,10 @@ def query_and_project_items_AWS(online, tableName, deviceId, last_timestamp, dyn
         else:
             dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
 
-            table = dynamodb.Table(tableName)
-
-            # Expression attribute names can only reference items in the projection expression.
-            response = table.query(
-            ProjectionExpression='#id, #ts, payload',
-            ExpressionAttributeNames={'#id': 'deviceId', '#ts': 'timestamp'},
-            KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(last_timestamp+1, 2147483647)
-            )
-            return response['Items']
+    table = dynamodb.Table(tableName)
+    response = table.query (
+                        ProjectionExpression='#id, #ts, payload',
+                        ExpressionAttributeNames={'#id': 'deviceId', '#ts': 'timestamp'},
+                        KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(last_timestamp+1, 2147483647)
+               )
+    return response['Items']

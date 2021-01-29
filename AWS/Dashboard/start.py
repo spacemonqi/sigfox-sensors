@@ -3,7 +3,7 @@
 import csv
 import os
 
-tableName = 'sigfox_demo'
+tableName = 'sigfox'
 num_init_items = -1
 online = -1
 
@@ -13,7 +13,7 @@ while not(num_init_items>0 and num_init_items<1000):
     num_init_items = int(input("Enter the amount of items for the table: "))
 
 file_list = [
-    {'setting':'tableName',      'value':'sigfox_demo'},
+    {'setting':'tableName',      'value':tableName},
     {'setting':'numInitItems',   'value':num_init_items},
     {'setting':'online',         'value':online}
 ]

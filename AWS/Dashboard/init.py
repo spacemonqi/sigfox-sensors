@@ -24,13 +24,13 @@ def now():
     return round(datetime.timestamp(datetime.now()))
 
 def populate_table(num_init_items):
-    deviceid = '12CAC94'
+    deviceId = '12CAC94'
     for x in range(num_init_items):
         timestamp = now() + x - num_init_items
         data = round(random.randint(0,100))
         temperature = round(random.randint(40, 80))
         humidity = round(np.random.normal(60, 20))
-        item_resp = put_item_AWS(online, tableName, deviceid, timestamp, data, temperature, humidity)
+        item_resp = put_item_AWS(online, tableName, deviceId, timestamp, data, temperature, humidity)
     print("New table created.")
     print('Added ' + str(num_init_items) + ' items.')
 
@@ -47,6 +47,8 @@ num_init_items = int(config_dict['numInitItems'])
 online = int(config_dict['online'])
 
 # breakpoint()
+#
+# delete_sigfox_table_AWS(online, tableName)
 
 # Check if a previous table exists, delete it if so
 prev_table_exists = 1

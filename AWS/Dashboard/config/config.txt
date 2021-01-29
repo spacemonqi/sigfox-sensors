@@ -1,4 +1,4 @@
 setting,value
-tableName,sigfox_demo
-numInitItems,30
-online,0
+tableName,sigfox
+numInitItems,2
+online,1
