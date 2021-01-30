@@ -1,8 +1,8 @@
 Application/Target/rf_api.o: \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/rf_api.c \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/rf_api.c \
  ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/sigfox_types.h \
  ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/sigfox_api.h \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/rf_api.h \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/rf_api.h \
  ../../../../../../../Middlewares/Third_Party/SubGHz_Phy/radio.h \
  ../../../../../../../Middlewares/Third_Party/SubGHz_Phy/radio_ex.h \
  ../../../../../../../Utilities/sequencer/stm32_seq.h \
@@ -74,7 +74,7 @@ Application/Target/rf_api.o: \
 
 ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/sigfox_api.h:
 
-C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/rf_api.h:
+C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/rf_api.h:
 
 ../../../../../../../Middlewares/Third_Party/SubGHz_Phy/radio.h:
 

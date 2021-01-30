@@ -1,5 +1,5 @@
 Application/Target/mn_api.o: \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mn_api.c \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mn_api.c \
  ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_hal.h \
  ../../Core/Inc/stm32wlxx_hal_conf.h \
  ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_hal_dma.h \
@@ -43,7 +43,7 @@ Application/Target/mn_api.o: \
  ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_hal_uart.h \
  ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_hal_uart_ex.h \
  ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_ll_system.h \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mn_api.h \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mn_api.h \
  ../../Core/Inc/lptim.h ../../Core/Inc/main.h \
  ../../Core/Inc/board_resources.h ../../Core/Inc/utilities_conf.h \
  ../../../../../../../Drivers/CMSIS/Include/cmsis_compiler.h \
@@ -150,7 +150,7 @@ Application/Target/mn_api.o: \
 
 ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_ll_system.h:
 
-C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mn_api.h:
+C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mn_api.h:
 
 ../../Core/Inc/lptim.h:
 

@@ -1,6 +1,6 @@
 Middlewares/SubGHz_Phy/radio_driver.o: \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio_driver.c \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio_driver.h \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio_driver.c \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio_driver.h \
  ../../Sigfox/Target/radio_conf.h ../../Core/Inc/platform.h \
  ../../../../../../../Drivers/CMSIS/Device/ST/STM32WLxx/Include/stm32wlxx.h \
  ../../../../../../../Drivers/CMSIS/Device/ST/STM32WLxx/Include/stm32wl55xx.h \
@@ -59,7 +59,7 @@ Middlewares/SubGHz_Phy/radio_driver.o: \
  ../../Core/Inc/platform.h ../../Sigfox/Target/mw_log_conf.h \
  ../../../../../../../Utilities/lpm/tiny_lpm/stm32_lpm.h
 
-C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio_driver.h:
+C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/radio_driver.h:
 
 ../../Sigfox/Target/radio_conf.h:
 

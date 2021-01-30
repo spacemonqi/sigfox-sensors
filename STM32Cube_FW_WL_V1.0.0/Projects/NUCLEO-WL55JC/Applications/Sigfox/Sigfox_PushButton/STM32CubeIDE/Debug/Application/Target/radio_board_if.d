@@ -1,6 +1,6 @@
 Application/Target/radio_board_if.o: \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/radio_board_if.c \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/radio_board_if.h \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/radio_board_if.c \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/radio_board_if.h \
  ../../Core/Inc/platform.h \
  ../../../../../../../Drivers/CMSIS/Device/ST/STM32WLxx/Include/stm32wlxx.h \
  ../../../../../../../Drivers/CMSIS/Device/ST/STM32WLxx/Include/stm32wl55xx.h \
@@ -53,7 +53,7 @@ Application/Target/radio_board_if.o: \
  ../../../../../../../Utilities/misc/stm32_tiny_vsnprintf.h \
  ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_ll_gpio.h
 
-C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/radio_board_if.h:
+C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/radio_board_if.h:
 
 ../../Core/Inc/platform.h:
 

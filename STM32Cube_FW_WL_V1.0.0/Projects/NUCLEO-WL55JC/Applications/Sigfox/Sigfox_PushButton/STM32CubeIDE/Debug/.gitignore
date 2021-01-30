@@ -1,0 +1,8 @@
+/Application/
+/Drivers/
+/Middlewares/
+/Utilities/
+/makefile
+/objects.list
+/objects.mk
+/sources.mk

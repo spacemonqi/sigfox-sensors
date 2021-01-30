@@ -45,17 +45,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  20 .debug_macro  0002a535  00000000  00000000  00082278  2**0
                   CONTENTS, READONLY, DEBUGGING
- 21 .debug_line   0002d1aa  00000000  00000000  000ac7ad  2**0
+ 21 .debug_line   0002cce8  00000000  00000000  000ac7ad  2**0
                   CONTENTS, READONLY, DEBUGGING
- 22 .debug_str    000e099e  00000000  00000000  000d9957  2**0
+ 22 .debug_str    000e04c6  00000000  00000000  000d9495  2**0
                   CONTENTS, READONLY, DEBUGGING
- 23 .comment      00000f30  00000000  00000000  001ba2f5  2**0
+ 23 .comment      00000f30  00000000  00000000  001b995b  2**0
                   CONTENTS, READONLY
- 24 .iar.rtmodel  000000ed  00000000  00000000  001bb225  2**0
+ 24 .iar.rtmodel  000000ed  00000000  00000000  001ba88b  2**0
                   CONTENTS, READONLY
- 25 .iar_vfe_header 00000018  00000000  00000000  001bb314  2**2
+ 25 .iar_vfe_header 00000018  00000000  00000000  001ba978  2**2
                   CONTENTS, READONLY
- 26 .debug_frame  0000c264  00000000  00000000  001bb32c  2**2
+ 26 .debug_frame  0000c264  00000000  00000000  001ba990  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -6572,6 +6572,10 @@ static void SendSigfox(void)
  8003224:	2100      	movs	r1, #0
  8003226:	2001      	movs	r0, #1
  8003228:	f00d fee0 	bl	8010fec <UTIL_ADV_TRACE_COND_FSend>
+//  ul_msg[ul_size++] = 0;
+//  ul_msg[ul_size++] = 0;
+//  ul_msg[ul_size++] = 0;
+//  ul_msg[ul_size++] = 0;
 
   ul_msg[ul_size++] = (uint8_t)((batteryLevel * 100) / 3300);
  800322c:	8f3b      	ldrh	r3, [r7, #56]	; 0x38

@@ -337,6 +337,22 @@ static void SendSigfox(void)
 
   APP_LOG(TS_ON, VLEVEL_L, "sending temperature=%d degC,  battery=%d mV", temperature, batteryLevel);
 
+//  Byte 0 is battery level
+//  Byte 1 is pressure (hPa / 10)
+//  Byte 2 is pressure (hPa / 10)
+//  Byte 3 is temperature
+//  Byte 4 is temperature
+//  Byte 5 is humidity
+//  Byte 6 is humidity
+
+//  ul_msg[ul_size++] = 255;
+//  ul_msg[ul_size++] = 0;
+//  ul_msg[ul_size++] = 256;
+//  ul_msg[ul_size++] = 0;
+//  ul_msg[ul_size++] = 0;
+//  ul_msg[ul_size++] = 0;
+//  ul_msg[ul_size++] = 0;
+
   ul_msg[ul_size++] = (uint8_t)((batteryLevel * 100) / 3300);
   ul_msg[ul_size++] = (pressure >> 8) & 0xFF;
   ul_msg[ul_size++] = pressure & 0xFF;

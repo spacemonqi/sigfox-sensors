@@ -1,5 +1,5 @@
 Application/Target/mcu_api.o: \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mcu_api.c \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mcu_api.c \
  ../../Core/Inc/platform.h \
  ../../../../../../../Drivers/CMSIS/Device/ST/STM32WLxx/Include/stm32wlxx.h \
  ../../../../../../../Drivers/CMSIS/Device/ST/STM32WLxx/Include/stm32wl55xx.h \
@@ -53,7 +53,7 @@ Application/Target/mcu_api.o: \
  ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_ll_gpio.h \
  ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/sigfox_types.h \
  ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/sigfox_api.h \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mcu_api.h \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mcu_api.h \
  ../../../../../../../Utilities/timer/stm32_timer.h \
  ../../../../../../../Utilities/sequencer/stm32_seq.h \
  ../../Sigfox/App/sgfx_eeprom_if.h ../../Core/Inc/main.h \
@@ -67,7 +67,7 @@ Application/Target/mcu_api.o: \
  ../../Core/Inc/adc.h ../../Core/Inc/utilities_def.h \
  ../../Core/Inc/sys_app.h \
  ../../../../../../../Utilities/trace/adv_trace/stm32_adv_trace.h \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/radio_board_if.h
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/radio_board_if.h
 
 ../../Core/Inc/platform.h:
 
@@ -177,7 +177,7 @@ Application/Target/mcu_api.o: \
 
 ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/sigfox_api.h:
 
-C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mcu_api.h:
+C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/mcu_api.h:
 
 ../../../../../../../Utilities/timer/stm32_timer.h:
 
@@ -215,4 +215,4 @@ C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Proj
 
 ../../../../../../../Utilities/trace/adv_trace/stm32_adv_trace.h:
 
-C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/radio_board_if.h:
+C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/Target/radio_board_if.h:

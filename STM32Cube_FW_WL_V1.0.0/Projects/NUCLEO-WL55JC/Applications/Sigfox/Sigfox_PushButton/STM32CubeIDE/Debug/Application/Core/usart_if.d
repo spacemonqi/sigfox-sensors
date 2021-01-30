@@ -1,5 +1,5 @@
 Application/Core/usart_if.o: \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Core/Src/usart_if.c \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Core/Src/usart_if.c \
  ../../Core/Inc/usart_if.h \
  ../../../../../../../Utilities/trace/adv_trace/stm32_adv_trace.h \
  ../../Core/Inc/utilities_conf.h \

@@ -39,18 +39,23 @@ def read_params(filename):
     return tableName, online
 
 def write_data_to_csv(filename):
-    data_types = ['temperature', 'humidity', 'gas']
+    data_types = ['pressure', 'temperature', 'humidity']
     columns = ['deviceId', 'timestamp', 'data', 'value', 'change']
     index = range(0)
     df = pd.DataFrame(index=index, columns=columns)
-    all_items = scan_items_AWS(online, tableName)['Items']
-    for i in range(len(all_items)):
-            item_dict = {'deviceId': all_items[i]['deviceId'], 'timestamp': all_items[i]['timestamp'],
-                        'sgfx_payload': all_items[i]['payload'][data]}
-            for data_type in data_types:
-            df.loc[i] = item_dict
-    sys.exit()
-    df.to_csv(filename, index=False, header=True)
+    all_msgs = scan_items_AWS(online, tableName)['Items']
+    for i in range(len(all_msgs)):
+            item_dict = {'deviceId': all_msgs[i]['deviceId'], 'timestamp': all_msgs[i]['timestamp']}
+            for j in range(len(data_types)):
+                item_dict['data'] = data_types[j]
+                item_dict['value'] = int(all_msgs[i]['payload']['data'][j*4+2:j*4+6], 16)
+                # breakpoint()
+                if (i==0):
+                    item_dict['change'] = item_dict['value']
+                else:
+                    item_dict['change'] = item_dict['value'] - df.at[i*3+j-3,'value']
+                df.loc[i*3+j] = item_dict
+    df.to_csv(filename, index=True  , header=True)
     last_timestamp = df.iloc[-1]['timestamp']
 
     return last_timestamp
@@ -74,6 +79,8 @@ def append_data_to_csv(filename, new_items):
 tableName, online = read_params('config/config.txt')
 
 last_timestamp = write_data_to_csv('data/sensor_data.csv')
+
+sys.exit()
 
 while True:
     deviceId = '022229D7'

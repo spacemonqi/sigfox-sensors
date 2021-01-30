@@ -1,10 +1,10 @@
 Application/App/sgfx_app.o: \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_app.c \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_app.c \
  ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/st_sigfox_api.h \
  ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/sigfox_types.h \
  ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/sigfox_api.h \
  ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLibTest/addon_sigfox_rf_protocol_api.h \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_app.h \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_app.h \
  ../../../../../../../Drivers/CMSIS/Device/ST/STM32WLxx/Include/stm32wlxx.h \
  ../../../../../../../Drivers/CMSIS/Device/ST/STM32WLxx/Include/stm32wl55xx.h \
  ../../../../../../../Drivers/CMSIS/Include/core_cm4.h \
@@ -56,14 +56,14 @@ Application/App/sgfx_app.o: \
  ../../../../../../../Utilities/misc/stm32_tiny_vsnprintf.h \
  ../../Core/Inc/platform.h \
  ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_ll_gpio.h \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_app_version.h \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_app_version.h \
  ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/sigfox_version.h \
  ../../../../../../../Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver/subghz_phy_version.h \
  ../../../../../../../Utilities/sequencer/stm32_seq.h \
  ../../../../../../../Middlewares/Third_Party/SubGHz_Phy/radio.h \
  ../../../../../../../Middlewares/Third_Party/SubGHz_Phy/radio_ex.h \
  ../../Core/Inc/sys_conf.h \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_eeprom_if.h \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_eeprom_if.h \
  ../../Core/Inc/main.h \
  ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/sigfox_types.h \
  ../../Sigfox/Target/se_nvm.h ../../Core/Inc/sys_app.h \
@@ -80,7 +80,7 @@ Application/App/sgfx_app.o: \
 
 ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLibTest/addon_sigfox_rf_protocol_api.h:
 
-C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_app.h:
+C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_app.h:
 
 ../../../../../../../Drivers/CMSIS/Device/ST/STM32WLxx/Include/stm32wlxx.h:
 
@@ -190,7 +190,7 @@ C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Proj
 
 ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_ll_gpio.h:
 
-C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_app_version.h:
+C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_app_version.h:
 
 ../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib/sigfox_version.h:
 
@@ -204,7 +204,7 @@ C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Proj
 
 ../../Core/Inc/sys_conf.h:
 
-C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_eeprom_if.h:
+C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Projects/NUCLEO-WL55JC/Applications/Sigfox/Sigfox_PushButton/Sigfox/App/sgfx_eeprom_if.h:
 
 ../../Core/Inc/main.h:
 

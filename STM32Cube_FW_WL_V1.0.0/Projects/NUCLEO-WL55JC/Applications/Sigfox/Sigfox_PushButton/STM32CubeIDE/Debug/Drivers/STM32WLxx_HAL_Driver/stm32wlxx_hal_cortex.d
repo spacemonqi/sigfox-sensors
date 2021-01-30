@@ -1,5 +1,5 @@
 Drivers/STM32WLxx_HAL_Driver/stm32wlxx_hal_cortex.o: \
- C:/Users/name/Desktop/STM32Cube_FW_WL_V1.0.0/Current/STM32Cube_FW_WL_V1.0.0/Drivers/STM32WLxx_HAL_Driver/Src/stm32wlxx_hal_cortex.c \
+ C:/Users/name/Desktop/SigfoxDemo/STM32Cube_FW_WL_V1.0.0/Drivers/STM32WLxx_HAL_Driver/Src/stm32wlxx_hal_cortex.c \
  ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_hal.h \
  ../../Core/Inc/stm32wlxx_hal_conf.h \
  ../../../../../../../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_hal_dma.h \

@@ -1,0 +1,11 @@
+{
+  "deviceId": "22229D7",
+  "payload": {
+    "data": "64271000170032",
+    "device": "22229D7",
+    "deviceTypeId": "600954c5e833d926538a318b",
+    "seqNumber": "21",
+    "time": "1611921453"
+  },
+  "timestamp": 1611921455096
+}

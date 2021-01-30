@@ -60,8 +60,8 @@ all: main-build
 main-build: Sigfox_PushButton.elf secondary-outputs
 
 # Tool invocations
-Sigfox_PushButton.elf: $(OBJS) $(USER_OBJS) C:\Users\name\Desktop\STM32Cube_FW_WL_V1.0.0\Current\STM32Cube_FW_WL_V1.0.0\Projects\NUCLEO-WL55JC\Applications\Sigfox\Sigfox_PushButton\STM32CubeIDE\STM32WL55JCIX_FLASH.ld
-	arm-none-eabi-gcc -o "Sigfox_PushButton.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\name\Desktop\STM32Cube_FW_WL_V1.0.0\Current\STM32Cube_FW_WL_V1.0.0\Projects\NUCLEO-WL55JC\Applications\Sigfox\Sigfox_PushButton\STM32CubeIDE\STM32WL55JCIX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Sigfox_PushButton.map" -Wl,--gc-sections -static -L../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLibTest -L../../../../../../../Middlewares/Third_Party/Sigfox/Monarch -L../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib -L../../../../../../../Middlewares/Third_Party/Sigfox/Crypto --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Sigfox_PushButton.elf: $(OBJS) $(USER_OBJS) C:\Users\name\Desktop\SigfoxDemo\STM32Cube_FW_WL_V1.0.0\Projects\NUCLEO-WL55JC\Applications\Sigfox\Sigfox_PushButton\STM32CubeIDE\STM32WL55JCIX_FLASH.ld
+	arm-none-eabi-gcc -o "Sigfox_PushButton.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\name\Desktop\SigfoxDemo\STM32Cube_FW_WL_V1.0.0\Projects\NUCLEO-WL55JC\Applications\Sigfox\Sigfox_PushButton\STM32CubeIDE\STM32WL55JCIX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Sigfox_PushButton.map" -Wl,--gc-sections -static -L../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLibTest -L../../../../../../../Middlewares/Third_Party/Sigfox/Monarch -L../../../../../../../Middlewares/Third_Party/Sigfox/SigfoxLib -L../../../../../../../Middlewares/Third_Party/Sigfox/Crypto --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
