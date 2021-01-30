@@ -45,7 +45,7 @@ def write_data_to_csv(filename):
     df = pd.DataFrame(index=index, columns=columns)
     all_msgs = scan_items_AWS(online, tableName)['Items']
     for i in range(len(all_msgs)):
-            item_dict = {'deviceId': all_msgs[i]['deviceId'], 'timestamp': all_msgs[i]['timestamp']}
+            item_dict = {'deviceId': all_msgs[i]['deviceId'], 'timestamp': int(str(all_msgs[i]['timestamp']))}
             for j in range(len(data_types)):
                 item_dict['data'] = data_types[j]
                 item_dict['value'] = int(all_msgs[i]['payload']['data'][j*4+2:j*4+6], 16)
@@ -65,12 +65,12 @@ def append_data_to_csv(filename, new_items):
     with open(filename, mode='a', newline='') as csv_file:
         for new_item in new_items:
             # print(new_item)
-            item_dict = {'deviceId': new_item['deviceId'], 'timestamp': new_item['timestamp'],
+            item_dict = {'deviceId': new_item['deviceId'], 'timestamp': int(str(new_item['timestamp'])),
                         'data': new_item['payload']['data'], 'temperature': new_item['payload']['temperature'],
                         'humidity': new_item['payload']['humidity']}
             dictwriter = DictWriter(csv_file, fieldnames=fieldnames)
             dictwriter.writerow(item_dict)
-            last_timestamp = item_dict['timestamp']
+            last_timestamp = int(str(item_dict['timestamp']))
         csv_file.close()
 
     return last_timestamp
@@ -80,13 +80,12 @@ tableName, online = read_params('config/config.txt')
 
 last_timestamp = write_data_to_csv('data/sensor_data.csv')
 
-sys.exit()
-
-while True:
-    deviceId = '022229D7'
-    new_items = query_and_project_items_AWS(online, tableName, deviceId, last_timestamp)
-    if len(new_items):
-        last_timestamp = append_data_to_csv('data/sensor_data.csv', new_items)
-    time.sleep(1)
+# while True:
+#     deviceId = '22229D7'
+#     new_items = query_and_project_items_AWS(online, tableName, deviceId, last_timestamp)
+#     breakpoint()
+#     if len(new_items):
+#         last_timestamp = append_data_to_csv('data/sensor_data.csv', new_items)
+#     time.sleep(1)
 
 #----------------------------------------------------------------------------------------------------------------------#

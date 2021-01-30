@@ -97,6 +97,6 @@ def query_and_project_items_AWS(online, tableName, deviceId, last_timestamp, dyn
     response = table.query (
                         ProjectionExpression='#id, #ts, payload',
                         ExpressionAttributeNames={'#id': 'deviceId', '#ts': 'timestamp'},
-                        KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(last_timestamp+1, 2147483647)
+                        KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(last_timestamp+1, 99999999999999)
                )
     return response['Items']

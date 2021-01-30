@@ -22,8 +22,6 @@ def get_options(list_data):
 
     return dict_list
 
-# breakpoint()
-
 # Load data
 df = pd.read_csv('data/data.csv', index_col=0, parse_dates=True)
 df.index = pd.to_datetime(df['Date'])
