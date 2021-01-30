@@ -22,12 +22,14 @@ def get_options(list_data):
 
     return dict_list
 
+# breakpoint()
+
 # Load data
 df = pd.read_csv('data/data.csv', index_col=0, parse_dates=True)
 df.index = pd.to_datetime(df['Date'])
 
-df = pd.read_csv('data/sensor_data.csv')
-df.index = datetime.fromtimestamp(df['timestamp'])
+# df = pd.read_csv('data/sensor_data.csv')
+# df.index = datetime.fromtimestamp(df['timestamp'])
 
 # Initialize the app
 app = dash.Dash(__name__);
@@ -57,7 +59,7 @@ app.layout = html.Div(children=[
                                       html.Div(className='eight columns div-for-charts bg-grey',  # Define the right element
                                                children = [
                                                     dcc.Graph(id='timeseries', config={'displayModeBar': False}, animate=True),
-                                                    dcc.Graph(id='change', config={'displayModeBar': False}), #, animate=True)     CHANGE
+                                                    # dcc.Graph(id='change', config={'displayModeBar': False}), #, animate=True)     CHANGE
                                                     dcc.Interval(
                                                         id='graph-update',
                                                         interval=2*1000, # in milliseconds
