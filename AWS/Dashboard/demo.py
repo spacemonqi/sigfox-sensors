@@ -39,7 +39,7 @@ def read_params(filename):
     return tableName, online
 
 def write_data_to_csv(filename):
-    data_types = ['pressure', 'temperature', 'humidity']
+    data_types = ['Pressure', 'Temperature', 'Humidity']
     columns = ['deviceId', 'timestamp', 'data', 'value', 'change']
     index = range(0)
     df = pd.DataFrame(index=index, columns=columns)
@@ -62,7 +62,7 @@ def write_data_to_csv(filename):
 
 def append_data_to_csv(filename, new_msgs, df):
     num_prev_items = len(df.index)
-    data_types = ['pressure', 'temperature', 'humidity']
+    data_types = ['Pressure', 'Temperature', 'Humidity']
     fieldnames = ['deviceId', 'timestamp', 'data', 'value', 'change']
     with open(filename, mode='a', newline='') as csv_file:
         for i in range(len(new_msgs)):

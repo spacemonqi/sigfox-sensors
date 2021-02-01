@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 
 import pdb
+import sys
 
 import pandas as pd
 import numpy as np
@@ -21,11 +22,9 @@ def get_options(list_data):
 
     return dict_list
 
-# Load data
 df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
 df.index = pd.to_datetime(df['timestamp'])
 
-# Initialize the app
 app = dash.Dash(__name__);
 
 # Define the app
@@ -35,21 +34,37 @@ app.layout = html.Div(children=[
                                       html.Div(className='four columns div-user-controls',
                                                children = [
                                                     html.H2('Sigfox Demo'),
-                                                    html.P('''Visualising sensor data from the STM32WL55'''),
-                                                    html.P('''Select reading below.'''),
-                                                    html.Div(className='div-for-dropdown',
+                                                    html.P('''Sensor data received from the STM32WL55'''),
+                                                    html.P('''Select reading below'''),
+                                                    html.Div(className='div-for-uplink',
+                                                             style={'color': '#1E1E1E'},
                                                              children=[
-                                                                dcc.Dropdown(id='dataselector',
+                                                                dcc.Dropdown(id='uldataselector',
+                                                                className='uldataselector',
                                                                 options=get_options(df['data'].unique()),
-                                                                placeholder='temperature',
-                                                                clearable=False,
+                                                                # clearable=False,
                                                                 value=[df['data'].sort_values()[0]],
-                                                                style={'backgroundColor': '#1E1E1E'},
-                                                                className='dataselector'
+                                                                style={'backgroundColor': '#1E1E1E', 'margin-bottom': '25px'}
                                                                 )
-                                                             ],
-                                                             style={'color': '#1E1E1E'}
-                                                    )
+                                                             ]
+                                                    ),
+                                                    html.P('''Downlinks sent to the STM32WL55'''),
+                                                    html.P('''Select message below'''),
+                                                    html.Div(className='div-for-downlink',
+                                                             style={'color': '#1E1E1E'},
+                                                             children=[
+                                                                dcc.Dropdown(id='dldataselector',
+                                                                className='dldataselector',
+                                                                options=[
+                                                                    {'label': 'Time (TAI) calibration ', 'value': 'TAI'},
+                                                                    {'label': 'Sampling Rate', 'value': 'SR'},
+                                                                    {'label': 'Downlink Frequency', 'value': 'DF'}
+                                                                ],
+                                                                value='NYC',
+                                                                style={'backgroundColor': '#1E1E1E'}
+                                                                )
+                                                             ]
+                                                    ),
                                                ]
                                       ),
                                       html.Div(className='eight columns div-for-charts bg-grey',
@@ -62,7 +77,7 @@ app.layout = html.Div(children=[
                                                               animate=True),
                                                     dcc.Interval(
                                                         id='graph-update',
-                                                        interval=1*1000, # in milliseconds
+                                                        interval=1*1000,
                                                         n_intervals=0
                                                     )
                                                ]
@@ -73,12 +88,12 @@ app.layout = html.Div(children=[
              )
 
 # Callback function to update the timeseries based on the dropdown
-@app.callback(Output('timeseries', 'figure'), [Input('dataselector', 'value'), Input('graph-update', 'n_intervals')])
+@app.callback(Output('timeseries', 'figure'), [Input('uldataselector', 'value'), Input('graph-update', 'n_intervals')])
 def update_timeseries(data, n):
     ''' Draw traces of the feature 'value' based on the currently selected data'''
 
-    if not ((data=='humidity') or (data=='pressure') or (data=='temperature')):
-        data = 'temperature'
+    if not ((data=='Humidity') or (data=='Pressure') or (data=='Temperature')):
+        data = 'Temperature'
 
     df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])
@@ -116,18 +131,15 @@ def update_timeseries(data, n):
               ),
     }
 
-    if data=='pressure':
-        figure.update_layout(colorway=['#375CB1'])
-
     return figure
 
 # Callback function to update the change based on the dropdown
-@app.callback(Output('change', 'figure'), [Input('dataselector', 'value'), Input('graph-update', 'n_intervals')])
+@app.callback(Output('change', 'figure'), [Input('uldataselector', 'value'), Input('graph-update', 'n_intervals')])
 def update_change(data, n):
     ''' Draw traces of the feature 'change' based one the currently selected data '''
 
-    if not ((data=='humidity') or (data=='pressure') or (data=='temperature')):
-        data = 'temperature'
+    if not ((data=='Humidity') or (data=='Pressure') or (data=='Temperature')):
+        data = 'Temperature'
 
     df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])
