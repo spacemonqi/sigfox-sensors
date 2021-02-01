@@ -3,6 +3,7 @@
 import pdb
 
 import pandas as pd
+import numpy as np
 from datetime import datetime, timedelta
 
 import dash
@@ -13,8 +14,6 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 
-# breakpoint()
-
 def get_options(list_data):
     dict_list = []
     for i in list_data:
@@ -22,25 +21,27 @@ def get_options(list_data):
 
     return dict_list
 
-# breakpoint()
-
 # Load data
-df = pd.read_csv('data/data.csv', index_col=0, parse_dates=True)
-df.index = pd.to_datetime(df['Date'])
+df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
+df.index = pd.to_datetime(df['timestamp'])
 
 # df = pd.read_csv('data/sensor_data.csv')
-# df.index = datetime.fromtimestamp(df['timestamp'])
+# df.index = df['timestamp']
+# df.index = datetime.fromtimestamp(int(str(df['timestamp'])))
+# print(type(df['timestamp']))
+
+# breakpoint()
 
 # Initialize the app
 app = dash.Dash(__name__);
 
 # Define the app
 app.layout = html.Div(children=[
-                          html.Div(className='row',                                               # Define the row element
+                          html.Div(className='row',
                                    children=[
-                                      html.Div(className='four columns div-user-controls',        # Define the left element
+                                      html.Div(className='four columns div-user-controls',
                                                children = [
-                                                    html.H2('Dash - Sigfox Demo'),
+                                                    html.H2('Sigfox Demo'),
                                                     html.P('''Visualising sensor data from the STM32WL55'''),
                                                     html.P('''Select one or more readings from the dropdown below.'''),
                                                     html.Div(className='div-for-dropdown',
@@ -50,19 +51,24 @@ app.layout = html.Div(children=[
                                                                 multi=True,
                                                                 value=[df['data'].sort_values()[0]],
                                                                 style={'backgroundColor': '#1E1E1E'},
-                                                                className='dataselector')
+                                                                className='dataselector'
+                                                                )
                                                              ],
                                                              style={'color': '#1E1E1E'}
                                                     )
                                                ]
                                       ),
-                                      html.Div(className='eight columns div-for-charts bg-grey',  # Define the right element
+                                      html.Div(className='eight columns div-for-charts bg-grey',
                                                children = [
-                                                    dcc.Graph(id='timeseries', config={'displayModeBar': False}, animate=True),
-                                                    # dcc.Graph(id='change', config={'displayModeBar': False}), #, animate=True)     CHANGE
+                                                    dcc.Graph(id='timeseries',
+                                                              config={'displayModeBar': False},
+                                                              animate=True),
+                                                    dcc.Graph(id='change',
+                                                              config={'displayModeBar': False},
+                                                              animate=True),
                                                     dcc.Interval(
                                                         id='graph-update',
-                                                        interval=2*1000, # in milliseconds
+                                                        interval=1*1000, # in milliseconds
                                                         n_intervals=0
                                                     )
                                                ]
@@ -78,8 +84,9 @@ def update_timeseries(selected_dropdown_value, n):
     ''' Draw traces of the feature 'value' based on the currently selected data'''
 
     # Load data
-    df = pd.read_csv('data/data.csv', index_col=0, parse_dates=True)
-    df.index = pd.to_datetime(df['Date'])
+    df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
+    df.index = pd.to_datetime(df['timestamp'])
+    # df.index = df['timestamp']
 
     # Initialization
     trace = []
@@ -110,52 +117,55 @@ def update_timeseries(selected_dropdown_value, n):
                   autosize=True,
                   title={'text': 'Sensor Data', 'font': {'color': 'white'}, 'x': 0.5},
                   xaxis={'range': [df_sub.index.min(), df_sub.index.max()]},
+                  yaxis={'range': [df_sub['value'].min()-0.05*np.abs(df_sub['value'].max()),
+                                   df_sub['value'].max()+0.05*np.abs(df_sub['value'].max())]},
               ),
-              }
+    }
 
     return figure
 
-# # Callback function to update the change based on the dropdown
-# @app.callback(Output('change', 'figure'), [Input('dataselector', 'value'), Input('graph-update', 'n_intervals')])
-# def update_change(selected_dropdown_value, n):
-#     ''' Draw traces of the feature 'change' based one the currently selected data '''
-#
-#     # Load data
-#     df = pd.read_csv('data/data.csv', index_col=0, parse_dates=True)
-#     df.index = pd.to_datetime(df['Date'])
-#
-#     # Initialization
-#     trace = []
-#     df_sub = df
-#
-#     # Draw and append traces for each data type
-#     for data in selected_dropdown_value:
-#         trace.append(go.Scatter(x=df_sub[df_sub['data'] == data].index,
-#                                  y=df_sub[df_sub['data'] == data]['change'],
-#                                  mode='lines',
-#                                  opacity=0.7,
-#                                  name=data,
-#                                  textposition='bottom center'))
-#     traces = [trace]
-#     data = [val for sublist in traces for val in sublist]
-#
-#     # Define Figure
-#     figure = {'data': data,
-#               'layout': go.Layout(
-#                   colorway=["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'],
-#                   template='plotly_dark',
-#                   paper_bgcolor='rgba(0, 0, 0, 0)',
-#                   plot_bgcolor='rgba(0, 0, 0, 0)',
-#                   margin={'t': 50},
-#                   height=250,
-#                   hovermode='x',
-#                   autosize=True,
-#                   title={'text': 'Daily Change', 'font': {'color': 'white'}, 'x': 0.5},
-#                   xaxis={'showticklabels': False, 'range': [df_sub.index.min(), df_sub.index.max()]},
-#               ),
-#               }
-#
-#     return figure
+# Callback function to update the change based on the dropdown
+@app.callback(Output('change', 'figure'), [Input('dataselector', 'value'), Input('graph-update', 'n_intervals')])
+def update_change(selected_dropdown_value, n):
+    ''' Draw traces of the feature 'change' based one the currently selected data '''
+
+    # Load data
+    df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
+    df.index = pd.to_datetime(df['timestamp'])
+
+    # Initialization
+    trace = []
+    df_sub = df
+
+    # Draw and append traces for each data type
+    for data in selected_dropdown_value:
+        trace.append(go.Scatter(x=df_sub[df_sub['data'] == data].index,
+                                 y=df_sub[df_sub['data'] == data]['change'],
+                                 mode='lines',
+                                 opacity=0.7,
+                                 name=data,
+                                 textposition='bottom center'))
+    traces = [trace]
+    data = [val for sublist in traces for val in sublist]
+
+    figure = {'data': data,
+              'layout': go.Layout(
+                  colorway=["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'],
+                  template='plotly_dark',
+                  paper_bgcolor='rgba(0, 0, 0, 0)',
+                  plot_bgcolor='rgba(0, 0, 0, 0)',
+                  margin={'t': 50},
+                  height=250,
+                  hovermode='x',
+                  autosize=True,
+                  title={'text': 'Change', 'font': {'color': 'white'}, 'x': 0.5},
+                  xaxis={'showticklabels': False, 'range': [df_sub.index.min(), df_sub.index.max()]},
+                  yaxis={'range': [df_sub['change'].min()-np.abs(df_sub['change'].max())*0.1,
+                                   df_sub['change'].max()+np.abs(df_sub['change'].max()*0.1)]},
+              ),
+    }
+
+    return figure
 
 # Run the app
 if __name__ == '__main__':

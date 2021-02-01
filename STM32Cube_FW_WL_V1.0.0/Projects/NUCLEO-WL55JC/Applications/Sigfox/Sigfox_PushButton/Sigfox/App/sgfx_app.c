@@ -34,7 +34,8 @@
 #include "sys_sensors.h"
 
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
+#include <stdlib.h>
 /* USER CODE END Includes */
 
 /* External variables ---------------------------------------------------------*/
@@ -332,26 +333,13 @@ static void SendSigfox(void)
   uint16_t humidity = 0;
 
   EnvSensors_Read(&sensor_data);
-  pressure    = (uint16_t)(sensor_data.pressure * 100 / 10);      /* in hPa / 10 */
-  humidity    = (uint16_t) sensor_data.humidity;
+//  pressure    = (uint16_t)(sensor_data.pressure * 100 / 10);      /* in hPa / 10 */
+//  humidity    = (uint16_t) sensor_data.humidity;
+
+  pressure = rand() % 40;
+  humidity = rand() % 40;
 
   APP_LOG(TS_ON, VLEVEL_L, "sending temperature=%d degC,  battery=%d mV", temperature, batteryLevel);
-
-//  Byte 0 is battery level
-//  Byte 1 is pressure (hPa / 10)
-//  Byte 2 is pressure (hPa / 10)
-//  Byte 3 is temperature
-//  Byte 4 is temperature
-//  Byte 5 is humidity
-//  Byte 6 is humidity
-
-//  ul_msg[ul_size++] = 255;
-//  ul_msg[ul_size++] = 0;
-//  ul_msg[ul_size++] = 256;
-//  ul_msg[ul_size++] = 0;
-//  ul_msg[ul_size++] = 0;
-//  ul_msg[ul_size++] = 0;
-//  ul_msg[ul_size++] = 0;
 
   ul_msg[ul_size++] = (uint8_t)((batteryLevel * 100) / 3300);
   ul_msg[ul_size++] = (pressure >> 8) & 0xFF;
@@ -360,6 +348,14 @@ static void SendSigfox(void)
   ul_msg[ul_size++] = temperature & 0xFF;
   ul_msg[ul_size++] = (humidity >> 8) & 0xFF;
   ul_msg[ul_size++] = humidity & 0xFF;
+
+//  ul_msg[ul_size++] = (uint8_t)((batteryLevel * 100) / 3300);
+//  ul_msg[ul_size++] = (pressure >> 8) & 0xFF;
+//  ul_msg[ul_size++] = pressure & 0xFF;
+//  ul_msg[ul_size++] = (temperature >> 8) & 0xFF;
+//  ul_msg[ul_size++] = temperature & 0xFF;
+//  ul_msg[ul_size++] = (humidity >> 8) & 0xFF;
+//  ul_msg[ul_size++] = humidity & 0xFF;
 
 #if defined(USE_BSP_DRIVER)
   BSP_LED_On(LED_BLUE);
