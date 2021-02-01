@@ -25,13 +25,6 @@ def get_options(list_data):
 df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
 df.index = pd.to_datetime(df['timestamp'])
 
-# df = pd.read_csv('data/sensor_data.csv')
-# df.index = df['timestamp']
-# df.index = datetime.fromtimestamp(int(str(df['timestamp'])))
-# print(type(df['timestamp']))
-
-# breakpoint()
-
 # Initialize the app
 app = dash.Dash(__name__);
 
