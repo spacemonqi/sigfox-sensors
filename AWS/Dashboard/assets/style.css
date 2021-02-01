@@ -632,3 +632,9 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: #d8d8d870 !important;
 }
+
+/* Placeholder color */
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}

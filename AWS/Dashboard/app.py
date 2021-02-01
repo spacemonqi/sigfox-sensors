@@ -43,12 +43,13 @@ app.layout = html.Div(children=[
                                                children = [
                                                     html.H2('Sigfox Demo'),
                                                     html.P('''Visualising sensor data from the STM32WL55'''),
-                                                    html.P('''Select one or more readings from the dropdown below.'''),
+                                                    html.P('''Select reading below.'''),
                                                     html.Div(className='div-for-dropdown',
                                                              children=[
                                                                 dcc.Dropdown(id='dataselector',
                                                                 options=get_options(df['data'].unique()),
-                                                                multi=True,
+                                                                placeholder='temperature',
+                                                                clearable=False,
                                                                 value=[df['data'].sort_values()[0]],
                                                                 style={'backgroundColor': '#1E1E1E'},
                                                                 className='dataselector'
@@ -80,35 +81,35 @@ app.layout = html.Div(children=[
 
 # Callback function to update the timeseries based on the dropdown
 @app.callback(Output('timeseries', 'figure'), [Input('dataselector', 'value'), Input('graph-update', 'n_intervals')])
-def update_timeseries(selected_dropdown_value, n):
+def update_timeseries(data, n):
     ''' Draw traces of the feature 'value' based on the currently selected data'''
 
-    # Load data
+    if not ((data=='humidity') or (data=='pressure') or (data=='temperature')):
+        data = 'temperature'
+
     df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])
-    # df.index = df['timestamp']
 
-    # Initialization
     trace = []
     df_sub = df
+    # df_range = df[df['data']==data] # Uncomment for autoranging
+    df_range = df
 
-    # Draw and append traces for each data type
-    for data in selected_dropdown_value:
-        trace.append(go.Scatter(x=df_sub[df_sub['data']==data].index,
-                                y=df_sub[df_sub['data']==data]['value'],
-                                mode='lines',
-                                opacity=0.7,
-                                name=data,
-                                textposition='bottom center'
-                     )
-        )
+    trace.append(go.Scatter(x=df_sub[df_sub['data']==data].index,
+                            y=df_sub[df_sub['data']==data]['value'],
+                            mode='lines',
+                            opacity=0.7,
+                            name=data,
+                            textposition='bottom center'
+                 )
+    )
 
     traces = [trace]
     data = [val for sublist in traces for val in sublist]
 
     figure = {'data': data,
               'layout': go.Layout(
-                  colorway=["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'],
+                  colorway=['#FF4F00', '#FFF400', '#FF0056', "#5E0DAC", '#375CB1', '#FF7400'],
                   template='plotly_dark',
                   paper_bgcolor='rgba(0, 0, 0, 0)',
                   plot_bgcolor='rgba(0, 0, 0, 0)',
@@ -117,40 +118,47 @@ def update_timeseries(selected_dropdown_value, n):
                   autosize=True,
                   title={'text': 'Sensor Data', 'font': {'color': 'white'}, 'x': 0.5},
                   xaxis={'range': [df_sub.index.min(), df_sub.index.max()]},
-                  yaxis={'range': [df_sub['value'].min()-0.05*np.abs(df_sub['value'].max()),
-                                   df_sub['value'].max()+0.05*np.abs(df_sub['value'].max())]},
+                  yaxis={'range': [df_range['value'].min()-0.05*np.abs(df_range['value'].max()),
+                                   df_range['value'].max()+0.05*np.abs(df_range['value'].max())]},
               ),
     }
+
+    if data=='pressure':
+        figure.update_layout(colorway=['#375CB1'])
 
     return figure
 
 # Callback function to update the change based on the dropdown
 @app.callback(Output('change', 'figure'), [Input('dataselector', 'value'), Input('graph-update', 'n_intervals')])
-def update_change(selected_dropdown_value, n):
+def update_change(data, n):
     ''' Draw traces of the feature 'change' based one the currently selected data '''
 
-    # Load data
+    if not ((data=='humidity') or (data=='pressure') or (data=='temperature')):
+        data = 'temperature'
+
     df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])
 
-    # Initialization
     trace = []
     df_sub = df
+    # df_range = df[df['data']==data] # Uncomment for autoranging
+    df_range = df
 
-    # Draw and append traces for each data type
-    for data in selected_dropdown_value:
-        trace.append(go.Scatter(x=df_sub[df_sub['data'] == data].index,
-                                 y=df_sub[df_sub['data'] == data]['change'],
-                                 mode='lines',
-                                 opacity=0.7,
-                                 name=data,
-                                 textposition='bottom center'))
+    trace.append(go.Scatter(x=df_sub[df_sub['data'] == data].index,
+                             y=df_sub[df_sub['data'] == data]['change'],
+                             mode='lines',
+                             opacity=0.7,
+                             name=data,
+                             textposition='bottom center'
+                )
+    )
+
     traces = [trace]
     data = [val for sublist in traces for val in sublist]
 
     figure = {'data': data,
               'layout': go.Layout(
-                  colorway=["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'],
+                  colorway=['#FF4F00', '#FFF400', '#FF0056', "#5E0DAC", '#375CB1', '#FF7400'],
                   template='plotly_dark',
                   paper_bgcolor='rgba(0, 0, 0, 0)',
                   plot_bgcolor='rgba(0, 0, 0, 0)',
@@ -160,8 +168,8 @@ def update_change(selected_dropdown_value, n):
                   autosize=True,
                   title={'text': 'Change', 'font': {'color': 'white'}, 'x': 0.5},
                   xaxis={'showticklabels': False, 'range': [df_sub.index.min(), df_sub.index.max()]},
-                  yaxis={'range': [df_sub['change'].min()-np.abs(df_sub['change'].max())*0.1,
-                                   df_sub['change'].max()+np.abs(df_sub['change'].max()*0.1)]},
+                  yaxis={'range': [df_range['change'].min()-0.05*np.abs(df_range['change'].max()),
+                                   df_range['change'].max()+0.05*np.abs(df_range['change'].max())]},
               ),
     }
 
