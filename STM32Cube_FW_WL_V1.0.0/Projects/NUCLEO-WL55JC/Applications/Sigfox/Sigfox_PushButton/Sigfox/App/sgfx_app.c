@@ -349,21 +349,19 @@ static void SendSigfox(void)
   ul_msg[ul_size++] = (humidity >> 8) & 0xFF;
   ul_msg[ul_size++] = humidity & 0xFF;
 
-//  ul_msg[ul_size++] = (uint8_t)((batteryLevel * 100) / 3300);
-//  ul_msg[ul_size++] = (pressure >> 8) & 0xFF;
-//  ul_msg[ul_size++] = pressure & 0xFF;
-//  ul_msg[ul_size++] = (temperature >> 8) & 0xFF;
-//  ul_msg[ul_size++] = temperature & 0xFF;
-//  ul_msg[ul_size++] = (humidity >> 8) & 0xFF;
-//  ul_msg[ul_size++] = humidity & 0xFF;
-
 #if defined(USE_BSP_DRIVER)
   BSP_LED_On(LED_BLUE);
 #elif defined(MX_BOARD_PSEUDODRIVER)
   SYS_LED_On(SYS_LED_BLUE);
 #endif /* defined(USE_BSP_DRIVER) */
 
+  // Uplink
   SIGFOX_API_send_frame(ul_msg, ul_size, dl_msg, nbTxRepeatFlag, SFX_FALSE);
+//  APP_PPRINTF("ul_msg: %s\n", ul_msg);
+//
+//  // Downlink
+//  SIGFOX_API_send_frame(ul_msg, ul_size, dl_msg, nbTxRepeatFlag, SFX_TRUE);
+//  APP_PPRINTF("dl_msg: %s\n", dl_msg);
 
 #if defined(USE_BSP_DRIVER)
   BSP_LED_Off(LED_BLUE);

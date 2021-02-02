@@ -6418,7 +6418,6 @@ static void SendSigfox(void)
  8003004:	f107 0140 	add.w	r1, r7, #64	; 0x40
  8003008:	440b      	add	r3, r1
  800300a:	f803 2c1c 	strb.w	r2, [r3, #-28]
-//  ul_msg[ul_size++] = humidity & 0xFF;
 
 #if defined(USE_BSP_DRIVER)
   BSP_LED_On(LED_BLUE);
@@ -6428,6 +6427,7 @@ static void SendSigfox(void)
  8003010:	f000 fdb0 	bl	8003b74 <SYS_LED_On>
 #endif /* defined(USE_BSP_DRIVER) */
 
+  // Uplink
   SIGFOX_API_send_frame(ul_msg, ul_size, dl_msg, nbTxRepeatFlag, SFX_FALSE);
  8003014:	6bfb      	ldr	r3, [r7, #60]	; 0x3c
  8003016:	b2d9      	uxtb	r1, r3
@@ -6439,6 +6439,7 @@ static void SendSigfox(void)
  8003026:	9300      	str	r3, [sp, #0]
  8003028:	4623      	mov	r3, r4
  800302a:	f7fd f964 	bl	80002f6 <SIGFOX_API_send_frame>
+//  APP_PPRINTF("dl_msg: %s\n", dl_msg);
 
 #if defined(USE_BSP_DRIVER)
   BSP_LED_Off(LED_BLUE);
