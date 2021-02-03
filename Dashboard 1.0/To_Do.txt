@@ -1,0 +1,2 @@
+Deleting & recreating the table takes time, and disables the IOT rule that sends Sigfox messages to it. 
+Rather delete the items from the existing table for a reset.
