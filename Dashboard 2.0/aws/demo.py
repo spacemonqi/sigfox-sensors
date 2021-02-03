@@ -56,12 +56,13 @@ def write_data_to_csv(filename):
                 else:
                     item_dict['change'] = item_dict['value'] - int(df.at[i*num_data_types+k-num_data_types,'value'])
                 df.loc[i*num_data_types+k] = item_dict
+    df = df.sort_values(by=['timestamp', 'deviceId', 'data'], ascending=True)
     df.to_csv(filename, index=False  , header=True)
     last_timestamp = int(int(datetime.timestamp(df.iloc[-1]['timestamp']))*1000)
 
     return last_timestamp, df
 
-def append_data_to_csv(filename, new_msgs, df):
+def append_data_to_csv(filename, new_msgs, df): # create a gsi to query by sort key only
     num_prev_items = len(df.index)
     data_types = ['Pressure', 'Temperature', 'Humidity']
     fieldnames = ['deviceId', 'timestamp', 'data', 'value', 'change']
@@ -85,7 +86,9 @@ def append_data_to_csv(filename, new_msgs, df):
 #----------------------------------------------------------------------------------------------------------------------#
 tableName, online = read_params('config/config.txt')
 
-last_timestamp, df_sigfox = write_data_to_csv('data/sensor_data.csv')
+while True:
+    last_timestamp, df_sigfox = write_data_to_csv('data/sensor_data.csv')
+    time.sleep(1)                                                           #THIS IS VERY BAD
 
 # while True:
 #     # deviceId = '22229D7'
