@@ -39,22 +39,23 @@ def read_params(filename):
     return tableName, online
 
 def write_data_to_csv(filename):
-    data_types = ['Pressure', 'Temperature', 'Humidity']
+    data_types = ['ADC', 'CO2', 'VOC', 'Humidity', 'Temperature']
+    num_data_types = len(data_types)
     columns = ['deviceId', 'timestamp', 'data', 'value', 'change']
-    index = range(0)
-    df = pd.DataFrame(index=index, columns=columns)
+    df = pd.DataFrame(columns=columns)
     all_msgs = scan_items_AWS(online, tableName)['Items']
-    for i in range(len(all_msgs)):
+    num_all_msgs = len(all_msgs)
+    for i in range(num_all_msgs):
             item_dict = {'deviceId': all_msgs[i]['deviceId'],
                          'timestamp': datetime.fromtimestamp(int(int(str(all_msgs[i]['timestamp']))/1000+1))} #THIS IS VERY BAD
-            for j in range(len(data_types)):
-                item_dict['data'] = data_types[j]
-                item_dict['value'] = int(all_msgs[i]['payload']['data'][j*4+2:j*4+6], 16)
+            for k in range(num_data_types):
+                item_dict['data'] = data_types[k]
+                item_dict['value'] = int(all_msgs[i]['payload']['data'][k*4+4:k*4+8], 16)
                 if (i==0):
                     item_dict['change'] = item_dict['value']
                 else:
-                    item_dict['change'] = item_dict['value'] - df.at[i*3+j-3,'value']
-                df.loc[i*3+j] = item_dict
+                    item_dict['change'] = item_dict['value'] - int(df.at[i*num_data_types+k-num_data_types,'value'])
+                df.loc[i*num_data_types+k] = item_dict
     df.to_csv(filename, index=False  , header=True)
     last_timestamp = int(int(datetime.timestamp(df.iloc[-1]['timestamp']))*1000)
 
@@ -86,11 +87,11 @@ tableName, online = read_params('config/config.txt')
 
 last_timestamp, df_sigfox = write_data_to_csv('data/sensor_data.csv')
 
-while True:
-    deviceId = '22229D7'
-    new_msgs = query_and_project_items_AWS(online, tableName, deviceId, last_timestamp)
-    if len(new_msgs):
-        last_timestamp = append_data_to_csv('data/sensor_data.csv', new_msgs, df_sigfox)
-    time.sleep(1)
+# while True:
+#     # deviceId = '22229D7'
+#     new_msgs = query_and_project_items_AWS(online, tableName, deviceId, last_timestamp)
+#     if len(new_msgs):
+#         last_timestamp = append_data_to_csv('data/sensor_data.csv', new_msgs, df_sigfox)
+#     time.sleep(1)
 
 #----------------------------------------------------------------------------------------------------------------------#
