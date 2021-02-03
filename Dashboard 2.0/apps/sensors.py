@@ -20,25 +20,45 @@ def get_options(list_data):
 
     return dict_list
 
-df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
+df = pd.read_csv('aws/data/sensor_data.csv', index_col=0, parse_dates=True)
 df.index = pd.to_datetime(df['timestamp'])
 
 layout = html.Div([
     dbc.Container([
         dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network"), className="mb-2")]),
-        dbc.Row([dbc.Col(html.H6(children='Humidity, pressure and temperature'), className="mb-4")]),
+        dbc.Row([dbc.Col(html.H6(children='Humidity, temperature, VOC, CO2, ADC'), className="mb-4")]),
         dbc.Row([dbc.Col(dbc.Card(html.H3(children='All Sensors',className="text-center text-light bg-dark"),
                                   body=True,
                                   color="dark"),
                  className="mb-4")]),
 
-        html.P('''Select reading below'''),
-        dcc.Dropdown(id='uldataselector',
+        html.P('''Sensor type:'''),
+        dcc.Dropdown(id='dd_sensor',
+        options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
+                {'label': 'S2LP', 'value': 'S2LP'},
+                {'label': 'TI', 'value': 'TI'}],
+        clearable=False,
+        value=[df['data'].sort_values()[0]],
+        style={'width': '300px', 'margin-bottom': '10px'} # 'backgroundColor': '#1E1E1E'
+        ),
+
+        html.P('''Sensor ID:'''),
+        dcc.Dropdown(id='dd_sensor',
+        options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
+                {'label': 'S2LP', 'value': 'S2LP'},
+                {'label': 'TI', 'value': 'TI'}],
+        clearable=False,
+        multi=True,
+        value=[df['data'].sort_values()[0]],
+        style={'width': '300px', 'margin-bottom': '10px'} # 'backgroundColor': '#1E1E1E'
+        ),
+
+        html.P('''Measurement:'''),
+        dcc.Dropdown(id='dd_measurement',
         options=get_options(df['data'].unique()),
         clearable=False,
         value=[df['data'].sort_values()[0]],
-        # style={'backgroundColor': '#1E1E1E'}
-        style={'width': '50%'}
+        style={'width': '300px', 'margin-bottom': '10px'} #, 'margin-bottom': '40px', 'backgroundColor': '#1E1E1E'}
         ),
 
         # html.P('''Downlinks sent to the STM32WL55'''),
@@ -66,14 +86,14 @@ layout = html.Div([
 ])
 
 # Callback function to update the timeseries based on the dropdown
-@app.callback(Output('timeseries', 'figure'), [Input('uldataselector', 'value'), Input('graph-update', 'n_intervals')])
+@app.callback(Output('timeseries', 'figure'), [Input('dd_measurement', 'value'), Input('graph-update', 'n_intervals')])
 def update_timeseries(data, n):
     ''' Draw traces of the feature 'value' based on the currently selected data'''
 
-    if not ((data=='Humidity') or (data=='Pressure') or (data=='Temperature')):
-        data = 'Temperature'
+    if not ((data=='Humidity') or (data=='ADC') or (data=='Temperature') or (data=='VOC') or (data=='CO2')):
+        data = 'ADC'
 
-    df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
+    df = pd.read_csv('aws/data/sensor_data.csv', index_col=0, parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])
 
     trace = []
@@ -112,14 +132,14 @@ def update_timeseries(data, n):
     return figure
 
 # Callback function to update the change based on the dropdown
-@app.callback(Output('change', 'figure'), [Input('uldataselector', 'value'), Input('graph-update', 'n_intervals')])
+@app.callback(Output('change', 'figure'), [Input('dd_measurement', 'value'), Input('graph-update', 'n_intervals')])
 def update_change(data, n):
     ''' Draw traces of the feature 'change' based one the currently selected data '''
 
-    if not ((data=='Humidity') or (data=='Pressure') or (data=='Temperature')):
-        data = 'Temperature'
+    if not ((data=='Humidity') or (data=='ADC') or (data=='Temperature') or (data=='VOC') or (data=='CO2')):
+        data = 'ADC'
 
-    df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
+    df = pd.read_csv('aws/data/sensor_data.csv', index_col=0, parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])
 
     # change it so that it updates when the file is modified only

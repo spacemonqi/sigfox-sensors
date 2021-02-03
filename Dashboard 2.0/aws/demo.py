@@ -74,7 +74,7 @@ def append_data_to_csv(filename, new_msgs, df): # create a gsi to query by sort 
                 item_dict['data'] = data_types[j]
                 item_dict['value'] = int(new_msgs[i]['payload']['data'][j*4+2:j*4+6], 16)
                 item_dict['change'] = 0
-                item_dict['change'] = item_dict['value'] - df.at[num_prev_items + i*3+j-3,'value'] #This program wont work when there are no items to begin with. SO always make sure you have at least 2 messages until this is fixed
+                item_dict['change'] = item_dict['value'] - df.at[num_prev_items + i*3+j-3,'value'] # THis doesnt work for the first items and This program wont work when there are no items to begin with. SO always make sure you have at least 2 messages until this is fixed
                 df.loc[num_prev_items + i*3+j] = item_dict
                 dictwriter = DictWriter(csv_file, fieldnames=fieldnames)
                 dictwriter.writerow(item_dict)

@@ -9,7 +9,7 @@ import dash_bootstrap_components as dbc
 
 from app import app
 
-df = pd.read_csv('bruh.csv', index_col = 0)
+df = pd.read_csv('apps/data/bruh.csv', index_col = 0)
 
 # preparing various dataframes for visualisation
 from datetime import datetime
