@@ -144,6 +144,8 @@ def update_change(data, n):
     df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])
 
+    # change it so that it updates when the file is modified only
+
     trace = []
     df_sub = df
     # df_range = df[df['data']==data] # Uncomment for autoranging
