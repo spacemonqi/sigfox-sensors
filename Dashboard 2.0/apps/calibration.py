@@ -56,8 +56,9 @@ layout = html.Div([
     dcc.Dropdown(
         id='cases_or_deaths',
         options=[
-            {'label': 'Cases per 1 million people', 'value': 'cases per 1 mil'},
-            {'label': 'Deaths per 1 million people', 'value': 'deaths per 1 mil'},
+            {'label': 'Time (TAI)', 'value': 'cases per 1 mil'},
+            {'label': 'Sampling Rate', 'value': 'deaths per 1 mil'},
+            {'label': 'Downlink Frequency', 'value': 'deaths per 1 mil'},
         ],
         value='cases per 1 mil',
         # multi=True,

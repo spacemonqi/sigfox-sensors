@@ -38,7 +38,7 @@ layout = html.Div([
                                          options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
                                                   {'label': 'S2LP', 'value': 'S2LP'},
                                                   {'label': 'TI', 'value': 'TI'}],
-                                         style={'width': '330px', 'margin-bottom': '10px'}
+                                         style={'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
                             ),
                         ]
                 ),
@@ -46,9 +46,8 @@ layout = html.Div([
                             html.P('''Sensor ID:'''),
                             dcc.Dropdown(id='dd_id',
                                          options=get_options(df['deviceId'].unique()),
-                                         # disabled = True,
                                          multi=True,
-                                         style={'width': '330px', 'margin-bottom': '10px'}
+                                         style={'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
                             ),
                         ]
                 ),
@@ -56,8 +55,7 @@ layout = html.Div([
                             html.P('''Data:'''),
                             dcc.Dropdown(id='dd_data',
                                          options=get_options(df['data'].unique()),
-                                         # disabled = True,
-                                         style={'width': '330px', 'margin-bottom': '10px'}
+                                         style={'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
                             )
                         ]
                 )
@@ -88,13 +86,32 @@ layout = html.Div([
 ])
 
 #----------------------------------------------------------------------------------------------------------------------#
-# Callback function to enable/disable dd_id based on dd_type
+# Callback function to enable/disable dd_id & dd_data based on dd_type
+@app.callback([Output('dd_id', 'disabled'), Output('dd_id', 'value'), Output('dd_id', 'style'),
+               Output('dd_data', 'disabled'), Output('dd_data', 'value'), Output('dd_data', 'style')],
+               [Input('dd_type', 'value')])
+def set_cities_options(value):
+    style = {'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': '#848a8e'}
+    disabled = True
+    if value:
+        disabled = False
+        style = {'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
+    return [disabled, "", style, disabled, "", style]
 
 
 
 
 
 
+
+
+# # Callback function to enable/disable dd_data based on dd_id
+# @app.callback([Output('dd_data', 'disabled'), Output('dd_data', 'value')], [Input('dd_id', 'value'), Input('dd_type', 'value')])
+# def set_cities_options(in_value):
+#     disabled = True
+#     if in_value:
+#         disabled = False
+#     return [disabled, ""]
 
 # Callback function to update the timeseries based on the dropdown
 @app.callback(Output('timeseries', 'figure'), [Input('dd_id', 'value'), Input('dd_data', 'value'), Input('graph-update', 'n_intervals')])
