@@ -27,39 +27,54 @@ layout = html.Div([
     dbc.Container([
         dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network"), className="mb-2")]),
         dbc.Row([dbc.Col(html.H6(children='Humidity, temperature, VOC, CO2, ADC'), className="mb-4")]),
-        dbc.Row([dbc.Col(dbc.Card(html.H3(children='All Sensors',className="text-center text-light bg-dark"),
+        dbc.Row([dbc.Col(dbc.Card(html.H3(children='All Sensors',className="text-center bg-primary"),
                                   body=True,
-                                  color="dark"),
+                                  color="primary"),
                  className="mb-4")]),
+        dbc.Row([
+                dbc.Col(children=[
+                            html.P('''Sensor type:'''),
+                            dcc.Dropdown(id='dd_sensor_type',
+                                         options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
+                                                  {'label': 'S2LP', 'value': 'S2LP'},
+                                                  {'label': 'TI', 'value': 'TI'}],
+                                         # clearable=False,
+                                         # disabled = True,
+                                         value=[df['data'].sort_values()[0]],
+                                         style={'width': '330px', 'margin-bottom': '10px'}
+                            ),
+                        ]
+                ),
+                dbc.Col(children=[
+                            html.P('''Sensor ID:'''),
+                            dcc.Dropdown(id='dd_sensor_id',
+                                         options=[{'label': 'DevKit_1', 'value': 'DK1'},
+                                                  {'label': 'DevKit_2', 'value': 'DK2'},
+                                                  {'label': 'DevKit_3', 'value': 'DK3'}],
+                                         # clearable=False,
+                                         # disabled = True,
+                                         multi=True,
+                                         value=[df['data'].sort_values()[0]],
+                                         style={'width': '330px', 'margin-bottom': '10px'}
+                            ),
+                        ]
+                ),
+                dbc.Col(children=[
+                            html.P('''Measurement:'''),
+                            dcc.Dropdown(id='dd_measurement',
+                                         options=get_options(df['data'].unique()),
+                                         # clearable=False,
+                                         # disabled = True,
+                                         value=[df['data'].sort_values()[0]],
+                                         style={'width': '330px', 'margin-bottom': '10px'}
+                            )
+                        ]
+                )
+            ]),
 
-        html.P('''Sensor type:'''),
-        dcc.Dropdown(id='dd_sensor',
-        options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
-                {'label': 'S2LP', 'value': 'S2LP'},
-                {'label': 'TI', 'value': 'TI'}],
-        clearable=False,
-        value=[df['data'].sort_values()[0]],
-        style={'width': '300px', 'margin-bottom': '10px'} # 'backgroundColor': '#1E1E1E'
-        ),
-
-        html.P('''Sensor ID:'''),
-        dcc.Dropdown(id='dd_sensor',
-        options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
-                {'label': 'S2LP', 'value': 'S2LP'},
-                {'label': 'TI', 'value': 'TI'}],
-        clearable=False,
-        multi=True,
-        value=[df['data'].sort_values()[0]],
-        style={'width': '300px', 'margin-bottom': '10px'} # 'backgroundColor': '#1E1E1E'
-        ),
-
-        html.P('''Measurement:'''),
-        dcc.Dropdown(id='dd_measurement',
-        options=get_options(df['data'].unique()),
-        clearable=False,
-        value=[df['data'].sort_values()[0]],
-        style={'width': '300px', 'margin-bottom': '10px'} #, 'margin-bottom': '40px', 'backgroundColor': '#1E1E1E'}
-        ),
+        dcc.Graph(id='timeseries', config={'displayModeBar': False}, animate=True),
+        dcc.Graph(id='change', config={'displayModeBar': False}, animate=True),
+        dcc.Interval(id='graph-update', interval=1*1000, n_intervals=0),
 
         # html.P('''Downlinks sent to the STM32WL55'''),
         # html.P('''Select message below'''),
@@ -78,12 +93,10 @@ layout = html.Div([
         #             )
         #          ]
         # ),
-
-        dcc.Graph(id='timeseries', config={'displayModeBar': False}, animate=True),
-        dcc.Graph(id='change', config={'displayModeBar': False}, animate=True),
-        dcc.Interval(id='graph-update', interval=1*1000, n_intervals=0)
     ])
 ])
+
+#----------------------------------------------------------------------------------------------------------------------#
 
 # Callback function to update the timeseries based on the dropdown
 @app.callback(Output('timeseries', 'figure'), [Input('dd_measurement', 'value'), Input('graph-update', 'n_intervals')])

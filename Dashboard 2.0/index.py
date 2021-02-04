@@ -1,3 +1,6 @@
+# import all pages in the app
+from apps import global_situation, sensors, home
+
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
@@ -6,27 +9,23 @@ from dash.dependencies import Input, Output, State
 # must add this line in order for the app to be deployed successfully on Heroku
 from app import server
 from app import app
-# import all pages in the app
-from apps import global_situation, sensors, home
 
-# building the navigation bar
-# https://github.com/facultyai/dash-bootstrap-components/blob/master/examples/advanced-component-usage/Navbars.py
 dropdown = dbc.DropdownMenu(
     children=[
-        dbc.DropdownMenuItem("Home", href="/home"),
-        dbc.DropdownMenuItem("Global", href="/global_situation"),
-        dbc.DropdownMenuItem("Sensors", href="/sensors"),
+        dbc.DropdownMenuItem("Home", href="/home", style = {'color': 'white'}),
+        dbc.DropdownMenuItem("Global", href="/global_situation", style = {'color': 'white'}),
+        dbc.DropdownMenuItem("Sensors", href="/sensors", style = {'color': 'white'}),
     ],
     nav = True,
     in_navbar = True,
     label = "Explore",
+    toggle_style = {'color': 'white'}
 )
 
 navbar = dbc.Navbar(
     dbc.Container(
         [
             html.A(
-                # Use row and col to control vertical alignment of logo / brand
                 dbc.Row(
                     [
                         dbc.Col(html.Img(src="/assets/divigraph.png", height="40px")),
@@ -65,13 +64,11 @@ for i in [2]:
         [State(f"navbar-collapse{i}", "is_open")],
     )(toggle_navbar_collapse)
 
-# embedding the navigation bar
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     navbar,
     html.Div(id='page-content')
 ])
-
 
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])

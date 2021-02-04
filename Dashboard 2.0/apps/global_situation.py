@@ -82,7 +82,7 @@ layout = html.Div([
         ]),
 
         dbc.Row([
-            dbc.Col(dbc.Card(html.H3(children='Cumulative figures by continent (per 1 million people)',
+            dbc.Col(dbc.Card(html.H3(children='Cumulative figures',
                                      className="text-center text-light bg-dark"), body=True, color="dark")
                     , className="mb-4")
         ]),
@@ -99,7 +99,7 @@ layout = html.Div([
     ]),
 
     dbc.Row([
-        dbc.Col(dbc.Card(html.H3(children='Figures by country (per 1 million people)',
+        dbc.Col(dbc.Card(html.H3(children='Figures',
                                  className="text-center text-light bg-dark"), body=True, color="dark")
         , className="mb-4")
         ]),
@@ -239,7 +239,3 @@ def update_graph(cases_or_deaths_name, countries_name):
                            margin=dict(t=0))
 
     return fig5, fig6
-
-# needed only if running this as a single page app
-# if __name__ == '__main__':
-#     app.run_server(host='127.0.0.1', debug=True)
