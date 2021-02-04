@@ -20,7 +20,7 @@ def get_options(list_data):
 
     return dict_list
 
-df = pd.read_csv('aws/data/sensor_data.csv', index_col=0, parse_dates=True)
+df = pd.read_csv('aws/data/sensor_data.csv', parse_dates=True)
 df.index = pd.to_datetime(df['timestamp'])
 
 layout = html.Div([
@@ -34,38 +34,29 @@ layout = html.Div([
         dbc.Row([
                 dbc.Col(children=[
                             html.P('''Sensor type:'''),
-                            dcc.Dropdown(id='dd_sensor_type',
+                            dcc.Dropdown(id='dd_type',
                                          options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
                                                   {'label': 'S2LP', 'value': 'S2LP'},
                                                   {'label': 'TI', 'value': 'TI'}],
-                                         # clearable=False,
-                                         # disabled = True,
-                                         value=[df['data'].sort_values()[0]],
                                          style={'width': '330px', 'margin-bottom': '10px'}
                             ),
                         ]
                 ),
                 dbc.Col(children=[
                             html.P('''Sensor ID:'''),
-                            dcc.Dropdown(id='dd_sensor_id',
-                                         options=[{'label': 'DevKit_1', 'value': 'DK1'},
-                                                  {'label': 'DevKit_2', 'value': 'DK2'},
-                                                  {'label': 'DevKit_3', 'value': 'DK3'}],
-                                         # clearable=False,
+                            dcc.Dropdown(id='dd_id',
+                                         options=get_options(df['deviceId'].unique()),
                                          # disabled = True,
                                          multi=True,
-                                         value=[df['data'].sort_values()[0]],
                                          style={'width': '330px', 'margin-bottom': '10px'}
                             ),
                         ]
                 ),
                 dbc.Col(children=[
-                            html.P('''Measurement:'''),
-                            dcc.Dropdown(id='dd_measurement',
+                            html.P('''Data:'''),
+                            dcc.Dropdown(id='dd_data',
                                          options=get_options(df['data'].unique()),
-                                         # clearable=False,
                                          # disabled = True,
-                                         value=[df['data'].sort_values()[0]],
                                          style={'width': '330px', 'margin-bottom': '10px'}
                             )
                         ]
@@ -74,7 +65,7 @@ layout = html.Div([
 
         dcc.Graph(id='timeseries', config={'displayModeBar': False}, animate=True),
         dcc.Graph(id='change', config={'displayModeBar': False}, animate=True),
-        dcc.Interval(id='graph-update', interval=1*1000, n_intervals=0),
+        dcc.Interval(id='graph-update', interval=100*1000, n_intervals=0),
 
         # html.P('''Downlinks sent to the STM32WL55'''),
         # html.P('''Select message below'''),
@@ -97,31 +88,53 @@ layout = html.Div([
 ])
 
 #----------------------------------------------------------------------------------------------------------------------#
+# Callback function to enable/disable dd_id based on dd_type
+
+
+
+
+
+
 
 # Callback function to update the timeseries based on the dropdown
-@app.callback(Output('timeseries', 'figure'), [Input('dd_measurement', 'value'), Input('graph-update', 'n_intervals')])
-def update_timeseries(data, n):
-    ''' Draw traces of the feature 'value' based on the currently selected data'''
+@app.callback(Output('timeseries', 'figure'), [Input('dd_id', 'value'), Input('dd_data', 'value'), Input('graph-update', 'n_intervals')])
+def update_timeseries(ids, data, n):
 
-    if not ((data=='Humidity') or (data=='ADC') or (data=='Temperature') or (data=='VOC') or (data=='CO2')):
-        data = 'ADC'
-
-    df = pd.read_csv('aws/data/sensor_data.csv', index_col=0, parse_dates=True)
-    df.index = pd.to_datetime(df['timestamp'])
+    df = pd.read_csv('aws/data/sensor_data.csv', parse_dates=True)
+    df.index = pd.to_datetime(df['timestamp']) #remove this, make the graph read directly from the timestamp column if possible
 
     trace = []
-    df_sub = df
-    # df_range = df[df['data']==data] # Uncomment for autoranging
-    df_range = df
 
-    trace.append(go.Scatter(x=df_sub[df_sub['data']==data].index,
-                            y=df_sub[df_sub['data']==data]['value'],
-                            mode='lines',
-                            opacity=0.7,
-                            name=data,
-                            textposition='bottom center'
-                 )
-    )
+    if ids and data:
+        df_data = df[df['data']==data]
+        xmin = df_data.index.min()
+        xmax = df_data.index.max()
+        ymin = df_data['value'].min()-0.05*np.abs(df_data['value'].max())
+        ymax = df_data['value'].max()+0.05*np.abs(df_data['value'].max())
+        for id in ids:
+            df_data_id = df_data[df_data['deviceId']==id]
+            trace.append(go.Scatter(x=df_data_id.index,
+                                    y=df_data_id['value'],
+                                    mode='lines',
+                                    opacity=0.7,
+                                    name=id,
+                                    textposition='bottom center'
+                        )
+            )
+    else:
+        df_clear = df
+        df_clear['value'].values[:] = 0
+        xmin = df.index.min()
+        xmax = df.index.max()
+        ymin = -100
+        ymax = 100
+        trace.append(go.Scatter(x=df_clear.index,
+                                y=df_clear['value'],
+                                mode='lines',
+                                opacity=0.7,
+                                textposition='bottom center'
+                    )
+        )
 
     traces = [trace]
     data = [val for sublist in traces for val in sublist]
@@ -136,40 +149,52 @@ def update_timeseries(data, n):
                   hovermode='x',
                   autosize=True,
                   title={'text': 'Sensor Data', 'font': {'color': 'white'}, 'x': 0.5},
-                  xaxis={'range': [df_sub.index.min(), df_sub.index.max()]},
-                  yaxis={'range': [df_range['value'].min()-0.05*np.abs(df_range['value'].max()),
-                                   df_range['value'].max()+0.05*np.abs(df_range['value'].max())]},
+                  xaxis={'range': [xmin, xmax]},
+                  yaxis={'range': [ymin, ymax]},
               ),
     }
 
     return figure
 
 # Callback function to update the change based on the dropdown
-@app.callback(Output('change', 'figure'), [Input('dd_measurement', 'value'), Input('graph-update', 'n_intervals')])
-def update_change(data, n):
-    ''' Draw traces of the feature 'change' based one the currently selected data '''
+@app.callback(Output('change', 'figure'), [Input('dd_id', 'value'), Input('dd_data', 'value'), Input('graph-update', 'n_intervals')])
+def update_change(ids, data, n):
 
-    if not ((data=='Humidity') or (data=='ADC') or (data=='Temperature') or (data=='VOC') or (data=='CO2')):
-        data = 'ADC'
-
-    df = pd.read_csv('aws/data/sensor_data.csv', index_col=0, parse_dates=True)
-    df.index = pd.to_datetime(df['timestamp'])
-
-    # change it so that it updates when the file is modified only
+    df = pd.read_csv('aws/data/sensor_data.csv', parse_dates=True)
+    df.index = pd.to_datetime(df['timestamp']) #remove this, make the graph read directly from the timestamp column if possible
 
     trace = []
-    df_sub = df
-    # df_range = df[df['data']==data] # Uncomment for autoranging
-    df_range = df
 
-    trace.append(go.Scatter(x=df_sub[df_sub['data'] == data].index,
-                             y=df_sub[df_sub['data'] == data]['change'],
-                             mode='lines',
-                             opacity=0.7,
-                             name=data,
-                             textposition='bottom center'
-                )
-    )
+    if ids and data:
+        df_data = df[df['data']==data]
+        xmin = df_data.index.min()
+        xmax = df_data.index.max()
+        ymin = df_data['change'].min()-0.05*np.abs(df_data['change'].max())
+        ymax = df_data['change'].max()+0.05*np.abs(df_data['change'].max())
+        for id in ids:
+            df_data_id = df_data[df_data['deviceId']==id]
+            trace.append(go.Scatter(x=df_data_id.index,
+                                    y=df_data_id['change'],
+                                    mode='lines',
+                                    opacity=0.7,
+                                    name=id,
+                                    textposition='bottom center'
+                        )
+            )
+    else:
+        df_clear = df
+        df_clear['change'].values[:] = 0
+        xmin = df.index.min()
+        xmax = df.index.max()
+        ymin = -10
+        ymax = 10
+        trace.append(go.Scatter(x=df_clear.index,
+                                y=df_clear['change'],
+                                mode='lines',
+                                opacity=0.7,
+                                textposition='bottom center'
+                    )
+        )
 
     traces = [trace]
     data = [val for sublist in traces for val in sublist]
@@ -185,9 +210,8 @@ def update_change(data, n):
                   hovermode='x',
                   autosize=True,
                   title={'text': 'Change', 'font': {'color': 'white'}, 'x': 0.5},
-                  xaxis={'showticklabels': False, 'range': [df_sub.index.min(), df_sub.index.max()]},
-                  yaxis={'range': [df_range['change'].min()-0.05*np.abs(df_range['change'].max()),
-                                   df_range['change'].max()+0.05*np.abs(df_range['change'].max())]},
+                  xaxis={'range': [xmin, xmax]},
+                  yaxis={'range': [ymin, ymax]},
               ),
     }
 
