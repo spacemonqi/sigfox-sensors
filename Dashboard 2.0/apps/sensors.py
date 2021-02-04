@@ -65,53 +65,27 @@ layout = html.Div([
         dcc.Graph(id='change', config={'displayModeBar': False}, animate=True),
         dcc.Interval(id='graph-update', interval=100*1000, n_intervals=0),
 
-        # html.P('''Downlinks sent to the STM32WL55'''),
-        # html.P('''Select message below'''),
-        # html.Div(className='div-for-downlink-dropdown',
-        #          style={'color': '#1E1E1E'},
-        #          children=[
-        #             dcc.Dropdown(id='dldataselector',
-        #             className='dldataselector',
-        #             options=[
-        #                 {'label': 'Time (TAI) calibration ', 'value': 'TAI'},
-        #                 {'label': 'Sampling Rate', 'value': 'SR'},
-        #                 {'label': 'Downlink Frequency', 'value': 'DF'}
-        #             ],
-        #             value='NYC',
-        #             style={'backgroundColor': '#1E1E1E'}
-        #             )
-        #          ]
-        # ),
     ])
 ])
 
 #----------------------------------------------------------------------------------------------------------------------#
-# Callback function to enable/disable dd_id & dd_data based on dd_type
-@app.callback([Output('dd_id', 'disabled'), Output('dd_id', 'value'), Output('dd_id', 'style'),
-               Output('dd_data', 'disabled'), Output('dd_data', 'value'), Output('dd_data', 'style')],
+# Callback function to enable/disable dd_id & dd_data based on dd_type and to set dd_id options
+@app.callback([Output('dd_id', 'disabled'), Output('dd_id', 'value'), Output('dd_id', 'style'), Output('dd_id', 'options'),
+               Output('dd_data', 'disabled'), Output('dd_data', 'value'), Output('dd_data', 'style'), Output('dd_data', 'options')],
                [Input('dd_type', 'value')])
 def set_cities_options(value):
     style = {'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': '#848a8e'}
     disabled = True
+    options_id =  []
+    options_data =  []
     if value:
         disabled = False
         style = {'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
-    return [disabled, "", style, disabled, "", style]
+    if value == 'STM32WL55':
+        options_id=get_options(df['deviceId'].unique())
+        options_data=get_options(df['data'].unique())
 
-
-
-
-
-
-
-
-# # Callback function to enable/disable dd_data based on dd_id
-# @app.callback([Output('dd_data', 'disabled'), Output('dd_data', 'value')], [Input('dd_id', 'value'), Input('dd_type', 'value')])
-# def set_cities_options(in_value):
-#     disabled = True
-#     if in_value:
-#         disabled = False
-#     return [disabled, ""]
+    return [disabled, "", style, options_id, disabled, "", style, options_data]
 
 # Callback function to update the timeseries based on the dropdown
 @app.callback(Output('timeseries', 'figure'), [Input('dd_id', 'value'), Input('dd_data', 'value'), Input('graph-update', 'n_intervals')])
