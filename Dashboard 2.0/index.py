@@ -1,5 +1,5 @@
 # import all pages in the app
-from apps import calibration, sensors, home
+from apps import configuration, sensors, home
 
 import dash_core_components as dcc
 import dash_html_components as html
@@ -13,7 +13,7 @@ from app import app
 dropdown = dbc.DropdownMenu(
     children=[
         dbc.DropdownMenuItem("Home", href="/home", style = {'color': 'white'}),
-        dbc.DropdownMenuItem("Calibration", href="/calibration", style = {'color': 'white'}),
+        dbc.DropdownMenuItem("Configuration", href="/configuration", style = {'color': 'white'}),
         dbc.DropdownMenuItem("Sensors", href="/sensors", style = {'color': 'white'}),
     ],
     nav = True,
@@ -73,8 +73,8 @@ app.layout = html.Div([
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/calibration':
-        return calibration.layout
+    if pathname == '/configuration':
+        return configuration.layout
     elif pathname == '/sensors':
         return sensors.layout
     else:

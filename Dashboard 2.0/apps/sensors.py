@@ -1,5 +1,7 @@
 from app import app
 
+from apps import channels
+
 import sys
 import pdb
 
@@ -33,14 +35,10 @@ def get_values(list_data):
 df = pd.read_csv('aws/data/sensor_data.csv', parse_dates=True)
 df.index = pd.to_datetime(df['timestamp'])
 
-# Move this to a function that all pages can access
 colorlistlist_sensor = [['#FFF400'], ['#FF4F00'], ['#FF0056'], ["#5E0DAC"], ['#60AAED'], ['#1CA776']]
 colorlist_meas = ['#FFF400', '#FF4F00', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
-channel_name_list = ['Temperature', 'Humidity', 'ADC1', 'ADC2', 'CO2', 'VOC']
-channel_name_string = ''
-for channel_name in channel_name_list:
-    channel_name_string += (channel_name + ", ")
-channel_name_string = channel_name_string[0:-2]
+
+channel_name_string = channels.read_channels_to_string()
 
 #----------------------------------------------------------------------------------------------------------------------#
 layout = html.Div([
@@ -49,7 +47,6 @@ layout = html.Div([
         dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network"), className="mb-2")]),
         dbc.Row([dbc.Col(html.H6(children="Selected Channels: "))]),
         dbc.Row([dbc.Col(html.H6(children=channel_name_string), className="mb-4")]),
-        # dbc.Row([dbc.Col(html.H6(children='Humidity, temperature, VOC, CO2, ADC'), className="mb-4")]),
 
         #--------------------------------------------------------------------------------------------------------------#
         dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Measurement',className="text-center bg-primary"),
@@ -85,8 +82,8 @@ layout = html.Div([
                         width = 4,
                 ),
                 dbc.Col(children=[
-                            html.P('''Data:'''),
-                            dcc.Dropdown(id='dd_data_meas',
+                            html.P('''Measurement:'''),
+                            dcc.Dropdown(id='dd_measurement_meas',
                                          options=get_options(df['data'].unique()),
                                          style={'width': '325px',
                                                 'margin-bottom': '10px',
@@ -98,13 +95,13 @@ layout = html.Div([
                 )
             ]),
         dcc.Graph(id='meas_timeseries', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
-        dcc.Graph(id='meas_change', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '50px'}),
+        dcc.Graph(id='meas_change', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
 
         #--------------------------------------------------------------------------------------------------------------#
-        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Sensor',className="text-center bg-primary"),
+        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Sensor ID',className="text-center bg-primary"),
                                   body=True,
                                   color="primary"),
-                 className="mb-4")]),
+                 className="mb-4 mt-4")]),
         dbc.Row([
                 dbc.Col(children=[
                             html.P('''Sensor type:'''),
@@ -159,20 +156,42 @@ layout = html.Div([
         ]),
 
         #--------------------------------------------------------------------------------------------------------------#
+        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Cumulative Data by Sensor Type',className="text-center bg-primary"),
+                                  body=True,
+                                  color="primary"),
+                 className="mb-4 mt-5")]),
+        dbc.Row([
+                dbc.Col(children=[
+                            html.P('''Sensor type:'''),
+                            dcc.Dropdown(id='dd_type_type',
+                                         options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
+                                                  {'label': 'S2LP', 'value': 'S2LP'},
+                                                  {'label': 'TI', 'value': 'TI'}],
+                                         style={'width': '325px',
+                                                'margin-bottom': '10px',
+                                                'color': 'black',
+                                                'background-color': 'white'}
+                            ),
+                        ],
+                        width = 4,
+                ),
+        ]),
+
+        #--------------------------------------------------------------------------------------------------------------#
         dcc.Interval(id='graph_update', interval=1*1000, n_intervals=0),
     ])
 ])
 
 #----------------------------------------------------------------------------------------------------------------------#
-# Callback function to enable/disable & update options of dd_id_meas & dd_data_meas based on dd_type_meas
+# Callback function to enable/disable & update options of dd_id_meas & dd_measurement_meas based on dd_type_meas
 @app.callback([Output('dd_id_meas', 'disabled'),
                Output('dd_id_meas', 'value'),
                Output('dd_id_meas', 'style'),
                Output('dd_id_meas', 'options'),
-               Output('dd_data_meas', 'disabled'),
-               Output('dd_data_meas', 'value'),
-               Output('dd_data_meas', 'style'),
-               Output('dd_data_meas', 'options')],
+               Output('dd_measurement_meas', 'disabled'),
+               Output('dd_measurement_meas', 'value'),
+               Output('dd_measurement_meas', 'style'),
+               Output('dd_measurement_meas', 'options')],
               [Input('dd_type_meas', 'value')])
 def set_cities_options(value):
     style = {'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': '#848a8e'}
@@ -191,7 +210,7 @@ def set_cities_options(value):
 # Callback function to update the meas_timeseries based on the dropdown
 @app.callback(Output('meas_timeseries', 'figure'),
               [Input('dd_id_meas', 'value'),
-               Input('dd_data_meas', 'value'),
+               Input('dd_measurement_meas', 'value'),
                Input('graph_update', 'n_intervals')])
 def update_meas_timeseries(ids, data, n):
 
@@ -256,7 +275,7 @@ def update_meas_timeseries(ids, data, n):
 # Callback function to update the meas_change based on the dropdown
 @app.callback(Output('meas_change', 'figure'),
               [Input('dd_id_meas', 'value'),
-               Input('dd_data_meas', 'value'),
+               Input('dd_measurement_meas', 'value'),
                Input('graph_update', 'n_intervals')])
 def update_meas_change(ids, data, n):
 

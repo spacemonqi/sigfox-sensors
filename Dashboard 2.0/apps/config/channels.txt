@@ -1,0 +1,7 @@
+channel,name
+CH1,Temperature
+CH2,Humidity
+CH3,ADC1
+CH4,ADC2
+CH5,CO2
+CH6,VOC
