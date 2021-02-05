@@ -39,7 +39,9 @@ def read_params(filename):
     return tableName, online
 
 def write_data_to_csv(filename):
-    data_types = ['ADC', 'CO2', 'VOC', 'Humidity', 'Temperature']
+    # data_types = ['ADC', 'CO2', 'VOC', 'Humidity', 'Temperature']
+    # data_types = ['CH1', 'CH2', 'CH3', 'CH4', 'CH5']
+    data_types = ['CH1', 'CH2', 'CH3', 'CH4', 'CH5', 'CH6']
     num_data_types = len(data_types)
     columns = ['deviceId', 'timestamp', 'data', 'value', 'change']
     df = pd.DataFrame(columns=columns)
@@ -50,7 +52,7 @@ def write_data_to_csv(filename):
                          'timestamp': datetime.fromtimestamp(int(int(str(all_msgs[i]['timestamp']))/1000+1))} #THIS IS VERY BAD
             for k in range(num_data_types):
                 item_dict['data'] = data_types[k]
-                item_dict['value'] = int(all_msgs[i]['payload']['data'][k*4+4:k*4+8], 16)
+                item_dict['value'] = int(all_msgs[i]['payload']['data'][k*4:k*4+4], 16)
                 if (i==0):
                     item_dict['change'] = item_dict['value']
                 else:
@@ -62,24 +64,24 @@ def write_data_to_csv(filename):
 
     return last_timestamp, df
 
-def append_data_to_csv(filename, new_msgs, df): # create a gsi to query by sort key only
-    num_prev_items = len(df.index)
-    data_types = ['Pressure', 'Temperature', 'Humidity']
-    fieldnames = ['deviceId', 'timestamp', 'data', 'value', 'change']
-    with open(filename, mode='a', newline='') as csv_file:
-        for i in range(len(new_msgs)):
-            item_dict = {'deviceId': new_msgs[i]['deviceId'],
-                         'timestamp': datetime.fromtimestamp(int(int(str(new_msgs[i]['timestamp']))/1000+1))} #THIS IS VERY BAD
-            for j in range(len(data_types)):
-                item_dict['data'] = data_types[j]
-                item_dict['value'] = int(new_msgs[i]['payload']['data'][j*4+2:j*4+6], 16)
-                item_dict['change'] = 0
-                item_dict['change'] = item_dict['value'] - df.at[num_prev_items + i*3+j-3,'value'] # THis doesnt work for the first items and This program wont work when there are no items to begin with. SO always make sure you have at least 2 messages until this is fixed
-                df.loc[num_prev_items + i*3+j] = item_dict
-                dictwriter = DictWriter(csv_file, fieldnames=fieldnames)
-                dictwriter.writerow(item_dict)
-            last_timestamp = int(int(datetime.timestamp(item_dict['timestamp']))*1000)
-        csv_file.close()
+# def append_data_to_csv(filename, new_msgs, df): # create a gsi to query by sort key only
+#     num_prev_items = len(df.index)
+#     data_types = ['Pressure', 'Temperature', 'Humidity']
+#     fieldnames = ['deviceId', 'timestamp', 'data', 'value', 'change']
+#     with open(filename, mode='a', newline='') as csv_file:
+#         for i in range(len(new_msgs)):
+#             item_dict = {'deviceId': new_msgs[i]['deviceId'],
+#                          'timestamp': datetime.fromtimestamp(int(int(str(new_msgs[i]['timestamp']))/1000+1))} #THIS IS VERY BAD
+#             for j in range(len(data_types)):
+#                 item_dict['data'] = data_types[j]
+#                 item_dict['value'] = int(new_msgs[i]['payload']['data'][j*4+2:j*4+6], 16)
+#                 item_dict['change'] = 0
+#                 item_dict['change'] = item_dict['value'] - df.at[num_prev_items + i*3+j-3,'value'] # THis doesnt work for the first items and This program wont work when there are no items to begin with. SO always make sure you have at least 2 messages until this is fixed
+#                 df.loc[num_prev_items + i*3+j] = item_dict
+#                 dictwriter = DictWriter(csv_file, fieldnames=fieldnames)
+#                 dictwriter.writerow(item_dict)
+#             last_timestamp = int(int(datetime.timestamp(item_dict['timestamp']))*1000)
+#         csv_file.close()
 
     return last_timestamp
 

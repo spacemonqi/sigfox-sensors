@@ -9,6 +9,32 @@ import dash_bootstrap_components as dbc
 
 from app import app
 
+
+##################################################
+# try to change the direct downlink data in the sigfox backend from here! then a server wont be needed for downlinks
+##################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 df = pd.read_csv('apps/data/bruh.csv', index_col = 0)
 
 # preparing various dataframes for visualisation
