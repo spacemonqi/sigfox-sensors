@@ -7,14 +7,14 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 
 # must add this line in order for the app to be deployed successfully on Heroku
-from app import server
+# from app import server
 from app import app
 
 dropdown = dbc.DropdownMenu(
     children=[
-        dbc.DropdownMenuItem("Home", href="/home", style = {'color': 'white'}),
-        dbc.DropdownMenuItem("Configuration", href="/configuration", style = {'color': 'white'}),
-        dbc.DropdownMenuItem("Sensors", href="/sensors", style = {'color': 'white'}),
+        dbc.DropdownMenuItem("Home", href="/home", style={'color': 'white'}),
+        dbc.DropdownMenuItem("Configuration", href="/configuration", style={'color': 'white'}),
+        dbc.DropdownMenuItem("Sensors", href="/sensors", style={'color': 'white'}),
     ],
     nav = True,
     in_navbar = True,
