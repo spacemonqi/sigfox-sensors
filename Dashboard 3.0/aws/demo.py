@@ -39,8 +39,6 @@ def read_params(filename):
     return tableName, online
 
 def write_data_to_csv(filename):
-    # data_types = ['ADC', 'CO2', 'VOC', 'Humidity', 'Temperature']
-    # data_types = ['CH1', 'CH2', 'CH3', 'CH4', 'CH5']
     data_types = ['CH1', 'CH2', 'CH3', 'CH4', 'CH5', 'CH6']
     num_data_types = len(data_types)
     columns = ['deviceId', 'timestamp', 'data', 'value', 'change']
