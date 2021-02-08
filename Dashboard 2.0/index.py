@@ -1,5 +1,5 @@
 # import all pages in the app
-from apps import configuration, sensors, home
+from apps import configuration, sensors, home, channels
 
 import dash_core_components as dcc
 import dash_html_components as html
@@ -9,6 +9,17 @@ from dash.dependencies import Input, Output, State
 # must add this line in order for the app to be deployed successfully on Heroku
 # from app import server
 from app import app
+
+channel_name_list_dict = [
+    {'channel': 'CH1', 'name': 'Temperature'},
+    {'channel': 'CH2', 'name': 'Humidity'},
+    {'channel': 'CH3', 'name': 'ADC1'},
+    {'channel': 'CH4', 'name': 'ADC2'},
+    {'channel': 'CH5', 'name': 'CO2'},
+    {'channel': 'CH6', 'name': 'VOC'},
+]
+
+channels.write_channels_to_csv(channel_name_list_dict)
 
 dropdown = dbc.DropdownMenu(
     children=[

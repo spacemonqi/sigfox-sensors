@@ -1,16 +1,11 @@
 from app import app
-
 from apps import channels
-
-import sys
-import pdb
 
 import numpy as np
 import pandas as pd
 
 import plotly.graph_objects as go
 
-import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
@@ -20,7 +15,7 @@ from dash.dependencies import Input, Output
 def get_options(list_data):
     dict_list = []
     for i in list_data:
-        dict_list.append({'label':i, 'value':i})
+        dict_list.append({'label': i, 'value': i})
 
     return dict_list
 
@@ -49,7 +44,7 @@ layout = html.Div([
         dbc.Row([dbc.Col(html.H6(children=channel_name_string), className="mb-4")]),
 
         #--------------------------------------------------------------------------------------------------------------#
-        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Measurement',className="text-center bg-primary"),
+        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Measurement', className="text-center bg-primary"),
                                   body=True,
                                   color="primary"),
                  className="mb-4")]),
@@ -98,7 +93,7 @@ layout = html.Div([
         dcc.Graph(id='meas_change', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
 
         #--------------------------------------------------------------------------------------------------------------#
-        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Sensor ID',className="text-center bg-primary"),
+        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Sensor ID', className="text-center bg-primary"),
                                   body=True,
                                   color="primary"),
                  className="mb-4 mt-4")]),
@@ -215,27 +210,25 @@ def set_cities_options(value):
 def update_meas_timeseries(ids, data, n):
 
     df = pd.read_csv('aws/data/sensor_data.csv', parse_dates=True)
-    df.index = pd.to_datetime(df['timestamp']) #remove this, make the graph read directly from the timestamp column if possible
+    df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
 
     trace = []
 
     if ids and data:
-        df_data = df[df['data']==data]
+        df_data = df[df['data'] == data]
         xmin = df_data.index.min()
         xmax = df_data.index.max()
-        ymin = df_data['value'].min()-0.05*np.abs(df_data['value'].max())
-        ymax = df_data['value'].max()+0.05*np.abs(df_data['value'].max())
+        ymin = df_data['value'].min() - 0.05 * np.abs(df_data['value'].max())
+        ymax = df_data['value'].max() + 0.05 * np.abs(df_data['value'].max())
         for id in ids:
-            df_data_id = df_data[df_data['deviceId']==id]
+            df_data_id = df_data[df_data['deviceId'] == id]
             trace.append(go.Scatter(x=df_data_id.index,
                                     y=df_data_id['value'],
                                     mode='lines+markers',
                                     opacity=0.7,
-                                    line={'width':3},
+                                    line={'width': 3},
                                     name=id,
-                                    textposition='bottom center'
-                        )
-            )
+                                    textposition='bottom center'))
     else:
         df_clear = df
         df_clear['value'].values[:] = 0
@@ -371,6 +364,7 @@ def update_sensor_timeseries(id, n):
     df = pd.read_csv('aws/data/sensor_data.csv', parse_dates=True)
     df.index = pd.to_datetime(df['timestamp']) #remove this, make the graph read directly from the timestamp column if possible
 
+    channel_name_list_dict = channels.read_channels_to_list_dict()
     figures = []
     data = get_values(df['data'].unique())
 
@@ -380,16 +374,16 @@ def update_sensor_timeseries(id, n):
         trace = []
 
         if id:
-            df_data = df[df['data']==channel]
-            df_data_id = df_data[df_data['deviceId']==id]
+            df_data = df[df['data'] == channel]
+            df_data_id = df_data[df_data['deviceId'] == id]
             xmin = df_data_id.index.min()
             xmax = df_data_id.index.max()
-            ymin = df_data_id['value'].min()-0.05*np.abs(df_data_id['value'].max())
-            ymax = df_data_id['value'].max()+0.05*np.abs(df_data_id['value'].max())
+            ymin = df_data_id['value'].min() - 0.05 * np.abs(df_data_id['value'].max())
+            ymax = df_data_id['value'].max() + 0.05 * np.abs(df_data_id['value'].max())
             trace.append(go.Scatter(x=df_data_id.index,
                                     y=df_data_id['value'],
                                     mode='lines+markers',
-                                    line={'width':3},
+                                    line={'width': 3},
                                     opacity=0.7,
                                     name=id,
                                     textposition='bottom center'
@@ -405,7 +399,7 @@ def update_sensor_timeseries(id, n):
             trace.append(go.Scatter(x=df_clear.index,
                                     y=df_clear['value'],
                                     mode='lines',
-                                    line={'width':3},
+                                    line={'width': 3},
                                     opacity=0.7,
                                     textposition='bottom center'
                         )
@@ -423,11 +417,11 @@ def update_sensor_timeseries(id, n):
                       margin={'b': 15},
                       hovermode='x',
                       autosize=True,
-                      title={'text': channel_name_list[i], 'font': {'color': 'white'}, 'x': 0.5},
+                      title={'text': channel_name_list_dict[i]['name'], 'font': {'color': 'white'}, 'x': 0.5},
                       xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
                       yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
                   ),
-        }
+                  }
 
         figures.append(figure)
 
