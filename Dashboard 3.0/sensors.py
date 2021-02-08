@@ -33,15 +33,13 @@ df.index = pd.to_datetime(df['timestamp'])
 colorlistlist_sensor = [['#FFF400'], ['#FF4F00'], ['#FF0056'], ["#5E0DAC"], ['#60AAED'], ['#1CA776']]
 colorlist_meas = ['#FFF400', '#FF4F00', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
 
-channel_name_string = channels.string_channels()
-
 #----------------------------------------------------------------------------------------------------------------------#
 layout = html.Div([
     dbc.Container([
         #--------------------------------------------------------------------------------------------------------------#
         dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network"), className="mb-2")]),
         dbc.Row([dbc.Col(html.H6(children="Selected Channels: "))]),
-        dbc.Row([dbc.Col(html.H6(id='h6_channel_string_sensors', children=channel_name_string), className="mb-4")]),
+        dbc.Row([dbc.Col(html.H6(id='h6_channel_string_sensors', children=channels.string_channels()), className="mb-4")]),
 
         #--------------------------------------------------------------------------------------------------------------#
         dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Measurement', className="text-center bg-primary"),
@@ -173,7 +171,7 @@ layout = html.Div([
         ]),
 
         #--------------------------------------------------------------------------------------------------------------#
-        dcc.Interval(id='graph_update', interval=1 * 1000, n_intervals=0),
+        dcc.Interval(id='graph_update', interval= 1 * 1000, n_intervals=0),
     ])
 ])
 

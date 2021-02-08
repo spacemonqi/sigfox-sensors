@@ -1,6 +1,3 @@
-# import all pages in the app
-import configuration, sensors, home
-
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
@@ -9,6 +6,8 @@ from dash.dependencies import Input, Output, State
 # must add this line in order for the app to be deployed successfully on Heroku
 # from app import server
 from app import app
+import configuration, sensors, home
+# import callbacks
 
 dropdown = dbc.DropdownMenu(
     children=[
@@ -26,8 +25,7 @@ navbar = dbc.Navbar(
     dbc.Container(
         [
             html.A(
-                dbc.Row(
-                    [
+                dbc.Row([
                         dbc.Col(html.Img(src="/assets/divigraph.png", height="40px")),
                         dbc.Col(dbc.NavbarBrand("Divigraph", className="ml-2")),
                     ],

@@ -3,9 +3,8 @@ from dash.dependencies import Input, Output
 from app import app
 import channels
 
-@app.callback(Output("h6_channel_string_sensors", "children"),
-              Output("h6_channel_string_configuration", "children"),
-              Input("in_alias_1", "value"),
+@app.callback(Output("h6_channel_string_configuration", "children"),
+              [Input("in_alias_1", "value"),
               Input("in_scaling_factor_1", "value"),
               Input("in_alias_2", "value"),
               Input("in_scaling_factor_2", "value"),
@@ -16,7 +15,7 @@ import channels
               Input("in_alias_5", "value"),
               Input("in_scaling_factor_5", "value"),
               Input("in_alias_6", "value"),
-              Input("in_scaling_factor_6", "value"))
+              Input("in_scaling_factor_6", "value")])
 def update_output(a1, s1, a2, s2, a3, s3, a4, s4, a5, s5, a6, s6):
 
     channels_ld = channels.get_channels()
@@ -39,4 +38,4 @@ def update_output(a1, s1, a2, s2, a3, s3, a4, s4, a5, s5, a6, s6):
 
     channel_name_string = channels.string_channels()
 
-    return channel_name_string
+    return channel_name_string  # [channel_name_string, channel_name_string]

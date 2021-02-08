@@ -1,22 +1,21 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-# from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output
 
-# from app import app
 import channels
+from app import app
+import callbacks
 
 ##################################################
 # try to change the direct downlink data in the sigfox backend from here! then a server wont be needed for downlinks
 ##################################################
 
-channel_name_string = channels.string_channels()
-
 layout = html.Div([
     dbc.Container([
         dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network"), className="mb-2")]),
         dbc.Row([dbc.Col(html.H6(children="Selected Channels: "))]),
-        dbc.Row([dbc.Col(html.H6(id='h6_channel_string_configuration', children=channel_name_string), className="mb-4")]),
+        dbc.Row([dbc.Col(html.H6(id='h6_channel_string_configuration', children=channels.string_channels()), className="mb-4")]),
 
         dbc.Row([dbc.Col(dbc.Card(html.H3(children='Channel Configuration', className="text-center bg-primary"),
                                   body=True,

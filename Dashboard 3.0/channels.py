@@ -12,6 +12,7 @@ def update_channels(channels_ld):
 def get_channels():
     with open('config/channels.txt', mode='r') as csv_file:
         channels_ld = [{key: value for key, value in row.items()} for row in csv.DictReader(csv_file)]
+        csv_file.close()
 
     return channels_ld
 

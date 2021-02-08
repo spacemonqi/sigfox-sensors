@@ -3,7 +3,8 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app
-from layouts import layout1
+from one import one
+from two import two
 import callbacks
 
 app.layout = html.Div([
@@ -14,8 +15,10 @@ app.layout = html.Div([
 @app.callback(Output('page-content', 'children'),
               Input('url', 'pathname'))
 def display_page(pathname):
-    if pathname == '/apps/app1':
-         return layout1
+    if pathname == '/one':
+        return one
+    if pathname == '/two':
+        return two
 
 if __name__ == '__main__':
     app.run_server(debug=True)
