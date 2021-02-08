@@ -174,6 +174,13 @@ layout = html.Div([
         dcc.Interval(id='graph_update', interval= 1 * 1000, n_intervals=0),
     ])
 ])
+#----------------------------------------------------------------------------------------------------------------------#
+# Callback function to update the selected channels
+@app.callback(Output('h6_channel_string_sensors', 'children'),
+              Input('h6_channel_string_sensors', 'children'))
+def h6_channel_string_update(x):
+
+    return channels.string_channels()
 
 #----------------------------------------------------------------------------------------------------------------------#
 # Callback function to enable/disable & update options of dd_id_meas & dd_measurement_meas based on dd_type_meas

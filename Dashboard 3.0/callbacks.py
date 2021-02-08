@@ -3,6 +3,7 @@ from dash.dependencies import Input, Output
 from app import app
 import channels
 
+# Callback function to update the channel aliases and scaling factors
 @app.callback(Output("h6_channel_string_configuration", "children"),
               [Input("in_alias_1", "value"),
               Input("in_scaling_factor_1", "value"),
