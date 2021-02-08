@@ -169,13 +169,46 @@ layout = html.Div([
         dcc.Interval(id='graph_update', interval= 1 * 1000, n_intervals=0),
     ])
 ])
+
 #----------------------------------------------------------------------------------------------------------------------#
-# Callback function to update the selected channels
+# Callback function to update the channel string and to apply all the scaling factors
 @app.callback(Output('h6_channel_string_sensors', 'children'),
               Input('h6_channel_string_sensors', 'children'))
-def h6_channel_string_update(x):
+def channel_string_scaling_factor_update(x):
+
+    df = pd.read_csv('aws/data/sensor_data.csv')
+    df.index = pd.to_datetime(df['timestamp'])
+
+    scaling_fact = 1
+    channels_ld = channels.get_channels()
+    for dict in channels_ld:
+        if dict['channel'] == data:
+            scaling_fact = float(dict['scaling_fact'])
+
+    if ids and data:
+        df_data = df[df['data'] == data]
+        df_data['value'] = df_data['value'].astype(int) * scaling_fact
+        xmin = df_data.index.min()
+        xmax = df_data.index.max()
+        ymin = df_data['value'].min() - 0.05 * np.abs(df_data['value'].max())
+        ymax = df_data['value'].max() + 0.05 * np.abs(df_data['value'].max())
+        for id in ids:
+            df_data_id = df_data[df_data['deviceId'] == id]
+            trace.append(go.Scatter(x=df_data_id.index,
+                                    y=df_data_id['value'],
+                                    mode='lines+markers',
+                                    opacity=0.7,
+                                    line={'width': 3},
+                                    name=id,
+                                    textposition='bottom center'))
+
+
+
+
 
     return channels.string_channels()
+
+
 
 #----------------------------------------------------------------------------------------------------------------------#
 # Callback function to enable/disable & update options of dd_id_meas & dd_measurement_meas based on dd_type_meas

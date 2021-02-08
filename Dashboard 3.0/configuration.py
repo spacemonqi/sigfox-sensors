@@ -28,7 +28,6 @@ layout = html.Div([
                 html.Div(id="output"),
         ]),
 
-        html.Div(id='placeholder_update', children='bruh'),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 1:'''), width = 2),
                 dbc.Col(dcc.Input(id="in_alias_1",
@@ -135,7 +134,7 @@ layout = html.Div([
     ])
 ])
 
-# Callback function to update the placeholders in the inputs
+# Callback function to update the placeholders in the inputs - triggered by any component on reloading
 @app.callback([Output("in_alias_1", "placeholder"),
                Output("in_scaling_factor_1", "placeholder"),
                Output("in_alias_2", "placeholder"),
@@ -148,7 +147,7 @@ layout = html.Div([
                Output("in_scaling_factor_5", "placeholder"),
                Output("in_alias_6", "placeholder"),
                Output("in_scaling_factor_6", "placeholder")],
-              Input("placeholder_update", "children"))
+              [Input("h6_channel_string_configuration", "children")])
 def update_placeholders(x):
 
     channels_ld = channels.get_channels()
