@@ -1,7 +1,7 @@
 channel,alias,scaling_fact
-CH1,Temperature,1.0
-CH2,Humidity,1.0
-CH3,ADC1,5.0
-CH4,ADC2,1.0
-CH5,CO2,1.0
-CH6,VOC,1.0
+CH1,bruh,5.0
+CH2,Hum,11.0
+CH3,adc1,5.0
+CH4,adc2,5.0
+CH5,co2,5.0
+CH6,voc,5.0

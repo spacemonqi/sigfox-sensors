@@ -36,12 +36,10 @@ colorlist_meas = ['#FFF400', '#FF4F00', '#FF0056', "#5E0DAC", '#60AAED', '#1CA77
 #----------------------------------------------------------------------------------------------------------------------#
 layout = html.Div([
     dbc.Container([
-        #--------------------------------------------------------------------------------------------------------------#
         dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network"), className="mb-2")]),
         dbc.Row([dbc.Col(html.H6(children="Selected Channels: "))]),
         dbc.Row([dbc.Col(html.H6(id='h6_channel_string_sensors', children=channels.string_channels()), className="mb-4")]),
 
-        #--------------------------------------------------------------------------------------------------------------#
         dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Measurement', className="text-center bg-primary"),
                                   body=True,
                                   color="primary"),
@@ -90,7 +88,6 @@ layout = html.Div([
         dcc.Graph(id='meas_timeseries', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
         dcc.Graph(id='meas_change', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
 
-        #--------------------------------------------------------------------------------------------------------------#
         dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Sensor ID', className="text-center bg-primary"),
                                   body=True,
                                   color="primary"),
@@ -148,7 +145,6 @@ layout = html.Div([
             ]),
         ]),
 
-        #--------------------------------------------------------------------------------------------------------------#
         dbc.Row([dbc.Col(dbc.Card(html.H3(children='Cumulative Data by Sensor Type', className="text-center bg-primary"),
                                   body=True,
                                   color="primary"),
@@ -170,7 +166,6 @@ layout = html.Div([
                 ),
         ]),
 
-        #--------------------------------------------------------------------------------------------------------------#
         dcc.Interval(id='graph_update', interval= 1 * 1000, n_intervals=0),
     ])
 ])
@@ -219,8 +214,15 @@ def update_meas_timeseries(ids, data, n):
 
     trace = []
 
+    scaling_fact = 1
+    channels_ld = channels.get_channels()
+    for dict in channels_ld:
+        if dict['channel'] == data:
+            scaling_fact = float(dict['scaling_fact'])
+
     if ids and data:
         df_data = df[df['data'] == data]
+        df_data['value'] = df_data['value'].astype(int) * scaling_fact
         xmin = df_data.index.min()
         xmax = df_data.index.max()
         ymin = df_data['value'].min() - 0.05 * np.abs(df_data['value'].max())
