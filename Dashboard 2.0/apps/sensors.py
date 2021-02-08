@@ -1,5 +1,6 @@
 from app import app
 from apps import channels
+from apps import callbacks
 
 import numpy as np
 import pandas as pd
@@ -33,7 +34,7 @@ df.index = pd.to_datetime(df['timestamp'])
 colorlistlist_sensor = [['#FFF400'], ['#FF4F00'], ['#FF0056'], ["#5E0DAC"], ['#60AAED'], ['#1CA776']]
 colorlist_meas = ['#FFF400', '#FF4F00', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
 
-channel_name_string = channels.read_channels_to_string()
+channel_name_string = channels.string_channels()
 
 #----------------------------------------------------------------------------------------------------------------------#
 layout = html.Div([
@@ -41,7 +42,7 @@ layout = html.Div([
         #--------------------------------------------------------------------------------------------------------------#
         dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network"), className="mb-2")]),
         dbc.Row([dbc.Col(html.H6(children="Selected Channels: "))]),
-        dbc.Row([dbc.Col(html.H6(children=channel_name_string), className="mb-4")]),
+        dbc.Row([dbc.Col(html.H6(id='h6_channel_string_sensors', children=channel_name_string), className="mb-4")]),
 
         #--------------------------------------------------------------------------------------------------------------#
         dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Measurement', className="text-center bg-primary"),
@@ -364,7 +365,7 @@ def update_sensor_timeseries(id, n):
     df = pd.read_csv('aws/data/sensor_data.csv', parse_dates=True)
     df.index = pd.to_datetime(df['timestamp']) #remove this, make the graph read directly from the timestamp column if possible
 
-    channel_name_list_dict = channels.read_channels_to_list_dict()
+    channels_ld = channels.get_channels()
     figures = []
     data = get_values(df['data'].unique())
 
@@ -417,7 +418,7 @@ def update_sensor_timeseries(id, n):
                       margin={'b': 15},
                       hovermode='x',
                       autosize=True,
-                      title={'text': channel_name_list_dict[i]['name'], 'font': {'color': 'white'}, 'x': 0.5},
+                      title={'text': channels_ld[i]['alias'], 'font': {'color': 'white'}, 'x': 0.5},
                       xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
                       yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
                   ),
