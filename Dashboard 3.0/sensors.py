@@ -12,16 +12,23 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 
 #----------------------------------------------------------------------------------------------------------------------#
-def get_options(list_data):
+def get_options(list_data, channel_ld=None):
     dict_list = []
-    for i in list_data:
-        dict_list.append({'label': i, 'value': i})
+    if channel_ld:
+        i = 0
+        for item in list_data:
+            dict_list.append({'label': channel_ld[i]['alias'], 'value': item})
+            i += 1
+    else:
+        for item in list_data:
+            dict_list.append({'label': item, 'value': item})
 
     return dict_list
 
 #----------------------------------------------------------------------------------------------------------------------#
 df = pd.read_csv('data/sensor_data.csv', parse_dates=True)
 df.index = pd.to_datetime(df['timestamp'])
+channel_ld = channels.get_channels()
 
 colorlistlist_sensor = [['#FFF400'], ['#FF4F00'], ['#FF0056'], ["#5E0DAC"], ['#60AAED'], ['#1CA776']]
 colorlist_meas = ['#FFF400', '#FF4F00', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
@@ -68,7 +75,7 @@ layout = html.Div([
                 dbc.Col(children=[
                             html.P('''Measurement:'''),
                             dcc.Dropdown(id='dd_measurement_meas',
-                                         options=get_options(df['data'].unique()),
+                                         options=get_options(df['data'].unique(), channel_ld),
                                          style={'width': '325px',
                                                 'margin-bottom': '10px',
                                                 'color': 'black',
@@ -163,7 +170,7 @@ layout = html.Div([
     ])
 ])
 
-#----------------------------------------------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------------------   ------------------------------#
 # Callback function to update the channel string and to apply all the scaling factors
 @app.callback(Output('h6_channel_string_sensors', 'children'),
               Input('h6_channel_string_sensors', 'children'))
@@ -199,6 +206,7 @@ def channel_string_scaling_factor_update(x):
               [Input('dd_type_meas', 'value')])
 def dd_meas_update(value):
     style = {'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': '#848a8e'}
+    channel_ld = channels.get_channels()
     disabled = True
     options_id = []
     options_data = []
@@ -207,7 +215,7 @@ def dd_meas_update(value):
         style = {'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
     if value == 'STM32WL55':
         options_id = get_options(df['deviceId'].unique())
-        options_data = get_options(df['data'].unique())
+        options_data = get_options(df['data'].unique(), channel_ld)
 
     return [disabled, "", style, options_id, disabled, "", style, options_data]
 
