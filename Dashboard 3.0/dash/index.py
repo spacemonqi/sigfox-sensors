@@ -27,9 +27,9 @@ navbar = dbc.Navbar(
                 dbc.Row([
                         dbc.Col(html.Img(src="/assets/divigraph.png", height="40px")),
                         dbc.Col(dbc.NavbarBrand("Divigraph", className="ml-2")),
-                    ],
-                    align="center",
-                    no_gutters=True,
+                        ],
+                        align="center",
+                        no_gutters=True,
                 ),
                 href="/home",
             ),
@@ -75,5 +75,5 @@ def display_page(pathname):
         return home.layout
 
 if __name__ == '__main__':
-    app.run_server(debug=False, dev_tools_ui=False, dev_tools_props_check=False)
-    # app.run_server(debug=True)
+    # app.run_server(debug=False, dev_tools_ui=False, dev_tools_props_check=False)
+    app.run_server(debug=True)

@@ -1,4 +1,24 @@
+import pandas as pd
 import csv
+
+def get_options(list_data, channel_ld=None):
+    dict_list = []
+    if channel_ld:
+        i = 0
+        for item in list_data:
+            dict_list.append({'label': channel_ld[i]['alias'], 'value': item})
+            i += 1
+    else:
+        for item in list_data:
+            dict_list.append({'label': item, 'value': item})
+
+    return dict_list
+
+def get_df(filename):
+    df = pd.read_csv(filename, parse_dates=True)
+    df.index = pd.to_datetime(df['timestamp'])
+
+    return df
 
 def update_channels(channels_ld):
     with open('config/channels.txt', mode='w', newline='') as csv_file:
@@ -25,12 +45,3 @@ def string_channels():
         csv_file.close()
 
     return channel_name_string[0:-2]
-
-# channels_ld = [
-#     {'channel': 'CH1', 'alias': 'Temperature', 'scaling_fact': 1},
-#     {'channel': 'CH2', 'alias': 'Humidity', 'scaling_fact': 1},
-#     {'channel': 'CH3', 'alias': 'ADC1', 'scaling_fact': 1},
-#     {'channel': 'CH4', 'alias': 'ADC2', 'scaling_fact': 1},
-#     {'channel': 'CH5', 'alias': 'CO2', 'scaling_fact': 1},
-#     {'channel': 'CH6', 'alias': 'VOC', 'scaling_fact': 1},
-# ]

@@ -9,27 +9,12 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 
+import utils
 from app import app
-import channels
 
 #----------------------------------------------------------------------------------------------------------------------#
-def get_options(list_data, channel_ld=None):
-    dict_list = []
-    if channel_ld:
-        i = 0
-        for item in list_data:
-            dict_list.append({'label': channel_ld[i]['alias'], 'value': item})
-            i += 1
-    else:
-        for item in list_data:
-            dict_list.append({'label': item, 'value': item})
-
-    return dict_list
-
-#----------------------------------------------------------------------------------------------------------------------#
-df = pd.read_csv('../data/sensor_data.csv', parse_dates=True)
-df.index = pd.to_datetime(df['timestamp'])
-channel_ld = channels.get_channels()
+df = utils.get_df('../data/sensor_data.csv')
+channel_ld = utils.get_channels()
 
 colorlistlist_sensor = [['#63D1F4'], ['#E0FFFF'], ['#95C8D8'], ["#008ECC"], ['#6593D5'], ['#73C2FB']]
 colorlist_meas = ['#FFF400', '#FF4F00', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
@@ -39,7 +24,7 @@ layout = html.Div([
     dbc.Container([
         dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network"), className="mb-2")]),
         dbc.Row([dbc.Col(html.H6(children="Selected Channels: "))]),
-        dbc.Row([dbc.Col(html.H6(id='h6_channel_string_sensors', children=channels.string_channels()), className="mb-4")]),
+        dbc.Row([dbc.Col(html.H6(id='h6_channel_string_sensors', children=utils.string_channels()), className="mb-4")]),
 
         dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Measurement', className="text-center bg-primary"),
                                   body=True,
@@ -62,7 +47,7 @@ layout = html.Div([
                 dbc.Col(children=[
                             html.P('''Sensor ID:'''),
                             dcc.Dropdown(id='dd_id_meas',
-                                         options=get_options(df['deviceId'].unique()),
+                                         options=utils.get_options(df['deviceId'].unique()),
                                          multi=True,
                                          style={'margin-bottom': '10px',
                                                 'color': 'black',
@@ -74,7 +59,7 @@ layout = html.Div([
                 dbc.Col(children=[
                             html.P('''Measurement:'''),
                             dcc.Dropdown(id='dd_measurement_meas',
-                                         options=get_options(df['data'].unique(), channel_ld),
+                                         options=utils.get_options(df['data'].unique(), channel_ld),
                                          style={'margin-bottom': '10px',
                                                 'color': 'black',
                                                 'background-color': 'white'}
@@ -107,7 +92,7 @@ layout = html.Div([
                 dbc.Col(children=[
                             html.P('''Sensor ID:'''),
                             dcc.Dropdown(id='dd_id_sensor',
-                                         options=get_options(df['deviceId'].unique()),
+                                         options=utils.get_options(df['deviceId'].unique()),
                                          style={'margin-bottom': '10px',
                                                 'color': 'black',
                                                 'background-color': 'white'}
@@ -141,26 +126,25 @@ layout = html.Div([
             ]),
         ]),
 
-        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Cumulative Data by Sensor Type', className="text-center bg-primary"),
-                                  body=True,
-                                  color="primary"),
-                 className="mb-4 mt-5")]),
-        dbc.Row([
-                dbc.Col(children=[
-                            html.P('''Sensor type:'''),
-                            dcc.Dropdown(id='dd_type_type',
-                                         options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
-                                                  {'label': 'S2LP', 'value': 'S2LP'},
-                                                  {'label': 'TI', 'value': 'TI'}],
-                                         style={'width': '325px',
-                                                'margin-bottom': '10px',
-                                                'color': 'black',
-                                                'background-color': 'white'}
-                            ),
-                        ],
-                        width = 4,
-                ),
-        ]),
+        # dbc.Row([dbc.Col(dbc.Card(html.H3(children='Cumulative Data by Sensor Type', className="text-center bg-primary"),
+        #                           body=True,
+        #                           color="primary"),
+        #          className="mb-4 mt-5")]),
+        # dbc.Row([
+        #         dbc.Col(children=[
+        #                     html.P('''Sensor type:'''),
+        #                     dcc.Dropdown(id='dd_type_type',
+        #                                  options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
+        #                                           {'label': 'S2LP', 'value': 'S2LP'},
+        #                                           {'label': 'TI', 'value': 'TI'}],
+        #                                  style={'margin-bottom': '10px',
+        #                                         'color': 'black',
+        #                                         'background-color': 'white'}
+        #                     ),
+        #                 ],
+        #                 width = 4,
+        #         ),
+        # ]),
 
         dcc.Interval(id='graph_update', interval= 1 * 1000, n_intervals=0),
     ])
@@ -173,7 +157,7 @@ layout = html.Div([
 def channel_string_scaling_factor_update(x):
 
     df = pd.read_csv('../data/sensor_data.csv')
-    channels_ld = channels.get_channels()
+    channels_ld = utils.get_channels()
 
     scaling_fact = 1.0
     df_scaled = df
@@ -188,7 +172,7 @@ def channel_string_scaling_factor_update(x):
     df_scaled.to_csv('../data/sensor_data_temp.csv', index=False, header=True)
     copyfile('../data/sensor_data_temp.csv', '../data/sensor_data_scaled.csv')
 
-    return channels.string_channels()
+    return utils.string_channels()
 
 #----------------------------------------------------------------------------------------------------------------------#
 # Callback function to enable/disable & update options of dd_id_meas & dd_measurement_meas based on dd_type_meas
@@ -203,7 +187,7 @@ def channel_string_scaling_factor_update(x):
               [Input('dd_type_meas', 'value')])
 def dd_meas_update(value):
     style = {'margin-bottom': '10px', 'color': 'black', 'background-color': '#848a8e'}
-    channel_ld = channels.get_channels()
+    channel_ld = utils.get_channels()
     disabled = True
     options_id = []
     options_data = []
@@ -211,8 +195,8 @@ def dd_meas_update(value):
         disabled = False
         style = {'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
     if value == 'STM32WL55':
-        options_id = get_options(df['deviceId'].unique())
-        options_data = get_options(df['data'].unique(), channel_ld)
+        options_id = utils.get_options(df['deviceId'].unique())
+        options_data = utils.get_options(df['data'].unique(), channel_ld)
 
     return [disabled, "", style, options_id, disabled, "", style, options_data]
 
@@ -357,14 +341,14 @@ def update_meas_change(ids, data, n):
                Output('dd_id_sensor', 'options')],
               [Input('dd_type_sensor', 'value')])
 def dd_sensor_update(value):
-    style = {'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': '#848a8e'}
+    style = {'margin-bottom': '10px', 'color': 'black', 'background-color': '#848a8e'}
     disabled = True
     options_id = []
     if value:
         disabled = False
-        style = {'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
+        style = {'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
     if value == 'STM32WL55':
-        options_id = get_options(df['deviceId'].unique())
+        options_id = utils.get_options(df['deviceId'].unique())
 
     return [disabled, "", style, options_id]
 
@@ -382,7 +366,7 @@ def update_sensor_timeseries(id, n):
     df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
 
-    channels_ld = channels.get_channels()
+    channels_ld = utils.get_channels()
     figures = []
     data = df['data'].unique()
 
