@@ -7,7 +7,6 @@ from dash.dependencies import Input, Output, State
 # from app import server
 from app import app
 import configuration, sensors, home
-# import callbacks
 
 dropdown = dbc.DropdownMenu(
     children=[
@@ -36,10 +35,7 @@ navbar = dbc.Navbar(
             ),
             dbc.NavbarToggler(id="navbar-toggler2"),
             dbc.Collapse(
-                dbc.Nav(
-                    # right align dropdown menu with ml-auto className
-                    [dropdown], className="ml-auto", navbar=True
-                ),
+                dbc.Nav([dropdown], className="ml-auto", navbar=True),
                 id="navbar-collapse2",
                 navbar=True,
             ),

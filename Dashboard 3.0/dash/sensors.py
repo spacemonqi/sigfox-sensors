@@ -52,8 +52,7 @@ layout = html.Div([
                                          options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
                                                   {'label': 'S2LP', 'value': 'S2LP'},
                                                   {'label': 'TI', 'value': 'TI'}],
-                                         style={'width': '325px',
-                                                'margin-bottom': '10px',
+                                         style={'margin-bottom': '10px',
                                                 'color': 'black',
                                                 'background-color': 'white'}
                             ),
@@ -65,8 +64,7 @@ layout = html.Div([
                             dcc.Dropdown(id='dd_id_meas',
                                          options=get_options(df['deviceId'].unique()),
                                          multi=True,
-                                         style={'width': '325px',
-                                                'margin-bottom': '10px',
+                                         style={'margin-bottom': '10px',
                                                 'color': 'black',
                                                 'background-color': 'white'}
                             ),
@@ -77,8 +75,7 @@ layout = html.Div([
                             html.P('''Measurement:'''),
                             dcc.Dropdown(id='dd_measurement_meas',
                                          options=get_options(df['data'].unique(), channel_ld),
-                                         style={'width': '325px',
-                                                'margin-bottom': '10px',
+                                         style={'margin-bottom': '10px',
                                                 'color': 'black',
                                                 'background-color': 'white'}
                             ),
@@ -100,8 +97,7 @@ layout = html.Div([
                                          options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
                                                   {'label': 'S2LP', 'value': 'S2LP'},
                                                   {'label': 'TI', 'value': 'TI'}],
-                                         style={'width': '325px',
-                                                'margin-bottom': '10px',
+                                         style={'margin-bottom': '10px',
                                                 'color': 'black',
                                                 'background-color': 'white'}
                             ),
@@ -112,8 +108,7 @@ layout = html.Div([
                             html.P('''Sensor ID:'''),
                             dcc.Dropdown(id='dd_id_sensor',
                                          options=get_options(df['deviceId'].unique()),
-                                         style={'width': '325px',
-                                                'margin-bottom': '10px',
+                                         style={'margin-bottom': '10px',
                                                 'color': 'black',
                                                 'background-color': 'white'}
                             ),
@@ -207,14 +202,14 @@ def channel_string_scaling_factor_update(x):
                Output('dd_measurement_meas', 'options')],
               [Input('dd_type_meas', 'value')])
 def dd_meas_update(value):
-    style = {'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': '#848a8e'}
+    style = {'margin-bottom': '10px', 'color': 'black', 'background-color': '#848a8e'}
     channel_ld = channels.get_channels()
     disabled = True
     options_id = []
     options_data = []
     if value:
         disabled = False
-        style = {'width': '330px', 'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
+        style = {'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
     if value == 'STM32WL55':
         options_id = get_options(df['deviceId'].unique())
         options_data = get_options(df['data'].unique(), channel_ld)
