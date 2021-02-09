@@ -15,6 +15,7 @@ from app import app
 #----------------------------------------------------------------------------------------------------------------------#
 df = utils.get_df('../data/sensor_data.csv')
 channel_ld = utils.get_channels()
+device_ld = utils.get_devices()
 
 colorlistlist_sensor = [['#63D1F4'], ['#E0FFFF'], ['#95C8D8'], ["#008ECC"], ['#6593D5'], ['#73C2FB']]
 colorlist_meas = ['#FFF400', '#FF4F00', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
@@ -47,7 +48,7 @@ layout = html.Div([
                 dbc.Col(children=[
                             html.P('''Sensor ID:'''),
                             dcc.Dropdown(id='dd_id_meas',
-                                         options=utils.get_options(df['deviceId'].unique()),
+                                         options=utils.get_options(df['deviceId'].unique(), device_ld),
                                          multi=True,
                                          style={'margin-bottom': '10px',
                                                 'color': 'black',
@@ -92,7 +93,7 @@ layout = html.Div([
                 dbc.Col(children=[
                             html.P('''Sensor ID:'''),
                             dcc.Dropdown(id='dd_id_sensor',
-                                         options=utils.get_options(df['deviceId'].unique()),
+                                         options=utils.get_options(df['deviceId'].unique(), device_ld),
                                          style={'margin-bottom': '10px',
                                                 'color': 'black',
                                                 'background-color': 'white'}
@@ -188,6 +189,7 @@ def channel_string_scaling_factor_update(x):
 def dd_meas_update(value):
     style = {'margin-bottom': '10px', 'color': 'black', 'background-color': '#848a8e'}
     channel_ld = utils.get_channels()
+    device_ld = utils.get_devices()
     disabled = True
     options_id = []
     options_data = []
@@ -195,7 +197,7 @@ def dd_meas_update(value):
         disabled = False
         style = {'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
     if value == 'STM32WL55':
-        options_id = utils.get_options(df['deviceId'].unique())
+        options_id = utils.get_options(df['deviceId'].unique(), device_ld)
         options_data = utils.get_options(df['data'].unique(), channel_ld)
 
     return [disabled, "", style, options_id, disabled, "", style, options_data]
@@ -341,6 +343,7 @@ def update_meas_change(ids, data, n):
                Output('dd_id_sensor', 'options')],
               [Input('dd_type_sensor', 'value')])
 def dd_sensor_update(value):
+    device_ld = utils.get_devices()
     style = {'margin-bottom': '10px', 'color': 'black', 'background-color': '#848a8e'}
     disabled = True
     options_id = []
@@ -348,7 +351,7 @@ def dd_sensor_update(value):
         disabled = False
         style = {'margin-bottom': '10px', 'color': 'black', 'background-color': 'white'}
     if value == 'STM32WL55':
-        options_id = utils.get_options(df['deviceId'].unique())
+        options_id = utils.get_options(df['deviceId'].unique(), device_ld)
 
     return [disabled, "", style, options_id]
 

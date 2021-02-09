@@ -1,12 +1,15 @@
 import pandas as pd
 import csv
 
-def get_options(list_data, channel_ld=None):
+def get_options(list_data, ld=None):
     dict_list = []
-    if channel_ld:
-        i = 0
+    i = 0
+    if ld:
         for item in list_data:
-            dict_list.append({'label': channel_ld[i]['alias'], 'value': item})
+            if ld[i]['alias']:
+                dict_list.append({'label': ld[i]['alias'], 'value': item})
+            else:
+                dict_list.append({'label': item, 'value': item})
             i += 1
     else:
         for item in list_data:
