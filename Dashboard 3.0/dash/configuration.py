@@ -201,19 +201,17 @@ def placeholders_update(deviceid):
 
     flag = False
     for dict in devices_ld:
-        if dict['deviceid'] == deviceid:
+        if dict['name'] == deviceid:
             placeholder_list.append(dict['alias'])
-            # placeholder_list.append(dict['alias'])
             flag = True
     if not flag:
         placeholder_list.append("")
-        # placeholder_list.append("")
 
-    # print(placeholder_list)
+    print(placeholder_list)
 
     return placeholder_list
 
-# Callback function to update placeholders in the inputs
+# Callback function to write device aliases to csv
 @app.callback(Output("in_device_alias", "type"),
               Input("in_device_alias", "value"))
 def device_alias_update(new_alias):
@@ -226,7 +224,7 @@ def device_alias_update(new_alias):
 
     if new_alias:
         for i in range(len(devices_ld)):
-            if devices_ld[i]['deviceid'] == deviceid:
+            if devices_ld[i]['name'] == deviceid:
                 devices_ld[i]['alias'] = new_alias
 
     utils.update_devices(devices_ld)

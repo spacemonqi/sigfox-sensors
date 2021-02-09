@@ -166,7 +166,7 @@ def channel_string_scaling_factor_update(x):
     df_scaled['change'] = df_scaled['change'].astype(float)
 
     for dict in channels_ld:
-        channel = dict['channel']
+        channel = dict['name']
         scaling_fact = float(dict['scaling_fact'])
         df_scaled.loc[df_scaled['data']==channel, 'value'] = df_scaled[df_scaled['data']==channel]['value'] * scaling_fact
         df_scaled.loc[df_scaled['data']==channel, 'change'] = df_scaled[df_scaled['data']==channel]['change'] * scaling_fact

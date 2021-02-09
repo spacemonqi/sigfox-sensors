@@ -1,4 +1,5 @@
 import pandas as pd
+# import operator
 import csv
 
 def get_options(list_data, ld=None):
@@ -17,6 +18,28 @@ def get_options(list_data, ld=None):
 
     return dict_list
 
+# def get_options(list_data, ld=None):
+#     list_data_sorted = sorted(list_data)
+#     print('list_data_sorted')
+#     print(list_data_sorted)
+#     print('ld')
+#     print(ld)
+#     dict_list = []
+#     i = 0
+#     if ld:
+#         ld.sort(key=operator.itemgetter('name'))
+#         for item in list_data_sorted:
+#             if ld[i]['alias']:
+#                 dict_list.append({'label': ld[i]['alias'], 'value': item})
+#             else:
+#                 dict_list.append({'label': item, 'value': item})
+#             i += 1
+#     else:
+#         for item in list_data_sorted:
+#             dict_list.append({'label': item, 'value': item})
+#
+#     return dict_list
+
 def get_df(filename):
     df = pd.read_csv(filename, parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])
@@ -25,7 +48,7 @@ def get_df(filename):
 
 def update_channels(channels_ld):
     with open('config/channels.csv', mode='w', newline='') as csv_file:
-        fieldnames = ['channel', 'alias', 'scaling_fact']
+        fieldnames = ['name', 'alias', 'scaling_fact']
         csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         csv_writer.writeheader()
         for channel_name in channels_ld:
@@ -51,7 +74,7 @@ def string_channels():
 
 def update_devices(device_ld):
     with open('config/devices.csv', mode='w', newline='') as csv_file:
-        fieldnames = ['deviceid', 'alias']
+        fieldnames = ['name', 'alias']
         csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         csv_writer.writeheader()
         for device_name in device_ld:
