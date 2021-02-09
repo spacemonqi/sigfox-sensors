@@ -173,7 +173,7 @@ layout = html.Div([
 #----------------------------------------------------------------------------------------   ------------------------------#
 # Callback function to update the channel string and to apply all the scaling factors
 @app.callback(Output('h6_channel_string_sensors', 'children'),
-              Input('h6_channel_string_sensors', 'children'))
+              Input('graph_update', 'n_intervals'))
 def channel_string_scaling_factor_update(x):
 
     df = pd.read_csv('data/sensor_data.csv')

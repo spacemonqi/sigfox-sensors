@@ -87,7 +87,7 @@ def write_data_to_csv(filename):
 tableName, online = read_params('config/config.txt')
 
 while True:
-    last_timestamp, df_sigfox = write_data_to_csv('data/sensor_data.csv')
+    last_timestamp, df_sigfox = write_data_to_csv('../data/sensor_data.csv')
     time.sleep(1)                                                           #THIS IS VERY BAD
 
 # while True:
