@@ -165,33 +165,10 @@ layout = html.Div([
                 width = 4,
             ),
         ]),
-        # dbc.Row([html.P('''Sensor ID:''')]),
-        # dbc.Row([
-        #     dbc.Col(
-        #         dcc.Dropdown(
-        #             id='dd_id',
-        #             options=utils.get_options(df['deviceId'].unique()),
-        #             multi=True,
-        #             style={'margin-bottom': '10px',
-        #                    'color': 'black',
-        #                    'background-color': 'white'}
-        #         ),
-        #         width = 4,
-        #     ),
-        #     dbc.Col(
-        #         dcc.Input(
-        #             id="in_scaling_factor_6",
-        #             type="number",
-        #             placeholder = "",
-        #             style = {'margin-bottom': '10px'}
-        #         ),
-        #         width = 4,
-        #     )
-        # ])
     ])
 ])
 
-# Callback function to update the placeholders in the inputs - triggered by any component on reloading
+# Callback function to update placeholders in the inputs
 @app.callback([Output("in_alias_1", "placeholder"),
                Output("in_scaling_factor_1", "placeholder"),
                Output("in_alias_2", "placeholder"),
@@ -203,18 +180,58 @@ layout = html.Div([
                Output("in_alias_5", "placeholder"),
                Output("in_scaling_factor_5", "placeholder"),
                Output("in_alias_6", "placeholder"),
-               Output("in_scaling_factor_6", "placeholder")],
-              [Input("h6_channel_string_configuration", "children")])
-def update_placeholders(x):
+               Output("in_scaling_factor_6", "placeholder"),
+               Output("in_device_alias", "value")],
+              [Input("dd_id", "value")])
+def placeholders_update(deviceid):
+
+    if deviceid:
+        with open('config/dd_current_devid.txt', mode='w') as file:
+            file.write(deviceid)
+            file.close()
 
     channels_ld = utils.get_channels()
+    devices_ld = utils.get_devices()
+
     placeholder_list = []
 
     for dict in channels_ld:
         placeholder_list.append(dict['alias'])
         placeholder_list.append(dict['scaling_fact'])
 
+    flag = False
+    for dict in devices_ld:
+        if dict['deviceid'] == deviceid:
+            placeholder_list.append(dict['alias'])
+            # placeholder_list.append(dict['alias'])
+            flag = True
+    if not flag:
+        placeholder_list.append("")
+        # placeholder_list.append("")
+
+    # print(placeholder_list)
+
     return placeholder_list
+
+# Callback function to update placeholders in the inputs
+@app.callback(Output("in_device_alias", "type"),
+              Input("in_device_alias", "value"))
+def device_alias_update(new_alias):
+
+    with open('config/dd_current_devid.txt', mode='r') as file:
+        deviceid = file.read()
+        file.close()
+
+    devices_ld = utils.get_devices()
+
+    if new_alias:
+        for i in range(len(devices_ld)):
+            if devices_ld[i]['deviceid'] == deviceid:
+                devices_ld[i]['alias'] = new_alias
+
+    utils.update_devices(devices_ld)
+
+    return 'text'
 
 # Callback function to update the channel aliases and scaling factors
 @app.callback(Output("h6_channel_string_configuration", "children"),
