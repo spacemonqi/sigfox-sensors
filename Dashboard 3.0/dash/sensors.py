@@ -31,7 +31,7 @@ df = pd.read_csv('../data/sensor_data.csv', parse_dates=True)
 df.index = pd.to_datetime(df['timestamp'])
 channel_ld = channels.get_channels()
 
-colorlistlist_sensor = [['#FFF400'], ['#FF4F00'], ['#FF0056'], ["#5E0DAC"], ['#60AAED'], ['#1CA776']]
+colorlistlist_sensor = [['#63D1F4'], ['#E0FFFF'], ['#95C8D8'], ["#008ECC"], ['#6593D5'], ['#73C2FB']]
 colorlist_meas = ['#FFF400', '#FF4F00', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
 
 #----------------------------------------------------------------------------------------------------------------------#
