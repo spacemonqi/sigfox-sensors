@@ -1,8 +1,6 @@
-from app import app
-import channels
-
 import numpy as np
 import pandas as pd
+from shutil import copyfile
 
 import plotly.graph_objects as go
 
@@ -10,6 +8,9 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
+
+from app import app
+import channels
 
 #----------------------------------------------------------------------------------------------------------------------#
 def get_options(list_data, channel_ld=None):
@@ -26,7 +27,7 @@ def get_options(list_data, channel_ld=None):
     return dict_list
 
 #----------------------------------------------------------------------------------------------------------------------#
-df = pd.read_csv('data/sensor_data.csv', parse_dates=True)
+df = pd.read_csv('../data/sensor_data.csv', parse_dates=True)
 df.index = pd.to_datetime(df['timestamp'])
 channel_ld = channels.get_channels()
 
@@ -176,7 +177,7 @@ layout = html.Div([
               Input('graph_update', 'n_intervals'))
 def channel_string_scaling_factor_update(x):
 
-    df = pd.read_csv('data/sensor_data.csv')
+    df = pd.read_csv('../data/sensor_data.csv')
     channels_ld = channels.get_channels()
 
     scaling_fact = 1.0
@@ -189,7 +190,8 @@ def channel_string_scaling_factor_update(x):
         scaling_fact = float(dict['scaling_fact'])
         df_scaled.loc[df_scaled['data']==channel, 'value'] = df_scaled[df_scaled['data']==channel]['value'] *scaling_fact
         df_scaled.loc[df_scaled['data']==channel, 'change'] = df_scaled[df_scaled['data']==channel]['change'] * scaling_fact
-    df_scaled.to_csv('data/sensor_data_scaled.csv', index=False, header=True)
+    df_scaled.to_csv('../data/sensor_data_temp.csv', index=False, header=True)
+    copyfile('../data/sensor_data_temp.csv', '../data/sensor_data_scaled.csv')
 
     return channels.string_channels()
 
@@ -226,7 +228,11 @@ def dd_meas_update(value):
                Input('graph_update', 'n_intervals')])
 def update_meas_timeseries(ids, data, n):
 
-    df = pd.read_csv('data/sensor_data_scaled.csv', parse_dates=True)
+    # file = open('sensor_data_scaled.csv')
+    # if file.closed:
+    #   print 'file is closed'
+
+    df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
 
     trace = []
@@ -262,49 +268,6 @@ def update_meas_timeseries(ids, data, n):
                     )
         )
 
-    # df = pd.read_csv('data/sensor_data.csv', parse_dates=True)
-    # df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
-    #
-    # trace = []
-    #
-    # scaling_fact = 1
-    # channels_ld = channels.get_channels()
-    # for dict in channels_ld:
-    #     if dict['channel'] == data:
-    #         scaling_fact = float(dict['scaling_fact'])
-    #
-    # if ids and data:
-    #     df_data = df[df['data'] == data]
-    #     df_data['value'] = df_data['value'].astype(int) * scaling_fact
-    #     xmin = df_data.index.min()
-    #     xmax = df_data.index.max()
-    #     ymin = df_data['value'].min() - 0.05 * np.abs(df_data['value'].max())
-    #     ymax = df_data['value'].max() + 0.05 * np.abs(df_data['value'].max())
-    #     for id in ids:
-    #         df_data_id = df_data[df_data['deviceId'] == id]
-    #         trace.append(go.Scatter(x=df_data_id.index,
-    #                                 y=df_data_id['value'],
-    #                                 mode='lines+markers',
-    #                                 opacity=0.7,
-    #                                 line={'width': 3},
-    #                                 name=id,
-    #                                 textposition='bottom center'))
-    # else:
-    #     df_clear = df
-    #     df_clear['value'].values[:] = 0
-    #     xmin = df.index.min()
-    #     xmax = df.index.max()
-    #     ymin = -100
-    #     ymax = 100
-    #     trace.append(go.Scatter(x=df_clear.index,
-    #                             y=df_clear['value'],
-    #                             mode='lines',
-    #                             opacity=0.7,
-    #                             line={'width': 3},
-    #                             textposition='bottom center'
-    #                 )
-    #     )
-
     traces = [trace]
     data = [val for sublist in traces for val in sublist]
 
@@ -332,7 +295,7 @@ def update_meas_timeseries(ids, data, n):
                Input('graph_update', 'n_intervals')])
 def update_meas_change(ids, data, n):
 
-    df = pd.read_csv('data/sensor_data_scaled.csv', parse_dates=True)
+    df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
 
     trace = []
@@ -421,7 +384,7 @@ def dd_sensor_update(value):
                Input('graph_update', 'n_intervals')])
 def update_sensor_timeseries(id, n):
 
-    df = pd.read_csv('data/sensor_data_scaled.csv', parse_dates=True)
+    df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
 
     channels_ld = channels.get_channels()

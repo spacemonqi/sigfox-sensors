@@ -1,25 +1,11 @@
 #!/usr/local/bin/python3
 
-from aws_api import *
-
-from datetime import datetime, timedelta
-from decimal import Decimal
-from pprint import pprint
-import json
-
-import math
-import random
 import pandas as pd
-import numpy as np
-from collections import deque
-
+from datetime import datetime
 import time
 import csv
-from csv import DictWriter
-import sys
-import os
 
-import pdb
+import aws_api
 
 #----------------------------------------------------------------------------------------------------------------------#
 def now():
@@ -43,22 +29,22 @@ def write_data_to_csv(filename):
     num_data_types = len(data_types)
     columns = ['deviceId', 'timestamp', 'data', 'value', 'change']
     df = pd.DataFrame(columns=columns)
-    all_msgs = scan_items_AWS(online, tableName)['Items']
+    all_msgs = aws_api.scan_items_AWS(online, tableName)['Items']
     num_all_msgs = len(all_msgs)
     for i in range(num_all_msgs):
-            item_dict = {'deviceId': all_msgs[i]['deviceId'],
-                         'timestamp': datetime.fromtimestamp(int(int(str(all_msgs[i]['timestamp']))/1000+1))} #THIS IS VERY BAD
-            for k in range(num_data_types):
-                item_dict['data'] = data_types[k]
-                item_dict['value'] = int(all_msgs[i]['payload']['data'][k*4:k*4+4], 16)
-                if (i==0):
-                    item_dict['change'] = item_dict['value']
-                else:
-                    item_dict['change'] = item_dict['value'] - int(df.at[i*num_data_types+k-num_data_types,'value'])
-                df.loc[i*num_data_types+k] = item_dict
+        item_dict = {'deviceId': all_msgs[i]['deviceId'],
+                     'timestamp': datetime.fromtimestamp(int(int(str(all_msgs[i]['timestamp']))/1000+1))}  # THIS IS VERY BAD
+        for k in range(num_data_types):
+            item_dict['data'] = data_types[k]
+            item_dict['value'] = int(all_msgs[i]['payload']['data'][k*4:k*4+4], 16)
+            if (i==0):
+                item_dict['change'] = item_dict['value']
+            else:
+                item_dict['change'] = item_dict['value'] - int(df.at[i * num_data_types + k - num_data_types, 'value'])
+            df.loc[i * num_data_types + k] = item_dict
     df = df.sort_values(by=['timestamp', 'deviceId', 'data'], ascending=True)
-    df.to_csv(filename, index=False  , header=True)
-    last_timestamp = int(int(datetime.timestamp(df.iloc[-1]['timestamp']))*1000)
+    df.to_csv(filename, index=False, header=True)
+    last_timestamp = int(int(datetime.timestamp(df.iloc[-1]['timestamp'])) * 1000)
 
     return last_timestamp, df
 
@@ -88,7 +74,7 @@ tableName, online = read_params('config/config.txt')
 
 while True:
     last_timestamp, df_sigfox = write_data_to_csv('../data/sensor_data.csv')
-    time.sleep(1)                                                           #THIS IS VERY BAD
+    time.sleep(1)                                                           # THIS IS VERY BAD
 
 # while True:
 #     # deviceId = '22229D7'
