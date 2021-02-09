@@ -168,7 +168,7 @@ def channel_string_scaling_factor_update(x):
     for dict in channels_ld:
         channel = dict['channel']
         scaling_fact = float(dict['scaling_fact'])
-        df_scaled.loc[df_scaled['data']==channel, 'value'] = df_scaled[df_scaled['data']==channel]['value'] *scaling_fact
+        df_scaled.loc[df_scaled['data']==channel, 'value'] = df_scaled[df_scaled['data']==channel]['value'] * scaling_fact
         df_scaled.loc[df_scaled['data']==channel, 'change'] = df_scaled[df_scaled['data']==channel]['change'] * scaling_fact
     df_scaled.to_csv('../data/sensor_data_temp.csv', index=False, header=True)
     copyfile('../data/sensor_data_temp.csv', '../data/sensor_data_scaled.csv')
