@@ -1,11 +1,13 @@
 import pandas as pd
-# import operator
 import csv
 
 def get_options(list_data, ld=None):
+
+    list_data = sorted(list_data)
     dict_list = []
-    i = 0
+
     if ld:
+        i = 0
         for item in list_data:
             if ld[i]['alias']:
                 dict_list.append({'label': ld[i]['alias'], 'value': item})
@@ -17,28 +19,6 @@ def get_options(list_data, ld=None):
             dict_list.append({'label': item, 'value': item})
 
     return dict_list
-
-# def get_options(list_data, ld=None):
-#     list_data_sorted = sorted(list_data)
-#     print('list_data_sorted')
-#     print(list_data_sorted)
-#     print('ld')
-#     print(ld)
-#     dict_list = []
-#     i = 0
-#     if ld:
-#         ld.sort(key=operator.itemgetter('name'))
-#         for item in list_data_sorted:
-#             if ld[i]['alias']:
-#                 dict_list.append({'label': ld[i]['alias'], 'value': item})
-#             else:
-#                 dict_list.append({'label': item, 'value': item})
-#             i += 1
-#     else:
-#         for item in list_data_sorted:
-#             dict_list.append({'label': item, 'value': item})
-#
-#     return dict_list
 
 def get_df(filename):
     df = pd.read_csv(filename, parse_dates=True)
