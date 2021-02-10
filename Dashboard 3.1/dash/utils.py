@@ -1,6 +1,7 @@
 import pandas as pd
 import csv
 
+# Function to get all value/value or value/label pairs for dropdown options
 def get_options(list_data, ld=None):
 
     list_data = sorted(list_data)
