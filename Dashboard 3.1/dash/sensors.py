@@ -17,7 +17,8 @@ df = utils.get_df('../data/sensor_data.csv')
 channel_ld = utils.get_channels()
 device_ld = utils.get_devices()
 
-colorlistlist_sensor = [['#63D1F4'], ['#E0FFFF'], ['#95C8D8'], ["#008ECC"], ['#6593D5'], ['#73C2FB']]
+# colorlistlist_sensor = [['#63D1F4'], ['#E0FFFF'], ['#95C8D8'], ["#008ECC"], ['#6593D5'], ['#73C2FB']]
+colorlistlist_sensor = [['#2cfec1'], ['#2cfec1'], ['#2cfec1'], ["#2cfec1"], ['#2cfec1'], ['#2cfec1']]
 colorlist_meas = ['#FFF400', '#FF4F00', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
 
 #----------------------------------------------------------------------------------------------------------------------#

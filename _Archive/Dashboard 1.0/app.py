@@ -25,7 +25,7 @@ def get_options(list_data):
 df = pd.read_csv('data/sensor_data.csv', index_col=0, parse_dates=True)
 df.index = pd.to_datetime(df['timestamp'])
 
-app = dash.Dash(__name__);
+app = dash.Dash(__name__)
 
 # Define the app
 app.layout = html.Div(children=[
