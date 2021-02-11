@@ -17,15 +17,15 @@ df = utils.get_df('../data/sensor_data.csv')
 channel_ld = utils.get_channels()
 device_ld = utils.get_devices()
 
-# colorlistlist_sensor = [['#63D1F4'], ['#E0FFFF'], ['#95C8D8'], ["#008ECC"], ['#6593D5'], ['#73C2FB']]
-colorlistlist_sensor = [['#2cfec1'], ['#2cfec1'], ['#2cfec1'], ["#2cfec1"], ['#2cfec1'], ['#2cfec1']]
-colorlist_meas = ['#FFF400', '#FF4F00', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
+colorlistlist_sensor = [['#63D1F4'], ['#E0FFFF'], ['#95C8D8'], ["#008ECC"], ['#6593D5'], ['#73C2FB']]
+# colorlistlist_sensor = [['#2cfec1'], ['#2cfec1'], ['#2cfec1'], ["#2cfec1"], ['#2cfec1'], ['#2cfec1']]
+colorlist_meas = ['#FF4F00', '#FFF400', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
 
 #----------------------------------------------------------------------------------------------------------------------#
 layout = html.Div([
     dbc.Container([
         dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network"), className="mb-2")]),
-        dbc.Row([dbc.Col(html.H6(children="Selected Channels: "))]),
+        dbc.Row([dbc.Col(html.H6(children="Channels: "))]),
         dbc.Row([dbc.Col(html.H6(id='h6_channel_string_sensors', children=utils.string_channels()), className="mb-4")]),
 
         dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Measurement', className="text-center bg-primary"),
@@ -210,10 +210,6 @@ def dd_meas_update(value):
                Input('graph_update', 'n_intervals')])
 def update_meas_timeseries(ids, data, n):
 
-    # file = open('sensor_data_scaled.csv')
-    # if file.closed:
-    #   print 'file is closed'
-
     df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
 
@@ -263,8 +259,8 @@ def update_meas_timeseries(ids, data, n):
                   hovermode='x',
                   autosize=True,
                   title={'text': 'Sensor Data', 'font': {'color': 'white'}, 'x': 0.5},
-                  xaxis={'range': [xmin, xmax]},
-                  yaxis={'range': [ymin, ymax]},
+                  xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
+                  yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
               ),
     }
 
@@ -329,8 +325,8 @@ def update_meas_change(ids, data, n):
                   hovermode='x',
                   autosize=True,
                   title={'text': 'Change', 'font': {'color': 'white'}, 'x': 0.5},
-                  xaxis={'range': [xmin, xmax]},
-                  yaxis={'range': [ymin, ymax]},
+                  xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
+                  yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
               ),
     }
 

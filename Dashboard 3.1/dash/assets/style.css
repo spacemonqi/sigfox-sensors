@@ -10802,16 +10802,9 @@ legend {
   background-color: #1c1e22;
 }
 
-
-
-
-
-
-
 h1, h2, h3, h4, h5, h6{ /*teslassian*/
   color: #fff !important;
 }
-
 
 p{ /*teslassian*/
   color: #fff !important;
@@ -10819,4 +10812,9 @@ p{ /*teslassian*/
 
 .form-dropdown { /*teslassian*/
 color: #000000 !important;
+}
+
+::placeholder { /*teslassian*/
+  color: #3a3000;
+  opacity: 1; /* Firefox */
 }

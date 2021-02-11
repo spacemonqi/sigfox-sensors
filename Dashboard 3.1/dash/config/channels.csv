@@ -1,6 +1,6 @@
 name,alias,scaling_fact
 CH1,Temperature,500.0
-CH2,Humidity,-2.0
+CH2, Humidity,-2.0
 CH3,Gas,101.3
 CH4,ADC,3.3
 CH5,O2,100000000.0

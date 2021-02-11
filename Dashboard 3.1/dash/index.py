@@ -6,13 +6,13 @@ from dash.dependencies import Input, Output, State
 # must add this line in order for the app to be deployed successfully on Heroku
 # from app import server
 from app import app
-import configuration, sensors, home
+import configuration, statistics, home
 
 dropdown = dbc.DropdownMenu(
     children=[
         dbc.DropdownMenuItem("Home", href="/home", style={'color': 'white'}),
         dbc.DropdownMenuItem("Configuration", href="/configuration", style={'color': 'white'}),
-        dbc.DropdownMenuItem("Sensors", href="/sensors", style={'color': 'white'}),
+        dbc.DropdownMenuItem("Statistics", href="/statistics", style={'color': 'white'}),
     ],
     nav = True,
     in_navbar = True,
@@ -69,8 +69,8 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/configuration':
         return configuration.layout
-    elif pathname == '/sensors':
-        return sensors.layout
+    elif pathname == '/statistics':
+        return statistics.layout
     else:
         return home.layout
 
