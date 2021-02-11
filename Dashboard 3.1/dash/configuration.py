@@ -207,8 +207,6 @@ def placeholders_update(deviceid):
     if not flag:
         placeholder_list.append("")
 
-    print(placeholder_list)
-
     return placeholder_list
 
 # Callback function to write device aliases to csv

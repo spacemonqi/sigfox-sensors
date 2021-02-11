@@ -577,7 +577,7 @@ pre code {
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1200px) {  /*teslassian*/
   .container, .container-sm, .container-md, .container-lg, .container-xl {
     max-width: 1140px;
   }
@@ -10808,17 +10808,15 @@ legend {
 
 
 
-h1, h2, h3, h4, h5, h6{
+h1, h2, h3, h4, h5, h6{ /*teslassian*/
   color: #fff !important;
 }
 
 
-p{
+p{ /*teslassian*/
   color: #fff !important;
 }
 
-.form-dropdown {
-
+.form-dropdown { /*teslassian*/
 color: #000000 !important;
-
 }
