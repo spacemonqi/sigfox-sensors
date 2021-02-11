@@ -24,7 +24,7 @@ colorlist_meas = ['#FF4F00', '#FFF400', '#FF0056', "#5E0DAC", '#60AAED', '#1CA77
 #----------------------------------------------------------------------------------------------------------------------#
 layout = html.Div([
     dbc.Container([
-        dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network"), className="mb-2")]),
+        dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network - Statistics"), className="mb-2")]),
         dbc.Row([dbc.Col(html.H6(children="Channels: "))]),
         dbc.Row([dbc.Col(html.H6(id='h6_channel_string_sensors', children=utils.string_channels()), className="mb-4")]),
 
