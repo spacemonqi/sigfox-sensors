@@ -11,7 +11,7 @@ def get_options(list_data, ld=None):
         i = 0
         for item in list_data:
             if ld[i]['alias']:
-                dict_list.append({'label': ld[i]['alias'], 'value': item})
+                dict_list.append({'label': ld[i]['alias'] + ' (' + item + ')', 'value': item})
             else:
                 dict_list.append({'label': item, 'value': item})
             i += 1

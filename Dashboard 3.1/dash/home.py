@@ -22,7 +22,7 @@ layout = html.Div([
             dbc.Col(dbc.Card(children=[html.H3(children='Access the data',
                                                className="text-center"),
                                        dbc.Button("AWS",
-                                                  href="https://console.aws.amazon.com/dynamodb/home?region=us-east-1#tables:",
+                                                  href="https://console.aws.amazon.com/dynamodb/home?region=us-east-1#tables:selected=sigfox;tab=items:",
                                                   color="primary",
                                                   className="mt-3"),
                                        ],
@@ -39,7 +39,5 @@ layout = html.Div([
                              body=True, color="dark", outline=True),
                     width=4, className="mb-4"),
         ], className="mb-5"),
-
     ])
-
 ])
