@@ -24,10 +24,11 @@ dropdown = dbc.DropdownMenu(
 navbar = dbc.Navbar(
     dbc.Container(
         [
+            dbc.Col(width=1),
             html.A(
                 dbc.Row([
-                        dbc.Col(html.Img(src="/assets/divigraph.png", height="40px")),
-                        dbc.Col(dbc.NavbarBrand("Divigraph", className="ml-2")),
+                        dbc.Col(html.Img(src="/assets/divigraph.png", height="40px"), width=1, align="center"),
+                        dbc.Col(dbc.NavbarBrand("Divigraph", className="ml-2"), width=1, align="center"),
                         ],
                         align="center",
                         no_gutters=True,
@@ -40,7 +41,9 @@ navbar = dbc.Navbar(
                 id="navbar-collapse2",
                 navbar=True,
             ),
-        ]
+            dbc.Col(width=1),
+        ],
+        fluid = True
     ),
     color="primary",
     dark=True,
@@ -78,5 +81,5 @@ def display_page(pathname):
         return home.layout
 
 if __name__ == '__main__':
-    app.run_server(debug=False, dev_tools_ui=False, dev_tools_props_check=False)
-    # app.run_server(debug=True)
+    # app.run_server(debug=False, dev_tools_ui=False, dev_tools_props_check=False)
+    app.run_server(debug=True)

@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 
 import utils
 from app import app
@@ -23,134 +23,212 @@ colorlist_meas = ['#FF4F00', '#FFF400', '#FF0056', "#5E0DAC", '#60AAED', '#1CA77
 
 #----------------------------------------------------------------------------------------------------------------------#
 layout = html.Div([
-    dbc.Container([
-        dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network - Statistics"), className="mb-2")]),
-        dbc.Row([dbc.Col(html.H6(children="Channels: "))]),
-        dbc.Row([dbc.Col(html.H6(id='h6_channel_string_sensors', children=utils.string_channels()), className="mb-4")]),
+    dbc.Container(
+        [
+            dbc.Row([
+                dbc.Col(width=1),
+                dbc.Col(
+                    [
+                        dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network - Statistics"), className="mb-2")]),
+                        dbc.Row([dbc.Col(html.H6(children="Channels: "))]),
+                        dbc.Row([dbc.Col(html.H6(id='h6_channel_string_sensors', children=utils.string_channels()), className="mb-4")]),
 
-        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Measurement', className="text-center bg-primary"),
-                                  body=True,
-                                  color="primary"),
-                 className="mb-4")]),
-        dbc.Row([
-                dbc.Col(children=[
-                            html.P('''Sensor type:'''),
-                            dcc.Dropdown(id='dd_type_meas',
-                                         options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
-                                                  {'label': 'S2LP', 'value': 'S2LP'},
-                                                  {'label': 'TI', 'value': 'TI'}],
-                                         style={'margin-bottom': '10px',
-                                                'color': 'black',
-                                                'background-color': 'white'}
+                        dbc.Row([
+                            dbc.Col(
+                                [
+                                    dbc.Button("1", id="btn_1", className="mb-3", color="primary"),
+                                    dbc.Collapse(
+                                        children=[
+                                            dbc.Button("1_1", id="btn_1_1", className="mb-3", color="primary"),
+                                            dbc.Collapse(
+                                                children=[
+                                                    dbc.Button("1_1_1", id="btn_1_1_1", className="mb-3", color="primary"),
+                                                ],
+                                                id="clp_1_1",
+                                            ),
+                                            dbc.Button("1_2", id="btn_1_2", className="mb-3", color="primary"),
+                                            dbc.Collapse(
+                                                children=[
+                                                    dbc.Button("1_2_1", id="btn_1_2_1", className="mb-3", color="primary"),
+                                                ],
+                                                id="clp_1_2",
+                                            ),
+                                        ],
+                                        id="clp_1",
+                                    ),
+                                ],
+                                width = 2,
                             ),
-                        ],
-                        width = 4,
-                ),
-                dbc.Col(children=[
-                            html.P('''Sensor ID:'''),
-                            dcc.Dropdown(id='dd_id_meas',
-                                         options=utils.get_options(df['deviceId'].unique(), device_ld),
-                                         multi=True,
-                                         style={'margin-bottom': '10px',
-                                                'color': 'black',
-                                                'background-color': 'white'}
-                            ),
-                        ],
-                        width = 4,
-                ),
-                dbc.Col(children=[
-                            html.P('''Measurement:'''),
-                            dcc.Dropdown(id='dd_measurement_meas',
-                                         options=utils.get_options(df['data'].unique(), channel_ld),
-                                         style={'margin-bottom': '10px',
-                                                'color': 'black',
-                                                'background-color': 'white'}
-                            ),
-                        ],
-                        width = 4,
-                )
-            ]),
-        dcc.Graph(id='meas_timeseries', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
-        dcc.Graph(id='meas_change', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
+                            dbc.Col(
+                                [
+                                    dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Measurement', className="text-center bg-primary"),
+                                                              body=True,
+                                                              color="primary"),
+                                             className="mb-4")]),
+                                    dbc.Row([
+                                            dbc.Col(children=[
+                                                        html.P('''Sensor type:'''),
+                                                        dcc.Dropdown(id='dd_type_meas',
+                                                                     options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
+                                                                              {'label': 'S2LP', 'value': 'S2LP'},
+                                                                              {'label': 'TI', 'value': 'TI'}],
+                                                                     style={'margin-bottom': '10px',
+                                                                            'color': 'black',
+                                                                            'background-color': 'white'}
+                                                        ),
+                                                    ],
+                                                    # width = 4,
+                                            ),
+                                            dbc.Col(children=[
+                                                        html.P('''Sensor ID:'''),
+                                                        dcc.Dropdown(id='dd_id_meas',
+                                                                     options=utils.get_options(df['deviceId'].unique(), device_ld),
+                                                                     multi=True,
+                                                                     style={'margin-bottom': '10px',
+                                                                            'color': 'black',
+                                                                            'background-color': 'white'}
+                                                        ),
+                                                    ],
+                                                    # width = 4,
+                                            ),
+                                            dbc.Col(children=[
+                                                        html.P('''Measurement:'''),
+                                                        dcc.Dropdown(id='dd_measurement_meas',
+                                                                     options=utils.get_options(df['data'].unique(), channel_ld),
+                                                                     style={'margin-bottom': '10px',
+                                                                            'color': 'black',
+                                                                            'background-color': 'white'}
+                                                        ),
+                                                    ],
+                                                    # width = 4,
+                                            )
+                                        ]),
+                                    dcc.Graph(id='meas_timeseries', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
+                                    dcc.Graph(id='meas_change', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
 
-        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Sensor ID', className="text-center bg-primary"),
-                                  body=True,
-                                  color="primary"),
-                 className="mb-4 mt-4")]),
-        dbc.Row([
-                dbc.Col(children=[
-                            html.P('''Sensor type:'''),
-                            dcc.Dropdown(id='dd_type_sensor',
-                                         options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
-                                                  {'label': 'S2LP', 'value': 'S2LP'},
-                                                  {'label': 'TI', 'value': 'TI'}],
-                                         style={'margin-bottom': '10px',
-                                                'color': 'black',
-                                                'background-color': 'white'}
-                            ),
-                        ],
-                        width = 4,
-                ),
-                dbc.Col(children=[
-                            html.P('''Sensor ID:'''),
-                            dcc.Dropdown(id='dd_id_sensor',
-                                         options=utils.get_options(df['deviceId'].unique(), device_ld),
-                                         style={'margin-bottom': '10px',
-                                                'color': 'black',
-                                                'background-color': 'white'}
-                            ),
-                        ],
-                        width = 4,
-                ),
-            ]),
-        dbc.Row([
-            dbc.Col([
-                dcc.Graph(id='sensor_timeseries_ch1', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
-            ]),
-            dbc.Col([
-                dcc.Graph(id='sensor_timeseries_ch2', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
-            ]),
-        ]),
-        dbc.Row([
-            dbc.Col([
-                dcc.Graph(id='sensor_timeseries_ch3', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
-            ]),
-            dbc.Col([
-                dcc.Graph(id='sensor_timeseries_ch4', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
-            ]),
-        ]),
-        dbc.Row([
-            dbc.Col([
-                dcc.Graph(id='sensor_timeseries_ch5', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
-            ]),
-            dbc.Col([
-                dcc.Graph(id='sensor_timeseries_ch6', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
-            ]),
-        ]),
+                                    dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Sensor ID', className="text-center bg-primary"),
+                                                              body=True,
+                                                              color="primary"),
+                                             className="mb-4 mt-4")]),
+                                    dbc.Row([
+                                            dbc.Col(children=[
+                                                        html.P('''Sensor type:'''),
+                                                        dcc.Dropdown(id='dd_type_sensor',
+                                                                     options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
+                                                                              {'label': 'S2LP', 'value': 'S2LP'},
+                                                                              {'label': 'TI', 'value': 'TI'}],
+                                                                     style={'margin-bottom': '10px',
+                                                                            'color': 'black',
+                                                                            'background-color': 'white'}
+                                                        ),
+                                                    ],
+                                                    # width = 4,
+                                            ),
+                                            dbc.Col(children=[
+                                                        html.P('''Sensor ID:'''),
+                                                        dcc.Dropdown(id='dd_id_sensor',
+                                                                     options=utils.get_options(df['deviceId'].unique(), device_ld),
+                                                                     style={'margin-bottom': '10px',
+                                                                            'color': 'black',
+                                                                            'background-color': 'white'}
+                                                        ),
+                                                    ],
+                                                    # width = 4,
+                                            ),
+                                        ]),
+                                    dbc.Row([
+                                        dbc.Col([
+                                            dcc.Graph(id='sensor_timeseries_ch1', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
+                                        ]),
+                                        dbc.Col([
+                                            dcc.Graph(id='sensor_timeseries_ch2', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
+                                        ]),
+                                    ]),
+                                    dbc.Row([
+                                        dbc.Col([
+                                            dcc.Graph(id='sensor_timeseries_ch3', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
+                                        ]),
+                                        dbc.Col([
+                                            dcc.Graph(id='sensor_timeseries_ch4', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
+                                        ]),
+                                    ]),
+                                    dbc.Row([
+                                        dbc.Col([
+                                            dcc.Graph(id='sensor_timeseries_ch5', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
+                                        ]),
+                                        dbc.Col([
+                                            dcc.Graph(id='sensor_timeseries_ch6', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
+                                        ]),
+                                    ]),
+                                ],
+                                width = 10,
+                            )
+                        ])
 
-        # dbc.Row([dbc.Col(dbc.Card(html.H3(children='Cumulative Data by Sensor Type', className="text-center bg-primary"),
-        #                           body=True,
-        #                           color="primary"),
-        #          className="mb-4 mt-5")]),
-        # dbc.Row([
-        #         dbc.Col(children=[
-        #                     html.P('''Sensor type:'''),
-        #                     dcc.Dropdown(id='dd_type_type',
-        #                                  options=[{'label': 'STM32WL55', 'value': 'STM32WL55'},
-        #                                           {'label': 'S2LP', 'value': 'S2LP'},
-        #                                           {'label': 'TI', 'value': 'TI'}],
-        #                                  style={'margin-bottom': '10px',
-        #                                         'color': 'black',
-        #                                         'background-color': 'white'}
-        #                     ),
-        #                 ],
-        #                 width = 4,
-        #         ),
-        # ]),
-
-        dcc.Interval(id='graph_update', interval= 1 * 1000, n_intervals=0),
-    ])
+                    ],
+                    width=10
+                ),
+                dcc.Interval(id='graph_update', interval= 1 * 1000, n_intervals=0),
+            ])
+        ],
+        fluid=True
+    )
 ])
+
+#----------------------------------------------------------------------------------------   ------------------------------#
+
+# # Callback function to for the sidebar
+# @app.callback([Output("clp_1", "is_open"),
+#                Output("clp_1_1", "is_open"),
+#                Output("clp_1_2", "is_open")],
+#               [Input("btn_1", "n_clicks"),
+#                Input("btn_1_1", "n_clicks"),
+#                Input("btn_1_2", "n_clicks")],
+#               [State("clp_1", "is_open"),
+#                State("clp_1_1", "is_open"),
+#                State("clp_1_2", "is_open")],
+# )
+# def toggle_collapse(btn_1, btn_1_1, btn_1_2, state_1, state_1_1, state_1_2):
+#     arg_dict = locals()
+#     state_dict = {}
+#     for key, value in arg_dict.items():
+#         if key[0]=='s':
+#             state_dict[key] = value
+#     out_state = []
+#     for key, value in state_dict.items():
+#         if value:
+#             out_state.append(0)
+#         else:
+#             out_state.append(1)
+#
+#     return out_state
+
+# Callback function to for btn_1
+@app.callback(Output("clp_1", "is_open"),
+              [Input("btn_1", "n_clicks")],
+              [State("clp_1", "is_open")])
+def toggle_collapse_1(n, is_open):
+    if n:
+        return not is_open
+    return is_open
+
+# Callback function to for btn_1_1
+@app.callback(Output("clp_1_1", "is_open"),
+              [Input("btn_1_1", "n_clicks")],
+              [State("clp_1_1", "is_open")])
+def toggle_collapse_1_1(n, is_open):
+    if n:
+        return not is_open
+    return is_open
+
+# Callback function to for btn_1_2
+@app.callback(Output("clp_1_2", "is_open"),
+              [Input("btn_1_2", "n_clicks")],
+              [State("clp_1_2", "is_open")])
+def toggle_collapse_1_2(n, is_open):
+    if n:
+        return not is_open
+    return is_open
 
 #----------------------------------------------------------------------------------------   ------------------------------#
 # Callback function to update the channel string and to apply all the scaling factors
