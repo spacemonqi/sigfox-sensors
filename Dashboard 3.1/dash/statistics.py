@@ -36,32 +36,40 @@ layout = html.Div([
                         dbc.Row([
                             dbc.Col(
                                 [
-                                    dbc.Button("1", id="btn_1", className="mb-3", color="primary"),
+                                    dbc.Button("22229D7", id="btn_d1", className="mb-0", color="primary", style={'width': '100%'}, size='lg'),
                                     dbc.Collapse(
                                         children=[
-                                            dbc.Button("1_1", id="btn_1_1", className="mb-3", color="primary"),
-                                            dbc.Collapse(
-                                                children=[
-                                                    dbc.Button("1_1_1", id="btn_1_1_1", className="mb-3", color="primary"),
-                                                ],
-                                                id="clp_1_1",
-                                            ),
-                                            dbc.Button("1_2", id="btn_1_2", className="mb-3", color="primary"),
-                                            dbc.Collapse(
-                                                children=[
-                                                    dbc.Button("1_2_1", id="btn_1_2_1", className="mb-3", color="primary"),
-                                                ],
-                                                id="clp_1_2",
-                                            ),
+                                            # dbc.Row([
+                                            #     dbc.Col([html.H5("↳")], width=1),
+                                            #     dbc.Col([dbc.Button("d1_ch1", id="btn_d1_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm')])
+                                            # ]),
+                                            dbc.Button("d1_ch1", id="btn_d1_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                            dbc.Button("d1_ch2", id="btn_d1_ch2", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                            dbc.Button("d1_ch3", id="btn_d1_ch3", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                            dbc.Button("d1_ch4", id="btn_d1_ch4", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                            dbc.Button("d1_ch5", id="btn_d1_ch5", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                            dbc.Button("d1_ch6", id="btn_d1_ch6", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
                                         ],
-                                        id="clp_1",
+                                        id="clp_d1",
+                                    ),
+                                    dbc.Button("22229D9", id="btn_d2", className="mb-0", color="primary", style={'width': '100%'}, size='lg'),
+                                    dbc.Collapse(
+                                        children=[
+                                            dbc.Button("d2_ch1", id="btn_d2_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                            dbc.Button("d2_ch2", id="btn_d2_ch2", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                            dbc.Button("d2_ch3", id="btn_d2_ch3", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                            dbc.Button("d2_ch4", id="btn_d2_ch4", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                            dbc.Button("d2_ch5", id="btn_d2_ch5", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                            dbc.Button("d2_ch6", id="btn_d2_ch6", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                        ],
+                                        id="clp_d2",
                                     ),
                                 ],
                                 width = 2,
                             ),
                             dbc.Col(
                                 [
-                                    dbc.Row([dbc.Col(dbc.Card(html.H3(children='Data by Measurement', className="text-center bg-primary"),
+                                    dbc.Row([dbc.Col(dbc.Card(html.H3(children='Realtime Monitoring of Sensor Network ', className="text-center bg-primary"),
                                                               body=True,
                                                               color="primary"),
                                              className="mb-4")]),
@@ -175,60 +183,134 @@ layout = html.Div([
     )
 ])
 
-#----------------------------------------------------------------------------------------   ------------------------------#
+#--------------------------------------------------------------------------------------------------------------------------------#
 
-# # Callback function to for the sidebar
-# @app.callback([Output("clp_1", "is_open"),
-#                Output("clp_1_1", "is_open"),
-#                Output("clp_1_2", "is_open")],
-#               [Input("btn_1", "n_clicks"),
-#                Input("btn_1_1", "n_clicks"),
-#                Input("btn_1_2", "n_clicks")],
-#               [State("clp_1", "is_open"),
-#                State("clp_1_1", "is_open"),
-#                State("clp_1_2", "is_open")],
-# )
-# def toggle_collapse(btn_1, btn_1_1, btn_1_2, state_1, state_1_1, state_1_2):
-#     arg_dict = locals()
-#     state_dict = {}
-#     for key, value in arg_dict.items():
-#         if key[0]=='s':
-#             state_dict[key] = value
-#     out_state = []
-#     for key, value in state_dict.items():
-#         if value:
-#             out_state.append(0)
-#         else:
-#             out_state.append(1)
-#
-#     return out_state
-
-# Callback function to for btn_1
-@app.callback(Output("clp_1", "is_open"),
-              [Input("btn_1", "n_clicks")],
-              [State("clp_1", "is_open")])
-def toggle_collapse_1(n, is_open):
+# Callback function to for btn_d1
+@app.callback(Output("clp_d1", "is_open"),
+              [Input("btn_d1", "n_clicks")],
+              [State("clp_d1", "is_open")])
+def toggle_collapse_d1(n, is_open):
     if n:
         return not is_open
     return is_open
 
-# Callback function to for btn_1_1
-@app.callback(Output("clp_1_1", "is_open"),
-              [Input("btn_1_1", "n_clicks")],
-              [State("clp_1_1", "is_open")])
-def toggle_collapse_1_1(n, is_open):
-    if n:
-        return not is_open
-    return is_open
+# Callback function to for btn_d1_ch1
+@app.callback(Output("btn_d1_ch1", "color"),
+              [Input("btn_d1_ch1", "n_clicks"),
+               Input("btn_d1_ch1", "color")])
+def toggle_collapse_d1_ch1(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
 
-# Callback function to for btn_1_2
-@app.callback(Output("clp_1_2", "is_open"),
-              [Input("btn_1_2", "n_clicks")],
-              [State("clp_1_2", "is_open")])
+# Callback function to for btn_d1_ch2
+@app.callback(Output("btn_d1_ch2", "color"),
+              [Input("btn_d1_ch2", "n_clicks"),
+               Input("btn_d1_ch2", "color")])
+def toggle_collapse_d1_ch2(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
+
+# Callback function to for btn_d1_ch3
+@app.callback(Output("btn_d1_ch3", "color"),
+              [Input("btn_d1_ch3", "n_clicks"),
+               Input("btn_d1_ch3", "color")])
+def toggle_collapse_d1_ch3(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
+
+# Callback function to for btn_d1_ch4
+@app.callback(Output("btn_d1_ch4", "color"),
+              [Input("btn_d1_ch4", "n_clicks"),
+               Input("btn_d1_ch4", "color")])
+def toggle_collapse_d1_ch4(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
+
+# Callback function to for btn_d1_ch5
+@app.callback(Output("btn_d1_ch5", "color"),
+              [Input("btn_d1_ch5", "n_clicks"),
+               Input("btn_d1_ch5", "color")])
+def toggle_collapse_d1_ch5(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
+
+# Callback function to for btn_d1_ch6
+@app.callback(Output("btn_d1_ch6", "color"),
+              [Input("btn_d1_ch6", "n_clicks"),
+               Input("btn_d1_ch6", "color")])
+def toggle_collapse_d1_ch6(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
+
+#--------------------------------------------------------------------------------------------------------------------------------#
+# Callback function to for btn_d2
+@app.callback(Output("clp_d2", "is_open"),
+              [Input("btn_d2", "n_clicks")],
+              [State("clp_d2", "is_open")])
 def toggle_collapse_1_2(n, is_open):
     if n:
         return not is_open
     return is_open
+
+# Callback function to for btn_d2_ch1
+@app.callback(Output("btn_d2_ch1", "color"),
+              [Input("btn_d2_ch1", "n_clicks"),
+               Input("btn_d2_ch1", "color")])
+def toggle_collapse_d2_ch1(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
+
+# Callback function to for btn_d2_ch2
+@app.callback(Output("btn_d2_ch2", "color"),
+              [Input("btn_d2_ch2", "n_clicks"),
+               Input("btn_d2_ch2", "color")])
+def toggle_collapse_d2_ch2(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
+
+# Callback function to for btn_d2_ch3
+@app.callback(Output("btn_d2_ch3", "color"),
+              [Input("btn_d2_ch3", "n_clicks"),
+               Input("btn_d2_ch3", "color")])
+def toggle_collapse_d2_ch3(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
+
+# Callback function to for btn_d2_ch4
+@app.callback(Output("btn_d2_ch4", "color"),
+              [Input("btn_d2_ch4", "n_clicks"),
+               Input("btn_d2_ch4", "color")])
+def toggle_collapse_d2_ch4(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
+
+# Callback function to for btn_d2_ch5
+@app.callback(Output("btn_d2_ch5", "color"),
+              [Input("btn_d2_ch5", "n_clicks"),
+               Input("btn_d2_ch5", "color")])
+def toggle_collapse_d2_ch5(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
+
+# Callback function to for btn_d2_ch6
+@app.callback(Output("btn_d2_ch6", "color"),
+              [Input("btn_d2_ch6", "n_clicks"),
+               Input("btn_d2_ch6", "color")])
+def toggle_collapse_d2_ch6(n, color):
+    if color=='warning':
+        return 'secondary'
+    return 'warning'
 
 #----------------------------------------------------------------------------------------   ------------------------------#
 # Callback function to update the channel string and to apply all the scaling factors
@@ -250,7 +332,7 @@ def channel_string_scaling_factor_update(x):
         df_scaled.loc[df_scaled['data']==channel, 'value'] = df_scaled[df_scaled['data']==channel]['value'] * scaling_fact
         df_scaled.loc[df_scaled['data']==channel, 'change'] = df_scaled[df_scaled['data']==channel]['change'] * scaling_fact
     df_scaled.to_csv('../data/sensor_data_temp.csv', index=False, header=True)
-    copyfile('../data/sensor_data_temp.csv', '../data/sensor_data_scaled.csv')
+    # copyfile('../data/sensor_data_temp.csv', '../data/sensor_data_scaled.csv')  # TURN THIS ON AGAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     return utils.string_channels()
 
