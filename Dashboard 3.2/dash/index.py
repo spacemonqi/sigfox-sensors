@@ -6,14 +6,12 @@ from dash.dependencies import Input, Output, State
 # must add this line in order for the app to be deployed successfully on Heroku
 # from app import server
 from app import app
-import configuration, statistics, home, downlink
+import configuration, monitoring
 
 dropdown = dbc.DropdownMenu(
     children=[
-        dbc.DropdownMenuItem("Home", href="/home", style={'color': 'white'}),
-        dbc.DropdownMenuItem("Statistics", href="/statistics", style={'color': 'white'}),
+        dbc.DropdownMenuItem("Monitoring", href="/monitoring", style={'color': 'white'}),
         dbc.DropdownMenuItem("Configuration", href="/configuration", style={'color': 'white'}),
-        dbc.DropdownMenuItem("Downlink", href="/downlink", style={'color': 'white'}),
     ],
     nav = True,
     in_navbar = True,
@@ -24,7 +22,7 @@ dropdown = dbc.DropdownMenu(
 navbar = dbc.Navbar(
     dbc.Container(
         [
-            dbc.Col(width=1),
+            # dbc.Col(width=1),
             html.A(
                 dbc.Row([
                         dbc.Col(html.Img(src="/assets/divigraph.png", height="40px"), width=1, align="center"),
@@ -33,7 +31,7 @@ navbar = dbc.Navbar(
                         align="center",
                         no_gutters=True,
                 ),
-                href="/home",
+                href="/monitoring",
             ),
             dbc.NavbarToggler(id="navbar-toggler2"),
             dbc.Collapse(
@@ -41,7 +39,7 @@ navbar = dbc.Navbar(
                 id="navbar-collapse2",
                 navbar=True,
             ),
-            dbc.Col(width=1),
+            # dbc.Col(width=1),
         ],
         fluid = True
     ),
@@ -73,13 +71,9 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/configuration':
         return configuration.layout
-    elif pathname == '/statistics':
-        return statistics.layout
-    elif pathname == '/downlink':
-        return downlink.layout
     else:
-        return home.layout
+        return monitoring.layout
 
 if __name__ == '__main__':
-    # app.run_server(debug=False, dev_tools_ui=False, dev_tools_props_check=False)
-    app.run_server(debug=True)
+    app.run_server(debug=True, dev_tools_ui=False, dev_tools_props_check=False)
+    # app.run_server(debug=True)
