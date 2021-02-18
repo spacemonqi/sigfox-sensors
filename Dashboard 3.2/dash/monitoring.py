@@ -8,6 +8,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
+from dash.exceptions import PreventUpdate
+import dash_useful_components as duc
 
 import utils
 from app import app
@@ -20,6 +22,62 @@ device_ld = utils.get_devices()
 colorlist_meas = ['#FF4F00', '#FFF400', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
 
 #----------------------------------------------------------------------------------------------------------------------#
+# DEFINE THE CHECKBOX TREE
+checkboxtree_nodes = [
+    {
+        "value": "P1",
+        "label": "ParentOne",
+        "children": [
+            {
+                "value": "N1.1",
+                "label": "SectionOneChild",
+                "children": [
+                    {
+                        "value": "N1.1.1",
+                        "label": "SectionOneChil-of-Child-1",
+                        "children": [
+                            {
+                                "value": "C1",
+                                "label": "SectionOneChil-of-Child-1-of-Child"
+                            }
+                        ]
+                    },
+                    {
+                        "value": "C2",
+                        "label": "SectionOneChil-of-Child-2"
+                    }
+                ]
+            },
+            {
+                "value": "N1.2",
+                "label": "SectionTwo",
+                "children": [
+                    {
+                        "value": "C3",
+                        "label": "SectionTwo-Child"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "value": "P2",
+        "label": "ParentTwo",
+        "children": [
+            {
+                "value": "C5",
+                "label": "ParentTwo-Child-1"
+            },
+            {
+                "value": "C6",
+                "label": "ParentTwo-Child-2"
+            }
+        ]
+    }
+]
+
+#----------------------------------------------------------------------------------------------------------------------#
+
 layout = html.Div([
     dbc.Container(
         [
@@ -30,40 +88,42 @@ layout = html.Div([
                         dbc.Row([
                             dbc.Col(
                                 [
-                                    dbc.Button("22229D7", id="btn_d1", className="mb-0", color="primary", style={'width': '100%'}, size='lg'),
-                                    dbc.Collapse(
-                                        children=[
-                                            # dbc.Row([
-                                            #     dbc.Col([html.H5("↳")], width=1),
-                                            #     dbc.Col([dbc.Button("d1_ch1", id="btn_d1_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm')])
-                                            # ]),
-                                            dbc.Button("d1_ch1", id="btn_d1_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                            dbc.Button("d1_ch2", id="btn_d1_ch2", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                            dbc.Button("d1_ch3", id="btn_d1_ch3", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                            dbc.Button("d1_ch4", id="btn_d1_ch4", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                            dbc.Button("d1_ch5", id="btn_d1_ch5", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                            dbc.Button("d1_ch6", id="btn_d1_ch6", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                        ],
-                                        id="clp_d1",
-                                    ),
-                                    dbc.Button("22229D9", id="btn_d2", className="mb-0", color="primary", style={'width': '100%'}, size='lg'),
-                                    dbc.Collapse(
-                                        children=[
-                                            dbc.Button("d2_ch1", id="btn_d2_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                            dbc.Button("d2_ch2", id="btn_d2_ch2", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                            dbc.Button("d2_ch3", id="btn_d2_ch3", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                            dbc.Button("d2_ch4", id="btn_d2_ch4", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                            dbc.Button("d2_ch5", id="btn_d2_ch5", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                            dbc.Button("d2_ch6", id="btn_d2_ch6", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                        ],
-                                        id="clp_d2",
-                                    ),
+                                    html.Div(duc.CheckBoxTree(id="cb_input", nodes=checkboxtree_nodes, showNodeIcon=False)),
+
+                                    # dbc.Button("22229D7", id="btn_d1", className="mb-0", color="primary", style={'width': '100%'}, size='lg'),
+                                    # dbc.Collapse(
+                                    #     children=[
+                                    #         # dbc.Row([
+                                    #         #     dbc.Col([html.H5("↳")], width=1),
+                                    #         #     dbc.Col([dbc.Button("d1_ch1", id="btn_d1_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm')])
+                                    #         # ]),
+                                    #         dbc.Button("d1_ch1", id="btn_d1_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #         dbc.Button("d1_ch2", id="btn_d1_ch2", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #         dbc.Button("d1_ch3", id="btn_d1_ch3", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #         dbc.Button("d1_ch4", id="btn_d1_ch4", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #         dbc.Button("d1_ch5", id="btn_d1_ch5", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #         dbc.Button("d1_ch6", id="btn_d1_ch6", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #     ],
+                                    #     id="clp_d1",
+                                    # ),
+                                    # dbc.Button("22229D9", id="btn_d2", className="mb-0", color="primary", style={'width': '100%'}, size='lg'),
+                                    # dbc.Collapse(
+                                    #     children=[
+                                    #         dbc.Button("d2_ch1", id="btn_d2_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #         dbc.Button("d2_ch2", id="btn_d2_ch2", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #         dbc.Button("d2_ch3", id="btn_d2_ch3", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #         dbc.Button("d2_ch4", id="btn_d2_ch4", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #         dbc.Button("d2_ch5", id="btn_d2_ch5", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #         dbc.Button("d2_ch6", id="btn_d2_ch6", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+                                    #     ],
+                                    #     id="clp_d2",
+                                    # ),
                                 ],
                                 width = 2,
                             ),
                             dbc.Col(
                                 [
-                                    dbc.Row([dbc.Col(dbc.Card(html.H3(children='Real-time Monitoring of Sigfox Sensor Network ', className="text-center bg-primary"),
+                                    dbc.Row([dbc.Col(dbc.Card(html.H3(children='Sigfox Sensor Network Real-time Monitoring', className="text-center bg-primary"),
                                                               body=True,
                                                               color="primary"),
                                              className="mb-4")]),
@@ -107,6 +167,51 @@ layout = html.Div([
 ])
 
 #--------------------------------------------------------------------------------------------------------------------------------#
+@app.callback(
+    [Output('checked-output', 'children'),
+     Output('expanded-output', 'children')],
+    [Input('cb_input', 'checked'),
+     Input('cb_input', 'expanded')])
+def display_output(checked, expanded):
+    if checked and len(checked) > 0:
+        res1 = 'You have checked {}'.format(' '.join(checked))
+    else:
+        res1 = 'No node is checked'
+
+    if expanded and len(expanded) > 0:
+        res2 = 'You have expanded {}'.format(' '.join(expanded))
+    else:
+        res2 = 'No node is expanded'
+
+    return [res1, res2]
+
+
+@app.callback(
+    [Output('cb_input', 'disabled'),
+     Output('cb_input', 'expandDisabled'),
+     Output('cb_input', 'expandOnClick'),
+     Output('cb_input', 'noCascade'),
+     Output('cb_input', 'onlyLeafCheckboxes'),
+     Output('cb_input', 'optimisticToggle'),
+     Output('cb_input', 'showNodeIcon')],
+    [Input('options', 'value')]
+)
+def configure_display(value):
+    list_options = ['disabled',
+                    'expandDisabled',
+                    'expandOnClick',
+                    'noCascade',
+                    'onlyLeafCheckboxes',
+                    'optimisticToggle',
+                    'showNodeIcon']
+    if value:
+        return [list_option in value for list_option in list_options]
+    else:
+        raise PreventUpdate
+
+#--------------------------------------------------------------------------------------------------------------------------------#
+
+
 # Callback function to for btn_d1
 @app.callback(Output("clp_d1", "is_open"),
               [Input("btn_d1", "n_clicks")],

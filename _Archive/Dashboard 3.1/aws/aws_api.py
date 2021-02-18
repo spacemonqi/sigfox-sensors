@@ -1,25 +1,26 @@
 #!/usr/local/bin/python3
 
+from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
 import boto3
 
 def create_sigfox_table_AWS(online, tableName, dynamodb=None):
     if not dynamodb:
         if online:
-            dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
         else:
-            dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
 
     table = dynamodb.create_table(
         TableName=tableName,
         KeySchema=[
             {
                 'AttributeName': 'deviceId',
-                'KeyType': 'HASH'  # Partition Key
+                'KeyType': 'HASH' # Partition Key
             },
             {
                 'AttributeName': 'timestamp',
-                'KeyType': 'RANGE'  # Sort Key
+                'KeyType': 'RANGE' # Sort Key
             }
         ],
         AttributeDefinitions=[
@@ -46,9 +47,9 @@ def create_sigfox_table_AWS(online, tableName, dynamodb=None):
 def delete_sigfox_table_AWS(online, tableName, dynamodb=None):
     if not dynamodb:
         if online:
-            dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
         else:
-            dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
 
     table = dynamodb.Table(tableName)
     table.delete()
@@ -56,9 +57,9 @@ def delete_sigfox_table_AWS(online, tableName, dynamodb=None):
 def scan_items_AWS(online, tableName, dynamodb=None):
     if not dynamodb:
         if online:
-            dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
         else:
-            dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
 
     table = dynamodb.Table(tableName)
     response = table.scan()
@@ -67,9 +68,9 @@ def scan_items_AWS(online, tableName, dynamodb=None):
 def put_item_AWS(online, tableName, deviceId, timestamp, data, temperature, humidity, dynamodb=None):
     if not dynamodb:
         if online:
-            dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
         else:
-            dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
 
     table = dynamodb.Table(tableName)
     response = table.put_item(
@@ -79,7 +80,7 @@ def put_item_AWS(online, tableName, deviceId, timestamp, data, temperature, humi
             'payload': {
                 'data': data,
                 'temperature': temperature,
-                'humidity': humidity,
+                'humidity' : humidity,
             }
         }
     )
@@ -88,12 +89,12 @@ def put_item_AWS(online, tableName, deviceId, timestamp, data, temperature, humi
 def query_and_project_items_AWS(online, tableName, deviceId, last_timestamp, dynamodb=None):
     if not dynamodb:
         if online:
-            dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+            dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
         else:
-            dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+            dynamodb = boto3.resource('dynamodb',endpoint_url="http://localhost:8000")
 
     table = dynamodb.Table(tableName)
-    response = table.query(
+    response = table.query (
                         ProjectionExpression='#id, #ts, payload',
                         ExpressionAttributeNames={'#id': 'deviceId', '#ts': 'timestamp'},
                         KeyConditionExpression=Key('deviceId').eq(deviceId) & Key('timestamp').between(last_timestamp+1, 99999999999999)

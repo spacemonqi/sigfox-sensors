@@ -1,7 +1,0 @@
-name,alias,scaling_fact
-CH1,VOC,3000.0
-CH2,Humidity,-23.0
-CH3,Gas,101.3
-CH4,ADC,3.3
-CH5,O2,100000000.0
-CH6,Temperature,12.7
