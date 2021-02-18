@@ -25,321 +25,425 @@ colorlist_meas = ['#FF4F00', '#FFF400', '#FF0056', "#5E0DAC", '#60AAED', '#1CA77
 # DEFINE THE CHECKBOX TREE
 checkboxtree_nodes = [
     {
-        "value": "P1",
-        "label": "ParentOne",
+        "value": "1",
+        "label": "1",
         "children": [
             {
-                "value": "N1.1",
-                "label": "SectionOneChild",
+                "value": "1_1",
+                "label": "1_1",
                 "children": [
                     {
-                        "value": "N1.1.1",
-                        "label": "SectionOneChil-of-Child-1",
+                        "value": "1_1_1",
+                        "label": "1_1_1",
                         "children": [
                             {
-                                "value": "C1",
-                                "label": "SectionOneChil-of-Child-1-of-Child"
+                                "value": "1_1_1_1",
+                                "label": "1_1_1_1"
                             }
                         ]
                     },
                     {
-                        "value": "C2",
-                        "label": "SectionOneChil-of-Child-2"
+                        "value": "1_1_2",
+                        "label": "1_1_2"
                     }
                 ]
             },
             {
-                "value": "N1.2",
-                "label": "SectionTwo",
+                "value": "1_2",
+                "label": "1_2",
                 "children": [
                     {
-                        "value": "C3",
-                        "label": "SectionTwo-Child"
+                        "value": "1_2_1",
+                        "label": "1_2_1"
                     }
                 ]
             }
         ]
     },
     {
-        "value": "P2",
-        "label": "ParentTwo",
+        "value": "2",
+        "label": "2",
         "children": [
             {
-                "value": "C5",
-                "label": "ParentTwo-Child-1"
+                "value": "2_1",
+                "label": "2_1"
             },
             {
-                "value": "C6",
-                "label": "ParentTwo-Child-2"
+                "value": "2_2",
+                "label": "2_2"
+            }
+        ]
+    },
+    {
+        "value": "3",
+        "label": "3",
+        "children": [
+            {
+                "value": "3_1",
+                "label": "3_1"
+            },
+            {
+                "value": "3_2",
+                "label": "3_2"
             }
         ]
     }
 ]
 
 #----------------------------------------------------------------------------------------------------------------------#
+body_left_card_tree = dbc.CardBody(
+    [
+        html.Div(duc.CheckBoxTree(id="cb_input", nodes=checkboxtree_nodes, showNodeIcon=False)),
+        # dbc.Button("22229D7", id="btn_d1", className="mb-0", color="primary", style={'width': '100%'}, size='lg'),
+        # dbc.Collapse(
+        #     children=[
+        #         # dbc.Row([
+        #         #     dbc.Col([html.H5("↳")], width=1),
+        #         #     dbc.Col([dbc.Button("d1_ch1", id="btn_d1_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm')])
+        #         # ]),
+        #         dbc.Button("d1_ch1", id="btn_d1_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #         dbc.Button("d1_ch2", id="btn_d1_ch2", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #         dbc.Button("d1_ch3", id="btn_d1_ch3", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #         dbc.Button("d1_ch4", id="btn_d1_ch4", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #         dbc.Button("d1_ch5", id="btn_d1_ch5", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #         dbc.Button("d1_ch6", id="btn_d1_ch6", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #     ],
+        #     id="clp_d1",
+        # ),
+        # dbc.Button("22229D9", id="btn_d2", className="mb-0", color="primary", style={'width': '100%'}, size='lg'),
+        # dbc.Collapse(
+        #     children=[
+        #         dbc.Button("d2_ch1", id="btn_d2_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #         dbc.Button("d2_ch2", id="btn_d2_ch2", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #         dbc.Button("d2_ch3", id="btn_d2_ch3", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #         dbc.Button("d2_ch4", id="btn_d2_ch4", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #         dbc.Button("d2_ch5", id="btn_d2_ch5", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #         dbc.Button("d2_ch6", id="btn_d2_ch6", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
+        #     ],
+        #     id="clp_d2",
+        # ),
+    ]
+),
 
+body_right_card_caption = dbc.CardBody(html.H3(children='Sigfox Sensor Network Real-time Monitoring', className="text-left bg-primary")),
+
+body_right_card_dropdown = [
+    dbc.CardBody(
+        [
+            dbc.Row(  # Row for dropdowns
+                [
+                    dbc.Col(html.P('''Sensor ID:''', style={'margin-right': '10px', 'margin-top': '5px', 'textAlign': 'left'}), width=1),
+                    dbc.Col(
+                        dcc.Dropdown(id='dd_id_meas',
+                                     options=utils.get_options(df['deviceId'].unique(), device_ld),
+                                     multi=True,
+                                     style={'color': 'black', 'background-color': 'white'}
+                        ),
+                        width=3,
+                    ),
+                    dbc.Col(html.P('''Channel:''', style={'margin-right': '10px', 'margin-top': '5px', 'textAlign': 'left'}), width=1),
+                    dbc.Col(
+                        dcc.Dropdown(id='dd_measurement_meas',
+                                     options=utils.get_options(df['data'].unique(), channel_ld),
+                                     style={'color': 'black', 'background-color': 'white'}
+                        ),
+                        width=3,
+                    ),
+                ],
+                # no_gutters = True,
+            ),
+        ]
+    ),
+]
+
+body_right_metrics_left_graph_timeseries = dcc.Graph(id='meas_timeseries', animate=True)
+
+body_right_metrics_left_graph_change = dcc.Graph(id='meas_change', animate=True)
+
+body_right_metrics_right_object = dbc.CardBody(
+    [
+        dbc.InputGroup(
+            [
+                dbc.InputGroupAddon("@", addon_type="prepend"),
+                dbc.Input(placeholder="Username"),
+            ],
+            className="mb-3",
+        ),
+        dbc.InputGroup(
+            [
+                dbc.InputGroupAddon("@", addon_type="prepend"),
+                dbc.Input(placeholder="Username"),
+            ],
+            className="mb-3",
+        ),
+        dbc.InputGroup(
+            [
+                dbc.InputGroupAddon("@", addon_type="prepend"),
+                dbc.Input(placeholder="Username"),
+            ],
+            className="mb-3",
+        ),
+        dbc.InputGroup(
+            [
+                dbc.InputGroupAddon("@", addon_type="prepend"),
+                dbc.Input(placeholder="Username"),
+            ],
+            className="mb-3",
+        ),
+        dbc.InputGroup(
+            [
+                dbc.InputGroupAddon("@", addon_type="prepend"),
+                dbc.Input(placeholder="Username"),
+            ],
+            className="mb-3",
+        ),
+    ]
+)
+
+#--------------------------------------------------------------------------------------------------------------------------------#
 layout = html.Div([
     dbc.Container(
         [
-            dbc.Row([
-                # dbc.Col(width=1),
-                dbc.Col(
-                    [
-                        dbc.Row([
-                            dbc.Col(
-                                [
-                                    html.Div(duc.CheckBoxTree(id="cb_input", nodes=checkboxtree_nodes, showNodeIcon=False)),
+            dcc.Interval(id='graph_update', interval= 1 * 1000, n_intervals=0),
+            dbc.Row(  # Row for body
+                [
+                    dbc.Col(  # Col for body_left
+                        [
+                            dbc.Card(body_left_card_tree, color="primary", inverse=True)
+                        ],
+                        width = 2
+                    ),
+                    dbc.Col(  # Col for body_right
+                        [
+                            dbc.Row([  # Row body_right_card_dropdown
+                                dbc.Col
+                                (
+                                    dbc.Card(body_right_card_caption, color="primary", inverse=True),
+                                    className="mb-2"
+                                )
+                            ]),
+                            dbc.Row([  # Row body_right_card_dropdown
+                                dbc.Col
+                                (
+                                    dbc.Card(body_right_card_dropdown, color="primary", inverse=True),
+                                    className="mb-2"
+                                )
+                            ]),
+                            dbc.Row([  # Row body_right_metrics
+                                dbc.Col(  # Col body_right_metrics_left
+                                    [
+                                        dbc.Row([  # Row for body_right_metrics_left_graph_timeseries
+                                            dbc.Col
+                                            (
+                                                dbc.Card(body_right_metrics_left_graph_timeseries, color="primary", inverse=True),
+                                                className = "mb-2",
+                                            )
+                                        ]),
+                                        dbc.Row([  # Row for body_right_metrics_left_graph_change
+                                            dbc.Col
+                                            (
+                                                dbc.Card(body_right_metrics_left_graph_change, color="primary", inverse=True),
+                                                className = "mb-2",
+                                            )
+                                        ]),
+                                    ],
+                                    width = 8,
+                                ),
+                                dbc.Col(  # Col body_right_metrics_right
+                                    [
+                                        dbc.Row([  # Row for body_right_metrics_right_object
+                                            dbc.Col
+                                            (
+                                                dbc.Card(body_right_metrics_right_object, color="primary", inverse=True),
+                                                className = "mb-2",
+                                            )
+                                        ]),
+                                    ],
+                                    width = 4,
+                                )
+                            ]),
 
-                                    # dbc.Button("22229D7", id="btn_d1", className="mb-0", color="primary", style={'width': '100%'}, size='lg'),
-                                    # dbc.Collapse(
-                                    #     children=[
-                                    #         # dbc.Row([
-                                    #         #     dbc.Col([html.H5("↳")], width=1),
-                                    #         #     dbc.Col([dbc.Button("d1_ch1", id="btn_d1_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm')])
-                                    #         # ]),
-                                    #         dbc.Button("d1_ch1", id="btn_d1_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #         dbc.Button("d1_ch2", id="btn_d1_ch2", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #         dbc.Button("d1_ch3", id="btn_d1_ch3", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #         dbc.Button("d1_ch4", id="btn_d1_ch4", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #         dbc.Button("d1_ch5", id="btn_d1_ch5", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #         dbc.Button("d1_ch6", id="btn_d1_ch6", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #     ],
-                                    #     id="clp_d1",
-                                    # ),
-                                    # dbc.Button("22229D9", id="btn_d2", className="mb-0", color="primary", style={'width': '100%'}, size='lg'),
-                                    # dbc.Collapse(
-                                    #     children=[
-                                    #         dbc.Button("d2_ch1", id="btn_d2_ch1", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #         dbc.Button("d2_ch2", id="btn_d2_ch2", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #         dbc.Button("d2_ch3", id="btn_d2_ch3", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #         dbc.Button("d2_ch4", id="btn_d2_ch4", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #         dbc.Button("d2_ch5", id="btn_d2_ch5", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #         dbc.Button("d2_ch6", id="btn_d2_ch6", className="mb-0", color="warning", style={'width': '100%', 'height': '30px'}, size='sm'),
-                                    #     ],
-                                    #     id="clp_d2",
-                                    # ),
-                                ],
-                                width = 2,
-                            ),
-                            dbc.Col(
-                                [
-                                    dbc.Row([dbc.Col(dbc.Card(html.H3(children='Sigfox Sensor Network Real-time Monitoring', className="text-center bg-primary"),
-                                                              body=True,
-                                                              color="primary"),
-                                             className="mb-4")]),
-                                    dbc.Row(
-                                        [
-                                            dbc.Col(html.P('''Sensor ID:''', style={'margin-right': '10px', 'margin-top': '5px', 'textAlign': 'right'}), width=1),
-                                            dbc.Col(
-                                                dcc.Dropdown(id='dd_id_meas',
-                                                             options=utils.get_options(df['deviceId'].unique(), device_ld),
-                                                             multi=True,
-                                                             style={'color': 'black', 'background-color': 'white'}
-                                                ),
-                                                width=3,
-                                            ),
-                                            dbc.Col(html.P('''Channel:''', style={'margin-right': '10px', 'margin-top': '5px', 'textAlign': 'right'}), width=1),
-                                            dbc.Col(
-                                                dcc.Dropdown(id='dd_measurement_meas',
-                                                             options=utils.get_options(df['data'].unique(), channel_ld),
-                                                             style={'color': 'black', 'background-color': 'white'}
-                                                ),
-                                                width=3,
-                                            ),
-                                        ],
-                                        no_gutters = True,
-                                    ),
-                                    dcc.Graph(id='meas_timeseries', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
-                                    dcc.Graph(id='meas_change', config={'displayModeBar': False}, animate=True, style={'margin-bottom': '10px'}),
-                                ],
-                                width = 10,
-                            )
-                        ])
-
-                    ],
-                    # width=10
-                ),
-                dcc.Interval(id='graph_update', interval= 1 * 1000, n_intervals=0),
-            ])
+                        ],
+                        width = 10,
+                    )
+                ],
+            )
         ],
         fluid=True
     )
 ])
 
 #--------------------------------------------------------------------------------------------------------------------------------#
-@app.callback(
-    [Output('checked-output', 'children'),
-     Output('expanded-output', 'children')],
-    [Input('cb_input', 'checked'),
-     Input('cb_input', 'expanded')])
-def display_output(checked, expanded):
-    if checked and len(checked) > 0:
-        res1 = 'You have checked {}'.format(' '.join(checked))
-    else:
-        res1 = 'No node is checked'
-
-    if expanded and len(expanded) > 0:
-        res2 = 'You have expanded {}'.format(' '.join(expanded))
-    else:
-        res2 = 'No node is expanded'
-
-    return [res1, res2]
-
-
-@app.callback(
-    [Output('cb_input', 'disabled'),
-     Output('cb_input', 'expandDisabled'),
-     Output('cb_input', 'expandOnClick'),
-     Output('cb_input', 'noCascade'),
-     Output('cb_input', 'onlyLeafCheckboxes'),
-     Output('cb_input', 'optimisticToggle'),
-     Output('cb_input', 'showNodeIcon')],
-    [Input('options', 'value')]
-)
-def configure_display(value):
-    list_options = ['disabled',
-                    'expandDisabled',
-                    'expandOnClick',
-                    'noCascade',
-                    'onlyLeafCheckboxes',
-                    'optimisticToggle',
-                    'showNodeIcon']
-    if value:
-        return [list_option in value for list_option in list_options]
-    else:
-        raise PreventUpdate
-
-#--------------------------------------------------------------------------------------------------------------------------------#
-
-
-# Callback function to for btn_d1
-@app.callback(Output("clp_d1", "is_open"),
-              [Input("btn_d1", "n_clicks")],
-              [State("clp_d1", "is_open")])
-def toggle_collapse_d1(n, is_open):
-    if n:
-        return not is_open
-    return is_open
-
-# Callback function to for btn_d1_ch1
-@app.callback(Output("btn_d1_ch1", "color"),
-              [Input("btn_d1_ch1", "n_clicks"),
-               Input("btn_d1_ch1", "color")])
-def toggle_collapse_d1_ch1(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
-
-# Callback function to for btn_d1_ch2
-@app.callback(Output("btn_d1_ch2", "color"),
-              [Input("btn_d1_ch2", "n_clicks"),
-               Input("btn_d1_ch2", "color")])
-def toggle_collapse_d1_ch2(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
-
-# Callback function to for btn_d1_ch3
-@app.callback(Output("btn_d1_ch3", "color"),
-              [Input("btn_d1_ch3", "n_clicks"),
-               Input("btn_d1_ch3", "color")])
-def toggle_collapse_d1_ch3(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
-
-# Callback function to for btn_d1_ch4
-@app.callback(Output("btn_d1_ch4", "color"),
-              [Input("btn_d1_ch4", "n_clicks"),
-               Input("btn_d1_ch4", "color")])
-def toggle_collapse_d1_ch4(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
-
-# Callback function to for btn_d1_ch5
-@app.callback(Output("btn_d1_ch5", "color"),
-              [Input("btn_d1_ch5", "n_clicks"),
-               Input("btn_d1_ch5", "color")])
-def toggle_collapse_d1_ch5(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
-
-# Callback function to for btn_d1_ch6
-@app.callback(Output("btn_d1_ch6", "color"),
-              [Input("btn_d1_ch6", "n_clicks"),
-               Input("btn_d1_ch6", "color")])
-def toggle_collapse_d1_ch6(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
+# @app.callback(
+#     [Output('checked-output', 'children'),
+#      Output('expanded-output', 'children')],
+#     [Input('cb_input', 'checked'),
+#      Input('cb_input', 'expanded')])
+# def display_output(checked, expanded):
+#     if checked and len(checked) > 0:
+#         res1 = 'You have checked {}'.format(' '.join(checked))
+#     else:
+#         res1 = 'No node is checked'
+#
+#     if expanded and len(expanded) > 0:
+#         res2 = 'You have expanded {}'.format(' '.join(expanded))
+#     else:
+#         res2 = 'No node is expanded'
+#
+#     return [res1, res2]
+#
+# @app.callback(
+#     [Output('cb_input', 'disabled'),
+#      Output('cb_input', 'expandDisabled'),
+#      Output('cb_input', 'expandOnClick'),
+#      Output('cb_input', 'noCascade'),
+#      Output('cb_input', 'onlyLeafCheckboxes'),
+#      Output('cb_input', 'optimisticToggle'),
+#      Output('cb_input', 'showNodeIcon')],
+#     [Input('options', 'value')]
+# )
+# def configure_display(value):
+#     list_options = ['disabled',
+#                     'expandDisabled',
+#                     'expandOnClick',
+#                     'noCascade',
+#                     'onlyLeafCheckboxes',
+#                     'optimisticToggle',
+#                     'showNodeIcon']
+#     if value:
+#         return [list_option in value for list_option in list_options]
+#     else:
+#         raise PreventUpdate
 
 #--------------------------------------------------------------------------------------------------------------------------------#
-# Callback function to for btn_d2
-@app.callback(Output("clp_d2", "is_open"),
-              [Input("btn_d2", "n_clicks")],
-              [State("clp_d2", "is_open")])
-def toggle_collapse_1_2(n, is_open):
-    if n:
-        return not is_open
-    return is_open
+# # Callback function to for btn_d1
+# @app.callback(Output("clp_d1", "is_open"),
+#               [Input("btn_d1", "n_clicks")],
+#               [State("clp_d1", "is_open")])
+# def toggle_collapse_d1(n, is_open):
+#     if n:
+#         return not is_open
+#     return is_open
+#
+# # Callback function to for btn_d1_ch1
+# @app.callback(Output("btn_d1_ch1", "color"),
+#               [Input("btn_d1_ch1", "n_clicks"),
+#                Input("btn_d1_ch1", "color")])
+# def toggle_collapse_d1_ch1(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
+#
+# # Callback function to for btn_d1_ch2
+# @app.callback(Output("btn_d1_ch2", "color"),
+#               [Input("btn_d1_ch2", "n_clicks"),
+#                Input("btn_d1_ch2", "color")])
+# def toggle_collapse_d1_ch2(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
+#
+# # Callback function to for btn_d1_ch3
+# @app.callback(Output("btn_d1_ch3", "color"),
+#               [Input("btn_d1_ch3", "n_clicks"),
+#                Input("btn_d1_ch3", "color")])
+# def toggle_collapse_d1_ch3(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
+#
+# # Callback function to for btn_d1_ch4
+# @app.callback(Output("btn_d1_ch4", "color"),
+#               [Input("btn_d1_ch4", "n_clicks"),
+#                Input("btn_d1_ch4", "color")])
+# def toggle_collapse_d1_ch4(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
+#
+# # Callback function to for btn_d1_ch5
+# @app.callback(Output("btn_d1_ch5", "color"),
+#               [Input("btn_d1_ch5", "n_clicks"),
+#                Input("btn_d1_ch5", "color")])
+# def toggle_collapse_d1_ch5(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
+#
+# # Callback function to for btn_d1_ch6
+# @app.callback(Output("btn_d1_ch6", "color"),
+#               [Input("btn_d1_ch6", "n_clicks"),
+#                Input("btn_d1_ch6", "color")])
+# def toggle_collapse_d1_ch6(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
 
-# Callback function to for btn_d2_ch1
-@app.callback(Output("btn_d2_ch1", "color"),
-              [Input("btn_d2_ch1", "n_clicks"),
-               Input("btn_d2_ch1", "color")])
-def toggle_collapse_d2_ch1(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
+#--------------------------------------------------------------------------------------------------------------------------------#
+# # Callback function to for btn_d2
+# @app.callback(Output("clp_d2", "is_open"),
+#               [Input("btn_d2", "n_clicks")],
+#               [State("clp_d2", "is_open")])
+# def toggle_collapse_1_2(n, is_open):
+#     if n:
+#         return not is_open
+#     return is_open
+#
+# # Callback function to for btn_d2_ch1
+# @app.callback(Output("btn_d2_ch1", "color"),
+#               [Input("btn_d2_ch1", "n_clicks"),
+#                Input("btn_d2_ch1", "color")])
+# def toggle_collapse_d2_ch1(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
+#
+# # Callback function to for btn_d2_ch2
+# @app.callback(Output("btn_d2_ch2", "color"),
+#               [Input("btn_d2_ch2", "n_clicks"),
+#                Input("btn_d2_ch2", "color")])
+# def toggle_collapse_d2_ch2(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
+#
+# # Callback function to for btn_d2_ch3
+# @app.callback(Output("btn_d2_ch3", "color"),
+#               [Input("btn_d2_ch3", "n_clicks"),
+#                Input("btn_d2_ch3", "color")])
+# def toggle_collapse_d2_ch3(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
+#
+# # Callback function to for btn_d2_ch4
+# @app.callback(Output("btn_d2_ch4", "color"),
+#               [Input("btn_d2_ch4", "n_clicks"),
+#                Input("btn_d2_ch4", "color")])
+# def toggle_collapse_d2_ch4(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
+#
+# # Callback function to for btn_d2_ch5
+# @app.callback(Output("btn_d2_ch5", "color"),
+#               [Input("btn_d2_ch5", "n_clicks"),
+#                Input("btn_d2_ch5", "color")])
+# def toggle_collapse_d2_ch5(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
+#
+# # Callback function to for btn_d2_ch6
+# @app.callback(Output("btn_d2_ch6", "color"),
+#               [Input("btn_d2_ch6", "n_clicks"),
+#                Input("btn_d2_ch6", "color")])
+# def toggle_collapse_d2_ch6(n, color):
+#     if color=='warning':
+#         return 'secondary'
+#     return 'warning'
 
-# Callback function to for btn_d2_ch2
-@app.callback(Output("btn_d2_ch2", "color"),
-              [Input("btn_d2_ch2", "n_clicks"),
-               Input("btn_d2_ch2", "color")])
-def toggle_collapse_d2_ch2(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
-
-# Callback function to for btn_d2_ch3
-@app.callback(Output("btn_d2_ch3", "color"),
-              [Input("btn_d2_ch3", "n_clicks"),
-               Input("btn_d2_ch3", "color")])
-def toggle_collapse_d2_ch3(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
-
-# Callback function to for btn_d2_ch4
-@app.callback(Output("btn_d2_ch4", "color"),
-              [Input("btn_d2_ch4", "n_clicks"),
-               Input("btn_d2_ch4", "color")])
-def toggle_collapse_d2_ch4(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
-
-# Callback function to for btn_d2_ch5
-@app.callback(Output("btn_d2_ch5", "color"),
-              [Input("btn_d2_ch5", "n_clicks"),
-               Input("btn_d2_ch5", "color")])
-def toggle_collapse_d2_ch5(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
-
-# Callback function to for btn_d2_ch6
-@app.callback(Output("btn_d2_ch6", "color"),
-              [Input("btn_d2_ch6", "n_clicks"),
-               Input("btn_d2_ch6", "color")])
-def toggle_collapse_d2_ch6(n, color):
-    if color=='warning':
-        return 'secondary'
-    return 'warning'
-
-#----------------------------------------------------------------------------------------   ------------------------------#
+#--------------------------------------------------------------------------------------------------------------------------------#
 # Callback function to update the channel string and to apply all the scaling factors
 @app.callback(Output('h6_channel_string_sensors', 'children'),
               Input('graph_update', 'n_intervals'))
@@ -437,8 +541,8 @@ def update_meas_timeseries(ids, data, n):
                   template='plotly_dark',
                   paper_bgcolor='rgba(0, 0, 0, 0)',
                   plot_bgcolor='rgba(0, 0, 0, 0)',
-                  margin={'b': 15},
                   hovermode='x',
+                  height=500,
                   autosize=True,
                   title={'text': 'Sensor Data', 'font': {'color': 'white'}, 'x': 0.5},
                   xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
@@ -502,8 +606,7 @@ def update_meas_change(ids, data, n):
                   template='plotly_dark',
                   paper_bgcolor='rgba(0, 0, 0, 0)',
                   plot_bgcolor='rgba(0, 0, 0, 0)',
-                  margin={'t': 50},
-                  height=250,
+                  height=350,
                   hovermode='x',
                   autosize=True,
                   title={'text': 'Change', 'font': {'color': 'white'}, 'x': 0.5},
