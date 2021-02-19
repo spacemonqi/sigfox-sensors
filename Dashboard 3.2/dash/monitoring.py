@@ -15,80 +15,21 @@ import utils
 from app import app
 
 #----------------------------------------------------------------------------------------------------------------------#
-df = utils.get_df('../data/sensor_data.csv')
-channel_ld = utils.get_channels()
-device_ld = utils.get_devices()
-
 colorlist_meas = ['#FF4F00', '#FFF400', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
 
 #----------------------------------------------------------------------------------------------------------------------#
-# DEFINE THE CHECKBOX TREE
-checkboxtree_nodes = [
-    {
-        "value": "1",
-        "label": "1",
-        "children": [
-            {
-                "value": "1_1",
-                "label": "1_1",
-                "children": [
-                    {
-                        "value": "1_1_1",
-                        "label": "1_1_1",
-                        "children": [
-                            {
-                                "value": "1_1_1_1",
-                                "label": "1_1_1_1"
-                            }
-                        ]
-                    },
-                    {
-                        "value": "1_1_2",
-                        "label": "1_1_2"
-                    }
-                ]
-            },
-            {
-                "value": "1_2",
-                "label": "1_2",
-                "children": [
-                    {
-                        "value": "1_2_1",
-                        "label": "1_2_1"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "value": "2",
-        "label": "2",
-        "children": [
-            {
-                "value": "2_1",
-                "label": "2_1"
-            },
-            {
-                "value": "2_2",
-                "label": "2_2"
-            }
-        ]
-    },
-    {
-        "value": "3",
-        "label": "3",
-        "children": [
-            {
-                "value": "3_1",
-                "label": "3_1"
-            },
-            {
-                "value": "3_2",
-                "label": "3_2"
-            }
-        ]
-    }
-]
+df = utils.get_df('../data/sensor_data.csv')
+locations_ld = utils.get_locations()
+devices_ld = utils.get_devices()
+channels_ld = utils.get_channels()
+checkboxtree_nodes = utils.checkboxtree_nodes(locations_ld, devices_ld, channels_ld)
+
+# print('\nlocations_ld')
+# print(locations_ld)
+# print('\ndevices_ld')
+# print(devices_ld)
+# print('\nchannels_ld')
+# print(channels_ld)
 
 #----------------------------------------------------------------------------------------------------------------------#
 body_left_card_tree = dbc.CardBody(
@@ -125,36 +66,37 @@ body_left_card_tree = dbc.CardBody(
     ]
 ),
 
-body_right_card_caption = dbc.CardBody(html.H3(children='Sigfox Sensor Network Real-time Monitoring', className="text-left bg-primary")),
+body_right_card_caption = dbc.CardBody(
+    [
+        dbc.Row(html.H3(children='Sigfox Sensor Network Real-time Monitoring', className="text-left bg-primary")),
+        dbc.Row(html.H6(id='h6_channel_string_statistics', children=utils.string_channels()))
+    ]
+)
 
-body_right_card_dropdown = [
-    dbc.CardBody(
+body_right_card_dropdown = dbc.CardBody(
+    dbc.Row(  # Row for dropdowns
         [
-            dbc.Row(  # Row for dropdowns
-                [
-                    dbc.Col(html.P('''Sensor ID:''', style={'margin-right': '10px', 'margin-top': '5px', 'textAlign': 'left'}), width=1),
-                    dbc.Col(
-                        dcc.Dropdown(id='dd_id_meas',
-                                     options=utils.get_options(df['deviceId'].unique(), device_ld),
-                                     multi=True,
-                                     style={'color': 'black', 'background-color': 'white'}
-                        ),
-                        width=3,
-                    ),
-                    dbc.Col(html.P('''Channel:''', style={'margin-right': '10px', 'margin-top': '5px', 'textAlign': 'left'}), width=1),
-                    dbc.Col(
-                        dcc.Dropdown(id='dd_measurement_meas',
-                                     options=utils.get_options(df['data'].unique(), channel_ld),
-                                     style={'color': 'black', 'background-color': 'white'}
-                        ),
-                        width=3,
-                    ),
-                ],
-                # no_gutters = True,
+            dbc.Col(html.P('''Sensor ID:''', style={'margin-right': '10px', 'margin-top': '5px', 'textAlign': 'left'}), width=1),
+            dbc.Col(
+                dcc.Dropdown(id='dd_id_meas',
+                             options=utils.get_options(df['deviceId'].unique(), devices_ld),
+                             multi=True,
+                             style={'color': 'black', 'background-color': 'white'}
+                ),
+                width=3,
             ),
-        ]
+            dbc.Col(html.P('''Channel:''', style={'margin-right': '10px', 'margin-top': '5px', 'textAlign': 'left'}), width=1),
+            dbc.Col(
+                dcc.Dropdown(id='dd_measurement_meas',
+                             options=utils.get_options(df['data'].unique(), channels_ld),
+                             style={'color': 'black', 'background-color': 'white'}
+                ),
+                width=3,
+            ),
+        ],
+        # no_gutters = True,
     ),
-]
+)
 
 body_right_metrics_left_graph_timeseries = dcc.Graph(id='meas_timeseries', animate=True)
 
@@ -204,9 +146,9 @@ body_right_metrics_right_object = dbc.CardBody(
 layout = html.Div([
     dbc.Container(
         [
-            dcc.Interval(id='graph_update', interval= 1 * 1000, n_intervals=0),
             dbc.Row(  # Row for body
                 [
+                    dcc.Interval(id='graph_update', interval= 1*1000, n_intervals=0),
                     dbc.Col(  # Col for body_left
                         [
                             dbc.Card(body_left_card_tree, color="primary", inverse=True)
@@ -444,12 +386,14 @@ layout = html.Div([
 #     return 'warning'
 
 #--------------------------------------------------------------------------------------------------------------------------------#
-# Callback function to update the channel string and to apply all the scaling factors
-@app.callback(Output('h6_channel_string_sensors', 'children'),
+# Callback function to update the channel string and to apply all the scaling factors to the csv data
+@app.callback(Output('h6_channel_string_statistics', 'children'),
               Input('graph_update', 'n_intervals'))
 def channel_string_scaling_factor_update(x):
 
     df = pd.read_csv('../data/sensor_data.csv')
+    print('\ndf')
+    print(df)
     channels_ld = utils.get_channels()
 
     scaling_fact = 1.0
@@ -463,7 +407,7 @@ def channel_string_scaling_factor_update(x):
         df_scaled.loc[df_scaled['data']==channel, 'value'] = df_scaled[df_scaled['data']==channel]['value'] * scaling_fact
         df_scaled.loc[df_scaled['data']==channel, 'change'] = df_scaled[df_scaled['data']==channel]['change'] * scaling_fact
     df_scaled.to_csv('../data/sensor_data_temp.csv', index=False, header=True)
-    # copyfile('../data/sensor_data_temp.csv', '../data/sensor_data_scaled.csv')  # TURN THIS ON AGAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    copyfile('../data/sensor_data_temp.csv', '../data/sensor_data_scaled.csv')  # TURN THIS ON AGAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     return utils.string_channels()
 
@@ -476,16 +420,16 @@ def channel_string_scaling_factor_update(x):
                Output('dd_measurement_meas', 'options')],
               [Input('dd_type_meas', 'value')])
 def dd_meas_update(value):
-    channel_ld = utils.get_channels()
-    device_ld = utils.get_devices()
+    channels_ld = utils.get_channels()
+    devices_ld = utils.get_devices()
     disabled = True
     options_id = []
     options_data = []
     if value:
         disabled = False
     if value == 'STM32WL55':
-        options_id = utils.get_options(df['deviceId'].unique(), device_ld)
-        options_data = utils.get_options(df['data'].unique(), channel_ld)
+        options_id = utils.get_options(df['deviceId'].unique(), devices_ld)
+        options_data = utils.get_options(df['data'].unique(), channels_ld)
 
     return [disabled, "", options_id, disabled, "", options_data]
 

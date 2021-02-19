@@ -27,12 +27,12 @@ def read_params(filename):
 def write_data_to_csv(filename):
     data_types = ['CH1', 'CH2', 'CH3', 'CH4', 'CH5', 'CH6']
     num_data_types = len(data_types)
-    columns = ['deviceId', 'timestamp', 'data', 'value', 'change']
+    columns = ['location', 'deviceId', 'timestamp', 'data', 'value', 'change']
     df = pd.DataFrame(columns=columns)
     all_msgs = aws_api.scan_items_AWS(online, tableName)['Items']
     num_all_msgs = len(all_msgs)
     for i in range(num_all_msgs):
-        item_dict = {'deviceId': all_msgs[i]['deviceId'],
+        item_dict = {'location': 'SA', 'deviceId': all_msgs[i]['deviceId'],
                      'timestamp': datetime.fromtimestamp(int(int(str(all_msgs[i]['timestamp']))/1000+1))}  # THIS IS VERY BAD
         for k in range(num_data_types):
             item_dict['data'] = data_types[k]

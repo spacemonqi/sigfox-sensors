@@ -17,7 +17,7 @@ layout = html.Div([
     dbc.Container([
         dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network - Configuration"), className="mb-2")]),
         dbc.Row([dbc.Col(html.H6(children="Channels: "))]),
-        dbc.Row([dbc.Col(html.H6(id='h6_channel_string_configuration', children=utils.string_channels()), className="mb-4")]),
+        dbc.Row([dbc.Col(html.H6(id='h6_channel_string', children=utils.string_channels()), className="mb-4")]),
         dbc.Row([dbc.Col(dbc.Card(html.H3(children='Channel Configuration', className="text-center bg-primary"),
                                   body=True,
                                   color="primary"),
@@ -230,7 +230,7 @@ def device_alias_update(new_alias):
     return 'text'
 
 # Callback function to update the channel aliases and scaling factors
-@app.callback(Output("h6_channel_string_configuration", "children"),
+@app.callback(Output("h6_channel_string", "children"),
               [Input("in_alias_1", "value"),
               Input("in_scaling_factor_1", "value"),
               Input("in_alias_2", "value"),
