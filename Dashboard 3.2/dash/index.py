@@ -54,11 +54,9 @@ def toggle_navbar_collapse(n, is_open):
     return is_open
 
 for i in [2]:
-    app.callback(
-        Output(f"navbar-collapse{i}", "is_open"),
-        [Input(f"navbar-toggler{i}", "n_clicks")],
-        [State(f"navbar-collapse{i}", "is_open")],
-    )(toggle_navbar_collapse)
+    app.callback(Output(f"navbar-collapse{i}", "is_open"),
+                 [Input(f"navbar-toggler{i}", "n_clicks")],
+                 [State(f"navbar-collapse{i}", "is_open")])(toggle_navbar_collapse)
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
