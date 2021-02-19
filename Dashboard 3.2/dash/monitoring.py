@@ -1,3 +1,5 @@
+# Go through all comments in all files and cleanup/reimplement commented code
+
 import numpy as np
 import pandas as pd
 from shutil import copyfile
@@ -34,7 +36,23 @@ checkboxtree_nodes = utils.checkboxtree_nodes(locations_ld, devices_ld, channels
 #----------------------------------------------------------------------------------------------------------------------#
 body_left_card_tree = dbc.CardBody(
     [
-        html.Div(duc.CheckBoxTree(id="cb_input", nodes=checkboxtree_nodes, showNodeIcon=False)),
+        html.Div(duc.CheckBoxTree(id="cb_input", nodes=checkboxtree_nodes, showNodeIcon=False))
+        # dbc.Row(html.Div(duc.CheckBoxTree(id="cb_input", nodes=checkboxtree_nodes, showNodeIcon=False)), className='mb-4'),
+        # dbc.Row(html.Div([
+        #     dcc.Checklist(
+        #         id='options',
+        #         options=[
+        #             {'label': 'Expand when clicked', 'value': 'expandOnClick'},
+        #             {'label': 'Do not cascade', 'value': 'noCascade'},
+        #             {'label': 'Only Leaf Checkboxes', 'value': 'onlyLeafCheckboxes'},
+        #             {'label': 'Optimistic Toggle', 'value': 'optimisticToggle'},
+        #             {'label': 'Show Nodes Icons', 'value': 'showNodeIcon'},
+        #         ],
+        #         value=['optimisticToggle', 'showNodeIcon']
+        #     )
+        # ]), className='mb-4'),
+        # dbc.Row(html.Div(id='checked-output'), className='mb-4'),
+        # dbc.Row(html.Div(id='expanded-output'), className='mb-4'),
         # dbc.Button("22229D7", id="btn_d1", className="mb-0", color="primary", style={'width': '100%'}, size='lg'),
         # dbc.Collapse(
         #     children=[
@@ -68,8 +86,9 @@ body_left_card_tree = dbc.CardBody(
 
 body_right_card_caption = dbc.CardBody(
     [
-        dbc.Row(html.H3(children='Sigfox Sensor Network Real-time Monitoring', className="text-left bg-primary")),
-        dbc.Row(html.H6(id='h6_channel_string_statistics', children=utils.string_channels()))
+        html.H3(id='body_right_card_caption', children='Sigfox Sensor Network Real-time Monitoring', className="text-left bg-primary"),
+        # dbc.Row(html.H3(id='body_right_card_caption', children='Sigfox Sensor Network Real-time Monitoring', className="text-left bg-primary")),
+        # dbc.Row(html.H6(id='h6_channel_string_statistics', children=utils.string_channels()))
     ]
 )
 
@@ -235,9 +254,7 @@ layout = html.Div([
 #     return [res1, res2]
 #
 # @app.callback(
-#     [Output('cb_input', 'disabled'),
-#      Output('cb_input', 'expandDisabled'),
-#      Output('cb_input', 'expandOnClick'),
+#     [Output('cb_input', 'expandOnClick'),
 #      Output('cb_input', 'noCascade'),
 #      Output('cb_input', 'onlyLeafCheckboxes'),
 #      Output('cb_input', 'optimisticToggle'),
@@ -245,9 +262,7 @@ layout = html.Div([
 #     [Input('options', 'value')]
 # )
 # def configure_display(value):
-#     list_options = ['disabled',
-#                     'expandDisabled',
-#                     'expandOnClick',
+#     list_options = ['expandOnClick',
 #                     'noCascade',
 #                     'onlyLeafCheckboxes',
 #                     'optimisticToggle',
@@ -387,13 +402,11 @@ layout = html.Div([
 
 #--------------------------------------------------------------------------------------------------------------------------------#
 # Callback function to update the channel string and to apply all the scaling factors to the csv data
-@app.callback(Output('h6_channel_string_statistics', 'children'),
+@app.callback(Output('body_right_card_caption', 'children'),
               Input('graph_update', 'n_intervals'))
 def channel_string_scaling_factor_update(x):
 
     df = pd.read_csv('../data/sensor_data.csv')
-    print('\ndf')
-    print(df)
     channels_ld = utils.get_channels()
 
     scaling_fact = 1.0
@@ -409,7 +422,7 @@ def channel_string_scaling_factor_update(x):
     df_scaled.to_csv('../data/sensor_data_temp.csv', index=False, header=True)
     copyfile('../data/sensor_data_temp.csv', '../data/sensor_data_scaled.csv')  # TURN THIS ON AGAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    return utils.string_channels()
+    return 'Sigfox Sensor Network Real-time Monitoring'
 
 # Callback function to enable/disable & update options of dd_id_meas & dd_measurement_meas based on dd_type_meas
 @app.callback([Output('dd_id_meas', 'disabled'),

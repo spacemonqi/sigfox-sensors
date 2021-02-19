@@ -1,3 +1,5 @@
+# The update_ functions have to be called in such a way as to update based on changes in the DB - implement this
+
 import pandas as pd
 import csv
 
@@ -10,10 +12,8 @@ def get_df(filename):
 
 # Function to get all value/value or value/label pairs for dropdown options from the ld
 def get_options(list_data, ld=None):
-
     list_data = sorted(list_data)
     dict_list = []
-
     if ld:
         i = 0
         for item in list_data:
@@ -42,8 +42,8 @@ def update_locations(locations_ld):
         fieldnames = ['name', 'alias']
         csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         csv_writer.writeheader()
-        for device_name in locations_ld:
-            csv_writer.writerow(device_name)
+        for location in locations_ld:
+            csv_writer.writerow(location)
         csv_file.close()
 
 # Function to get the ld from the csv of all deviceid,alias
@@ -95,77 +95,93 @@ def string_channels():
 
 # Function to write the nodes of the navigation tree
 def checkboxtree_nodes(locations_ld, devices_ld, channels_ld):
-    # checkboxtree_nodes = []
-    # for location in locations_ld:
-    #
-    #     for device in devices_ld:
-    #         for channel in channels_ld:
+    # Will later have to change this so it checks which locations have which devices, and which devices have which channels
+    tree_children = []
+    for location in locations_ld:
+        loc_children = []
+        for device in devices_ld:
+            dev_children = []
+            for channel in channels_ld:
+                ch_node = {}
+                ch_node['value'] = location['name'] + '_' + device['name'] + '_' + channel['name']
+                ch_node['label'] = channel['alias']
+                dev_children.append(ch_node)
+            dev_node = {}
+            dev_node['value'] = location['name'] + '_' + device['name']
+            dev_node['label'] = device['alias']
+            dev_node['children'] = dev_children
+            loc_children.append(dev_node)
+        loc_node = {}
+        loc_node['value'] = location['name']
+        loc_node['label'] = location['alias']
+        loc_node['children'] = loc_children
+        tree_children.append(loc_node)
 
-    checkboxtree_nodes = [
-        {
-            "value": "1",
-            "label": "1",
-            "children": [
-                {
-                    "value": "1_1",
-                    "label": "1_1",
-                    "children": [
-                        {
-                            "value": "1_1_1",
-                            "label": "1_1_1",
-                            "children": [
-                                {
-                                    "value": "1_1_1_1",
-                                    "label": "1_1_1_1"
-                                }
-                            ]
-                        },
-                        {
-                            "value": "1_1_2",
-                            "label": "1_1_2"
-                        }
-                    ]
-                },
-                {
-                    "value": "1_2",
-                    "label": "1_2",
-                    "children": [
-                        {
-                            "value": "1_2_1",
-                            "label": "1_2_1"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "value": "2",
-            "label": "2",
-            "children": [
-                {
-                    "value": "2_1",
-                    "label": "2_1"
-                },
-                {
-                    "value": "2_2",
-                    "label": "2_2"
-                }
-            ]
-        },
-        {
-            "value": "3",
-            "label": "3",
-            "children": [
-                {
-                    "value": "3_1",
-                    "label": "3_1"
-                },
-                {
-                    "value": "3_2",
-                    "label": "3_2"
-                }
-            ]
-        }
-    ]
+    # checkboxtree_nodes = [
+    #     {
+    #         'value': '1',
+    #         'label': '1',
+    #         'children': [
+    #             {
+    #                 'value': '1_1',
+    #                 'label': '1_1',
+    #                 'children': [
+    #                     {
+    #                         'value': '1_1_1',
+    #                         'label': '1_1_1',
+    #                         'children': [
+    #                             {
+    #                                 'value': '1_1_1_1',
+    #                                 'label': '1_1_1_1'
+    #                             }
+    #                         ]
+    #                     },
+    #                     {
+    #                         'value': '1_1_2',
+    #                         'label': '1_1_2'
+    #                     }
+    #                 ]
+    #             },
+    #             {
+    #                 'value': '1_2',
+    #                 'label': '1_2',
+    #                 'children': [
+    #                     {
+    #                         'value': '1_2_1',
+    #                         'label': '1_2_1'
+    #                     }
+    #                 ]
+    #             }
+    #         ]
+    #     },
+    #     {
+    #         'value': '2',
+    #         'label': '2',
+    #         'children': [
+    #             {
+    #                 'value': '2_1',
+    #                 'label': '2_1'
+    #             },
+    #             {
+    #                 'value': '2_2',
+    #                 'label': '2_2'
+    #             }
+    #         ]
+    #     },
+    #     {
+    #         'value': '3',
+    #         'label': '3',
+    #         'children': [
+    #             {
+    #                 'value': '3_1',
+    #                 'label': '3_1'
+    #             },
+    #             {
+    #                 'value': '3_2',
+    #                 'label': '3_2'
+    #             }
+    #         ]
+    #     }
+    # ]
 
-    return checkboxtree_nodes
+    return tree_children
