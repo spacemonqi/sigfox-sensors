@@ -186,7 +186,7 @@ layout = html.Div([
 def placeholders_update(deviceid):
 
     if deviceid:
-        with open('config/dd_current_devid.txt', mode='w') as file:
+        with open('temp/dd_current_devid.txt', mode='w') as file:
             file.write(deviceid)
             file.close()
 

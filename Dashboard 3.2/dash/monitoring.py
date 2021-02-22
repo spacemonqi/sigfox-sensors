@@ -2,7 +2,6 @@
 
 import numpy as np
 import pandas as pd
-from shutil import copyfile
 
 import plotly.graph_objects as go
 
@@ -10,7 +9,6 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
-from dash.exceptions import PreventUpdate
 import dash_useful_components as duc
 
 import utils
@@ -129,6 +127,55 @@ body_right_metrics_left_graph_timeseries = dcc.Graph(id='graph_timeseries', anim
 
 body_right_metrics_left_graph_change = dcc.Graph(id='graph_change', animate=True)
 
+body_right_metrics_right = html.Div([  # Row for body_right_metrics_right_object
+    dbc.Button('Run', id='btn_pause', color='primary'),
+    dbc.Card(
+        children = [
+            dbc.CardHeader(children=["Device <devid>"]),
+            dbc.CardBody(
+                [
+                    dbc.InputGroup(
+                        [
+                            dbc.InputGroupAddon('Name', addon_type="prepend"),
+                            dbc.Input(placeholder=""),
+                        ],
+                        className="mb-2",
+                    ),
+                    dbc.InputGroup(
+                        [
+                            dbc.InputGroupAddon('@', addon_type="prepend"),
+                            dbc.Input(placeholder=""),
+                        ],
+                        className="mb-2",
+                    ),
+                    dbc.InputGroup(
+                        [
+                            dbc.InputGroupAddon('@', addon_type="prepend"),
+                            dbc.Input(placeholder=""),
+                        ],
+                        className="mb-2",
+                    ),
+                    dbc.InputGroup(
+                        [
+                            dbc.InputGroupAddon('@', addon_type="prepend"),
+                            dbc.Input(placeholder=""),
+                        ],
+                        className="mb-2",
+                    ),
+                    dbc.InputGroup(
+                        [
+                            dbc.InputGroupAddon('@', addon_type="prepend"),
+                            dbc.Input(placeholder=""),
+                        ],
+                        className="mb-2",
+                    ),
+                ],
+            )
+        ],
+        color='success'
+    )
+])
+
 graph_ch1 = dbc.Card(dcc.Graph(id='graph_ch1', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
 graph_ch2 = dbc.Card(dcc.Graph(id='graph_ch2', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
 graph_ch3 = dbc.Card(dcc.Graph(id='graph_ch3', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
@@ -178,49 +225,6 @@ graph_ch6 = dbc.Card(dcc.Graph(id='graph_ch6', animate=True, style={'display': '
 #     )
 # ]),
 
-body_right_metrics_right_object = [
-    dbc.CardHeader(children=["Device <devid>"]),
-    dbc.CardBody(
-        [
-            dbc.InputGroup(
-                [
-                    dbc.InputGroupAddon('Name', addon_type="prepend"),
-                    dbc.Input(placeholder=""),
-                ],
-                className="mb-3",
-            ),
-            dbc.InputGroup(
-                [
-                    dbc.InputGroupAddon('@', addon_type="prepend"),
-                    dbc.Input(placeholder=""),
-                ],
-                className="mb-3",
-            ),
-            dbc.InputGroup(
-                [
-                    dbc.InputGroupAddon('@', addon_type="prepend"),
-                    dbc.Input(placeholder=""),
-                ],
-                className="mb-3",
-            ),
-            dbc.InputGroup(
-                [
-                    dbc.InputGroupAddon('@', addon_type="prepend"),
-                    dbc.Input(placeholder=""),
-                ],
-                className="mb-3",
-            ),
-            dbc.InputGroup(
-                [
-                    dbc.InputGroupAddon('@', addon_type="prepend"),
-                    dbc.Input(placeholder=""),
-                ],
-                className="mb-3",
-            ),
-        ]
-    )
-]
-
 #Layout Divisions----------------------------------------------------------------------------------------------------------------#
 DIV_graphs = html.Div(  # Div for graphs
     id='DIV_graphs',
@@ -234,6 +238,14 @@ DIV_graphs = html.Div(  # Div for graphs
         graph_ch5,
         graph_ch6,
     ]
+)
+
+DIV_config = html.Div(
+    id='DIV_config',
+    children = [
+        body_right_metrics_right
+    ]
+
 )
 
 DIV_body_right = html.Div(  # Div for body_right
@@ -256,20 +268,14 @@ DIV_body_right = html.Div(  # Div for body_right
             dbc.Col(  # Col body_right_metrics_left
                 DIV_graphs,
                 width = 8,
+                # style={'margin-right': '5px', 'margin-left': '5px'}
             ),
             dbc.Col(  # Col body_right_metrics_right
-                [
-                    dbc.Row([  # Row for body_right_metrics_right_object
-                        dbc.Col
-                        (
-                            dbc.Card(body_right_metrics_right_object, color="primary"),
-                            className = "mb-2",
-                        )
-                    ]),
-                ],
-                width = 4,
+                DIV_config,
+                style={'margin-left': '0.5rem'},
+                # width = 4,
             )
-        ]),
+        ], no_gutters = True),
 
     ],
 ),
@@ -280,11 +286,12 @@ layout = html.Div([
         [
             dbc.Row(  # Row for body
                 [
-                    dcc.Interval(id='graph_update', interval= 1*1000, n_intervals=0),
+                    dcc.Interval(id='graph_update', interval= 2*1000, n_intervals=0),
                     dbc.Col(  # Col for body_left
                         [
                             dbc.Card(body_left_card_tree, color="primary", style={'height': '100%'})
                         ],
+                        style={"height": "90%"},
                         width = 2
                     ),
                     dbc.Col(  # Col for body_right
@@ -293,61 +300,26 @@ layout = html.Div([
                         width = 10,
                     )
                 ],
+                className="h-100",
             )
         ],
+        style={"height": "100vh"},
         fluid=True
     )
 ])
 
-#Navigation Tree-----------------------------------------------------------------------------------------------------------------#
-
-# @app.callback(Output('col_body_right', 'children'),
-#               [Input('col_body_right', 'children')])
-# def DIV_body_right_update(x):
-#     return DIV_body_right
-
-# @app.callback(
-#     [Output('checked-output', 'children'),
-#      Output('expanded-output', 'children')],
-#     [Input('nav_tree', 'checked'),
-#      Input('nav_tree', 'expanded')])
-# def display_output(checked, expanded):
-#     if checked and len(checked) > 0:
-#         res1 = 'You have checked {}'.format(' '.join(checked))
-#     else:
-#         res1 = 'No node is checked'
-#
-#     if expanded and len(expanded) > 0:
-#         res2 = 'You have expanded {}'.format(' '.join(expanded))
-#     else:
-#         res2 = 'No node is expanded'
-#
-#     return [res1, res2]
-
-# @app.callback(
-#     [Output('nav_tree', 'disabled'),
-#      Output('nav_tree', 'expandDisabled'),
-#      Output('nav_tree', 'expandOnClick'),
-#      Output('nav_tree', 'noCascade'),
-#      Output('nav_tree', 'onlyLeafCheckboxes'),
-#      Output('nav_tree', 'optimisticToggle'),
-#      Output('nav_tree', 'showNodeIcon')],
-#     [Input('options', 'value')]
-# )
-# def configure_display(value):
-#     list_options = ['disabled',
-#                     'expandDisabled',
-#                     'expandOnClick',
-#                     'noCascade',
-#                     'onlyLeafCheckboxes',
-#                     'optimisticToggle',
-#                     'showNodeIcon']
-#     if value:
-#         return [list_option in value for list_option in list_options]
-#     else:
-#         raise PreventUpdate
-
 #Graphing------------------------------------------------------------------------------------------------------------------------#
+
+# Pause the live updates
+@app.callback([Output("graph_update", "interval"),
+               Output("btn_pause", "children")],
+              [Input("btn_pause", "n_clicks"),
+               Input("btn_pause", "children")])
+def on_button_click(n, current):
+    if current == 'Pause':
+        return [1000*1000, 'Run']
+    else:
+        return [2*1000, 'Pause']
 
 # # Update graph_timeseries based on the dropdown
 # @app.callback(Output('graph_timeseries', 'figure'),
@@ -492,10 +464,9 @@ layout = html.Div([
                Input('nav_tree', 'checked')])
 def update_graphs(n, checked):
 
-    df_temp = pd.read_csv('../data/sensor_data.csv')
     channels_ld = utils.get_channels()
     scaling_fact = 1.0
-    df_scaled = df_temp
+    df_scaled = pd.read_csv('../data/sensor_data.csv')
     df_scaled['value'] = df_scaled['value'].astype(float)
     df_scaled['change'] = df_scaled['change'].astype(float)
     for dict in channels_ld:
@@ -503,10 +474,7 @@ def update_graphs(n, checked):
         scaling_fact = float(dict['scaling_fact'])
         df_scaled.loc[df_scaled['data']==channel, 'value'] = df_scaled[df_scaled['data']==channel]['value'] * scaling_fact
         df_scaled.loc[df_scaled['data']==channel, 'change'] = df_scaled[df_scaled['data']==channel]['change'] * scaling_fact
-    df_scaled.to_csv('../data/sensor_data_scaled.csv', index=False, header=True)
-
-    df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
-    df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
+    df_scaled.index = pd.to_datetime(df_scaled['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
 
     figures = []
     i = 0
@@ -516,7 +484,7 @@ def update_graphs(n, checked):
 
         if checked:
             device = checked[0].split('_')[1]
-            df_data = df[df['data'] == channel['name']]
+            df_data = df_scaled[df_scaled['data'] == channel['name']]
             df_data_id = df_data[df_data['deviceId'] == device]
             xmin = df_data_id.index.min()
             xmax = df_data_id.index.max()
@@ -533,10 +501,10 @@ def update_graphs(n, checked):
                         )
             )
         else:
-            df_clear = df
+            df_clear = df_scaled
             df_clear['value'].values[:] = 0
-            xmin = df.index.min()
-            xmax = df.index.max()
+            xmin = df_scaled.index.min()
+            xmax = df_scaled.index.max()
             ymin = -100
             ymax = 100
             trace.append(go.Scatter(x=df_clear.index,
@@ -551,15 +519,19 @@ def update_graphs(n, checked):
         traces = [trace]
         data = [val for sublist in traces for val in sublist]
 
+        print('\n\n')
+        print(channel)
+        print(data[0]['x'])
+
         figure = {'data': data,
                   'layout': go.Layout(
                       colorway=colorlist,
                       template='plotly_dark',
                       paper_bgcolor='rgba(0, 0, 0, 0)',
                       plot_bgcolor='rgba(0, 0, 0, 0)',
-                      # margin={'b': 15},
                       hovermode='x',
                       autosize=True,
+                      margin={'t': 50, 'l': 50, 'b': 10, 'r': 20},
                       title={'text': channels_ld[i]['alias'], 'font': {'color': 'white'}, 'x': 0.5},
                       xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
                       yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
@@ -572,7 +544,8 @@ def update_graphs(n, checked):
 
     return figures
 
-@app.callback([Output('graph_ch1', 'style'),
+@app.callback([Output('DIV_config', 'style'),
+               Output('graph_ch1', 'style'),
                Output('graph_ch2', 'style'),
                Output('graph_ch3', 'style'),
                Output('graph_ch4', 'style'),
@@ -580,6 +553,18 @@ def update_graphs(n, checked):
                Output('graph_ch6', 'style')],
               Input('nav_tree', 'checked'))
 def display_graphs(checked):
+
+    # with open('config/current_tree_device.txt', mode='r') as file:
+    #     device = file.read()
+    #     file.close()
+    #
+    # if device
+
+    # if deviceid:
+    #     with open('temp/current_tree_device.txt', mode='w') as file:
+    #         file.write(deviceid)
+    #         file.close()
+    #
 
     channels = []
     channels_ld = utils.get_channels()
@@ -595,6 +580,9 @@ def display_graphs(checked):
             #     devices.append(substrings[1])
             # if len(substrings)==1:
             #     countries.append(substrings[0])
+        graphs_to_display.append({})
+    else:
+        graphs_to_display.append({'display': 'none'})
 
     for channel_dict in channels_ld:
         if channel_dict['name'] in channels:
