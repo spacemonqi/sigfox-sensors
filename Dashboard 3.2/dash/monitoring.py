@@ -9,52 +9,55 @@ import plotly.graph_objects as go
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 import dash_useful_components as duc
 
 import utils
 from app import app
 
-#----------------------------------------------------------------------------------------------------------------------#
+#Defines-------------------------------------------------------------------------------------------------------------------------#
 colorlist = ['#FF4F00', '#FFF400', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
 
-#----------------------------------------------------------------------------------------------------------------------#
+#Data----------------------------------------------------------------------------------------------------------------------------#
 df = utils.get_df('../data/sensor_data.csv')
 locations_ld = utils.get_locations()
 devices_ld = utils.get_devices()
 channels_ld = utils.get_channels()
 checkboxtree_nodes = utils.checkboxtree_nodes(locations_ld, devices_ld, channels_ld)
 
-# print('\nlocations_ld')
-# print(locations_ld)
-# print('\ndevices_ld')
-# print(devices_ld)
-# print('\nchannels_ld')
-# print(channels_ld)
-
-#----------------------------------------------------------------------------------------------------------------------#
+#Layout Components---------------------------------------------------------------------------------------------------------------#
 body_left_card_tree = dbc.CardBody(
     [
-        # html.Div(duc.CheckBoxTree(id="cb_input", nodes=checkboxtree_nodes, showNodeIcon=False))
-        dbc.Row(html.Div(duc.CheckBoxTree(id="cb_input", nodes=checkboxtree_nodes, showNodeIcon=False)), className='mb-4'),
-        dbc.Row(
-            html.Div([
-                dcc.Checklist(
-                    id='options',
-                    options=[
-                        {'label': 'Tree can be Disabled', 'value': 'disabled'},
-                        {'label': 'Expand Disabled', 'value': 'expandDisabled'},
-                        {'label': 'Expand when clicked', 'value': 'expandOnClick'},
-                        {'label': 'Do not cascade', 'value': 'noCascade'},
-                        {'label': 'Only Leaf Checkboxes', 'value': 'onlyLeafCheckboxes'},
-                        {'label': 'Optimistic Toggle', 'value': 'optimisticToggle'},
-                        {'label': 'Show Nodes Icons', 'value': 'showNodeIcon'},
-                    ],
-                    value=['optimisticToggle', 'showNodeIcon'],
-                )
-            ])
-        ),
+        # html.Div(duc.CheckBoxTree(id="nav_tree", nodes=checkboxtree_nodes, showNodeIcon=False))
+        dbc.Row(html.Div(duc.CheckBoxTree(
+                            id="nav_tree",
+                            nodes=checkboxtree_nodes,
+                            disabled = False,
+                            expandDisabled = False,
+                            expandOnClick = True,
+                            noCascade = True,
+                            onlyLeafCheckboxes = True,
+                            optimisticToggle = True,
+                            showNodeIcon = False,
+                        )), className='mb-2'),
+        # dbc.Row(
+        #     html.Div([
+        #         dcc.Checklist(
+        #             id='options',
+        #             options=[
+        #                 {'label': 'Tree can be Disabled', 'value': 'disabled'},
+        #                 {'label': 'Expand Disabled', 'value': 'expandDisabled'},
+        #                 {'label': 'Expand when clicked', 'value': 'expandOnClick'},
+        #                 {'label': 'Do not cascade', 'value': 'noCascade'},
+        #                 {'label': 'Only Leaf Checkboxes', 'value': 'onlyLeafCheckboxes'},
+        #                 {'label': 'Optimistic Toggle', 'value': 'optimisticToggle'},
+        #                 {'label': 'Show Nodes Icons', 'value': 'showNodeIcon'},
+        #             ],
+        #             value=['expandOnClick', 'noCascade', 'onlyLeafCheckboxes', 'optimisticToggle', 'showNodeIcon'],
+        #         )
+        #     ])
+        # ),
         dbc.Row(html.Div(id='checked-output'), className='mb-4'),
         dbc.Row(html.Div(id='expanded-output'), className='mb-4'),
         # dbc.Button("22229D7", id="btn_d1", className="mb-0", color="secondary", style={'width': '100%'}, size='lg'),
@@ -85,7 +88,8 @@ body_left_card_tree = dbc.CardBody(
         #     ],
         #     id="clp_d2",
         # ),
-    ]
+    ],
+    style = {'color': 'white'}
 ),
 
 body_right_card_caption = dbc.CardBody(
@@ -124,6 +128,55 @@ body_right_card_dropdown = dbc.CardBody(
 body_right_metrics_left_graph_timeseries = dcc.Graph(id='graph_timeseries', animate=True)
 
 body_right_metrics_left_graph_change = dcc.Graph(id='graph_change', animate=True)
+
+graph_ch1 = dbc.Card(dcc.Graph(id='graph_ch1', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
+graph_ch2 = dbc.Card(dcc.Graph(id='graph_ch2', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
+graph_ch3 = dbc.Card(dcc.Graph(id='graph_ch3', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
+graph_ch4 = dbc.Card(dcc.Graph(id='graph_ch4', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
+graph_ch5 = dbc.Card(dcc.Graph(id='graph_ch5', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
+graph_ch6 = dbc.Card(dcc.Graph(id='graph_ch6', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
+# graph_ch1 = dbc.Row([  # Row for body_right_metrics_left_graph_ch1
+#     dbc.Col
+#     (
+#         dbc.Card(dcc.Graph(id='graph_ch1', animate=True, style={'display': 'none'}), color="primary"),
+#         className = "mb-2",
+#     )
+# ]),
+# graph_ch2 = dbc.Row([  # Row for body_right_metrics_left_graph_ch2
+#     dbc.Col
+#     (
+#         dbc.Card(dcc.Graph(id='graph_ch2', animate=True, style={'display': 'none'}), color="primary"),
+#         className = "mb-2",
+#     )
+# ]),
+# graph_ch3 = dbc.Row([  # Row for body_right_metrics_left_graph_ch3
+#     dbc.Col
+#     (
+#         dbc.Card(dcc.Graph(id='graph_ch3', animate=True, style={'display': 'none'}), color="primary"),
+#         className = "mb-2",
+#     )
+# ]),
+# graph_ch4 = dbc.Row([  # Row for body_right_metrics_left_graph_ch4
+#     dbc.Col
+#     (
+#         dbc.Card(dcc.Graph(id='graph_ch4', animate=True, style={'display': 'none'}), color="primary"),
+#         className = "mb-2",
+#     )
+# ]),
+# graph_ch5 = dbc.Row([  # Row for body_right_metrics_left_graph_ch5
+#     dbc.Col
+#     (
+#         dbc.Card(dcc.Graph(id='graph_ch5', animate=True, style={'display': 'none'}), color="primary"),
+#         className = "mb-2",
+#     )
+# ]),
+# graph_ch6 = dbc.Row([  # Row for body_right_metrics_left_graph_ch6
+#     dbc.Col
+#     (
+#         dbc.Card(dcc.Graph(id='graph_ch6', animate=True, style={'display': 'none'}), color="primary"),
+#         className = "mb-2",
+#     )
+# ]),
 
 body_right_metrics_right_object = [
     dbc.CardHeader(children=["Device <devid>"]),
@@ -168,6 +221,21 @@ body_right_metrics_right_object = [
     )
 ]
 
+#Layout Divisions----------------------------------------------------------------------------------------------------------------#
+DIV_graphs = html.Div(  # Div for graphs
+    id='DIV_graphs',
+    children = [
+        # body_right_metrics_left_graph_timeseries,
+        # body_right_metrics_left_graph_change
+        graph_ch1,
+        graph_ch2,
+        graph_ch3,
+        graph_ch4,
+        graph_ch5,
+        graph_ch6,
+    ]
+)
+
 DIV_body_right = html.Div(  # Div for body_right
     [
         dbc.Row([  # Row body_right_card_caption
@@ -177,31 +245,16 @@ DIV_body_right = html.Div(  # Div for body_right
                 className="mb-2"
             )
         ]),
-        dbc.Row([  # Row body_right_card_dropdown
-            dbc.Col
-            (
-                dbc.Card(body_right_card_dropdown, color="primary"),
-                className="mb-2"
-            )
-        ]),
+        # dbc.Row([  # Row body_right_card_dropdown
+        #     dbc.Col
+        #     (
+        #         dbc.Card(body_right_card_dropdown, color="primary"),
+        #         className="mb-2"
+        #     )
+        # ]),
         dbc.Row([  # Row body_right_metrics
             dbc.Col(  # Col body_right_metrics_left
-                [
-                    dbc.Row([  # Row for body_right_metrics_left_graph_timeseries
-                        dbc.Col
-                        (
-                            dbc.Card(body_right_metrics_left_graph_timeseries, color="primary"),
-                            className = "mb-2",
-                        )
-                    ]),
-                    dbc.Row([  # Row for body_right_metrics_left_graph_change
-                        dbc.Col
-                        (
-                            dbc.Card(body_right_metrics_left_graph_change, color="primary"),
-                            className = "mb-2",
-                        )
-                    ]),
-                ],
+                DIV_graphs,
                 width = 8,
             ),
             dbc.Col(  # Col body_right_metrics_right
@@ -221,7 +274,7 @@ DIV_body_right = html.Div(  # Div for body_right
     ],
 ),
 
-#--------------------------------------------------------------------------------------------------------------------------------#
+#Layout--------------------------------------------------------------------------------------------------------------------------#
 layout = html.Div([
     dbc.Container(
         [
@@ -236,7 +289,7 @@ layout = html.Div([
                     ),
                     dbc.Col(  # Col for body_right
                         id = 'col_body_right',
-                        children = [],
+                        children = DIV_body_right,
                         width = 10,
                     )
                 ],
@@ -246,205 +299,310 @@ layout = html.Div([
     )
 ])
 
-#Tree Navigation-----------------------------------------------------------------------------------------------------------------#
-@app.callback(Output('col_body_right', 'children'),
-              [Input('col_body_right', 'children')])
-def DIV_body_right_update(x):
-    return DIV_body_right
+#Navigation Tree-----------------------------------------------------------------------------------------------------------------#
 
-@app.callback(
-    [Output('checked-output', 'children'),
-     Output('expanded-output', 'children')],
-    [Input('cb_input', 'checked'),
-     Input('cb_input', 'expanded')])
-def display_output(checked, expanded):
-    if checked and len(checked) > 0:
-        res1 = 'You have checked {}'.format(' '.join(checked))
-    else:
-        res1 = 'No node is checked'
+# @app.callback(Output('col_body_right', 'children'),
+#               [Input('col_body_right', 'children')])
+# def DIV_body_right_update(x):
+#     return DIV_body_right
 
-    if expanded and len(expanded) > 0:
-        res2 = 'You have expanded {}'.format(' '.join(expanded))
-    else:
-        res2 = 'No node is expanded'
+# @app.callback(
+#     [Output('checked-output', 'children'),
+#      Output('expanded-output', 'children')],
+#     [Input('nav_tree', 'checked'),
+#      Input('nav_tree', 'expanded')])
+# def display_output(checked, expanded):
+#     if checked and len(checked) > 0:
+#         res1 = 'You have checked {}'.format(' '.join(checked))
+#     else:
+#         res1 = 'No node is checked'
+#
+#     if expanded and len(expanded) > 0:
+#         res2 = 'You have expanded {}'.format(' '.join(expanded))
+#     else:
+#         res2 = 'No node is expanded'
+#
+#     return [res1, res2]
 
-    return [res1, res2]
+# @app.callback(
+#     [Output('nav_tree', 'disabled'),
+#      Output('nav_tree', 'expandDisabled'),
+#      Output('nav_tree', 'expandOnClick'),
+#      Output('nav_tree', 'noCascade'),
+#      Output('nav_tree', 'onlyLeafCheckboxes'),
+#      Output('nav_tree', 'optimisticToggle'),
+#      Output('nav_tree', 'showNodeIcon')],
+#     [Input('options', 'value')]
+# )
+# def configure_display(value):
+#     list_options = ['disabled',
+#                     'expandDisabled',
+#                     'expandOnClick',
+#                     'noCascade',
+#                     'onlyLeafCheckboxes',
+#                     'optimisticToggle',
+#                     'showNodeIcon']
+#     if value:
+#         return [list_option in value for list_option in list_options]
+#     else:
+#         raise PreventUpdate
 
-@app.callback(
-    [Output('cb_input', 'disabled'),
-     Output('cb_input', 'expandDisabled'),
-     Output('cb_input', 'expandOnClick'),
-     Output('cb_input', 'noCascade'),
-     Output('cb_input', 'onlyLeafCheckboxes'),
-     Output('cb_input', 'optimisticToggle'),
-     Output('cb_input', 'showNodeIcon')],
-    [Input('options', 'value')]
-)
-def configure_display(value):
-    list_options = ['disabled',
-                    'expandDisabled',
-                    'expandOnClick',
-                    'noCascade',
-                    'onlyLeafCheckboxes',
-                    'optimisticToggle',
-                    'showNodeIcon']
-    if value:
-        return [list_option in value for list_option in list_options]
-    else:
-        raise PreventUpdate
+#Graphing------------------------------------------------------------------------------------------------------------------------#
 
-#Data Processing-----------------------------------------------------------------------------------------------------------------#
-# Apply scaling factors
-@app.callback(Output('body_right_card_caption', 'children'),
-              Input('graph_update', 'n_intervals'))
-def channel_string_scaling_factor_update(x):
+# # Update graph_timeseries based on the dropdown
+# @app.callback(Output('graph_timeseries', 'figure'),
+#               [Input('dd_id', 'value'),
+#                Input('dd_channel', 'value'),
+#                Input('graph_update', 'n_intervals')])
+# def update_graph_timeseries(ids, data, n):
+#
+#     df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
+#     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
+#
+#     trace = []
+#
+#     if ids and data:
+#         df_data = df[df['data'] == data]
+#         xmin = df_data.index.min()
+#         xmax = df_data.index.max()
+#         ymin = df_data['value'].min() - 0.05 * np.abs(df_data['value'].max())
+#         ymax = df_data['value'].max() + 0.05 * np.abs(df_data['value'].max())
+#         for id in ids:
+#             df_data_id = df_data[df_data['deviceId'] == id]
+#             trace.append(go.Scatter(x=df_data_id.index,
+#                                     y=df_data_id['value'],
+#                                     mode='lines+markers',
+#                                     opacity=0.7,
+#                                     line={'width': 3},
+#                                     name=id,
+#                                     textposition='bottom center'))
+#     else:
+#         df_clear = df
+#         df_clear['value'].values[:] = 0
+#         xmin = df.index.min()
+#         xmax = df.index.max()
+#         ymin = -100
+#         ymax = 100
+#         trace.append(go.Scatter(x=df_clear.index,
+#                                 y=df_clear['value'],
+#                                 mode='lines',
+#                                 opacity=0.7,
+#                                 line={'width': 3},
+#                                 textposition='bottom center'
+#                     )
+#         )
+#
+#     traces = [trace]
+#     data = [val for sublist in traces for val in sublist]
+#
+#     figure = {'data': data,
+#               'layout': go.Layout(
+#                   colorway=colorlist,
+#                   template='plotly_dark',
+#                   paper_bgcolor='rgba(0, 0, 0, 0)',
+#                   plot_bgcolor='rgba(0, 0, 0, 0)',
+#                   hovermode='x',
+#                   height=500,
+#                   autosize=True,
+#                   title={'text': 'Sensor Data', 'font': {'color': 'white'}, 'x': 0.5},
+#                   xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
+#                   yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
+#               ),
+#     }
+#
+#     return figure
 
-    df = pd.read_csv('../data/sensor_data.csv')
+# # Update graph_change based on the dropdown
+# @app.callback(Output('graph_change', 'figure'),
+#               [Input('dd_id', 'value'),
+#                Input('dd_channel', 'value'),
+#                Input('graph_update', 'n_intervals')])
+# def update_graph_change(ids, data, n):
+#
+#     df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
+#     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
+#
+#     trace = []
+#
+#     if ids and data:
+#         # print('\nids')
+#         # print(ids)
+#         # print('\ndata')
+#         # print(data)
+#         df_data = df[df['data'] == data]
+#         xmin = df_data.index.min()
+#         xmax = df_data.index.max()
+#         ymin = df_data['change'].min() - 0.05 * np.abs(df_data['change'].max())
+#         ymax = df_data['change'].max() + 0.05 * np.abs(df_data['change'].max())
+#         for id in ids:
+#             df_data_id = df_data[df_data['deviceId'] == id]
+#             trace.append(go.Scatter(x=df_data_id.index,
+#                                     y=df_data_id['change'],
+#                                     mode='lines+markers',
+#                                     line={'width': 3},
+#                                     opacity=0.7,
+#                                     name=id,
+#                                     textposition='bottom center'
+#                         )
+#             )
+#     else:
+#         df_clear = df
+#         df_clear['change'].values[:] = 0
+#         xmin = df.index.min()
+#         xmax = df.index.max()
+#         ymin = -10
+#         ymax = 10
+#         trace.append(go.Scatter(x=df_clear.index,
+#                                 y=df_clear['change'],
+#                                 mode='lines',
+#                                 line={'width': 3},
+#                                 opacity=0.7,
+#                                 textposition='bottom center'
+#                     )
+#         )
+#
+#     traces = [trace]
+#     data = [val for sublist in traces for val in sublist]
+#
+#     figure = {'data': data,
+#               'layout': go.Layout(
+#                   colorway=colorlist,
+#                   template='plotly_dark',
+#                   paper_bgcolor='rgba(0, 0, 0, 0)',
+#                   plot_bgcolor='rgba(0, 0, 0, 0)',
+#                   height=350,
+#                   hovermode='x',
+#                   autosize=True,
+#                   title={'text': 'Change', 'font': {'color': 'white'}, 'x': 0.5},
+#                   xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
+#                   yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
+#               ),
+#     }
+#
+#     return figure
+
+# Callback function to apply scaling factors and update the graphs
+@app.callback([Output('graph_ch1', 'figure'),
+               Output('graph_ch2', 'figure'),
+               Output('graph_ch3', 'figure'),
+               Output('graph_ch4', 'figure'),
+               Output('graph_ch5', 'figure'),
+               Output('graph_ch6', 'figure')],
+              [Input('graph_update', 'n_intervals'),
+               Input('nav_tree', 'checked')])
+def update_graphs(n, checked):
+
+    df_temp = pd.read_csv('../data/sensor_data.csv')
     channels_ld = utils.get_channels()
-
     scaling_fact = 1.0
-    df_scaled = df
+    df_scaled = df_temp
     df_scaled['value'] = df_scaled['value'].astype(float)
     df_scaled['change'] = df_scaled['change'].astype(float)
-
     for dict in channels_ld:
         channel = dict['name']
         scaling_fact = float(dict['scaling_fact'])
         df_scaled.loc[df_scaled['data']==channel, 'value'] = df_scaled[df_scaled['data']==channel]['value'] * scaling_fact
         df_scaled.loc[df_scaled['data']==channel, 'change'] = df_scaled[df_scaled['data']==channel]['change'] * scaling_fact
-    df_scaled.to_csv('../data/sensor_data_temp.csv', index=False, header=True)
-    copyfile('../data/sensor_data_temp.csv', '../data/sensor_data_scaled.csv')  # TURN THIS ON AGAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    return 'Sigfox Sensor Network Real-time Monitoring'
-
-#Graphing------------------------------------------------------------------------------------------------------------------------#
-# Update graph_timeseries based on the dropdown
-@app.callback(Output('graph_timeseries', 'figure'),
-              [Input('dd_id', 'value'),
-               Input('dd_channel', 'value'),
-               Input('graph_update', 'n_intervals')])
-def update_graph_timeseries(ids, data, n):
+    df_scaled.to_csv('../data/sensor_data_scaled.csv', index=False, header=True)
 
     df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
 
-    trace = []
+    figures = []
+    i = 0
+    for channel in channels_ld:
 
-    if ids and data:
-        df_data = df[df['data'] == data]
-        xmin = df_data.index.min()
-        xmax = df_data.index.max()
-        ymin = df_data['value'].min() - 0.05 * np.abs(df_data['value'].max())
-        ymax = df_data['value'].max() + 0.05 * np.abs(df_data['value'].max())
-        for id in ids:
-            df_data_id = df_data[df_data['deviceId'] == id]
+        trace = []
+
+        if checked:
+            device = checked[0].split('_')[1]
+            df_data = df[df['data'] == channel['name']]
+            df_data_id = df_data[df_data['deviceId'] == device]
+            xmin = df_data_id.index.min()
+            xmax = df_data_id.index.max()
+            ymin = df_data_id['value'].min() - 0.05 * np.abs(df_data_id['value'].max())
+            ymax = df_data_id['value'].max() + 0.05 * np.abs(df_data_id['value'].max())
             trace.append(go.Scatter(x=df_data_id.index,
                                     y=df_data_id['value'],
                                     mode='lines+markers',
-                                    opacity=0.7,
-                                    line={'width': 3},
-                                    name=id,
-                                    textposition='bottom center'))
-    else:
-        df_clear = df
-        df_clear['value'].values[:] = 0
-        xmin = df.index.min()
-        xmax = df.index.max()
-        ymin = -100
-        ymax = 100
-        trace.append(go.Scatter(x=df_clear.index,
-                                y=df_clear['value'],
-                                mode='lines',
-                                opacity=0.7,
-                                line={'width': 3},
-                                textposition='bottom center'
-                    )
-        )
-
-    traces = [trace]
-    data = [val for sublist in traces for val in sublist]
-
-    figure = {'data': data,
-              'layout': go.Layout(
-                  colorway=colorlist,
-                  template='plotly_dark',
-                  paper_bgcolor='rgba(0, 0, 0, 0)',
-                  plot_bgcolor='rgba(0, 0, 0, 0)',
-                  hovermode='x',
-                  height=500,
-                  autosize=True,
-                  title={'text': 'Sensor Data', 'font': {'color': 'white'}, 'x': 0.5},
-                  xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
-                  yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
-              ),
-    }
-
-    return figure
-
-# Update graph_change based on the dropdown
-@app.callback(Output('graph_change', 'figure'),
-              [Input('dd_id', 'value'),
-               Input('dd_channel', 'value'),
-               Input('graph_update', 'n_intervals')])
-def update_graph_change(ids, data, n):
-
-    df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
-    df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
-
-    trace = []
-
-    if ids and data:
-        df_data = df[df['data'] == data]
-        xmin = df_data.index.min()
-        xmax = df_data.index.max()
-        ymin = df_data['change'].min() - 0.05 * np.abs(df_data['change'].max())
-        ymax = df_data['change'].max() + 0.05 * np.abs(df_data['change'].max())
-        for id in ids:
-            df_data_id = df_data[df_data['deviceId'] == id]
-            trace.append(go.Scatter(x=df_data_id.index,
-                                    y=df_data_id['change'],
-                                    mode='lines+markers',
                                     line={'width': 3},
                                     opacity=0.7,
-                                    name=id,
+                                    name=device,
+                                    textposition='bottom center',
+                                    fill='tozeroy'
+                        )
+            )
+        else:
+            df_clear = df
+            df_clear['value'].values[:] = 0
+            xmin = df.index.min()
+            xmax = df.index.max()
+            ymin = -100
+            ymax = 100
+            trace.append(go.Scatter(x=df_clear.index,
+                                    y=df_clear['value'],
+                                    mode='lines',
+                                    line={'width': 3},
+                                    opacity=0.7,
                                     textposition='bottom center'
                         )
             )
-    else:
-        df_clear = df
-        df_clear['change'].values[:] = 0
-        xmin = df.index.min()
-        xmax = df.index.max()
-        ymin = -10
-        ymax = 10
-        trace.append(go.Scatter(x=df_clear.index,
-                                y=df_clear['change'],
-                                mode='lines',
-                                line={'width': 3},
-                                opacity=0.7,
-                                textposition='bottom center'
-                    )
-        )
 
-    traces = [trace]
-    data = [val for sublist in traces for val in sublist]
+        traces = [trace]
+        data = [val for sublist in traces for val in sublist]
 
-    figure = {'data': data,
-              'layout': go.Layout(
-                  colorway=colorlist,
-                  template='plotly_dark',
-                  paper_bgcolor='rgba(0, 0, 0, 0)',
-                  plot_bgcolor='rgba(0, 0, 0, 0)',
-                  height=350,
-                  hovermode='x',
-                  autosize=True,
-                  title={'text': 'Change', 'font': {'color': 'white'}, 'x': 0.5},
-                  xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
-                  yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
-              ),
-    }
+        figure = {'data': data,
+                  'layout': go.Layout(
+                      colorway=colorlist,
+                      template='plotly_dark',
+                      paper_bgcolor='rgba(0, 0, 0, 0)',
+                      plot_bgcolor='rgba(0, 0, 0, 0)',
+                      # margin={'b': 15},
+                      hovermode='x',
+                      autosize=True,
+                      title={'text': channels_ld[i]['alias'], 'font': {'color': 'white'}, 'x': 0.5},
+                      xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
+                      yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
+                  ),
+                  }
 
-    return figure
+        figures.append(figure)
+
+        i += 1
+
+    return figures
+
+@app.callback([Output('graph_ch1', 'style'),
+               Output('graph_ch2', 'style'),
+               Output('graph_ch3', 'style'),
+               Output('graph_ch4', 'style'),
+               Output('graph_ch5', 'style'),
+               Output('graph_ch6', 'style')],
+              Input('nav_tree', 'checked'))
+def display_graphs(checked):
+
+    channels = []
+    channels_ld = utils.get_channels()
+    graphs_to_display = []
+
+    if checked:
+        for item in checked:
+            substrings = item.split('_')
+            channels.append(substrings[2])
+            # if len(substrings)==3:
+            #     channels.append(substrings[2])
+            # if len(substrings)==2:
+            #     devices.append(substrings[1])
+            # if len(substrings)==1:
+            #     countries.append(substrings[0])
+
+    for channel_dict in channels_ld:
+        if channel_dict['name'] in channels:
+            graphs_to_display.append({})
+        else:
+            graphs_to_display.append({'display': 'none'})
+
+    return graphs_to_display
 
 #Accordeon-----------------------------------------------------------------------------------------------------------------------#
 # # Callback function to for btn_d1
