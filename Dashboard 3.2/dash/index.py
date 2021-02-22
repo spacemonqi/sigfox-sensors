@@ -22,7 +22,6 @@ dropdown = dbc.DropdownMenu(
 navbar = dbc.Navbar(
     dbc.Container(
         [
-            # dbc.Col(width=1),
             html.A(
                 dbc.Row([
                         dbc.Col(html.Img(src="/assets/divigraph.png", height="40px"), width=1, align="center"),
@@ -39,7 +38,6 @@ navbar = dbc.Navbar(
                 id="navbar-collapse2",
                 navbar=True,
             ),
-            # dbc.Col(width=1),
         ],
         fluid = True
     ),
