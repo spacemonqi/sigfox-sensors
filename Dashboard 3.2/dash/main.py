@@ -1,30 +1,32 @@
-# Go through all comments in all files and cleanup/reimplement commented code
-
-import numpy as np
-import pandas as pd
-
+#Imports=========================================================================================================================#
 import plotly.graph_objects as go
-
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 import dash_useful_components as duc
-
-import utils
+import pandas as pd
+import numpy as np
 from app import app
+import utils
 
-#Global--------------------------------------------------------------------------------------------------------------------------#
+
+
+#Global==========================================================================================================================#
 colorlist = ['#FF4F00', '#FFF400', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
 
-#Data----------------------------------------------------------------------------------------------------------------------------#
+
+
+#Data============================================================================================================================#
 df = utils.get_df('../data/sensor_data.csv')
 locations_ld = utils.get_locations()
 devices_ld = utils.get_devices()
 channels_ld = utils.get_channels()
 checkboxtree_nodes = utils.checkboxtree_nodes(locations_ld, devices_ld, channels_ld)
 
-#Layout Components---------------------------------------------------------------------------------------------------------------#
+
+
+#Layout Components===============================================================================================================#
 body_left_card_tree = dbc.CardBody(
     [
         # html.Div(duc.CheckBoxTree(id="nav_tree", nodes=checkboxtree_nodes, showNodeIcon=False))
@@ -221,7 +223,30 @@ graph_ch6 = dbc.Card(dcc.Graph(id='graph_ch6', animate=True, style={'display': '
 #     )
 # ]),
 
-#Layout Divisions----------------------------------------------------------------------------------------------------------------#
+navbar = dbc.Navbar(
+    dbc.Container(
+        [
+            html.A(
+                dbc.Row([
+                        dbc.Col(html.Img(src="/assets/divigraph.png", height="40px"), width=1, align="center"),
+                        dbc.Col(dbc.NavbarBrand("Divigraph", className="ml-2"), width=1, align="center"),
+                        ],
+                        align="center",
+                        no_gutters=True,
+                ),
+                href="/monitoring",
+            ),
+        ],
+        fluid = True
+    ),
+    color="primary",
+    dark=True,
+    className="mb-4",
+)
+
+
+
+#Layout Divisions================================================================================================================#
 DIV_graphs = html.Div(  # Div for graphs
     id='DIV_graphs',
     children = [
@@ -435,7 +460,9 @@ DIV_body_right_locations = html.Div()
 
 DIV_body_right_none = html.Div()
 
-#Layout--------------------------------------------------------------------------------------------------------------------------#
+
+
+#Layout==========================================================================================================================#
 layout = html.Div([
     dbc.Container(
         [
@@ -463,8 +490,15 @@ layout = html.Div([
     )
 ])
 
-#Graphing------------------------------------------------------------------------------------------------------------------------#
+app.layout = html.Div([
+    dcc.Location(id='url', refresh=False),
+    navbar,
+    html.Div(id='page-content', children=layout)
+])
 
+
+
+#Graphing========================================================================================================================#
 # Pause the live updates
 @app.callback([Output("graph_update", "interval"),
                Output("btn_pause", "children")],
@@ -729,8 +763,9 @@ def display_graphs(checked):
 
     return graphs_to_display
 
-#Accordeon-----------------------------------------------------------------------------------------------------------------------#
 
+
+#Accordeon=======================================================================================================================#
 # # Callback function to for btn_d1
 # @app.callback(Output("clp_d1", "is_open"),
 #               [Input("btn_d1", "n_clicks")],
@@ -857,8 +892,9 @@ def display_graphs(checked):
 #         return 'secondary'
 #     return 'warning'
 
-#Structure-----------------------------------------------------------------------------------------------------------------------#
 
+
+#Structure=======================================================================================================================#
 # Switch between views
 @app.callback([Output('nav_tree', 'checked'),
                Output('col_body_right', 'children')],
@@ -873,21 +909,23 @@ def switch_views(checked):
 
     with open('temp/tree.txt', 'r') as filehandle:
         checked_global = [current_place.rstrip() for current_place in filehandle.readlines()]
+    # print('\nchecked_global')
+    # print(checked_global)
 
-    checked_diff = []
+    checked_diff = list(set(checked).difference(checked_global))
+    # print('\nchecked_diff')
+    # print(checked_diff)
 
-    if checked and checked_global:
-        checked_diff = list(set(checked).difference(checked_global))
-        # print('\nchecked_diff')
-        # print(checked_diff)
-        if not checked_diff:
-            pass
-        elif (checked_diff[0].find('CH') > -1) and (checked_global[0].find('CH') > -1):
-            checked_global = checked.copy()
-        else:
-            checked_global = checked_diff
+    if not checked:
+        checked_global = checked
+    elif not checked_global:
+        checked_global = checked
+    elif not checked_diff:
+        checked_global = checked
+    elif (checked_global[0].find('CH') > -1) and (checked_diff[0].find('CH') > -1):
+        checked_global = checked
     else:
-        checked_global = checked.copy()
+        checked_global = checked_diff
 
     with open('temp/tree.txt', 'w') as filehandle:
         filehandle.writelines("%s\n" % item for item in checked_global)
@@ -907,8 +945,9 @@ def switch_views(checked):
 
     return checked_global, DIV_body_right_none
 
-#Devices-------------------------------------------------------------------------------------------------------------------------#
 
+
+#Devices=========================================================================================================================#
 # Callback function to update placeholders in the inputs
 @app.callback([Output("in_alias_1", "placeholder"),
                Output("in_scaling_factor_1", "placeholder"),
@@ -950,25 +989,25 @@ def placeholders_update(deviceid):
 
     return placeholder_list
 
-# # Callback function to write device aliases to csv
-# @app.callback(Output("in_device_alias", "type"),
-#               Input("in_device_alias", "value"))
-# def device_alias_update(new_alias):
-#
-#     with open('temp/dd_current_devid.txt', mode='r') as file:
-#         deviceid = file.read()
-#         file.close()
-#
-#     devices_ld = utils.get_devices()
-#
-#     if new_alias:
-#         for i in range(len(devices_ld)):
-#             if devices_ld[i]['name'] == deviceid:
-#                 devices_ld[i]['alias'] = new_alias
-#
-#     utils.update_devices(devices_ld)
-#
-#     return 'text'
+# Callback function to write device aliases to csv
+@app.callback(Output("in_device_alias", "type"),
+              Input("in_device_alias", "value"))
+def device_alias_update(new_alias):
+
+    with open('temp/dd_current_devid.txt', mode='r') as file:
+        deviceid = file.read()
+        file.close()
+
+    devices_ld = utils.get_devices()
+
+    if new_alias:
+        for i in range(len(devices_ld)):
+            if devices_ld[i]['name'] == deviceid:
+                devices_ld[i]['alias'] = new_alias
+
+    utils.update_devices(devices_ld)
+
+    return 'text'
 
 # Callback function to update the channel aliases and scaling factors
 @app.callback(Output("ch_config", "children"),
@@ -1007,3 +1046,10 @@ def update_channel_string(a1, s1, a2, s2, a3, s3, a4, s4, a5, s5, a6, s6):
     # channel_name_string = utils.string_channels()
 
     return 'Channel Configuration'
+
+
+
+#Main============================================================================================================================#
+if __name__ == '__main__':
+    # app.run_server(debug=True, dev_tools_ui=False, dev_tools_props_check=False)
+    app.run_server(debug=True)
