@@ -6,7 +6,7 @@ from dash.dependencies import Input, Output, State
 # must add this line in order for the app to be deployed successfully on Heroku
 # from app import server
 from app import app
-import configuration, monitoring
+import monitoring
 
 dropdown = dbc.DropdownMenu(
     children=[

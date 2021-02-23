@@ -35,7 +35,7 @@ body_left_card_tree = dbc.CardBody(
                             expandDisabled = False,
                             expandOnClick = True,
                             noCascade = True,
-                            onlyLeafCheckboxes = True,
+                            onlyLeafCheckboxes = False,
                             optimisticToggle = True,
                             showNodeIcon = False,
                         )), className='mb-2'),
@@ -91,11 +91,7 @@ body_left_card_tree = dbc.CardBody(
 ),
 
 body_right_card_caption = dbc.CardBody(
-    [
-        html.H3(id='body_right_card_caption', children='Sigfox Sensor Network Real-time Monitoring', className="text-left bg-primary"),
-        # dbc.Row(html.H3(id='body_right_card_caption', children='Sigfox Sensor Network Real-time Monitoring', className="text-left bg-secondary")),
-        # dbc.Row(html.H6(id='h6_channel_string_statistics', children=utils.string_channels()))
-    ]
+    html.H3(id='body_right_card_caption', children='Sigfox Sensor Network Real-time Monitoring', className="text-left bg-primary"),
 )
 
 body_right_card_dropdown = dbc.CardBody(
@@ -172,7 +168,7 @@ body_right_metrics_right = html.Div([  # Row for body_right_metrics_right_object
                 ],
             )
         ],
-        color='success'
+        color='primary'
     )
 ])
 
@@ -248,15 +244,15 @@ DIV_config = html.Div(
 
 )
 
-DIV_body_right = html.Div(  # Div for body_right
+DIV_body_right_channels = html.Div(  # Div for body_right_channels
     [
-        dbc.Row([  # Row body_right_card_caption
-            dbc.Col
-            (
-                dbc.Card(body_right_card_caption, color="primary"),
-                className="mb-2"
-            )
-        ]),
+        # dbc.Row([  # Row body_right_card_caption
+        #     dbc.Col
+        #     (
+        #         dbc.Card(body_right_card_caption, color="primary"),
+        #         className="mb-2"
+        #     )
+        # ]),
         # dbc.Row([  # Row body_right_card_dropdown
         #     dbc.Col
         #     (
@@ -280,6 +276,161 @@ DIV_body_right = html.Div(  # Div for body_right
     ],
 ),
 
+DIV_body_right_devices = html.Div(  # Div for body_right_devices
+    dbc.Container([
+        # dbc.Row([dbc.Col(html.H1("Sigfox Sensor Network - Configuration"), className="mb-2")]),
+        # dbc.Row([dbc.Col(html.H6(children="Channels: "))]),
+        # dbc.Row([dbc.Col(html.H6(id='h6_channel_string', children=utils.string_channels()), className="mb-4")]),
+        dbc.Row([dbc.Col(dbc.Card(html.H3(id='ch_config', children='Channel Configuration', className="text-center bg-primary"),
+                                  body=True,
+                                  color="primary"),
+                 className="mb-4")]),
+        dbc.Row([
+                dbc.Col(width = 2),
+                dbc.Col(children=[html.P('''Channel Alias:''')], width = 4),
+                dbc.Col(children=[html.P('''Scaling Factor:''')], width = 4),
+        ]),
+
+        dbc.Row([
+                dbc.Col(html.H4('''Channel 1:'''), width = 2),
+                dbc.Col(dcc.Input(id="in_alias_1",
+                                  type="text",
+                                  placeholder = channels_ld[0]['alias'],
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+                dbc.Col(dcc.Input(id="in_scaling_factor_1",
+                                  type="number",
+                                  placeholder = "",
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+        ]),
+        dbc.Row([
+                dbc.Col(html.H4('''Channel 2:'''), width = 2),
+                dbc.Col(dcc.Input(id="in_alias_2",
+                                  type="text",
+                                  placeholder = "",
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+                dbc.Col(dcc.Input(id="in_scaling_factor_2",
+                                  type="number",
+                                  placeholder = "",
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+        ]),
+        dbc.Row([
+                dbc.Col(html.H4('''Channel 3:'''), width = 2),
+                dbc.Col(dcc.Input(id="in_alias_3",
+                                  type="text",
+                                  placeholder = "",
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+                dbc.Col(dcc.Input(id="in_scaling_factor_3",
+                                  type="number",
+                                  placeholder = "",
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+        ]),
+        dbc.Row([
+                dbc.Col(html.H4('''Channel 4:'''), width = 2),
+                dbc.Col(dcc.Input(id="in_alias_4",
+                                  type="text",
+                                  placeholder = "",
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+                dbc.Col(dcc.Input(id="in_scaling_factor_4",
+                                  type="number",
+                                  placeholder = "",
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+        ]),
+        dbc.Row([
+                dbc.Col(html.H4('''Channel 5:'''), width = 2),
+                dbc.Col(dcc.Input(id="in_alias_5",
+                                  type="text",
+                                  placeholder = "",
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+                dbc.Col(dcc.Input(id="in_scaling_factor_5",
+                                  type="number",
+                                  placeholder = "",
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+        ]),
+        dbc.Row([
+                dbc.Col(html.H4('''Channel 6:'''), width = 2),
+                dbc.Col(dcc.Input(id="in_alias_6",
+                                  type="text",
+                                  placeholder = "",
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+                dbc.Col(dcc.Input(id="in_scaling_factor_6",
+                                  type="number",
+                                  placeholder = "",
+                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width = 4,
+                ),
+        ]),
+
+        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Device Configuration', className="text-center bg-primary"),
+                                  body=True,
+                                  color="primary"),
+                 className="mb-4")]),
+        dbc.Row([
+                dbc.Col(width = 2),
+                dbc.Col(children=[html.P('''Device ID:''')], width = 4),
+                dbc.Col(children=[html.P('''Device Alias:''')], width = 4),
+        ]),
+        dbc.Row([
+            dbc.Col(html.H4('''Devices:'''), width = 2),
+            dbc.Col(
+                dcc.Dropdown(
+                    id='dd_id',
+                    options=utils.get_options(df['deviceId'].unique()),
+                    style={'width': '200px',
+                           'height': '35px',
+                           'display': 'inline-block',
+                           'margin-bottom': '10px',
+                           'color': 'black',
+                           'background-color': 'white'}
+                ),
+                width = 4,
+            ),
+            dbc.Col(
+                dcc.Input(
+                    id="in_device_alias",
+                    type="text",
+                    placeholder = "",
+                    style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                ),
+                width = 4,
+            ),
+        ]),
+    ])
+)
+
 #Layout--------------------------------------------------------------------------------------------------------------------------#
 layout = html.Div([
     dbc.Container(
@@ -296,7 +447,7 @@ layout = html.Div([
                     ),
                     dbc.Col(  # Col for body_right
                         id = 'col_body_right',
-                        children = DIV_body_right,
+                        children = DIV_body_right_channels,
                         width = 10,
                     )
                 ],
@@ -497,7 +648,7 @@ def update_graphs(n, checked):
                                     opacity=0.7,
                                     name=device,
                                     textposition='bottom center',
-                                    fill='tozeroy'
+                                    # fill='tozeroy'
                         )
             )
         else:
@@ -519,9 +670,9 @@ def update_graphs(n, checked):
         traces = [trace]
         data = [val for sublist in traces for val in sublist]
 
-        print('\n\n')
-        print(channel)
-        print(data[0]['x'])
+        # print('\n\n')
+        # print(channel)
+        # print(data[0]['x'])
 
         figure = {'data': data,
                   'layout': go.Layout(
@@ -553,18 +704,6 @@ def update_graphs(n, checked):
                Output('graph_ch6', 'style')],
               Input('nav_tree', 'checked'))
 def display_graphs(checked):
-
-    # with open('config/current_tree_device.txt', mode='r') as file:
-    #     device = file.read()
-    #     file.close()
-    #
-    # if device
-
-    # if deviceid:
-    #     with open('temp/current_tree_device.txt', mode='w') as file:
-    #         file.write(deviceid)
-    #         file.close()
-    #
 
     channels = []
     channels_ld = utils.get_channels()
@@ -718,3 +857,123 @@ def display_graphs(checked):
 #     if color=='warning':
 #         return 'secondary'
 #     return 'warning'
+
+#Devices-------------------------------------------------------------------------------------------------------------------------#
+
+# Switch between views
+@app.callback(Output('col_body_right', 'children'),
+              Input('nav_tree', 'checked'))
+def switch_views(checked):
+
+    # with open('config/tree.txt', mode='r') as file:
+    #     device = file.read()
+    #     file.close()
+
+    # if device
+
+    if checked:
+        with open('temp/tree.txt', mode='w') as file:
+            file.write(checked)
+            file.close()
+
+    return DIV_body_right_channels
+
+
+# # Callback function to update placeholders in the inputs
+# @app.callback([Output("in_alias_1", "placeholder"),
+#                Output("in_scaling_factor_1", "placeholder"),
+#                Output("in_alias_2", "placeholder"),
+#                Output("in_scaling_factor_2", "placeholder"),
+#                Output("in_alias_3", "placeholder"),
+#                Output("in_scaling_factor_3", "placeholder"),
+#                Output("in_alias_4", "placeholder"),
+#                Output("in_scaling_factor_4", "placeholder"),
+#                Output("in_alias_5", "placeholder"),
+#                Output("in_scaling_factor_5", "placeholder"),
+#                Output("in_alias_6", "placeholder"),
+#                Output("in_scaling_factor_6", "placeholder"),
+#                Output("in_device_alias", "value")],
+#               [Input("dd_id", "value")])
+# def placeholders_update(deviceid):
+#
+#     if deviceid:
+#         with open('temp/dd_current_devid.txt', mode='w') as file:
+#             file.write(deviceid)
+#             file.close()
+#
+#     channels_ld = utils.get_channels()
+#     devices_ld = utils.get_devices()
+#
+#     placeholder_list = []
+#
+#     for dict in channels_ld:
+#         placeholder_list.append(dict['alias'])
+#         placeholder_list.append(dict['scaling_fact'])
+#
+#     flag = False
+#     for dict in devices_ld:
+#         if dict['name'] == deviceid:
+#             placeholder_list.append(dict['alias'])
+#             flag = True
+#     if not flag:
+#         placeholder_list.append("")
+#
+#     return placeholder_list
+
+# # Callback function to write device aliases to csv
+# @app.callback(Output("in_device_alias", "type"),
+#               Input("in_device_alias", "value"))
+# def device_alias_update(new_alias):
+#
+#     with open('config/dd_current_devid.txt', mode='r') as file:
+#         deviceid = file.read()
+#         file.close()
+#
+#     devices_ld = utils.get_devices()
+#
+#     if new_alias:
+#         for i in range(len(devices_ld)):
+#             if devices_ld[i]['name'] == deviceid:
+#                 devices_ld[i]['alias'] = new_alias
+#
+#     utils.update_devices(devices_ld)
+#
+#     return 'text'
+
+# # Callback function to update the channel aliases and scaling factors
+# @app.callback(Output("ch_config", "children"),
+#               [Input("in_alias_1", "value"),
+#               Input("in_scaling_factor_1", "value"),
+#               Input("in_alias_2", "value"),
+#               Input("in_scaling_factor_2", "value"),
+#               Input("in_alias_3", "value"),
+#               Input("in_scaling_factor_3", "value"),
+#               Input("in_alias_4", "value"),
+#               Input("in_scaling_factor_4", "value"),
+#               Input("in_alias_5", "value"),
+#               Input("in_scaling_factor_5", "value"),
+#               Input("in_alias_6", "value"),
+#               Input("in_scaling_factor_6", "value")])
+# def update_channel_string(a1, s1, a2, s2, a3, s3, a4, s4, a5, s5, a6, s6):
+#
+#     channels_ld = utils.get_channels()
+#
+#     if a1: channels_ld[0]['alias'] = a1
+#     if a2: channels_ld[1]['alias'] = a2
+#     if a3: channels_ld[2]['alias'] = a3
+#     if a4: channels_ld[3]['alias'] = a4
+#     if a5: channels_ld[4]['alias'] = a5
+#     if a6: channels_ld[5]['alias'] = a6
+#
+#     if s1: channels_ld[0]['scaling_fact'] = float(s1)
+#     if s2: channels_ld[1]['scaling_fact'] = float(s2)
+#     if s3: channels_ld[2]['scaling_fact'] = float(s3)
+#     if s4: channels_ld[3]['scaling_fact'] = float(s4)
+#     if s5: channels_ld[4]['scaling_fact'] = float(s5)
+#     if s6: channels_ld[5]['scaling_fact'] = float(s6)
+#
+#     utils.update_channels(channels_ld)
+#
+#     channel_name_string = utils.string_channels()
+#
+#     return 'Channel Configuration'
