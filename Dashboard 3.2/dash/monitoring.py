@@ -868,8 +868,8 @@ def switch_views(checked):
     if checked is None:
         checked = []
 
-    print('\nchecked')
-    print(checked)
+    # print('\nchecked')
+    # print(checked)
 
     with open('temp/tree.txt', 'r') as filehandle:
         checked_global = [current_place.rstrip() for current_place in filehandle.readlines()]
@@ -878,8 +878,8 @@ def switch_views(checked):
 
     if checked and checked_global:
         checked_diff = list(set(checked).difference(checked_global))
-        print('\nchecked_diff')
-        print(checked_diff)
+        # print('\nchecked_diff')
+        # print(checked_diff)
         if not checked_diff:
             pass
         elif (checked_diff[0].find('CH') > -1) and (checked_global[0].find('CH') > -1):
@@ -892,8 +892,8 @@ def switch_views(checked):
     with open('temp/tree.txt', 'w') as filehandle:
         filehandle.writelines("%s\n" % item for item in checked_global)
 
-    print('\nchecked_global')
-    print(checked_global)
+    # print('\nchecked_global')
+    # print(checked_global)
 
     if checked_global:
         if checked_global[0].find('CH') > -1:
@@ -909,53 +909,53 @@ def switch_views(checked):
 
 #Devices-------------------------------------------------------------------------------------------------------------------------#
 
-# # Callback function to update placeholders in the inputs
-# @app.callback([Output("in_alias_1", "placeholder"),
-#                Output("in_scaling_factor_1", "placeholder"),
-#                Output("in_alias_2", "placeholder"),
-#                Output("in_scaling_factor_2", "placeholder"),
-#                Output("in_alias_3", "placeholder"),
-#                Output("in_scaling_factor_3", "placeholder"),
-#                Output("in_alias_4", "placeholder"),
-#                Output("in_scaling_factor_4", "placeholder"),
-#                Output("in_alias_5", "placeholder"),
-#                Output("in_scaling_factor_5", "placeholder"),
-#                Output("in_alias_6", "placeholder"),
-#                Output("in_scaling_factor_6", "placeholder"),
-#                Output("in_device_alias", "value")],
-#               [Input("dd_id", "value")])
-# def placeholders_update(deviceid):
-#
-#     if deviceid:
-#         with open('temp/dd_current_devid.txt', mode='w') as file:
-#             file.write(deviceid)
-#             file.close()
-#
-#     channels_ld = utils.get_channels()
-#     devices_ld = utils.get_devices()
-#
-#     placeholder_list = []
-#
-#     for dict in channels_ld:
-#         placeholder_list.append(dict['alias'])
-#         placeholder_list.append(dict['scaling_fact'])
-#
-#     flag = False
-#     for dict in devices_ld:
-#         if dict['name'] == deviceid:
-#             placeholder_list.append(dict['alias'])
-#             flag = True
-#     if not flag:
-#         placeholder_list.append("")
-#
-#     return placeholder_list
+# Callback function to update placeholders in the inputs
+@app.callback([Output("in_alias_1", "placeholder"),
+               Output("in_scaling_factor_1", "placeholder"),
+               Output("in_alias_2", "placeholder"),
+               Output("in_scaling_factor_2", "placeholder"),
+               Output("in_alias_3", "placeholder"),
+               Output("in_scaling_factor_3", "placeholder"),
+               Output("in_alias_4", "placeholder"),
+               Output("in_scaling_factor_4", "placeholder"),
+               Output("in_alias_5", "placeholder"),
+               Output("in_scaling_factor_5", "placeholder"),
+               Output("in_alias_6", "placeholder"),
+               Output("in_scaling_factor_6", "placeholder"),
+               Output("in_device_alias", "value")],
+              [Input("dd_id", "value")])
+def placeholders_update(deviceid):
+
+    if deviceid:
+        with open('temp/dd_current_devid.txt', mode='w') as file:
+            file.write(deviceid)
+            file.close()
+
+    channels_ld = utils.get_channels()
+    devices_ld = utils.get_devices()
+
+    placeholder_list = []
+
+    for dict in channels_ld:
+        placeholder_list.append(dict['alias'])
+        placeholder_list.append(dict['scaling_fact'])
+
+    flag = False
+    for dict in devices_ld:
+        if dict['name'] == deviceid:
+            placeholder_list.append(dict['alias'])
+            flag = True
+    if not flag:
+        placeholder_list.append("")
+
+    return placeholder_list
 
 # # Callback function to write device aliases to csv
 # @app.callback(Output("in_device_alias", "type"),
 #               Input("in_device_alias", "value"))
 # def device_alias_update(new_alias):
 #
-#     with open('config/dd_current_devid.txt', mode='r') as file:
+#     with open('temp/dd_current_devid.txt', mode='r') as file:
 #         deviceid = file.read()
 #         file.close()
 #
@@ -970,40 +970,40 @@ def switch_views(checked):
 #
 #     return 'text'
 
-# # Callback function to update the channel aliases and scaling factors
-# @app.callback(Output("ch_config", "children"),
-#               [Input("in_alias_1", "value"),
-#               Input("in_scaling_factor_1", "value"),
-#               Input("in_alias_2", "value"),
-#               Input("in_scaling_factor_2", "value"),
-#               Input("in_alias_3", "value"),
-#               Input("in_scaling_factor_3", "value"),
-#               Input("in_alias_4", "value"),
-#               Input("in_scaling_factor_4", "value"),
-#               Input("in_alias_5", "value"),
-#               Input("in_scaling_factor_5", "value"),
-#               Input("in_alias_6", "value"),
-#               Input("in_scaling_factor_6", "value")])
-# def update_channel_string(a1, s1, a2, s2, a3, s3, a4, s4, a5, s5, a6, s6):
-#
-#     channels_ld = utils.get_channels()
-#
-#     if a1: channels_ld[0]['alias'] = a1
-#     if a2: channels_ld[1]['alias'] = a2
-#     if a3: channels_ld[2]['alias'] = a3
-#     if a4: channels_ld[3]['alias'] = a4
-#     if a5: channels_ld[4]['alias'] = a5
-#     if a6: channels_ld[5]['alias'] = a6
-#
-#     if s1: channels_ld[0]['scaling_fact'] = float(s1)
-#     if s2: channels_ld[1]['scaling_fact'] = float(s2)
-#     if s3: channels_ld[2]['scaling_fact'] = float(s3)
-#     if s4: channels_ld[3]['scaling_fact'] = float(s4)
-#     if s5: channels_ld[4]['scaling_fact'] = float(s5)
-#     if s6: channels_ld[5]['scaling_fact'] = float(s6)
-#
-#     utils.update_channels(channels_ld)
-#
-#     channel_name_string = utils.string_channels()
-#
-#     return 'Channel Configuration'
+# Callback function to update the channel aliases and scaling factors
+@app.callback(Output("ch_config", "children"),
+              [Input("in_alias_1", "value"),
+              Input("in_scaling_factor_1", "value"),
+              Input("in_alias_2", "value"),
+              Input("in_scaling_factor_2", "value"),
+              Input("in_alias_3", "value"),
+              Input("in_scaling_factor_3", "value"),
+              Input("in_alias_4", "value"),
+              Input("in_scaling_factor_4", "value"),
+              Input("in_alias_5", "value"),
+              Input("in_scaling_factor_5", "value"),
+              Input("in_alias_6", "value"),
+              Input("in_scaling_factor_6", "value")])
+def update_channel_string(a1, s1, a2, s2, a3, s3, a4, s4, a5, s5, a6, s6):
+
+    channels_ld = utils.get_channels()
+
+    if a1: channels_ld[0]['alias'] = a1
+    if a2: channels_ld[1]['alias'] = a2
+    if a3: channels_ld[2]['alias'] = a3
+    if a4: channels_ld[3]['alias'] = a4
+    if a5: channels_ld[4]['alias'] = a5
+    if a6: channels_ld[5]['alias'] = a6
+
+    if s1: channels_ld[0]['scaling_fact'] = float(s1)
+    if s2: channels_ld[1]['scaling_fact'] = float(s2)
+    if s3: channels_ld[2]['scaling_fact'] = float(s3)
+    if s4: channels_ld[3]['scaling_fact'] = float(s4)
+    if s5: channels_ld[4]['scaling_fact'] = float(s5)
+    if s6: channels_ld[5]['scaling_fact'] = float(s6)
+
+    utils.update_channels(channels_ld)
+
+    # channel_name_string = utils.string_channels()
+
+    return 'Channel Configuration'
