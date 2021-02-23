@@ -27,6 +27,27 @@ checkboxtree_nodes = utils.checkboxtree_nodes(locations_ld, devices_ld, channels
 
 
 #Layout Components===============================================================================================================#
+navbar = dbc.Navbar(
+    dbc.Container(
+        [
+            html.A(
+                dbc.Row([
+                        dbc.Col(html.Img(src="/assets/divigraph.png", height="40px"), width=1, align="center"),
+                        dbc.Col(dbc.NavbarBrand("Divigraph", className="ml-2"), width=1, align="center"),
+                        ],
+                        align="center",
+                        no_gutters=True,
+                ),
+                href="/monitoring",
+            ),
+        ],
+        fluid = True
+    ),
+    color="primary",
+    dark=True,
+    className="mb-4",
+)
+
 body_left_card_tree = dbc.CardBody(
     [
         # html.Div(duc.CheckBoxTree(id="nav_tree", nodes=checkboxtree_nodes, showNodeIcon=False))
@@ -180,69 +201,7 @@ graph_ch3 = dbc.Card(dcc.Graph(id='graph_ch3', animate=True, style={'display': '
 graph_ch4 = dbc.Card(dcc.Graph(id='graph_ch4', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
 graph_ch5 = dbc.Card(dcc.Graph(id='graph_ch5', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
 graph_ch6 = dbc.Card(dcc.Graph(id='graph_ch6', animate=True, style={'display': 'none'}), color="primary", className='mb-1')
-# graph_ch1 = dbc.Row([  # Row for body_right_metrics_left_graph_ch1
-#     dbc.Col
-#     (
-#         dbc.Card(dcc.Graph(id='graph_ch1', animate=True, style={'display': 'none'}), color="primary"),
-#         className = "mb-2",
-#     )
-# ]),
-# graph_ch2 = dbc.Row([  # Row for body_right_metrics_left_graph_ch2
-#     dbc.Col
-#     (
-#         dbc.Card(dcc.Graph(id='graph_ch2', animate=True, style={'display': 'none'}), color="primary"),
-#         className = "mb-2",
-#     )
-# ]),
-# graph_ch3 = dbc.Row([  # Row for body_right_metrics_left_graph_ch3
-#     dbc.Col
-#     (
-#         dbc.Card(dcc.Graph(id='graph_ch3', animate=True, style={'display': 'none'}), color="primary"),
-#         className = "mb-2",
-#     )
-# ]),
-# graph_ch4 = dbc.Row([  # Row for body_right_metrics_left_graph_ch4
-#     dbc.Col
-#     (
-#         dbc.Card(dcc.Graph(id='graph_ch4', animate=True, style={'display': 'none'}), color="primary"),
-#         className = "mb-2",
-#     )
-# ]),
-# graph_ch5 = dbc.Row([  # Row for body_right_metrics_left_graph_ch5
-#     dbc.Col
-#     (
-#         dbc.Card(dcc.Graph(id='graph_ch5', animate=True, style={'display': 'none'}), color="primary"),
-#         className = "mb-2",
-#     )
-# ]),
-# graph_ch6 = dbc.Row([  # Row for body_right_metrics_left_graph_ch6
-#     dbc.Col
-#     (
-#         dbc.Card(dcc.Graph(id='graph_ch6', animate=True, style={'display': 'none'}), color="primary"),
-#         className = "mb-2",
-#     )
-# ]),
 
-navbar = dbc.Navbar(
-    dbc.Container(
-        [
-            html.A(
-                dbc.Row([
-                        dbc.Col(html.Img(src="/assets/divigraph.png", height="40px"), width=1, align="center"),
-                        dbc.Col(dbc.NavbarBrand("Divigraph", className="ml-2"), width=1, align="center"),
-                        ],
-                        align="center",
-                        no_gutters=True,
-                ),
-                href="/monitoring",
-            ),
-        ],
-        fluid = True
-    ),
-    color="primary",
-    dark=True,
-    className="mb-4",
-)
 
 
 
@@ -510,138 +469,6 @@ def on_button_click(n, current):
     else:
         return [2*1000, 'Pause']
 
-# # Update graph_timeseries based on the dropdown
-# @app.callback(Output('graph_timeseries', 'figure'),
-#               [Input('dd_id', 'value'),
-#                Input('dd_channel', 'value'),
-#                Input('graph_update', 'n_intervals')])
-# def update_graph_timeseries(ids, data, n):
-#
-#     df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
-#     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
-#
-#     trace = []
-#
-#     if ids and data:
-#         df_data = df[df['data'] == data]
-#         xmin = df_data.index.min()
-#         xmax = df_data.index.max()
-#         ymin = df_data['value'].min() - 0.05 * np.abs(df_data['value'].max())
-#         ymax = df_data['value'].max() + 0.05 * np.abs(df_data['value'].max())
-#         for id in ids:
-#             df_data_id = df_data[df_data['deviceId'] == id]
-#             trace.append(go.Scatter(x=df_data_id.index,
-#                                     y=df_data_id['value'],
-#                                     mode='lines+markers',
-#                                     opacity=0.7,
-#                                     line={'width': 3},
-#                                     name=id,
-#                                     textposition='bottom center'))
-#     else:
-#         df_clear = df
-#         df_clear['value'].values[:] = 0
-#         xmin = df.index.min()
-#         xmax = df.index.max()
-#         ymin = -100
-#         ymax = 100
-#         trace.append(go.Scatter(x=df_clear.index,
-#                                 y=df_clear['value'],
-#                                 mode='lines',
-#                                 opacity=0.7,
-#                                 line={'width': 3},
-#                                 textposition='bottom center'
-#                     )
-#         )
-#
-#     traces = [trace]
-#     data = [val for sublist in traces for val in sublist]
-#
-#     figure = {'data': data,
-#               'layout': go.Layout(
-#                   colorway=colorlist,
-#                   template='plotly_dark',
-#                   paper_bgcolor='rgba(0, 0, 0, 0)',
-#                   plot_bgcolor='rgba(0, 0, 0, 0)',
-#                   hovermode='x',
-#                   height=500,
-#                   autosize=True,
-#                   title={'text': 'Sensor Data', 'font': {'color': 'white'}, 'x': 0.5},
-#                   xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
-#                   yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
-#               ),
-#     }
-#
-#     return figure
-
-# # Update graph_change based on the dropdown
-# @app.callback(Output('graph_change', 'figure'),
-#               [Input('dd_id', 'value'),
-#                Input('dd_channel', 'value'),
-#                Input('graph_update', 'n_intervals')])
-# def update_graph_change(ids, data, n):
-#
-#     df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
-#     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
-#
-#     trace = []
-#
-#     if ids and data:
-#         # print('\nids')
-#         # print(ids)
-#         # print('\ndata')
-#         # print(data)
-#         df_data = df[df['data'] == data]
-#         xmin = df_data.index.min()
-#         xmax = df_data.index.max()
-#         ymin = df_data['change'].min() - 0.05 * np.abs(df_data['change'].max())
-#         ymax = df_data['change'].max() + 0.05 * np.abs(df_data['change'].max())
-#         for id in ids:
-#             df_data_id = df_data[df_data['deviceId'] == id]
-#             trace.append(go.Scatter(x=df_data_id.index,
-#                                     y=df_data_id['change'],
-#                                     mode='lines+markers',
-#                                     line={'width': 3},
-#                                     opacity=0.7,
-#                                     name=id,
-#                                     textposition='bottom center'
-#                         )
-#             )
-#     else:
-#         df_clear = df
-#         df_clear['change'].values[:] = 0
-#         xmin = df.index.min()
-#         xmax = df.index.max()
-#         ymin = -10
-#         ymax = 10
-#         trace.append(go.Scatter(x=df_clear.index,
-#                                 y=df_clear['change'],
-#                                 mode='lines',
-#                                 line={'width': 3},
-#                                 opacity=0.7,
-#                                 textposition='bottom center'
-#                     )
-#         )
-#
-#     traces = [trace]
-#     data = [val for sublist in traces for val in sublist]
-#
-#     figure = {'data': data,
-#               'layout': go.Layout(
-#                   colorway=colorlist,
-#                   template='plotly_dark',
-#                   paper_bgcolor='rgba(0, 0, 0, 0)',
-#                   plot_bgcolor='rgba(0, 0, 0, 0)',
-#                   height=350,
-#                   hovermode='x',
-#                   autosize=True,
-#                   title={'text': 'Change', 'font': {'color': 'white'}, 'x': 0.5},
-#                   xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
-#                   yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
-#               ),
-#     }
-#
-#     return figure
-
 # Callback function to apply scaling factors and update the graphs
 @app.callback([Output('graph_ch1', 'figure'),
                Output('graph_ch2', 'figure'),
@@ -763,135 +590,68 @@ def display_graphs(checked):
 
     return graphs_to_display
 
-
-
-#Accordeon=======================================================================================================================#
-# # Callback function to for btn_d1
-# @app.callback(Output("clp_d1", "is_open"),
-#               [Input("btn_d1", "n_clicks")],
-#               [State("clp_d1", "is_open")])
-# def toggle_collapse_d1(n, is_open):
-#     if n:
-#         return not is_open
-#     return is_open
+# # Update graph_timeseries based on the dropdown
+# @app.callback(Output('graph_timeseries', 'figure'),
+#               [Input('dd_id', 'value'),
+#                Input('dd_channel', 'value'),
+#                Input('graph_update', 'n_intervals')])
+# def update_graph_timeseries(ids, data, n):
 #
-# # Callback function to for btn_d1_ch1
-# @app.callback(Output("btn_d1_ch1", "color"),
-#               [Input("btn_d1_ch1", "n_clicks"),
-#                Input("btn_d1_ch1", "color")])
-# def toggle_collapse_d1_ch1(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
+#     df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
+#     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
 #
-# # Callback function to for btn_d1_ch2
-# @app.callback(Output("btn_d1_ch2", "color"),
-#               [Input("btn_d1_ch2", "n_clicks"),
-#                Input("btn_d1_ch2", "color")])
-# def toggle_collapse_d1_ch2(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
+#     trace = []
 #
-# # Callback function to for btn_d1_ch3
-# @app.callback(Output("btn_d1_ch3", "color"),
-#               [Input("btn_d1_ch3", "n_clicks"),
-#                Input("btn_d1_ch3", "color")])
-# def toggle_collapse_d1_ch3(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
+#     if ids and data:
+#         df_data = df[df['data'] == data]
+#         xmin = df_data.index.min()
+#         xmax = df_data.index.max()
+#         ymin = df_data['value'].min() - 0.05 * np.abs(df_data['value'].max())
+#         ymax = df_data['value'].max() + 0.05 * np.abs(df_data['value'].max())
+#         for id in ids:
+#             df_data_id = df_data[df_data['deviceId'] == id]
+#             trace.append(go.Scatter(x=df_data_id.index,
+#                                     y=df_data_id['value'],
+#                                     mode='lines+markers',
+#                                     opacity=0.7,
+#                                     line={'width': 3},
+#                                     name=id,
+#                                     textposition='bottom center'))
+#     else:
+#         df_clear = df
+#         df_clear['value'].values[:] = 0
+#         xmin = df.index.min()
+#         xmax = df.index.max()
+#         ymin = -100
+#         ymax = 100
+#         trace.append(go.Scatter(x=df_clear.index,
+#                                 y=df_clear['value'],
+#                                 mode='lines',
+#                                 opacity=0.7,
+#                                 line={'width': 3},
+#                                 textposition='bottom center'
+#                     )
+#         )
 #
-# # Callback function to for btn_d1_ch4
-# @app.callback(Output("btn_d1_ch4", "color"),
-#               [Input("btn_d1_ch4", "n_clicks"),
-#                Input("btn_d1_ch4", "color")])
-# def toggle_collapse_d1_ch4(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
+#     traces = [trace]
+#     data = [val for sublist in traces for val in sublist]
 #
-# # Callback function to for btn_d1_ch5
-# @app.callback(Output("btn_d1_ch5", "color"),
-#               [Input("btn_d1_ch5", "n_clicks"),
-#                Input("btn_d1_ch5", "color")])
-# def toggle_collapse_d1_ch5(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
+#     figure = {'data': data,
+#               'layout': go.Layout(
+#                   colorway=colorlist,
+#                   template='plotly_dark',
+#                   paper_bgcolor='rgba(0, 0, 0, 0)',
+#                   plot_bgcolor='rgba(0, 0, 0, 0)',
+#                   hovermode='x',
+#                   height=500,
+#                   autosize=True,
+#                   title={'text': 'Sensor Data', 'font': {'color': 'white'}, 'x': 0.5},
+#                   xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
+#                   yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
+#               ),
+#     }
 #
-# # Callback function to for btn_d1_ch6
-# @app.callback(Output("btn_d1_ch6", "color"),
-#               [Input("btn_d1_ch6", "n_clicks"),
-#                Input("btn_d1_ch6", "color")])
-# def toggle_collapse_d1_ch6(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
-#
-# # Callback function to for btn_d2
-# @app.callback(Output("clp_d2", "is_open"),
-#               [Input("btn_d2", "n_clicks")],
-#               [State("clp_d2", "is_open")])
-# def toggle_collapse_1_2(n, is_open):
-#     if n:
-#         return not is_open
-#     return is_open
-#
-# # Callback function to for btn_d2_ch1
-# @app.callback(Output("btn_d2_ch1", "color"),
-#               [Input("btn_d2_ch1", "n_clicks"),
-#                Input("btn_d2_ch1", "color")])
-# def toggle_collapse_d2_ch1(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
-#
-# # Callback function to for btn_d2_ch2
-# @app.callback(Output("btn_d2_ch2", "color"),
-#               [Input("btn_d2_ch2", "n_clicks"),
-#                Input("btn_d2_ch2", "color")])
-# def toggle_collapse_d2_ch2(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
-#
-# # Callback function to for btn_d2_ch3
-# @app.callback(Output("btn_d2_ch3", "color"),
-#               [Input("btn_d2_ch3", "n_clicks"),
-#                Input("btn_d2_ch3", "color")])
-# def toggle_collapse_d2_ch3(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
-#
-# # Callback function to for btn_d2_ch4
-# @app.callback(Output("btn_d2_ch4", "color"),
-#               [Input("btn_d2_ch4", "n_clicks"),
-#                Input("btn_d2_ch4", "color")])
-# def toggle_collapse_d2_ch4(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
-#
-# # Callback function to for btn_d2_ch5
-# @app.callback(Output("btn_d2_ch5", "color"),
-#               [Input("btn_d2_ch5", "n_clicks"),
-#                Input("btn_d2_ch5", "color")])
-# def toggle_collapse_d2_ch5(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
-#
-# # Callback function to for btn_d2_ch6
-# @app.callback(Output("btn_d2_ch6", "color"),
-#               [Input("btn_d2_ch6", "n_clicks"),
-#                Input("btn_d2_ch6", "color")])
-# def toggle_collapse_d2_ch6(n, color):
-#     if color=='warning':
-#         return 'secondary'
-#     return 'warning'
-
+#     return figure
 
 
 #Structure=======================================================================================================================#
