@@ -103,16 +103,16 @@ def checkboxtree_nodes(locations_ld, devices_ld, channels_ld):
             dev_children = []
             for channel in channels_ld:
                 ch_node = {}
-                ch_node['value'] = location['name'] + '_' + device['name'] + '_' + channel['name']
+                ch_node['value'] = 'loc' + location['name'] + '_' + 'dev' + device['name'] + '_' + channel['name']
                 ch_node['label'] = channel['alias']
                 dev_children.append(ch_node)
             dev_node = {}
-            dev_node['value'] = location['name'] + '_' + device['name']
+            dev_node['value'] = 'loc' + location['name'] + '_' + 'dev' + device['name']
             dev_node['label'] = device['alias']
             dev_node['children'] = dev_children
             loc_children.append(dev_node)
         loc_node = {}
-        loc_node['value'] = location['name']
+        loc_node['value'] = 'loc' + location['name']
         loc_node['label'] = location['alias']
         loc_node['children'] = loc_children
         tree_children.append(loc_node)

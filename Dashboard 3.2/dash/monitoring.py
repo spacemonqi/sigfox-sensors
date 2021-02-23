@@ -14,7 +14,7 @@ import dash_useful_components as duc
 import utils
 from app import app
 
-#Defines-------------------------------------------------------------------------------------------------------------------------#
+#Global--------------------------------------------------------------------------------------------------------------------------#
 colorlist = ['#FF4F00', '#FFF400', '#FF0056', "#5E0DAC", '#60AAED', '#1CA776']
 
 #Data----------------------------------------------------------------------------------------------------------------------------#
@@ -431,6 +431,10 @@ DIV_body_right_devices = html.Div(  # Div for body_right_devices
     ])
 )
 
+DIV_body_right_locations = html.Div()
+
+DIV_body_right_none = html.Div()
+
 #Layout--------------------------------------------------------------------------------------------------------------------------#
 layout = html.Div([
     dbc.Container(
@@ -634,7 +638,7 @@ def update_graphs(n, checked):
         trace = []
 
         if checked:
-            device = checked[0].split('_')[1]
+            device = checked[0].split('_')[1][3:]
             df_data = df_scaled[df_scaled['data'] == channel['name']]
             df_data_id = df_data[df_data['deviceId'] == device]
             xmin = df_data_id.index.min()
@@ -713,12 +717,6 @@ def display_graphs(checked):
         for item in checked:
             substrings = item.split('_')
             channels.append(substrings[2])
-            # if len(substrings)==3:
-            #     channels.append(substrings[2])
-            # if len(substrings)==2:
-            #     devices.append(substrings[1])
-            # if len(substrings)==1:
-            #     countries.append(substrings[0])
         graphs_to_display.append({})
     else:
         graphs_to_display.append({'display': 'none'})
@@ -732,6 +730,7 @@ def display_graphs(checked):
     return graphs_to_display
 
 #Accordeon-----------------------------------------------------------------------------------------------------------------------#
+
 # # Callback function to for btn_d1
 # @app.callback(Output("clp_d1", "is_open"),
 #               [Input("btn_d1", "n_clicks")],
@@ -858,26 +857,57 @@ def display_graphs(checked):
 #         return 'secondary'
 #     return 'warning'
 
-#Devices-------------------------------------------------------------------------------------------------------------------------#
+#Structure-----------------------------------------------------------------------------------------------------------------------#
 
 # Switch between views
-@app.callback(Output('col_body_right', 'children'),
+@app.callback([Output('nav_tree', 'checked'),
+               Output('col_body_right', 'children')],
               Input('nav_tree', 'checked'))
 def switch_views(checked):
 
-    # with open('config/tree.txt', mode='r') as file:
-    #     device = file.read()
-    #     file.close()
+    if checked is None:
+        checked = []
 
-    # if device
+    print('\nchecked')
+    print(checked)
 
-    if checked:
-        with open('temp/tree.txt', mode='w') as file:
-            file.write(checked)
-            file.close()
+    with open('temp/tree.txt', 'r') as filehandle:
+        checked_global = [current_place.rstrip() for current_place in filehandle.readlines()]
 
-    return DIV_body_right_channels
+    checked_diff = []
 
+    if checked and checked_global:
+        checked_diff = list(set(checked).difference(checked_global))
+        print('\nchecked_diff')
+        print(checked_diff)
+        if not checked_diff:
+            pass
+        elif (checked_diff[0].find('CH') > -1) and (checked_global[0].find('CH') > -1):
+            checked_global = checked.copy()
+        else:
+            checked_global = checked_diff
+    else:
+        checked_global = checked.copy()
+
+    with open('temp/tree.txt', 'w') as filehandle:
+        filehandle.writelines("%s\n" % item for item in checked_global)
+
+    print('\nchecked_global')
+    print(checked_global)
+
+    if checked_global:
+        if checked_global[0].find('CH') > -1:
+            return checked_global, DIV_body_right_channels
+
+        if checked_global[0].find('dev') > -1:
+            return checked_global, DIV_body_right_devices
+
+        if checked_global[0].find('loc') > -1:
+            return checked_global, DIV_body_right_locations
+
+    return checked_global, DIV_body_right_none
+
+#Devices-------------------------------------------------------------------------------------------------------------------------#
 
 # # Callback function to update placeholders in the inputs
 # @app.callback([Output("in_alias_1", "placeholder"),
