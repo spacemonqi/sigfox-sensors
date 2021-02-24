@@ -1,0 +1,10 @@
+RUN VIA VENV
+
+engineering units
+text units
+downlinks
+settling time
+sampling rate & averaging
+rms/avg/peak/
+num of measurements
+duration for averaging
