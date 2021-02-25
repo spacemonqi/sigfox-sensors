@@ -1,5 +1,5 @@
 cd dash
-start /B python index.py
+start /B python main.py
 cd ../aws
 start /B python demo.py
 timeout 3 /nobreak

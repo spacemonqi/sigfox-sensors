@@ -94,7 +94,7 @@ def string_channels():
     return channel_name_string[0:-2]
 
 # Function to write the nodes of the navigation tree
-def checkboxtree_nodes(locations_ld, devices_ld, channels_ld):
+def update_tree_nodes(locations_ld, devices_ld, channels_ld):
     # Will later have to change this so it checks which locations have which devices, and which devices have which channels
     tree_children = []
     for location in locations_ld:
@@ -116,72 +116,5 @@ def checkboxtree_nodes(locations_ld, devices_ld, channels_ld):
         loc_node['label'] = location['alias']
         loc_node['children'] = loc_children
         tree_children.append(loc_node)
-
-    # checkboxtree_nodes = [
-    #     {
-    #         'value': '1',
-    #         'label': '1',
-    #         'children': [
-    #             {
-    #                 'value': '1_1',
-    #                 'label': '1_1',
-    #                 'children': [
-    #                     {
-    #                         'value': '1_1_1',
-    #                         'label': '1_1_1',
-    #                         'children': [
-    #                             {
-    #                                 'value': '1_1_1_1',
-    #                                 'label': '1_1_1_1'
-    #                             }
-    #                         ]
-    #                     },
-    #                     {
-    #                         'value': '1_1_2',
-    #                         'label': '1_1_2'
-    #                     }
-    #                 ]
-    #             },
-    #             {
-    #                 'value': '1_2',
-    #                 'label': '1_2',
-    #                 'children': [
-    #                     {
-    #                         'value': '1_2_1',
-    #                         'label': '1_2_1'
-    #                     }
-    #                 ]
-    #             }
-    #         ]
-    #     },
-    #     {
-    #         'value': '2',
-    #         'label': '2',
-    #         'children': [
-    #             {
-    #                 'value': '2_1',
-    #                 'label': '2_1'
-    #             },
-    #             {
-    #                 'value': '2_2',
-    #                 'label': '2_2'
-    #             }
-    #         ]
-    #     },
-    #     {
-    #         'value': '3',
-    #         'label': '3',
-    #         'children': [
-    #             {
-    #                 'value': '3_1',
-    #                 'label': '3_1'
-    #             },
-    #             {
-    #                 'value': '3_2',
-    #                 'label': '3_2'
-    #             }
-    #         ]
-    #     }
-    # ]
 
     return tree_children

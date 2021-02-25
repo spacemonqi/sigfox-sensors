@@ -9,7 +9,6 @@ import pandas as pd
 import numpy as np
 from app import app
 import utils
-# bruh
 
 
 
@@ -23,7 +22,7 @@ df = utils.get_df('../data/sensor_data.csv')
 locations_ld = utils.get_locations()
 devices_ld = utils.get_devices()
 channels_ld = utils.get_channels()
-checkboxtree_nodes = utils.checkboxtree_nodes(locations_ld, devices_ld, channels_ld)
+tree_nodes = utils.update_tree_nodes(locations_ld, devices_ld, channels_ld)
 
 
 
@@ -53,7 +52,7 @@ body_left_card_tree = dbc.CardBody(
     [
         dbc.Row(html.Div(duc.CheckBoxTree(
                             id="nav_tree",
-                            nodes=checkboxtree_nodes,
+                            nodes=tree_nodes,
                             disabled = False,
                             expandDisabled = False,
                             expandOnClick = True,
@@ -169,6 +168,41 @@ DIV_body_right_channels = html.Div(
 
 DIV_body_right_devices = html.Div(
     dbc.Container([
+        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Device Configuration', className="text-center bg-primary"),
+                                  body=True,
+                                  color="primary"),
+                 className="mb-4")]),
+        dbc.Row([
+                dbc.Col(width = 2),
+                dbc.Col(children=[html.P('''Device ID:''')], width = 4),
+                dbc.Col(children=[html.P('''Device Alias:''')], width = 4),
+        ]),
+        dbc.Row([
+            dbc.Col(html.H4('''Devices:'''), width = 2),
+            dbc.Col(
+                dcc.Dropdown(
+                    id='dd_id',
+                    options=utils.get_options(df['deviceId'].unique()),
+                    style={'width': '200px',
+                           'height': '35px',
+                           'display': 'inline-block',
+                           'margin-bottom': '10px',
+                           'color': 'black',
+                           'background-color': 'white'}
+                ),
+                width = 4,
+            ),
+            dbc.Col(
+                dcc.Input(
+                    id="in_device_alias",
+                    type="text",
+                    placeholder = "",
+                    style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
+                ),
+                width = 4,
+            ),
+        ]),
+
         dbc.Row([dbc.Col(dbc.Card(html.H3(id='ch_config', children='Channel Configuration', className="text-center bg-primary"),
                                   body=True,
                                   color="primary"),
@@ -178,7 +212,6 @@ DIV_body_right_devices = html.Div(
                 dbc.Col(children=[html.P('''Channel Alias:''')], width = 4),
                 dbc.Col(children=[html.P('''Scaling Factor:''')], width = 4),
         ]),
-
         dbc.Row([
                 dbc.Col(html.H4('''Channel 1:'''), width = 2),
                 dbc.Col(dcc.Input(id="in_alias_1",
@@ -282,40 +315,6 @@ DIV_body_right_devices = html.Div(
                 ),
         ]),
 
-        dbc.Row([dbc.Col(dbc.Card(html.H3(children='Device Configuration', className="text-center bg-primary"),
-                                  body=True,
-                                  color="primary"),
-                 className="mb-4")]),
-        dbc.Row([
-                dbc.Col(width = 2),
-                dbc.Col(children=[html.P('''Device ID:''')], width = 4),
-                dbc.Col(children=[html.P('''Device Alias:''')], width = 4),
-        ]),
-        dbc.Row([
-            dbc.Col(html.H4('''Devices:'''), width = 2),
-            dbc.Col(
-                dcc.Dropdown(
-                    id='dd_id',
-                    options=utils.get_options(df['deviceId'].unique()),
-                    style={'width': '200px',
-                           'height': '35px',
-                           'display': 'inline-block',
-                           'margin-bottom': '10px',
-                           'color': 'black',
-                           'background-color': 'white'}
-                ),
-                width = 4,
-            ),
-            dbc.Col(
-                dcc.Input(
-                    id="in_device_alias",
-                    type="text",
-                    placeholder = "",
-                    style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
-                ),
-                width = 4,
-            ),
-        ]),
     ])
 )
 
@@ -356,7 +355,7 @@ layout = html.Div([
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     navbar,
-    html.Div(id='page-content', children=layout)
+    layout
 ])
 
 
@@ -566,17 +565,10 @@ def switch_views(checked):
     if checked is None:
         checked = []
 
-    # print('\nchecked')
-    # print(checked)
-
     with open('temp/tree.txt', 'r') as filehandle:
         checked_global = [current_place.rstrip() for current_place in filehandle.readlines()]
-    # print('\nchecked_global')
-    # print(checked_global)
 
     checked_diff = list(set(checked).difference(checked_global))
-    # print('\nchecked_diff')
-    # print(checked_diff)
 
     if not checked:
         checked_global = checked
@@ -592,9 +584,6 @@ def switch_views(checked):
     with open('temp/tree.txt', 'w') as filehandle:
         filehandle.writelines("%s\n" % item for item in checked_global)
 
-    # print('\nchecked_global')
-    # print(checked_global)
-
     if checked_global:
         if checked_global[0].find('CH') > -1:
             return checked_global, DIV_body_right_channels
@@ -606,7 +595,6 @@ def switch_views(checked):
             return checked_global, DIV_body_right_locations
 
     return checked_global, DIV_body_right_none
-
 
 
 #Devices=========================================================================================================================#
@@ -632,22 +620,25 @@ def placeholders_update(deviceid):
             file.write(deviceid)
             file.close()
 
-    channels_ld = utils.get_channels()
-    devices_ld = utils.get_devices()
+        channels_ld = utils.get_channels()
+        devices_ld = utils.get_devices()
 
-    placeholder_list = []
+        placeholder_list = []
 
-    for dict in channels_ld:
-        placeholder_list.append(dict['alias'])
-        placeholder_list.append(dict['scaling_fact'])
-
-    flag = False
-    for dict in devices_ld:
-        if dict['name'] == deviceid:
+        for dict in channels_ld:
             placeholder_list.append(dict['alias'])
-            flag = True
-    if not flag:
-        placeholder_list.append("")
+            placeholder_list.append(dict['scaling_fact'])
+
+        flag = False
+        for dict in devices_ld:
+            if dict['name'] == deviceid:
+                placeholder_list.append(dict['alias'])
+                flag = True
+        if not flag:
+            placeholder_list.append("")
+
+    else:
+        placeholder_list = ['', '', '', '', '', '', '', '', '', '', '', '', '']
 
     return placeholder_list
 
@@ -671,8 +662,8 @@ def update_device_config(new_alias):
 
     return 'text'
 
-# Callback function to update the channel aliases and scaling factors
-@app.callback(Output("ch_config", "children"),
+# Callback function to get the channel aliases and scaling factors, update the nav_tree and switch between views
+@app.callback(Output("nav_tree", "nodes"),
               [Input("in_alias_1", "value"),
               Input("in_scaling_factor_1", "value"),
               Input("in_alias_2", "value"),
@@ -705,9 +696,9 @@ def update_channel_config(a1, s1, a2, s2, a3, s3, a4, s4, a5, s5, a6, s6):
 
     utils.update_channels(channels_ld)
 
-    # channel_name_string = utils.string_channels()
+    tree_nodes = utils.update_tree_nodes(utils.get_locations(), utils.get_devices(), utils.get_channels())
 
-    return 'Channel Configuration'
+    return tree_nodes
 
 
 

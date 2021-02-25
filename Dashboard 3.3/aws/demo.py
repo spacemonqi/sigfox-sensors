@@ -1,13 +1,18 @@
-#!/usr/local/bin/python3
-
+#Imports=========================================================================================================================#
 import pandas as pd
 from datetime import datetime
 import time
 import csv
-
 import aws_api
 
-#----------------------------------------------------------------------------------------------------------------------#
+
+
+#Variables=======================================================================================================================#
+tableName, online = read_params('config/config.txt')
+
+
+
+#Functions=======================================================================================================================#
 def now():
     return round(datetime.timestamp(datetime.now()))
 
@@ -26,6 +31,7 @@ def read_params(filename):
 
 def write_data_to_csv(filename):
     data_types = ['CH1', 'CH2', 'CH3', 'CH4', 'CH5', 'CH6']
+    # data_types = ['CH1']
     num_data_types = len(data_types)
     columns = ['location', 'deviceId', 'timestamp', 'data', 'value', 'change']
     df = pd.DataFrame(columns=columns)
@@ -66,12 +72,12 @@ def write_data_to_csv(filename):
 #                 dictwriter.writerow(item_dict)
 #             last_timestamp = int(int(datetime.timestamp(item_dict['timestamp']))*1000)
 #         csv_file.close()
+#
+#    return last_timestamp
 
-    return last_timestamp
 
-#----------------------------------------------------------------------------------------------------------------------#
-tableName, online = read_params('config/config.txt')
 
+#Loop============================================================================================================================#
 while True:
     last_timestamp, df_sigfox = write_data_to_csv('../data/sensor_data.csv')
     time.sleep(1)                                                           # THIS IS VERY BAD
@@ -82,5 +88,3 @@ while True:
 #     if len(new_msgs):
 #         last_timestamp = append_data_to_csv('data/sensor_data.csv', new_msgs, df_sigfox)
 #     time.sleep(1)
-
-#----------------------------------------------------------------------------------------------------------------------#

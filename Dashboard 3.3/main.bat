@@ -1,4 +1,4 @@
 cd dash
-start /B python index.py
+start /B python main.py
 timeout 3 /nobreak
 start "" http://127.0.0.1:8050/
