@@ -118,3 +118,14 @@ def update_tree_nodes(locations_ld, devices_ld, channels_ld):
         tree_children.append(loc_node)
 
     return tree_children
+
+# Function to get the deviceid of the current page
+def get_current_page():
+    with open('temp/tree.txt', 'r') as file:
+        checked_global = [current_place.rstrip() for current_place in file.readlines()]
+        file.close()
+    if (checked_global[0].find('dev') > -1) and (checked_global[0].find('CH') == -1):
+        deviceid = (checked_global[0].split('dev'))[-1]
+        return deviceid
+    else:
+        return None

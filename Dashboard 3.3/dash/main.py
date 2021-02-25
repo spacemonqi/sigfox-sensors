@@ -5,10 +5,12 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 import dash_useful_components as duc
+import dash
 import pandas as pd
 import numpy as np
 from app import app
 import utils
+import os
 
 
 
@@ -68,7 +70,7 @@ body_left_card_tree = dbc.CardBody(
 ),
 
 body_right_metrics_right = html.Div([
-    dbc.Button('Run', id='btn_pause', color='primary'),
+    dbc.Button(children='Run', id='btn_pause', color='primary'),
     dbc.Card(
         children = [
             dbc.CardHeader(children=['Device <devid>']),
@@ -218,7 +220,7 @@ DIV_body_right_devices = html.Div(
                         ),
                         width = 3,
                 ),
-                dbc.Col(dbc.Button(id='btn_ch1', children='Enabled', color='primary', style={'height': '35px', 'width': '120px'}), width = 2),
+                dbc.Col(dbc.Button(children='Enabled', id='btn_ch1', color='primary', style={'height': '35px', 'width': '120px'}), width = 2),
         ]),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 2:'''), width = 2),
@@ -615,10 +617,7 @@ def placeholders_update(deviceid):
 
     placeholder_list = []
 
-    with open('temp/tree.txt', 'r') as file:
-        checked_global = [current_place.rstrip() for current_place in file.readlines()]
-    if (checked_global[0].find('dev') > -1) and (checked_global[0].find('CH') == -1):
-        deviceid = (checked_global[0].split('dev'))[-1]
+    deviceid = utils.get_current_page()
 
     placeholder_list.append(deviceid + ':')
 
@@ -631,71 +630,111 @@ def placeholders_update(deviceid):
             placeholder_list.append(dict['alias'])
             placeholder_list.append(dict['scaling_fact'])
 
-        flag = False
         for dict in devices_ld:
             if dict['name'] == deviceid:
                 placeholder_list.append(dict['alias'])
-                flag = True
-        if not flag:
-            placeholder_list.append('')
 
     else:
-        placeholder_list = ['', '', '', '', '', '', '', '', '', '', '', '', '']
+        placeholder_list = ['', '', '', '', '', '', '', '', '', '', '', '', '', '']
 
     return placeholder_list
 
 # Set channel aliases, channel scaling factors, device aliases and update the nav_tree nodes
 @app.callback([Output('in_alias_ch1', 'disabled'),
-              Output('in_sf_1', 'disabled'),
-              Output('btn_ch1', 'children'),
-              Output('btn_ch1', 'n-clicks'),
-              Output('in_alias_ch2', 'disabled'),
-              Output('in_sf_2', 'disabled'),
-              Output('btn_ch2', 'children'),
-              Output('btn_ch2', 'n-clicks'),
-              Output('in_alias_ch3', 'disabled'),
-              Output('in_sf_3', 'disabled'),
-              Output('btn_ch3', 'children'),
-              Output('btn_ch3', 'n-clicks'),
-              Output('in_alias_ch4', 'disabled'),
-              Output('in_sf_4', 'disabled'),
-              Output('btn_ch4', 'children'),
-              Output('btn_ch4', 'n-clicks'),
-              Output('in_alias_ch5', 'disabled'),
-              Output('in_sf_5', 'disabled'),
-              Output('btn_ch5', 'children'),
-              Output('btn_ch5', 'n-clicks'),
-              Output('in_alias_ch6', 'disabled'),
-              Output('in_sf_6', 'disabled'),
-              Output('btn_ch6', 'children'),
-              Output('btn_ch6', 'n-clicks'),
-              Output('nav_tree', 'nodes')],
+               Output('in_sf_1', 'disabled'),
+               Output('btn_ch1', 'children'),
+               Output('btn_ch1', 'n-clicks'),
+               Output('in_alias_ch2', 'disabled'),
+               Output('in_sf_2', 'disabled'),
+               Output('btn_ch2', 'children'),
+               Output('btn_ch2', 'n-clicks'),
+               Output('in_alias_ch3', 'disabled'),
+               Output('in_sf_3', 'disabled'),
+               Output('btn_ch3', 'children'),
+               Output('btn_ch3', 'n-clicks'),
+               Output('in_alias_ch4', 'disabled'),
+               Output('in_sf_4', 'disabled'),
+               Output('btn_ch4', 'children'),
+               Output('btn_ch4', 'n-clicks'),
+               Output('in_alias_ch5', 'disabled'),
+               Output('in_sf_5', 'disabled'),
+               Output('btn_ch5', 'children'),
+               Output('btn_ch5', 'n-clicks'),
+               Output('in_alias_ch6', 'disabled'),
+               Output('in_sf_6', 'disabled'),
+               Output('btn_ch6', 'children'),
+               Output('btn_ch6', 'n-clicks'),
+               Output('nav_tree', 'nodes')],
               [Input('in_alias_dev', 'value'),
-              Input('in_alias_ch1', 'value'),
-              Input('in_sf_1', 'value'),
-              Input('btn_ch1', 'disabled'),
-              Input('btn_ch1', 'n-clicks'),
-              Input('in_alias_ch2', 'value'),
-              Input('in_sf_2', 'value'),
-              Input('btn_ch2', 'disabled'),
-              Input('btn_ch2', 'n-clicks'),
-              Input('in_alias_ch3', 'value'),
-              Input('in_sf_3', 'value'),
-              Input('btn_ch3', 'disabled'),
-              Input('btn_ch3', 'n-clicks'),
-              Input('in_alias_ch4', 'value'),
-              Input('in_sf_4', 'value'),
-              Input('btn_ch4', 'disabled'),
-              Input('btn_ch4', 'n-clicks'),
-              Input('in_alias_ch5', 'value'),
-              Input('in_sf_5', 'value'),
-              Input('btn_ch5', 'disabled'),
-              Input('btn_ch5', 'n-clicks'),
-              Input('in_alias_ch6', 'value'),
-              Input('in_sf_6', 'value'),
-              Input('btn_ch6', 'disabled'),
-              Input('btn_ch6', 'n-clicks')])
-def update_dev_ch_tree(dev_alias, a1, s1, b1, n1, a2, s2, b2, n2, a3, s3, b3, n3, a4, s4, b4, n4, a5, s5, b5, n5, a6, s6, b6, n6):
+               Input('btn_ch1', 'n_clicks'),
+               Input('btn_ch2', 'n_clicks'),
+               Input('btn_ch3', 'n_clicks'),
+               Input('btn_ch4', 'n_clicks'),
+               Input('btn_ch5', 'n_clicks'),
+               Input('btn_ch6', 'n_clicks'),
+               Input('btn_ch1', 'children'),
+               Input('btn_ch2', 'children'),
+               Input('btn_ch3', 'children'),
+               Input('btn_ch4', 'children'),
+               Input('btn_ch5', 'children'),
+               Input('btn_ch6', 'children'),
+               Input('in_alias_ch1', 'value'),
+               Input('in_alias_ch2', 'value'),
+               Input('in_alias_ch3', 'value'),
+               Input('in_alias_ch4', 'value'),
+               Input('in_alias_ch5', 'value'),
+               Input('in_alias_ch6', 'value'),
+               Input('in_sf_1', 'value'),
+               Input('in_sf_2', 'value'),
+               Input('in_sf_3', 'value'),
+               Input('in_sf_4', 'value'),
+               Input('in_sf_5', 'value'),
+               Input('in_sf_6', 'value'),
+               Input('in_alias_ch1', 'disabled'),
+               Input('in_alias_ch2', 'disabled'),
+               Input('in_alias_ch3', 'disabled'),
+               Input('in_alias_ch4', 'disabled'),
+               Input('in_alias_ch5', 'disabled'),
+               Input('in_alias_ch6', 'disabled'),
+               Input('in_sf_1', 'disabled'),
+               Input('in_sf_2', 'disabled'),
+               Input('in_sf_3', 'disabled'),
+               Input('in_sf_4', 'disabled'),
+               Input('in_sf_5', 'disabled'),
+               Input('in_sf_6', 'disabled')])
+def update_dev_ch_tree(dev_alias,
+                       n1, n2, n3, n4, n5, n6,
+                       b1, b2, b3, b4, b5, b6,
+                       a1, a2, a3, a4, a5, a6,
+                       s1, s2, s3, s4, s5, s6,
+                       ad1, ad2, ad3, ad4, ad5, ad6,
+                       sd1, sd2, sd3, sd4, sd5, sd6):
+
+    # print(dev_alias)
+    # print(n1)
+    # print(n2)
+    # print(n3)
+    # print(n4)
+    # print(n5)
+    # print(n6)
+    # print(b1)
+    # print(b2)
+    # print(b3)
+    # print(b4)
+    # print(b5)
+    # print(b6)
+    # print(a1)
+    # print(a2)
+    # print(a3)
+    # print(a4)
+    # print(a5)
+    # print(a6)
+    # print(s1)
+    # print(s2)
+    # print(s3)
+    # print(s4)
+    # print(s5)
+    # print(s6)
 
     out = []
 
@@ -727,68 +766,103 @@ def update_dev_ch_tree(dev_alias, a1, s1, b1, n1, a2, s2, b2, n2, a3, s3, b3, n3
     if s5: channels_ld[4]['scaling_fact'] = float(s5)
     if s6: channels_ld[5]['scaling_fact'] = float(s6)
 
-    print('b1: ' + str(b1))
-    print('n1: ' + str(n1) + '\n')
-    if not b1 and n1:
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-        out.append(0)
+    clicked_btns = [p['prop_id'] for p in dash.callback_context.triggered][0]
+    if 'btn_ch1' in clicked_btns:
+        if b1=='Enabled':
+            out.append(True)
+            out.append(True)
+            out.append('Disabled')
+            out.append(0)
+        else:
+            out.append(False)
+            out.append(False)
+            out.append('Enabled')
+            out.append(1)
     else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-        out.append(1)
-    if not b2 and n2:
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-        out.append(0)
+        out.append(ad1)
+        out.append(sd1)
+        out.append(b1)
+        out.append(n1)
+    if 'btn_ch2' in clicked_btns:
+        if b2=='Enabled':
+            out.append(True)
+            out.append(True)
+            out.append('Disabled')
+            out.append(0)
+        else:
+            out.append(False)
+            out.append(False)
+            out.append('Enabled')
+            out.append(1)
     else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-        out.append(1)
-    if not b3 and n3:
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-        out.append(0)
+        out.append(ad2)
+        out.append(sd2)
+        out.append(b2)
+        out.append(n2)
+    if 'btn_ch3' in clicked_btns:
+        if b3=='Enabled':
+            out.append(True)
+            out.append(True)
+            out.append('Disabled')
+            out.append(0)
+        else:
+            out.append(False)
+            out.append(False)
+            out.append('Enabled')
+            out.append(1)
     else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-        out.append(1)
-    if not b4 and n4:
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-        out.append(0)
+        out.append(ad3)
+        out.append(sd3)
+        out.append(b3)
+        out.append(n3)
+    if 'btn_ch4' in clicked_btns:
+        if b4=='Enabled':
+            out.append(True)
+            out.append(True)
+            out.append('Disabled')
+            out.append(0)
+        else:
+            out.append(False)
+            out.append(False)
+            out.append('Enabled')
+            out.append(1)
     else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-        out.append(1)
-    if not b5 and n5:
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-        out.append(0)
+        out.append(ad4)
+        out.append(sd4)
+        out.append(b4)
+        out.append(n4)
+    if 'btn_ch5' in clicked_btns:
+        if b5=='Enabled':
+            out.append(True)
+            out.append(True)
+            out.append('Disabled')
+            out.append(0)
+        else:
+            out.append(False)
+            out.append(False)
+            out.append('Enabled')
+            out.append(1)
     else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-        out.append(1)
-    if not b6 and n6:
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-        out.append(0)
+        out.append(ad5)
+        out.append(sd5)
+        out.append(b5)
+        out.append(n5)
+    if 'btn_ch6' in clicked_btns:
+        if b6=='Enabled':
+            out.append(True)
+            out.append(True)
+            out.append('Disabled')
+            out.append(0)
+        else:
+            out.append(False)
+            out.append(False)
+            out.append('Enabled')
+            out.append(1)
     else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-        out.append(1)
+        out.append(ad6)
+        out.append(sd6)
+        out.append(b6)
+        out.append(n6)
 
     # utils.update_channels('config/' + deviceid + '.csv', channels_ld)
     utils.update_channels('config/channels.csv', channels_ld)
