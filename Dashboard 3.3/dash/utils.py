@@ -65,8 +65,8 @@ def update_devices(devices_ld):
         csv_file.close()
 
 # Function to update the csv from the ld of all channel,alias,scaling_fact
-def update_channels(channels_ld):
-    with open('config/channels.csv', mode='w', newline='') as csv_file:
+def update_channels(filepath, channels_ld):
+    with open(filepath, mode='w', newline='') as csv_file:
         fieldnames = ['name', 'alias', 'scaling_fact']
         csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
         csv_writer.writeheader()

@@ -1,3 +1,1 @@
-locSA_dev22229D7_CH1
-locSA_dev22229D7_CH2
-locSA_dev22229D7_CH3
+locSA_dev22229D7
