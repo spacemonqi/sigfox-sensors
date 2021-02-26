@@ -64,16 +64,6 @@ def update_devices(devices_ld):
             csv_writer.writerow(device_name)
         csv_file.close()
 
-# Function to update the csv from the ld of all channel,alias,scaling_fact
-def update_channels(filepath, channels_ld):
-    with open(filepath, mode='w', newline='') as csv_file:
-        fieldnames = ['name', 'alias', 'scaling_fact']
-        csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-        csv_writer.writeheader()
-        for channel_name in channels_ld:
-            csv_writer.writerow(channel_name)
-        csv_file.close()
-
 # Function to get the ld from the csv of all channel,alias,scaling_fact
 def get_channels():
     with open('config/channels.csv', mode='r') as csv_file:
@@ -81,6 +71,16 @@ def get_channels():
         csv_file.close()
 
     return channels_ld
+
+# Function to update the csv from the ld of all channel,alias,scaling_fact
+def update_channels(filepath, channels_ld):
+    with open(filepath, mode='w', newline='') as csv_file:
+        fieldnames = ['name', 'alias', 'scaling_fact', 'disabled']
+        csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        csv_writer.writeheader()
+        for channel_dict in channels_ld:
+            csv_writer.writerow(channel_dict)
+        csv_file.close()
 
 # Function to write a string of channels from the ld of all channel,alias,scaling_fact
 def string_channels():
@@ -102,10 +102,11 @@ def update_tree_nodes(locations_ld, devices_ld, channels_ld):
         for device in devices_ld:
             dev_children = []
             for channel in channels_ld:
-                ch_node = {}
-                ch_node['value'] = 'loc' + location['name'] + '_' + 'dev' + device['name'] + '_' + channel['name']
-                ch_node['label'] = channel['alias']
-                dev_children.append(ch_node)
+                if channel['disabled'] == 'Enabled':
+                    ch_node = {}
+                    ch_node['value'] = 'loc' + location['name'] + '_' + 'dev' + device['name'] + '_' + channel['name']
+                    ch_node['label'] = channel['alias']
+                    dev_children.append(ch_node)
             dev_node = {}
             dev_node['value'] = 'loc' + location['name'] + '_' + 'dev' + device['name']
             dev_node['label'] = device['alias']

@@ -1,9 +1,16 @@
 #Imports=========================================================================================================================#
+
+# All callbacks should take nav_tree checked as input to force them to update on page change
+
+
+
+#Imports=========================================================================================================================#
 import plotly.graph_objects as go
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
+from dash.exceptions import PreventUpdate
 import dash_useful_components as duc
 import dash
 import pandas as pd
@@ -16,6 +23,8 @@ import os
 
 #Global==========================================================================================================================#
 colorlist = ['#FF4F00', '#FFF400', '#FF0056', '#5E0DAC', '#60AAED', '#1CA776']
+
+disabled_dict = {'Enabled': False, 'Disabled': True}
 
 
 
@@ -155,7 +164,7 @@ DIV_body_right_channels = html.Div(
             graph_ch5,
             graph_ch6,
         ]),
-        dbc.Col(body_right_metrics_right)
+        # dbc.Col(body_right_metrics_right)
         # dbc.Row([
         #     dbc.Col(graph_ch1, width=6),
         #     dbc.Col(graph_ch2, width=6),
@@ -178,11 +187,11 @@ DIV_body_right_devices = html.Div(
                                   color='primary'),
                  className='mb-4')]),
         dbc.Row([
-                dbc.Col(width = 2),
-                dbc.Col(children=[html.P('''Device Alias:''')], width = 3),
+                dbc.Col(width=2),
+                dbc.Col(children=[html.P('''Device Alias:''')], width=3),
         ]),
         dbc.Row([
-            dbc.Col(html.H4(id='h4_device_id', children=['Device']), width = 2),
+            dbc.Col(html.H4(id='h4_device_id', children=['Device']), width=2),
             dbc.Col(
                 dcc.Input(
                     id='in_alias_dev',
@@ -190,7 +199,7 @@ DIV_body_right_devices = html.Div(
                     placeholder = '',
                     style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                 ),
-                width = 3,
+                width=3,
             ),
         ]),
 
@@ -199,118 +208,130 @@ DIV_body_right_devices = html.Div(
                                   color='primary'),
                  className='mb-4')]),
         dbc.Row([
-                dbc.Col(width = 2),
-                dbc.Col(children=[html.P('''Channel Alias:''')], width = 3),
-                dbc.Col(children=[html.P('''Scaling Factor:''')], width = 3),
-                dbc.Col(children=[html.P('''Enable/Disable:''')], width = 4),
+                dbc.Col(width=2),
+                dbc.Col(children=[html.P('''Channel Alias:''')], width=3),
+                dbc.Col(children=[html.P('''Scaling Factor:''')], width=3),
+                dbc.Col(children=[html.P('''Enable/Disable:''')], width=4),
         ]),
         dbc.Row([
-                dbc.Col(html.H4('''Channel 1:'''), width = 2),
+                dbc.Col(html.H4('''Channel 1:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch1',
                                   type='text',
-                                  placeholder = channels_ld[0]['alias'],
+                                  placeholder = '',
+                                  disabled=disabled_dict[channels_ld[0]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_sf_1',
                                   type='number',
                                   placeholder = '',
+                                  disabled=disabled_dict[channels_ld[0]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
-                dbc.Col(dbc.Button(children='Enabled', id='btn_ch1', color='primary', style={'height': '35px', 'width': '120px'}), width = 2),
+                dbc.Col(dbc.Button(id='btn_ch1', children=channels_ld[0]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
         ]),
         dbc.Row([
-                dbc.Col(html.H4('''Channel 2:'''), width = 2),
+                dbc.Col(html.H4('''Channel 2:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch2',
                                   type='text',
                                   placeholder = '',
+                                  disabled=disabled_dict[channels_ld[1]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_sf_2',
                                   type='number',
                                   placeholder = '',
+                                  disabled=disabled_dict[channels_ld[1]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
-                dbc.Col(dbc.Button(id='btn_ch2', children='Enabled', color='primary', style={'height': '35px', 'width': '120px'}), width = 2),
+                dbc.Col(dbc.Button(id='btn_ch2', children=channels_ld[1]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
         ]),
         dbc.Row([
-                dbc.Col(html.H4('''Channel 3:'''), width = 2),
+                dbc.Col(html.H4('''Channel 3:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch3',
                                   type='text',
                                   placeholder = '',
+                                  disabled=disabled_dict[channels_ld[2]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_sf_3',
                                   type='number',
                                   placeholder = '',
+                                  disabled=disabled_dict[channels_ld[2]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
-                dbc.Col(dbc.Button(id='btn_ch3', children='Enabled', color='primary', style={'height': '35px', 'width': '120px'}), width = 2),
+                dbc.Col(dbc.Button(id='btn_ch3', children=channels_ld[2]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
         ]),
         dbc.Row([
-                dbc.Col(html.H4('''Channel 4:'''), width = 2),
+                dbc.Col(html.H4('''Channel 4:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch4',
                                   type='text',
                                   placeholder = '',
+                                  disabled=disabled_dict[channels_ld[3]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_sf_4',
                                   type='number',
                                   placeholder = '',
+                                  disabled=disabled_dict[channels_ld[3]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
-                dbc.Col(dbc.Button(id='btn_ch4', children='Enabled', color='primary', style={'height': '35px', 'width': '120px'}), width = 2),
+                dbc.Col(dbc.Button(id='btn_ch4', children=channels_ld[3]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
         ]),
         dbc.Row([
-                dbc.Col(html.H4('''Channel 5:'''), width = 2),
+                dbc.Col(html.H4('''Channel 5:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch5',
                                   type='text',
                                   placeholder = '',
+                                  disabled=disabled_dict[channels_ld[4]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_sf_5',
                                   type='number',
                                   placeholder = '',
+                                  disabled=disabled_dict[channels_ld[4]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
-                dbc.Col(dbc.Button(id='btn_ch5', children='Enabled', color='primary', style={'height': '35px', 'width': '120px'}), width = 2),
+                dbc.Col(dbc.Button(id='btn_ch5', children=channels_ld[4]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
         ]),
         dbc.Row([
-                dbc.Col(html.H4('''Channel 6:'''), width = 2),
+                dbc.Col(html.H4('''Channel 6:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch6',
                                   type='text',
                                   placeholder = '',
+                                  disabled=disabled_dict[channels_ld[5]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_sf_6',
                                   type='number',
                                   placeholder = '',
+                                  disabled=disabled_dict[channels_ld[5]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
-                        width = 3,
+                        width=3,
                 ),
-                dbc.Col(dbc.Button(id='btn_ch6', children='Enabled', color='primary', style={'height': '35px', 'width': '120px'}), width = 2),
+                dbc.Col(dbc.Button(id='btn_ch6', children=channels_ld[5]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
         ]),
 
     ])
@@ -328,18 +349,18 @@ layout = html.Div([
         [
             dbc.Row(  # Row for body
                 [
-                    dcc.Interval(id='graph_update', interval= 2*1000, n_intervals=0),
+                    dcc.Interval(id='graph_update', interval=1*1000, n_intervals=0),
                     dbc.Col(  # Col for body_left
                         [
                             dbc.Card(body_left_card_tree, color='primary', style={'height': '100%'})
                         ],
                         style={'height': '90%'},
-                        width = 2
+                        width=2
                     ),
                     dbc.Col(  # Col for body_right
                         id = 'col_body_right',
                         children = DIV_body_right_channels,
-                        width = 10,
+                        width=10,
                     )
                 ],
                 className='h-100',
@@ -365,11 +386,10 @@ app.layout = html.Div([
               [Input('btn_pause', 'n_clicks'),
                Input('btn_pause', 'children')])
 def on_button_click(n, current):
-    print(n)
     if current == 'Pause':
         return [1000*1000, 'Run']
     else:
-        return [2*1000, 'Pause']
+        return [1*1000, 'Pause']
 
 # Apply scaling factors and update the graphs
 @app.callback([Output('graph_ch1', 'figure'),
@@ -643,27 +663,21 @@ def placeholders_update(deviceid):
 @app.callback([Output('in_alias_ch1', 'disabled'),
                Output('in_sf_1', 'disabled'),
                Output('btn_ch1', 'children'),
-               Output('btn_ch1', 'n-clicks'),
                Output('in_alias_ch2', 'disabled'),
                Output('in_sf_2', 'disabled'),
                Output('btn_ch2', 'children'),
-               Output('btn_ch2', 'n-clicks'),
                Output('in_alias_ch3', 'disabled'),
                Output('in_sf_3', 'disabled'),
                Output('btn_ch3', 'children'),
-               Output('btn_ch3', 'n-clicks'),
                Output('in_alias_ch4', 'disabled'),
                Output('in_sf_4', 'disabled'),
                Output('btn_ch4', 'children'),
-               Output('btn_ch4', 'n-clicks'),
                Output('in_alias_ch5', 'disabled'),
                Output('in_sf_5', 'disabled'),
                Output('btn_ch5', 'children'),
-               Output('btn_ch5', 'n-clicks'),
                Output('in_alias_ch6', 'disabled'),
                Output('in_sf_6', 'disabled'),
                Output('btn_ch6', 'children'),
-               Output('btn_ch6', 'n-clicks'),
                Output('nav_tree', 'nodes')],
               [Input('in_alias_dev', 'value'),
                Input('btn_ch1', 'n_clicks'),
@@ -710,33 +724,15 @@ def update_dev_ch_tree(dev_alias,
                        ad1, ad2, ad3, ad4, ad5, ad6,
                        sd1, sd2, sd3, sd4, sd5, sd6):
 
-    # print(dev_alias)
-    # print(n1)
-    # print(n2)
-    # print(n3)
-    # print(n4)
-    # print(n5)
-    # print(n6)
-    # print(b1)
-    # print(b2)
-    # print(b3)
-    # print(b4)
-    # print(b5)
-    # print(b6)
-    # print(a1)
-    # print(a2)
-    # print(a3)
-    # print(a4)
-    # print(a5)
-    # print(a6)
-    # print(s1)
-    # print(s2)
-    # print(s3)
-    # print(s4)
-    # print(s5)
-    # print(s6)
-
     out = []
+
+    if utils.get_current_page() is None:
+        print('raised')
+        raise PreventUpdate
+    print('not raised')
+
+    # if checked:
+    #     print(checked)
 
     with open('temp/tree.txt', 'r') as file:
         checked_global = [current_place.rstrip() for current_place in file.readlines()]
@@ -751,6 +747,15 @@ def update_dev_ch_tree(dev_alias,
     utils.update_devices(devices_ld)
 
     channels_ld = utils.get_channels()
+    print('\nchannels_ld1')
+    print(channels_ld)
+
+    # channels_ld[0]['name'] = 'CH1'
+    # channels_ld[1]['name'] = 'CH2'
+    # channels_ld[2]['name'] = 'CH3'
+    # channels_ld[3]['name'] = 'CH4'
+    # channels_ld[4]['name'] = 'CH5'
+    # channels_ld[5]['name'] = 'CH6'
 
     if a1: channels_ld[0]['alias'] = a1
     if a2: channels_ld[1]['alias'] = a2
@@ -768,102 +773,87 @@ def update_dev_ch_tree(dev_alias,
 
     clicked_btns = [p['prop_id'] for p in dash.callback_context.triggered][0]
     if 'btn_ch1' in clicked_btns:
-        if b1=='Enabled':
-            out.append(True)
-            out.append(True)
-            out.append('Disabled')
-            out.append(0)
+        if channels_ld[0]['disabled'] == 'Enabled':
+            channels_ld[0]['disabled'] = 'Disabled'
         else:
-            out.append(False)
-            out.append(False)
-            out.append('Enabled')
-            out.append(1)
-    else:
-        out.append(ad1)
-        out.append(sd1)
-        out.append(b1)
-        out.append(n1)
+            channels_ld[0]['disabled'] = 'Enabled'
     if 'btn_ch2' in clicked_btns:
-        if b2=='Enabled':
-            out.append(True)
-            out.append(True)
-            out.append('Disabled')
-            out.append(0)
+        if channels_ld[1]['disabled'] == 'Enabled':
+            channels_ld[1]['disabled'] = 'Disabled'
         else:
-            out.append(False)
-            out.append(False)
-            out.append('Enabled')
-            out.append(1)
-    else:
-        out.append(ad2)
-        out.append(sd2)
-        out.append(b2)
-        out.append(n2)
+            channels_ld[1]['disabled'] = 'Enabled'
     if 'btn_ch3' in clicked_btns:
-        if b3=='Enabled':
-            out.append(True)
-            out.append(True)
-            out.append('Disabled')
-            out.append(0)
+        if channels_ld[2]['disabled'] == 'Enabled':
+            channels_ld[2]['disabled'] = 'Disabled'
         else:
-            out.append(False)
-            out.append(False)
-            out.append('Enabled')
-            out.append(1)
-    else:
-        out.append(ad3)
-        out.append(sd3)
-        out.append(b3)
-        out.append(n3)
+            channels_ld[2]['disabled'] = 'Enabled'
     if 'btn_ch4' in clicked_btns:
-        if b4=='Enabled':
-            out.append(True)
-            out.append(True)
-            out.append('Disabled')
-            out.append(0)
+        if channels_ld[3]['disabled'] == 'Enabled':
+            channels_ld[3]['disabled'] = 'Disabled'
         else:
-            out.append(False)
-            out.append(False)
-            out.append('Enabled')
-            out.append(1)
-    else:
-        out.append(ad4)
-        out.append(sd4)
-        out.append(b4)
-        out.append(n4)
+            channels_ld[3]['disabled'] = 'Enabled'
     if 'btn_ch5' in clicked_btns:
-        if b5=='Enabled':
-            out.append(True)
-            out.append(True)
-            out.append('Disabled')
-            out.append(0)
+        if channels_ld[4]['disabled'] == 'Enabled':
+            channels_ld[4]['disabled'] = 'Disabled'
         else:
-            out.append(False)
-            out.append(False)
-            out.append('Enabled')
-            out.append(1)
-    else:
-        out.append(ad5)
-        out.append(sd5)
-        out.append(b5)
-        out.append(n5)
+            channels_ld[4]['disabled'] = 'Enabled'
     if 'btn_ch6' in clicked_btns:
-        if b6=='Enabled':
-            out.append(True)
-            out.append(True)
-            out.append('Disabled')
-            out.append(0)
+        if channels_ld[5]['disabled'] == 'Enabled':
+            channels_ld[5]['disabled'] = 'Disabled'
         else:
-            out.append(False)
-            out.append(False)
-            out.append('Enabled')
-            out.append(1)
-    else:
-        out.append(ad6)
-        out.append(sd6)
-        out.append(b6)
-        out.append(n6)
+            channels_ld[5]['disabled'] = 'Enabled'
 
+    if channels_ld[0]['disabled'] == 'Disabled':
+        out.append(True)
+        out.append(True)
+        out.append('Disabled')
+    else:
+        out.append(False)
+        out.append(False)
+        out.append('Enabled')
+    if channels_ld[1]['disabled'] == 'Disabled':
+        out.append(True)
+        out.append(True)
+        out.append('Disabled')
+    else:
+        out.append(False)
+        out.append(False)
+        out.append('Enabled')
+    if channels_ld[2]['disabled'] == 'Disabled':
+        out.append(True)
+        out.append(True)
+        out.append('Disabled')
+    else:
+        out.append(False)
+        out.append(False)
+        out.append('Enabled')
+    if channels_ld[3]['disabled'] == 'Disabled':
+        out.append(True)
+        out.append(True)
+        out.append('Disabled')
+    else:
+        out.append(False)
+        out.append(False)
+        out.append('Enabled')
+    if channels_ld[4]['disabled'] == 'Disabled':
+        out.append(True)
+        out.append(True)
+        out.append('Disabled')
+    else:
+        out.append(False)
+        out.append(False)
+        out.append('Enabled')
+    if channels_ld[5]['disabled'] == 'Disabled':
+        out.append(True)
+        out.append(True)
+        out.append('Disabled')
+    else:
+        out.append(False)
+        out.append(False)
+        out.append('Enabled')
+
+    print('\nchannels_ld2')
+    print(channels_ld)
     # utils.update_channels('config/' + deviceid + '.csv', channels_ld)
     utils.update_channels('config/channels.csv', channels_ld)
 
