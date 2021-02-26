@@ -1,7 +1,7 @@
 name,alias,scaling_fact,disabled
-CH1,ADC,1.0,Disabled
-CH2,Hum,2.0,Disabled
-CH3,HNO3,4.0,Disabled
+CH1,ADC,1.0,Enabled
+CH2,Gas,2.0,Disabled
+CH3,Rochester,4.0,Disabled
 CH4,Sulphur,6.0,Enabled
-CH5,Temp,8.0,Disabled
-CH6,VOC,6.0,Disabled
+CH5,Temperature,8.0,Enabled
+CH6,VOC,6.0,Enabled

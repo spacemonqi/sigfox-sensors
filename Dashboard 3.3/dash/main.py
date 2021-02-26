@@ -1,10 +1,11 @@
 #Imports=========================================================================================================================#
-
 # All callbacks should take nav_tree checked as input to force them to update on page change
 
 
 
 #Imports=========================================================================================================================#
+from datetime import datetime
+import plotly.express as px
 import plotly.graph_objects as go
 import dash_core_components as dcc
 import dash_html_components as html
@@ -25,6 +26,13 @@ import os
 colorlist = ['#FF4F00', '#FFF400', '#FF0056', '#5E0DAC', '#60AAED', '#1CA776']
 
 disabled_dict = {'Enabled': False, 'Disabled': True}
+
+data_locations = pd.read_csv("../data/data_locations.csv")
+fig_map = px.scatter_mapbox(data_locations, lat="lat", lon="lon", hover_name="deviceid", hover_data=["state"],
+                            color_discrete_sequence=["#FF4F00"], zoom=14, height=858)
+fig_map.update_layout(mapbox_style="open-street-map")
+fig_map.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+# fig_map.show()
 
 
 
@@ -79,76 +87,103 @@ body_left_card_tree = dbc.CardBody(
 ),
 
 body_right_metrics_right = html.Div([
-    dbc.Button(children='Run', id='btn_pause', color='primary'),
     dbc.Card(
         children = [
-            dbc.CardHeader(children=['Device <devid>']),
+            # dbc.Row(style={'height': '10px'}),
+            # dbc.Row([
+            #     dbc.Col(width=2),
+            #     dbc.Col(children=html.P(children='Freeze plots to Analyze:', className='bg-primary, mb-4')),
+            #     dbc.Col(children=dbc.Button(children='Run', id='btn_pause', size='lg', color='primary')),
+            # ], style={'height': '50px'}),
             dbc.CardBody(
                 [
                     dbc.InputGroup(
                         [
-                            dbc.InputGroupAddon('Name', addon_type='prepend'),
-                            dbc.Input(placeholder=''),
+                            dbc.InputGroupAddon('Device ID', addon_type='prepend'),
+                            dbc.Input(value='22229D7'),
                         ],
                         className='mb-2',
                     ),
                     dbc.InputGroup(
                         [
-                            dbc.InputGroupAddon('@', addon_type='prepend'),
-                            dbc.Input(placeholder=''),
+                            dbc.InputGroupAddon('Device Type', addon_type='prepend'),
+                            dbc.Input(value='Dev Kit'),
                         ],
                         className='mb-2',
                     ),
                     dbc.InputGroup(
                         [
-                            dbc.InputGroupAddon('@', addon_type='prepend'),
-                            dbc.Input(placeholder=''),
+                            dbc.InputGroupAddon('Time', addon_type='prepend'),
+                            dbc.Input(value=str(datetime.now().time())),
                         ],
                         className='mb-2',
                     ),
                     dbc.InputGroup(
                         [
-                            dbc.InputGroupAddon('@', addon_type='prepend'),
-                            dbc.Input(placeholder=''),
+                            dbc.InputGroupAddon('SeqNumber', addon_type='prepend'),
+                            dbc.Input(value='Engaged'),
                         ],
                         className='mb-2',
                     ),
                     dbc.InputGroup(
                         [
-                            dbc.InputGroupAddon('@', addon_type='prepend'),
-                            dbc.Input(placeholder=''),
+                            dbc.InputGroupAddon('LQI', addon_type='prepend'),
+                            dbc.Input(value='Good'),
+                        ],
+                        className='mb-2',
+                    ),
+                    dbc.InputGroup(
+                        [
+                            dbc.InputGroupAddon('Sampling Rate', addon_type='prepend'),
+                            dbc.Input(value='1/day'),
+                        ],
+                        className='mb-2',
+                    ),
+                    dbc.InputGroup(
+                        [
+                            dbc.InputGroupAddon('Battery', addon_type='prepend'),
+                            dbc.Input(value='100%'),
                         ],
                         className='mb-2',
                     ),
                 ],
             )
         ],
-        color='primary'
+        color='primary',
+        style={'height': '452px'}
     )
 ])
 
-# table_header = [html.Thead(html.Tr([html.Th('First Name'), html.Th('Last Name')]))]
-# row1 = html.Tr([html.Td('Arthur'), html.Td('Dent')])
-# row2 = html.Tr([html.Td('Ford'), html.Td('Prefect')])
-# row3 = html.Tr([html.Td('Zaphod'), html.Td('Beeblebrox')])
-# row4 = html.Tr([html.Td('Trillian'), html.Td('Astra')])
-# table_body = [html.Tbody([row1, row2, row3, row4])]
-# table = dbc.Table(table_header + table_body, bordered=True)
-# graph_ch1 = dbc.Card(
-#     [
-#         dbc.Row([
-#             dbc.Col([dcc.Graph(id='graph_ch1', animate=True, style={'display': 'none'})], width=6),
-#             dbc.Col(table, width=6)
-#         ])
-#     ],
-#     color='primary', className='mb-1'
-# )
-graph_ch1 = dbc.Card(dcc.Graph(id='graph_ch1', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
-graph_ch2 = dbc.Card(dcc.Graph(id='graph_ch2', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
-graph_ch3 = dbc.Card(dcc.Graph(id='graph_ch3', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
-graph_ch4 = dbc.Card(dcc.Graph(id='graph_ch4', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
-graph_ch5 = dbc.Card(dcc.Graph(id='graph_ch5', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
-graph_ch6 = dbc.Card(dcc.Graph(id='graph_ch6', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
+graph_ch1 = dbc.Row([
+    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch1', animate=True), color='primary', className='mb-1'), width=8),
+    dbc.Col(body_right_metrics_right, width=4)
+], id='row_graph_ch1', style={'display': 'none'})
+graph_ch2 = dbc.Row([
+    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch2', animate=True), color='primary', className='mb-1'), width=8),
+    dbc.Col(body_right_metrics_right, width=4)
+], id='row_graph_ch2', style={'display': 'none'})
+graph_ch3 = dbc.Row([
+    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch3', animate=True), color='primary', className='mb-1'), width=8),
+    dbc.Col(body_right_metrics_right, width=4)
+], id='row_graph_ch3', style={'display': 'none'})
+graph_ch4 = dbc.Row([
+    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch4', animate=True), color='primary', className='mb-1'), width=8),
+    dbc.Col(body_right_metrics_right, width=4)
+], id='row_graph_ch4', style={'display': 'none'})
+graph_ch5 = dbc.Row([
+    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch5', animate=True), color='primary', className='mb-1'), width=8),
+    dbc.Col(body_right_metrics_right, width=4)
+], id='row_graph_ch5', style={'display': 'none'})
+graph_ch6 = dbc.Row([
+    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch6', animate=True), color='primary', className='mb-1'), width=8),
+    dbc.Col(body_right_metrics_right, width=4)
+], id='row_graph_ch6', style={'display': 'none'})
+# graph_ch1 = dbc.Card(dcc.Graph(id='graph_ch1', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
+# graph_ch2 = dbc.Card(dcc.Graph(id='graph_ch2', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
+# graph_ch3 = dbc.Card(dcc.Graph(id='graph_ch3', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
+# graph_ch4 = dbc.Card(dcc.Graph(id='graph_ch4', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
+# graph_ch5 = dbc.Card(dcc.Graph(id='graph_ch5', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
+# graph_ch6 = dbc.Card(dcc.Graph(id='graph_ch6', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
 
 
 
@@ -156,27 +191,44 @@ graph_ch6 = dbc.Card(dcc.Graph(id='graph_ch6', animate=True, style={'display': '
 DIV_body_right_channels = html.Div(
     id='DIV_body_right_channels',
     children = [
-        dbc.Col([
-            graph_ch1,
-            graph_ch2,
-            graph_ch3,
-            graph_ch4,
-            graph_ch5,
-            graph_ch6,
-        ]),
-        # dbc.Col(body_right_metrics_right)
+        # dbc.Card(
+        #     dbc.Row([
+        #     ]),
+        #     # body=True,
+        #     color='primary',
+        #     className='mb-1'
+        # ),
         # dbc.Row([
-        #     dbc.Col(graph_ch1, width=6),
-        #     dbc.Col(graph_ch2, width=6),
-        # ]),
-        # dbc.Row([
-        #     dbc.Col(graph_ch3, width=6),
-        #     dbc.Col(graph_ch4, width=6),
-        # ]),
-        # dbc.Row([
-        #     dbc.Col(graph_ch5, width=6),
-        #     dbc.Col(graph_ch6, width=6),
-        # ]),
+        #     dbc.Col([
+        html.Div(
+            children = [
+                dbc.Col([
+                    graph_ch1,
+                    graph_ch2,
+                    graph_ch3,
+                    graph_ch4,
+                    graph_ch5,
+                    graph_ch6,
+                ]),
+                # dbc.Col(body_right_metrics_right)
+                # dbc.Row([
+                #     dbc.Col(graph_ch1, width=6),
+                #     dbc.Col(graph_ch2, width=6),
+                # ]),
+                # dbc.Row([
+                #     dbc.Col(graph_ch3, width=6),
+                #     dbc.Col(graph_ch4, width=6),
+                # ]),
+                # dbc.Row([
+                #     dbc.Col(graph_ch5, width=6),
+                #     dbc.Col(graph_ch6, width=6),
+                # ]),
+            ],
+            style = {'maxHeight': '100vh', 'overflow': 'scroll'},
+            className="no-scrollbars",
+        )
+        #     ], width=12)
+        # ])
     ]
 )
 
@@ -211,8 +263,9 @@ DIV_body_right_devices = html.Div(
                 dbc.Col(width=2),
                 dbc.Col(children=[html.P('''Channel Alias:''')], width=3),
                 dbc.Col(children=[html.P('''Scaling Factor:''')], width=3),
-                dbc.Col(children=[html.P('''Enable/Disable:''')], width=4),
-        ]),
+                dbc.Col(children=[html.P('''Unit:''')], width=2),
+                dbc.Col(children=[html.P('''Enable/Disable:''')], width=2),
+        ], no_gutters=True),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 1:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch1',
@@ -231,8 +284,16 @@ DIV_body_right_devices = html.Div(
                         ),
                         width=3,
                 ),
+                dbc.Col(dcc.Input(id='in_u_1',
+                                  type='text',
+                                  placeholder = '',
+                                  disabled=disabled_dict[channels_ld[0]['disabled']],
+                                  style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width=2,
+                ),
                 dbc.Col(dbc.Button(id='btn_ch1', children=channels_ld[0]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
-        ]),
+        ], no_gutters=True),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 2:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch2',
@@ -251,8 +312,16 @@ DIV_body_right_devices = html.Div(
                         ),
                         width=3,
                 ),
+                dbc.Col(dcc.Input(id='in_u_2',
+                                  type='text',
+                                  placeholder = '',
+                                  disabled=disabled_dict[channels_ld[1]['disabled']],
+                                  style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width=2,
+                ),
                 dbc.Col(dbc.Button(id='btn_ch2', children=channels_ld[1]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
-        ]),
+        ], no_gutters=True),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 3:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch3',
@@ -271,8 +340,16 @@ DIV_body_right_devices = html.Div(
                         ),
                         width=3,
                 ),
+                dbc.Col(dcc.Input(id='in_u_3',
+                                  type='text',
+                                  placeholder = '',
+                                  disabled=disabled_dict[channels_ld[2]['disabled']],
+                                  style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width=2,
+                ),
                 dbc.Col(dbc.Button(id='btn_ch3', children=channels_ld[2]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
-        ]),
+        ], no_gutters=True),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 4:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch4',
@@ -291,8 +368,16 @@ DIV_body_right_devices = html.Div(
                         ),
                         width=3,
                 ),
+                dbc.Col(dcc.Input(id='in_u_4',
+                                  type='text',
+                                  placeholder = '',
+                                  disabled=disabled_dict[channels_ld[3]['disabled']],
+                                  style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width=2,
+                ),
                 dbc.Col(dbc.Button(id='btn_ch4', children=channels_ld[3]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
-        ]),
+        ], no_gutters=True),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 5:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch5',
@@ -311,8 +396,16 @@ DIV_body_right_devices = html.Div(
                         ),
                         width=3,
                 ),
+                dbc.Col(dcc.Input(id='in_u_5',
+                                  type='text',
+                                  placeholder = '',
+                                  disabled=disabled_dict[channels_ld[4]['disabled']],
+                                  style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width=2,
+                ),
                 dbc.Col(dbc.Button(id='btn_ch5', children=channels_ld[4]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
-        ]),
+        ], no_gutters=True),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 6:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch6',
@@ -331,13 +424,22 @@ DIV_body_right_devices = html.Div(
                         ),
                         width=3,
                 ),
+                dbc.Col(dcc.Input(id='in_u_6',
+                                  type='text',
+                                  placeholder = '',
+                                  disabled=disabled_dict[channels_ld[5]['disabled']],
+                                  style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
+                        ),
+                        width=2,
+                ),
                 dbc.Col(dbc.Button(id='btn_ch6', children=channels_ld[5]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
-        ]),
-
+        ], no_gutters=True),
     ])
 )
 
-DIV_body_right_locations = html.Div()
+map = dbc.Card(dcc.Graph(id='graph_map', animate=True, figure=fig_map), color='primary', className='mb-1')
+
+DIV_body_right_locations = html.Div(map)
 
 DIV_body_right_none = html.Div()
 
@@ -371,11 +473,14 @@ layout = html.Div([
     )
 ])
 
-app.layout = html.Div([
-    dcc.Location(id='url', refresh=False),
-    navbar,
-    layout
-])
+app.layout = html.Div(
+    [
+        dcc.Location(id='url', refresh=False),
+        navbar,
+        layout,
+        # className="no-scrollbars",
+    ]
+)
 
 
 
@@ -435,7 +540,7 @@ def update_graphs(n, checked):
                                     opacity=0.7,
                                     name=device,
                                     textposition='bottom center',
-                                    # fill='tozeroy'
+                                    fill='tozeroy'
                         )
             )
         else:
@@ -483,12 +588,12 @@ def update_graphs(n, checked):
     return figures
 
 # Show/Hide Graphs
-@app.callback([Output('graph_ch1', 'style'),
-               Output('graph_ch2', 'style'),
-               Output('graph_ch3', 'style'),
-               Output('graph_ch4', 'style'),
-               Output('graph_ch5', 'style'),
-               Output('graph_ch6', 'style')],
+@app.callback([Output('row_graph_ch1', 'style'),
+               Output('row_graph_ch2', 'style'),
+               Output('row_graph_ch3', 'style'),
+               Output('row_graph_ch4', 'style'),
+               Output('row_graph_ch5', 'style'),
+               Output('row_graph_ch6', 'style')],
               Input('nav_tree', 'checked'))
 def display_graphs(checked):
 
@@ -613,7 +718,8 @@ def switch_views(checked):
         if checked_global[0].find('loc') > -1:
             return checked_global, DIV_body_right_locations
 
-    return checked_global, DIV_body_right_none
+    return checked_global, DIV_body_right_none  # Once implemented, rather return DIV_body_right_none
+
 
 
 #Devices=========================================================================================================================#
@@ -726,10 +832,10 @@ def update_dev_ch_tree(dev_alias,
 
     out = []
 
-    if utils.get_current_page() is None:
-        print('raised')
-        raise PreventUpdate
-    print('not raised')
+    # if utils.get_current_page() is None:
+    #     print('raised')
+    #     raise PreventUpdate
+    # print('not raised')
 
     # if checked:
     #     print(checked)
@@ -747,8 +853,8 @@ def update_dev_ch_tree(dev_alias,
     utils.update_devices(devices_ld)
 
     channels_ld = utils.get_channels()
-    print('\nchannels_ld1')
-    print(channels_ld)
+    # print('\nchannels_ld1')
+    # print(channels_ld)
 
     # channels_ld[0]['name'] = 'CH1'
     # channels_ld[1]['name'] = 'CH2'
@@ -852,8 +958,9 @@ def update_dev_ch_tree(dev_alias,
         out.append(False)
         out.append('Enabled')
 
-    print('\nchannels_ld2')
-    print(channels_ld)
+    # print('\nchannels_ld2')
+    # print(channels_ld)
+
     # utils.update_channels('config/' + deviceid + '.csv', channels_ld)
     utils.update_channels('config/channels.csv', channels_ld)
 

@@ -10820,3 +10820,19 @@ color: #000000 !important;
   color: #3a3000;
   opacity: 1; /* Firefox */
 }
+
+.gradient {
+  /* background gradient so that we can see the scrolling */
+  background: rgb(2, 0, 36);
+  background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 17%, rgba(0, 212, 255, 1) 100%);
+  /* set height so that element is scrollable */
+  height: 1000px;
+}
+
+.no-scrollbars::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbars {
+  scrollbar-width: none;
+}
