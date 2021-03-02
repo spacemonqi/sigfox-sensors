@@ -1,5 +1,5 @@
 name,alias,scaling_fact,disabled
-CH1,Gas,1.0,Enabled
+CH1,Gas Level,1.0,Enabled
 CH2,Humidity,2.0,Enabled
 CH3,CO2,4.0,Enabled
 CH4,Rochester,6.0,Enabled

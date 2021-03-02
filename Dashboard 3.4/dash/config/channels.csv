@@ -1,7 +1,7 @@
 name,alias,scaling_fact,disabled
-CH1,Gas,1.0,Enabled
-CH2,Humidity,2.0,Enabled
-CH3,CO2,4.0,Enabled
-CH4,Rochester,6.0,Enabled
-CH5,VOC,8.0,Enabled
-CH6,Temperature,6.0,Enabled
+ch1,Temperature,1.0,Enabled
+ch2,Humidity,1.0,Enabled
+ch3,O2,1.0,Enabled
+ch4,CO2,1.0,Enabled
+ch5,Methane,1.0,Enabled
+ch6,Propane,1.0,Enabled

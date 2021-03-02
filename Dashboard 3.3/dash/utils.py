@@ -121,7 +121,7 @@ def update_tree_nodes(locations_ld, devices_ld, channels_ld):
     return tree_children
 
 # Function to get the deviceid of the current page
-def get_current_page():
+def get_devid():
     with open('temp/tree.txt', 'r') as file:
         checked_global = [current_place.rstrip() for current_place in file.readlines()]
         file.close()

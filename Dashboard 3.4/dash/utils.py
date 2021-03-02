@@ -1,6 +1,7 @@
 # The update_ functions have to be called in such a way as to update based on changes in the DB - implement this
 
 import pandas as pd
+import pickle
 import csv
 
 # Function to read the data csv file into a dataframe
@@ -120,13 +121,52 @@ def update_tree_nodes(locations_ld, devices_ld, channels_ld):
 
     return tree_children
 
-# Function to get the deviceid of the current page
-def get_current_page():
+# Function to return the current page type and instance
+def get_current_page_dict():
     with open('temp/tree.txt', 'r') as file:
         checked_global = [current_place.rstrip() for current_place in file.readlines()]
         file.close()
-    if (checked_global[0].find('dev') > -1) and (checked_global[0].find('CH') == -1):
-        deviceid = (checked_global[0].split('dev'))[-1]
-        return deviceid
-    else:
-        return None
+
+    page_dict = {}
+    string = checked_global[0].replace('_', '')
+    if (string.find('ch') > -1):
+        string, page_dict['ch'] = (string.split('ch'))
+    if (string.find('dev') > -1):
+        string, page_dict['dev'] = (string.split('dev'))
+    if (string.find('loc') > -1):
+        string, page_dict['loc'] = (string.split('loc'))
+    return page_dict
+
+# Function to write the dcc.Store data
+def write_dcc_store_data():
+    data = []
+    locations_ld = get_locations()
+    devices_ld = get_devices()
+    channels_ld = get_channels()
+    locations_d = {}
+    devices_d = {}
+    channels_d = {}
+    for location in locations_ld:
+        for device in devices_ld:
+            for channel in channels_ld:
+                channels_d[channel['name']] = {'alias': channel['alias'], 'scaling_fact': channel['scaling_fact'], 'disabled': channel['disabled'], 'unit': 'EU'}
+            devices_d[device['name']] = {'alias': device['alias'], 'children': channels_d}
+        locations_d[location['name']] = {'alias': location['alias'], 'children': devices_d}
+    data.append(locations_d)
+    file = open(r'temp/dcc_store_data.pkl', 'wb')
+    pickle.dump(data, file)
+    file.close()
+
+# Function to get the dcc.Store data
+def get_dcc_store_data():
+    file = open(r'temp/dcc_store_data.pkl', 'rb')
+    data = pickle.load(file)
+    file.close()
+
+    return data
+
+# Function to update the dcc.Store data
+def update_dcc_store_data(data):
+    file = open(r'temp/dcc_store_data.pkl', 'wb')
+    pickle.dump(data, file)
+    file.close()

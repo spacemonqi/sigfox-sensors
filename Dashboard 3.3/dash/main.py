@@ -18,6 +18,7 @@ import pandas as pd
 import numpy as np
 from app import app
 import utils
+import glob
 import os
 
 
@@ -29,7 +30,7 @@ disabled_dict = {'Enabled': False, 'Disabled': True}
 
 data_locations = pd.read_csv("../data/data_locations.csv")
 fig_map = px.scatter_mapbox(data_locations, lat="lat", lon="lon", hover_name="deviceid", hover_data=["state"],
-                            color_discrete_sequence=["#FF4F00"], zoom=14, height=858)
+                            color_discrete_sequence=["#FF4F00"], zoom=14, height=950)
 fig_map.update_layout(mapbox_style="open-street-map")
 fig_map.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 map = dbc.Card(dcc.Graph(id='graph_map', animate=True, figure=fig_map), color='primary', className='mb-1')
@@ -742,7 +743,7 @@ def placeholders_update(deviceid):
 
     placeholder_list = []
 
-    deviceid = utils.get_current_page()
+    deviceid = utils.get_devid()
 
     placeholder_list.append(deviceid + ':')
 
@@ -831,7 +832,7 @@ def update_dev_ch_tree(dev_alias,
 
     out = []
 
-    # if utils.get_current_page() is None:
+    # if utils.get_devid() is None:
     #     print('raised')
     #     raise PreventUpdate
     # print('not raised')

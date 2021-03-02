@@ -25,8 +25,8 @@ def read_params(filename):
     return tableName, online
 
 def write_data_to_csv(filename):
-    data_types = ['CH1', 'CH2', 'CH3', 'CH4', 'CH5', 'CH6']
-    # data_types = ['CH1']
+    data_types = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch6']
+    # data_types = ['ch1']
     num_data_types = len(data_types)
     columns = ['location', 'deviceId', 'timestamp', 'data', 'value', 'change']
     df = pd.DataFrame(columns=columns)
