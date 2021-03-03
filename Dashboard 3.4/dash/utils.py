@@ -3,6 +3,8 @@
 import pandas as pd
 import pickle
 import csv
+# from functools import reduce
+# from operator import getitem
 
 # Function to read the data csv file into a dataframe
 def get_df(filename):
@@ -139,20 +141,105 @@ def get_current_page_dict():
 
 # Function to write the dcc.Store data
 def write_dcc_store_data():
+    # data = []  # There is some weird problem with this code
+    # locations_ld = get_locations()
+    # devices_ld = get_devices()
+    # channels_ld = get_channels()
+    # locations_d = {}
+    # devices_d = {}
+    # channels_d = {}
+    # for location in locations_ld:
+    #     for device in devices_ld:
+    #         for channel in channels_ld:
+    #             channels_d[channel['name']] = {'alias': channel['alias'], 'scaling_fact': channel['scaling_fact'], 'disabled': channel['disabled'], 'unit': ''}
+    #         devices_d[device['name']] = {'alias': device['alias'], 'children'+str(device['name']): channels_d}
+    #     locations_d[location['name']] = {'alias': location['alias'], 'children': devices_d}
+    # data.append(locations_d)
+
+    # data = []  # There is some weird problem with this code
+    # locations_l = ['SA']
+    # devices_l = ['22229D7', '22229D9']
+    # channels_l = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch6']
+    # locations_d = {}
+    # devices_d = {}
+    # channels_d = {}
+    # for location in locations_l:
+    #     for device in devices_l:
+    #         for channel in channels_l:
+    #             channels_d[channel] = {'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''}
+    #         devices_d[device] = {'alias': '', 'children': channels_d}
+    #     locations_d[location] = {'alias': '', 'children': devices_d}
+    # data.append(locations_d)
+
     data = []
-    locations_ld = get_locations()
-    devices_ld = get_devices()
-    channels_ld = get_channels()
+    locations_l = ['SA']
+    devices_l = ['22229D7', '22229D9']
     locations_d = {}
     devices_d = {}
-    channels_d = {}
-    for location in locations_ld:
-        for device in devices_ld:
-            for channel in channels_ld:
-                channels_d[channel['name']] = {'alias': channel['alias'], 'scaling_fact': channel['scaling_fact'], 'disabled': channel['disabled'], 'unit': 'EU'}
-            devices_d[device['name']] = {'alias': device['alias'], 'children': channels_d}
-        locations_d[location['name']] = {'alias': location['alias'], 'children': devices_d}
+    for location in locations_l:
+        for device in devices_l:
+            devices_d[device] = {
+                'alias': '', 'children': {
+                    'ch1': {'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''},
+                    'ch2': {'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''},
+                    'ch3': {'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''},
+                    'ch4': {'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''},
+                    'ch5': {'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''},
+                    'ch6': {'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''}
+                }
+            }
+        locations_d[location] = {'alias': '', 'children': devices_d}
     data.append(locations_d)
+
+    # data = [{'SA': {
+    #     'alias': 'South Africa', 'children': {
+    #         '22229D7': {
+    #             'alias': 'DevKit1', 'children': {
+    #                 'ch1': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 },
+    #                 'ch2': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 },
+    #                 'ch3': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 },
+    #                 'ch4': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 },
+    #                 'ch5': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 },
+    #                 'ch6': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 }
+    #             }
+    #         },
+    #         '22229D9': {
+    #             'alias': 'DevKit2', 'children': {
+    #                 'ch1': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 },
+    #                 'ch2': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 },
+    #                 'ch3': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 },
+    #                 'ch4': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 },
+    #                 'ch5': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 },
+    #                 'ch6': {
+    #                     'alias': '', 'scaling_fact': '', 'disabled': 'Enabled', 'unit': ''
+    #                 }
+    #             }
+    #         }
+    #     }
+    # }}]
+
     file = open(r'temp/dcc_store_data.pkl', 'wb')
     pickle.dump(data, file)
     file.close()
@@ -170,3 +257,12 @@ def update_dcc_store_data(data):
     file = open(r'temp/dcc_store_data.pkl', 'wb')
     pickle.dump(data, file)
     file.close()
+
+# write_dcc_store_data()
+# data = get_dcc_store_data()
+# print('\ndata')
+# print(data)
+# # del data[0]['SA']['children']['22229D7']['children']['ch6']['unit']
+# data[0]['SA']['children']['22229D9']['children']['ch5']['unit'] = 'XXXXXXXXXXXXXXXXXXXXXX'
+# print('\ndata')
+# print(data)

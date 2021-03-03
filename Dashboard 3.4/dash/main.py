@@ -41,7 +41,7 @@ devices_ld = utils.get_devices()
 channels_ld = utils.get_channels()
 tree_nodes = utils.update_tree_nodes(locations_ld, devices_ld, channels_ld)
 
-utils.write_dcc_store_data()  # remove this later
+# utils.write_dcc_store_data()  # remove this later
 
 
 
@@ -243,9 +243,10 @@ DIV_body_right_devices = html.Div([
         dbc.Row([
                 dbc.Col(width=2),
                 dbc.Col(children=[html.P('''Device Alias:''')], width=3),
+                dbc.Col(width=7),
         ]),
         dbc.Row([
-            dbc.Col(html.H4(id='h4_device_id', children=['Device']), width=2),
+            dbc.Col(html.H4(id='h4_device_id', children='Device'), width=2),
             dbc.Col(
                 dcc.Input(
                     id='in_alias_dev',
@@ -255,6 +256,7 @@ DIV_body_right_devices = html.Div([
                 ),
                 width=3,
             ),
+            dbc.Col(width=7),
         ]),
 
         dbc.Row([dbc.Col(dbc.Card(html.H3(id='ch_config', children='Channel Configuration', className='text-center bg-primary'),
@@ -676,13 +678,13 @@ for input_box in ('in_alias_ch1', 'in_alias_ch2', 'in_alias_ch3', 'in_alias_ch4'
                   Input('nav_tree', 'checked'),
                   [State('store_local_device', 'data'),
                    State(input_box, 'id')])
-    def update_in_alias_ch_placeholders(checked, data, id):
+    def update_in_alias_ch_placeholders(checked, BRUH, id):
 
         page_dict = utils.get_current_page_dict()
         location = page_dict['loc']
         device = page_dict['dev']
         channel = id.split('_')[-1]
-
+        data = utils.get_dcc_store_data()
         placeholder = data[0][location]['children'][device]['children'][channel]['alias']
 
         return placeholder
@@ -693,25 +695,13 @@ for input_box in ('in_sf_ch1', 'in_sf_ch2', 'in_sf_ch3', 'in_sf_ch4', 'in_sf_ch5
                   Input('nav_tree', 'checked'),
                   [State('store_local_device', 'data'),
                    State(input_box, 'id')])
-    def update_in_sf_ch_placeholders(checked, data, id):
+    def update_in_sf_ch_placeholders(checked, BRUH, id):
 
         page_dict = utils.get_current_page_dict()
         location = page_dict['loc']
         device = page_dict['dev']
         channel = id.split('_')[-1]
-
-        # print('\npage_dict')
-        # print(page_dict)
-        #
-        # print('\nlocation')
-        # print(location)
-        #
-        # print('\ndevice')
-        # print(device)
-        #
-        # print('\nchannel')
-        # print(channel)
-
+        data = utils.get_dcc_store_data()
         placeholder = data[0][location]['children'][device]['children'][channel]['scaling_fact']
 
         return placeholder
@@ -720,14 +710,14 @@ for input_box in ('in_sf_ch1', 'in_sf_ch2', 'in_sf_ch3', 'in_sf_ch4', 'in_sf_ch5
 for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5', 'in_u_ch6'):
     @app.callback(Output(input_box, 'placeholder'),
                   Input('nav_tree', 'checked'),
-                  [State('store_local_device', 'data'),
-                   State(input_box, 'id')])
-    def update_channel_scaling_factors(checked, data, id):
+                  State(input_box, 'id'))
+    def update_channel_scaling_factors(checked, id):
 
         page_dict = utils.get_current_page_dict()
         location = page_dict['loc']
         device = page_dict['dev']
         channel = id.split('_')[-1]
+        data = utils.get_dcc_store_data()
         placeholder = data[0][location]['children'][device]['children'][channel]['unit']
 
         return placeholder
@@ -736,7 +726,8 @@ for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5', 'i
 for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5', 'in_u_ch6'):
     @app.callback(Output(input_box, 'type'),
                   Input(input_box, 'value'),
-                  State(input_box, 'id'))
+                  State(input_box, 'id'),
+                  prevent_initial_call=True)
     def get_in_u_ch_values(value, id):
 
         # make this stuff only write to the dcc Store
@@ -746,66 +737,25 @@ for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5', 'i
         device = page_dict['dev']
         channel = id.split('_')[-1]
         data = utils.get_dcc_store_data()
-        # data[0][location]['children'][device]['children'][channel]['unit'] = value
-        # utils.update_dcc_store_data(data)
+        data[0][location]['children'][device]['children'][channel]['unit'] = value
+        utils.update_dcc_store_data(data)
 
         print('\ndata')
         print(data)
 
-        # print('\npage_dict')
-        # print(page_dict)
-        #
-        # print('\nlocation')
-        # print(location)
-        #
-        # print('\ndevice')
-        # print(device)
-        #
-        # print('\nchannel')
-        # print(channel)
-        #
-        # print('\nvalue')
-        # print(value)
+        print('\nlocation')
+        print(location)
 
+        print('\ndevice')
+        print(device)
+
+        print('\nchannel')
+        print(channel)
+
+        print('\nvalue')
+        print(value)
 
         return 'text'
-
-# # Get in_u_ch values
-# for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5', 'in_u_ch6'):
-#     @app.callback(Output('store_local_device', 'data'),
-#                   Input(input_box, 'value'),
-#                   [State('store_local_device', 'data'),
-#                    State(input_box, 'id')])
-#     def get_in_u_ch_values(value, data, id):
-#
-#
-#         print(data)
-#         # page_dict = utils.get_current_page_dict()
-#         # location = page_dict['loc']
-#         # device = page_dict['dev']
-#         # channel = id.split('_')[-1]
-#
-#         # print('\npage_dict')
-#         # print(page_dict)
-#         #
-#         # print('\nlocation')
-#         # print(location)
-#         #
-#         # print('\ndevice')
-#         # print(device)
-#         #
-#         # print('\nchannel')
-#         # print(channel)
-#         #
-#         # print('\nvalue')
-#         # print(value)
-#
-#
-#         # data = utils.get_dcc_store_data()
-#         # data[0][location]['children'][device]['children'][channel]['unit'] = value
-#         # utils.update_dcc_store_data(data)
-#
-#         return data
 
 # Set channel aliases, channel scaling factors, device aliases and update the nav_tree nodes
 @app.callback([Output('h4_device_id', 'disabled'),
@@ -988,6 +938,7 @@ def update_dev_ch_tree(dev_alias,
 
     utils.update_channels('config/channels.csv', channels_ld)
 
+    # utils.write_dcc_store_data()
     data = utils.get_dcc_store_data()
     # print(data)
     out.append(data)
