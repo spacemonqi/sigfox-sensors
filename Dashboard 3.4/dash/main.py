@@ -11,9 +11,9 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
-from dash.exceptions import PreventUpdate
+# from dash.exceptions import PreventUpdate
 import dash_useful_components as duc
-import dash
+# import dash
 import pandas as pd
 import numpy as np
 from app import app
@@ -23,11 +23,11 @@ import utils
 
 #Global==========================================================================================================================#
 colorlist = ['#FF4F00', '#FFF400', '#FF0056', '#5E0DAC', '#60AAED', '#1CA776']
-
 disabled_dict = {'Enabled': False, 'Disabled': True}
 
-data_locations = pd.read_csv("../data/data_locations.csv")  # move this stuff
-fig_map = px.scatter_mapbox(data_locations, lat="lat", lon="lon", hover_name="deviceid", hover_data=["state"], color_discrete_sequence=["#FF4F00"], zoom=14, height=858)
+data_locations = pd.read_csv("../data/data_locations.csv")
+fig_map = px.scatter_mapbox(data_locations, lat="lat", lon="lon", hover_name="deviceid", hover_data=["state"],
+                            color_discrete_sequence=["#FF4F00"], zoom=14, height=858)
 fig_map.update_layout(mapbox_style="open-street-map")
 fig_map.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 map = dbc.Card(dcc.Graph(id='graph_map', animate=True, figure=fig_map), color='primary', className='mb-1')
@@ -36,12 +36,9 @@ map = dbc.Card(dcc.Graph(id='graph_map', animate=True, figure=fig_map), color='p
 
 #Data============================================================================================================================#
 df = utils.get_df('../data/sensor_data.csv')
-locations_ld = utils.get_locations()
-devices_ld = utils.get_devices()
-channels_ld = utils.get_channels()
-tree_nodes = utils.update_tree_nodes(locations_ld, devices_ld, channels_ld)
-
-# utils.write_dcc_store_data()  # remove this later
+utils.write_dcc_store_data()  # remove this later
+data = utils.get_dcc_store_data()
+tree_nodes = utils.update_tree_nodes(data)
 
 
 
@@ -168,16 +165,6 @@ graph_ch5 = dbc.Row([
     dbc.Col(dbc.Card(dcc.Graph(id='graph_ch5', animate=True), color='primary', className='mb-1'), width=8),
     dbc.Col(body_right_metrics_right, width=4)
 ], id='row_graph_ch5', style={'display': 'none'})
-graph_ch6 = dbc.Row([
-    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch6', animate=True), color='primary', className='mb-1'), width=8),
-    dbc.Col(body_right_metrics_right, width=4)
-], id='row_graph_ch6', style={'display': 'none'})
-# graph_ch1 = dbc.Card(dcc.Graph(id='graph_ch1', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
-# graph_ch2 = dbc.Card(dcc.Graph(id='graph_ch2', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
-# graph_ch3 = dbc.Card(dcc.Graph(id='graph_ch3', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
-# graph_ch4 = dbc.Card(dcc.Graph(id='graph_ch4', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
-# graph_ch5 = dbc.Card(dcc.Graph(id='graph_ch5', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
-# graph_ch6 = dbc.Card(dcc.Graph(id='graph_ch6', animate=True, style={'display': 'none'}), color='primary', className='mb-1')
 
 
 
@@ -209,21 +196,7 @@ DIV_body_right_channels = html.Div(
                     graph_ch3,
                     graph_ch4,
                     graph_ch5,
-                    graph_ch6,
                 ]),
-                # dbc.Col(body_right_metrics_right)
-                # dbc.Row([
-                #     dbc.Col(graph_ch1, width=6),
-                #     dbc.Col(graph_ch2, width=6),
-                # ]),
-                # dbc.Row([
-                #     dbc.Col(graph_ch3, width=6),
-                #     dbc.Col(graph_ch4, width=6),
-                # ]),
-                # dbc.Row([
-                #     dbc.Col(graph_ch5, width=6),
-                #     dbc.Col(graph_ch6, width=6),
-                # ]),
             ],
             style = {'maxHeight': '100vh', 'overflow': 'scroll'},
             className="no-scrollbars",
@@ -246,12 +219,11 @@ DIV_body_right_devices = html.Div([
                 dbc.Col(width=7),
         ]),
         dbc.Row([
-            dbc.Col(html.H4(id='h4_device_id', children='Device'), width=2),
+            dbc.Col(html.H4(id='h4_device_id', children='DeviceID'), width=2),
             dbc.Col(
                 dcc.Input(
                     id='in_alias_dev',
                     type='text',
-                    placeholder = '',
                     style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                 ),
                 width=3,
@@ -274,208 +246,167 @@ DIV_body_right_devices = html.Div([
                 dbc.Col(html.H4('''Channel 1:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch1',
                                   type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[0]['disabled']],
+                                  # # disabled=disabled_dict[channels_ld[0]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_sf_ch1',
                                   type='number',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[0]['disabled']],
+                                  # # disabled=disabled_dict[channels_ld[0]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_u_ch1',
                                   type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[0]['disabled']],
+                                  # # disabled=disabled_dict[channels_ld[0]['disabled']],
                                   style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=2,
                 ),
-                dbc.Col(dbc.Button(id='btn_ch1', children=channels_ld[0]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
+                dbc.Col(dbc.Button(id='btn_ch1', children='Enabled', color='primary', style={'height': '35px', 'width': '120px'}), width=2),
         ], no_gutters=True),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 2:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch2',
                                   type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[1]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[1]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_sf_ch2',
                                   type='number',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[1]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[1]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_u_ch2',
                                   type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[1]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[1]['disabled']],
                                   style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=2,
                 ),
-                dbc.Col(dbc.Button(id='btn_ch2', children=channels_ld[1]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
+                dbc.Col(dbc.Button(id='btn_ch2', children='Enabled', color='primary', style={'height': '35px', 'width': '120px'}), width=2),
         ], no_gutters=True),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 3:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch3',
                                   type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[2]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[2]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_sf_ch3',
                                   type='number',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[2]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[2]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_u_ch3',
                                   type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[2]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[2]['disabled']],
                                   style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=2,
                 ),
-                dbc.Col(dbc.Button(id='btn_ch3', children=channels_ld[2]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
+                dbc.Col(dbc.Button(id='btn_ch3', children='Enabled', color='primary', style={'height': '35px', 'width': '120px'}), width=2),
         ], no_gutters=True),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 4:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch4',
                                   type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[3]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[3]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_sf_ch4',
                                   type='number',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[3]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[3]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_u_ch4',
                                   type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[3]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[3]['disabled']],
                                   style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=2,
                 ),
-                dbc.Col(dbc.Button(id='btn_ch4', children=channels_ld[3]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
+                dbc.Col(dbc.Button(id='btn_ch4', children='Enabled', color='primary', style={'height': '35px', 'width': '120px'}), width=2),
         ], no_gutters=True),
         dbc.Row([
                 dbc.Col(html.H4('''Channel 5:'''), width=2),
                 dbc.Col(dcc.Input(id='in_alias_ch5',
                                   type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[4]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[4]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_sf_ch5',
                                   type='number',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[4]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[4]['disabled']],
                                   style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=3,
                 ),
                 dbc.Col(dcc.Input(id='in_u_ch5',
                                   type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[4]['disabled']],
+                                  # disabled=disabled_dict[channels_ld[4]['disabled']],
                                   style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
                         ),
                         width=2,
                 ),
-                dbc.Col(dbc.Button(id='btn_ch5', children=channels_ld[4]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
-        ], no_gutters=True),
-        dbc.Row([
-                dbc.Col(html.H4('''Channel 6:'''), width=2),
-                dbc.Col(dcc.Input(id='in_alias_ch6',
-                                  type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[5]['disabled']],
-                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
-                        ),
-                        width=3,
-                ),
-                dbc.Col(dcc.Input(id='in_sf_ch6',
-                                  type='number',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[5]['disabled']],
-                                  style = {'width': '200px', 'height': '35px', 'margin-bottom': '30px'}
-                        ),
-                        width=3,
-                ),
-                dbc.Col(dcc.Input(id='in_u_ch6',
-                                  type='text',
-                                  placeholder = '',
-                                  disabled=disabled_dict[channels_ld[5]['disabled']],
-                                  style = {'width': '120px', 'height': '35px', 'margin-bottom': '30px'}
-                        ),
-                        width=2,
-                ),
-                dbc.Col(dbc.Button(id='btn_ch6', children=channels_ld[5]['disabled'], color='primary', style={'height': '35px', 'width': '120px'}), width=2),
+                dbc.Col(dbc.Button(id='btn_ch5', children='Enabled', color='primary', style={'height': '35px', 'width': '120px'}), width=2),
         ], no_gutters=True),
     ])
 ])
 
 DIV_body_right_locations = html.Div(map)
 
-DIV_body_right_home = html.Div([
-    # The memory store reverts to the default on every page refresh
-    dcc.Store(id='memory'),
-    # The local store will take the initial data
-    # only the first time the page is loaded
-    # and keep it until it is cleared.
-    dcc.Store(id='local', storage_type='local'),
-    # Same as the local store but will lose the data
-    # when the browser/tab closes.
-    dcc.Store(id='session', storage_type='session'),
-    html.Table([
-        html.Thead([
-            html.Tr(html.Th('Click to store in:', colSpan="3")),
-            html.Tr([
-                html.Th(html.Button('memory', id='memory-button')),
-                html.Th(html.Button('localStorage', id='local-button')),
-                html.Th(html.Button('sessionStorage', id='session-button'))
-            ]),
-            html.Tr([
-                html.Th('Memory clicks'),
-                html.Th('Local clicks'),
-                html.Th('Session clicks')
-            ])
-        ]),
-        html.Tbody([
-            html.Tr([
-                html.Td(0, id='memory-clicks'),
-                html.Td(0, id='local-clicks'),
-                html.Td(0, id='session-clicks')
-            ])
-        ])
-    ])
-])
+DIV_body_right_home = html.Div(
+    # [
+    #     # The memory store reverts to the default on every page refresh
+    #     dcc.Store(id='memory'),
+    #     # The local store will take the initial data
+    #     # only the first time the page is loaded
+    #     # and keep it until it is cleared.
+    #     dcc.Store(id='local', storage_type='local'),
+    #     # Same as the local store but will lose the data
+    #     # when the browser/tab closes.
+    #     dcc.Store(id='session', storage_type='session'),
+    #     html.Table([
+    #         html.Thead([
+    #             html.Tr(html.Th('Click to store in:', colSpan="3")),
+    #             html.Tr([
+    #                 html.Th(html.Button('memory', id='memory-button')),
+    #                 html.Th(html.Button('localStorage', id='local-button')),
+    #                 html.Th(html.Button('sessionStorage', id='session-button'))
+    #             ]),
+    #             html.Tr([
+    #                 html.Th('Memory clicks'),
+    #                 html.Th('Local clicks'),
+    #                 html.Th('Session clicks')
+    #             ])
+    #         ]),
+    #         html.Tbody([
+    #             html.Tr([
+    #                 html.Td(0, id='memory-clicks'),
+    #                 html.Td(0, id='local-clicks'),
+    #                 html.Td(0, id='session-clicks')
+    #             ])
+    #         ])
+    #     ])
+    # ]
+)
 
 
 
@@ -562,42 +493,43 @@ def switch_views(checked):
 
 
 #Home============================================================================================================================#
-# Create two callback for every store.
-for store in ('memory', 'local', 'session'):
 
+# # Create two callback for every store.
+# for store in ('memory', 'local', 'session'):
+    #
     # add a click to the appropriate store.
-    @app.callback(Output(store, 'data'),
-                  Input('{}-button'.format(store), 'n_clicks'),
-                  State(store, 'data'))
-    def on_click(n_clicks, data):
-        if n_clicks is None:
-            # prevent the None callbacks is important with the store component.
-            # you don't want to update the store for nothing.
-            raise PreventUpdate
-
-        # Give a default data dict with 0 clicks if there's no data.
-        data = data or {'clicks': 0}
-
-        data['clicks'] = data['clicks'] + 1
-        return data
-
-    # output the stored clicks in the table cell.
-    @app.callback(Output('{}-clicks'.format(store), 'children'),
-                  # Since we use the data prop in an output,
-                  # we cannot get the initial data on load with the data prop.
-                  # To counter this, you can use the modified_timestamp
-                  # as Input and the data as State.
-                  # This limitation is due to the initial None callbacks
-                  # https://github.com/plotly/dash-renderer/pull/81
-                  Input(store, 'modified_timestamp'),
-                  State(store, 'data'))
-    def on_data(ts, data):
-        if ts is None:
-            raise PreventUpdate
-
-        data = data or {}
-
-        return data.get('clicks', 0)
+    # @app.callback(Output(store, 'data'),
+    #               Input('{}-button'.format(store), 'n_clicks'),
+    #               State(store, 'data'))
+    # def on_click(n_clicks, data):
+    #     if n_clicks is None:
+    #         # prevent the None callbacks is important with the store component.
+    #         # you don't want to update the store for nothing.
+    #         raise PreventUpdate
+    #
+    #     # Give a default data dict with 0 clicks if there's no data.
+    #     data = data or {'clicks': 0}
+    #
+    #     data['clicks'] = data['clicks'] + 1
+    #     return data
+    #
+    # # output the stored clicks in the table cell.
+    # @app.callback(Output('{}-clicks'.format(store), 'children'),
+    #               # Since we use the data prop in an output,
+    #               # we cannot get the initial data on load with the data prop.
+    #               # To counter this, you can use the modified_timestamp
+    #               # as Input and the data as State.
+    #               # This limitation is due to the initial None callbacks
+    #               # https://github.com/plotly/dash-renderer/pull/81
+    #               Input(store, 'modified_timestamp'),
+    #               State(store, 'data'))
+    # def on_data(ts, data):
+    #     if ts is None:
+    #         raise PreventUpdate
+    #
+    #     data = data or {}
+    #
+    #     return data.get('clicks', 0)
 
 
 
@@ -606,49 +538,6 @@ for store in ('memory', 'local', 'session'):
 
 
 #Devices=========================================================================================================================#
-
-# # Update placeholders in the inputs
-# @app.callback([Output('h4_device_id', 'children'),
-#                Output('in_alias_ch1', 'placeholder'),
-#                Output('in_sf_ch1', 'placeholder'),
-#                Output('in_alias_ch2', 'placeholder'),
-#                Output('in_sf_ch2', 'placeholder'),
-#                Output('in_alias_ch3', 'placeholder'),
-#                Output('in_sf_ch3', 'placeholder'),
-#                Output('in_alias_ch4', 'placeholder'),
-#                Output('in_sf_ch4', 'placeholder'),
-#                Output('in_alias_ch5', 'placeholder'),
-#                Output('in_sf_ch5', 'placeholder'),
-#                Output('in_alias_ch6', 'placeholder'),
-#                Output('in_sf_ch6', 'placeholder'),
-#                Output('in_alias_dev', 'value')],
-#               [Input('nav_tree', 'checked')])
-# def placeholders_update(deviceid):
-#
-#     placeholder_list = []
-#
-#     deviceid = utils.get_devid()
-#
-#     placeholder_list.append(deviceid + ':')
-#
-#     if deviceid:
-#         channels_ld = utils.get_channels()
-#         devices_ld = utils.get_devices()
-#
-#
-#         for dict in channels_ld:
-#             placeholder_list.append(dict['alias'])
-#             placeholder_list.append(dict['scaling_fact'])
-#
-#         for dict in devices_ld:
-#             if dict['name'] == deviceid:
-#                 placeholder_list.append(dict['alias'])
-#
-#     else:
-#         placeholder_list = ['', '', '', '', '', '', '', '', '', '', '', '', '', '']
-#
-#     return placeholder_list
-
 # Update h4_device_id children
 @app.callback(Output('h4_device_id', 'children'),
               Input('nav_tree', 'checked'))
@@ -661,24 +550,54 @@ def update_h4_device_id_children(checked):
 
 # Update in_alias_dev placeholders
 @app.callback(Output('in_alias_dev', 'placeholder'),
-              Input('nav_tree', 'checked'),
-              State('store_local_device', 'data'))
-def update_in_alias_dev_placeholders(checked, data):
+              Input('nav_tree', 'checked'))
+def update_in_alias_dev_placeholders(checked):
 
     page_dict = utils.get_current_page_dict()
     location = page_dict['loc']
     device = page_dict['dev']
+    data = utils.get_dcc_store_data()
     placeholder = data[0][location]['children'][device]['alias']
 
     return placeholder
 
+# Get in_alias_ch placeholders
+@app.callback(Output('nav_tree', 'nodes'),
+              [Input('in_alias_ch1', 'value'),
+               Input('in_alias_ch2', 'value'),
+               Input('in_alias_ch3', 'value'),
+               Input('in_alias_ch4', 'value'),
+               Input('in_alias_ch5', 'value')],
+              prevent_initial_call=True)
+def get_in_alias_ch_values(a1, a2, a3, a4, a5):
+
+    arguments = locals()
+
+    page_dict = utils.get_current_page_dict()
+    location = page_dict['loc']
+    device = page_dict['dev']
+    data = utils.get_dcc_store_data()
+    for i in range(1, len(arguments)+1):
+        channel = 'ch'+str(i)
+        data[0][location]['children'][device]['children'][channel]['alias'] = arguments['a'+str(i)]
+    utils.update_dcc_store_data(data)
+    nodes = utils.update_tree_nodes(data)
+
+    # print('\ndata')
+    # print(data)
+
+    # print('\nnodes')
+    # print(nodes)
+
+    # return 'text'
+    return nodes
+
 # Update in_alias_ch placeholders
-for input_box in ('in_alias_ch1', 'in_alias_ch2', 'in_alias_ch3', 'in_alias_ch4', 'in_alias_ch5', 'in_alias_ch6'):
+for input_box in ('in_alias_ch1', 'in_alias_ch2', 'in_alias_ch3', 'in_alias_ch4', 'in_alias_ch5'):
     @app.callback(Output(input_box, 'placeholder'),
                   Input('nav_tree', 'checked'),
-                  [State('store_local_device', 'data'),
-                   State(input_box, 'id')])
-    def update_in_alias_ch_placeholders(checked, BRUH, id):
+                  State(input_box, 'id'))
+    def update_in_alias_ch_placeholders(checked, id):
 
         page_dict = utils.get_current_page_dict()
         location = page_dict['loc']
@@ -686,16 +605,35 @@ for input_box in ('in_alias_ch1', 'in_alias_ch2', 'in_alias_ch3', 'in_alias_ch4'
         channel = id.split('_')[-1]
         data = utils.get_dcc_store_data()
         placeholder = data[0][location]['children'][device]['children'][channel]['alias']
+        #
+        # if 'id' == 'in_alias_ch1':
+        #     print('\ndata')
+        #     print(data)
 
         return placeholder
 
-# Update in_sf_ch placeholders
-for input_box in ('in_sf_ch1', 'in_sf_ch2', 'in_sf_ch3', 'in_sf_ch4', 'in_sf_ch5', 'in_sf_ch6'):
+# Get and Update in_sf_ch placeholders
+for input_box in ('in_sf_ch1', 'in_sf_ch2', 'in_sf_ch3', 'in_sf_ch4', 'in_sf_ch5'):
+    @app.callback(Output(input_box, 'type'),
+                  Input(input_box, 'value'),
+                  State(input_box, 'id'),
+                  prevent_initial_call=True)
+    def get_in_sf_ch_values(value, id):
+
+        page_dict = utils.get_current_page_dict()
+        location = page_dict['loc']
+        device = page_dict['dev']
+        channel = id.split('_')[-1]
+        data = utils.get_dcc_store_data()
+        data[0][location]['children'][device]['children'][channel]['scaling_fact'] = value
+        utils.update_dcc_store_data(data)
+
+        return 'number'
+
     @app.callback(Output(input_box, 'placeholder'),
                   Input('nav_tree', 'checked'),
-                  [State('store_local_device', 'data'),
-                   State(input_box, 'id')])
-    def update_in_sf_ch_placeholders(checked, BRUH, id):
+                  State(input_box, 'id'))
+    def update_in_sf_ch_placeholders(checked, id):
 
         page_dict = utils.get_current_page_dict()
         location = page_dict['loc']
@@ -706,12 +644,28 @@ for input_box in ('in_sf_ch1', 'in_sf_ch2', 'in_sf_ch3', 'in_sf_ch4', 'in_sf_ch5
 
         return placeholder
 
-# Update in_u_ch placeholders
-for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5', 'in_u_ch6'):
+# Get and Update in_u_ch placeholders
+for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5'):
+    @app.callback(Output(input_box, 'type'),
+                  Input(input_box, 'value'),
+                  State(input_box, 'id'),
+                  prevent_initial_call=True)
+    def get_in_u_ch_values(value, id):
+
+        page_dict = utils.get_current_page_dict()
+        location = page_dict['loc']
+        device = page_dict['dev']
+        channel = id.split('_')[-1]
+        data = utils.get_dcc_store_data()
+        data[0][location]['children'][device]['children'][channel]['unit'] = value
+        utils.update_dcc_store_data(data)
+
+        return 'text'
+
     @app.callback(Output(input_box, 'placeholder'),
                   Input('nav_tree', 'checked'),
                   State(input_box, 'id'))
-    def update_channel_scaling_factors(checked, id):
+    def update_in_u_ch_placeholders(checked, id):
 
         page_dict = utils.get_current_page_dict()
         location = page_dict['loc']
@@ -722,231 +676,197 @@ for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5', 'i
 
         return placeholder
 
-# Get in_u_ch values
-for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5', 'in_u_ch6'):
-    @app.callback(Output(input_box, 'type'),
-                  Input(input_box, 'value'),
-                  State(input_box, 'id'),
-                  prevent_initial_call=True)
-    def get_in_u_ch_values(value, id):
+# print('\ndata')
+# print(data)
+#
+# print('\nlocation')
+# print(location)
+#
+# print('\ndevice')
+# print(device)
+#
+# print('\nchannel')
+# print(channel)
+#
+# print('\nvalue')
+# print(value)
 
-        # make this stuff only write to the dcc Store
-
-        page_dict = utils.get_current_page_dict()
-        location = page_dict['loc']
-        device = page_dict['dev']
-        channel = id.split('_')[-1]
-        data = utils.get_dcc_store_data()
-        data[0][location]['children'][device]['children'][channel]['unit'] = value
-        utils.update_dcc_store_data(data)
-
-        print('\ndata')
-        print(data)
-
-        print('\nlocation')
-        print(location)
-
-        print('\ndevice')
-        print(device)
-
-        print('\nchannel')
-        print(channel)
-
-        print('\nvalue')
-        print(value)
-
-        return 'text'
-
-# Set channel aliases, channel scaling factors, device aliases and update the nav_tree nodes
-@app.callback([Output('h4_device_id', 'disabled'),
-               Output('in_sf_ch1', 'disabled'),
-               Output('btn_ch1', 'children'),
-               Output('in_alias_ch2', 'disabled'),
-               Output('in_sf_ch2', 'disabled'),
-               Output('btn_ch2', 'children'),
-               Output('in_alias_ch3', 'disabled'),
-               Output('in_sf_ch3', 'disabled'),
-               Output('btn_ch3', 'children'),
-               Output('in_alias_ch4', 'disabled'),
-               Output('in_sf_ch4', 'disabled'),
-               Output('btn_ch4', 'children'),
-               Output('in_alias_ch5', 'disabled'),
-               Output('in_sf_ch5', 'disabled'),
-               Output('btn_ch5', 'children'),
-               Output('in_alias_ch6', 'disabled'),
-               Output('in_sf_ch6', 'disabled'),
-               Output('btn_ch6', 'children'),
-               Output('store_local_device', 'data'),
-               Output('nav_tree', 'nodes')],
-              [Input('in_alias_dev', 'value'),
-               Input('btn_ch1', 'n_clicks'),
-               Input('btn_ch2', 'n_clicks'),
-               Input('btn_ch3', 'n_clicks'),
-               Input('btn_ch4', 'n_clicks'),
-               Input('btn_ch5', 'n_clicks'),
-               Input('btn_ch6', 'n_clicks'),
-               Input('btn_ch1', 'children'),
-               Input('btn_ch2', 'children'),
-               Input('btn_ch3', 'children'),
-               Input('btn_ch4', 'children'),
-               Input('btn_ch5', 'children'),
-               Input('btn_ch6', 'children'),
-               Input('in_alias_ch1', 'value'),
-               Input('in_alias_ch2', 'value'),
-               Input('in_alias_ch3', 'value'),
-               Input('in_alias_ch4', 'value'),
-               Input('in_alias_ch5', 'value'),
-               Input('in_alias_ch6', 'value'),
-               Input('in_sf_ch1', 'value'),
-               Input('in_sf_ch2', 'value'),
-               Input('in_sf_ch3', 'value'),
-               Input('in_sf_ch4', 'value'),
-               Input('in_sf_ch5', 'value'),
-               Input('in_sf_ch6', 'value'),
-               Input('in_alias_ch1', 'disabled'),
-               Input('in_alias_ch2', 'disabled'),
-               Input('in_alias_ch3', 'disabled'),
-               Input('in_alias_ch4', 'disabled'),
-               Input('in_alias_ch5', 'disabled'),
-               Input('in_alias_ch6', 'disabled'),
-               Input('in_sf_ch1', 'disabled'),
-               Input('in_sf_ch2', 'disabled'),
-               Input('in_sf_ch3', 'disabled'),
-               Input('in_sf_ch4', 'disabled'),
-               Input('in_sf_ch5', 'disabled'),
-               Input('in_sf_ch6', 'disabled')],
-              State('store_local_device', 'data'))
-def update_dev_ch_tree(dev_alias,
-                       n1, n2, n3, n4, n5, n6,
-                       b1, b2, b3, b4, b5, b6,
-                       a1, a2, a3, a4, a5, a6,
-                       s1, s2, s3, s4, s5, s6,
-                       ad1, ad2, ad3, ad4, ad5, ad6,
-                       sd1, sd2, sd3, sd4, sd5, sd6,
-                       data):
-
-    out = []
-
-    with open('temp/tree.txt', 'r') as file:
-        checked_global = [current_place.rstrip() for current_place in file.readlines()]
-        deviceid = (checked_global[0].split('dev'))[-1]
-        file.close()
-
-    devices_ld = utils.get_devices()
-    if dev_alias:
-        for i in range(len(devices_ld)):
-            if devices_ld[i]['name'] == deviceid:
-                devices_ld[i]['alias'] = dev_alias
-    utils.update_devices(devices_ld)
-
-    channels_ld = utils.get_channels()
-
-    if a1: channels_ld[0]['alias'] = a1
-    if a2: channels_ld[1]['alias'] = a2
-    if a3: channels_ld[2]['alias'] = a3
-    if a4: channels_ld[3]['alias'] = a4
-    if a5: channels_ld[4]['alias'] = a5
-    if a6: channels_ld[5]['alias'] = a6
-
-    if s1: channels_ld[0]['scaling_fact'] = float(s1)
-    if s2: channels_ld[1]['scaling_fact'] = float(s2)
-    if s3: channels_ld[2]['scaling_fact'] = float(s3)
-    if s4: channels_ld[3]['scaling_fact'] = float(s4)
-    if s5: channels_ld[4]['scaling_fact'] = float(s5)
-    if s6: channels_ld[5]['scaling_fact'] = float(s6)
-
-    clicked_btns = [p['prop_id'] for p in dash.callback_context.triggered][0]
-    if 'btn_ch1' in clicked_btns:
-        if channels_ld[0]['disabled'] == 'Enabled':
-            channels_ld[0]['disabled'] = 'Disabled'
-        else:
-            channels_ld[0]['disabled'] = 'Enabled'
-    if 'btn_ch2' in clicked_btns:
-        if channels_ld[1]['disabled'] == 'Enabled':
-            channels_ld[1]['disabled'] = 'Disabled'
-        else:
-            channels_ld[1]['disabled'] = 'Enabled'
-    if 'btn_ch3' in clicked_btns:
-        if channels_ld[2]['disabled'] == 'Enabled':
-            channels_ld[2]['disabled'] = 'Disabled'
-        else:
-            channels_ld[2]['disabled'] = 'Enabled'
-    if 'btn_ch4' in clicked_btns:
-        if channels_ld[3]['disabled'] == 'Enabled':
-            channels_ld[3]['disabled'] = 'Disabled'
-        else:
-            channels_ld[3]['disabled'] = 'Enabled'
-    if 'btn_ch5' in clicked_btns:
-        if channels_ld[4]['disabled'] == 'Enabled':
-            channels_ld[4]['disabled'] = 'Disabled'
-        else:
-            channels_ld[4]['disabled'] = 'Enabled'
-    if 'btn_ch6' in clicked_btns:
-        if channels_ld[5]['disabled'] == 'Enabled':
-            channels_ld[5]['disabled'] = 'Disabled'
-        else:
-            channels_ld[5]['disabled'] = 'Enabled'
-
-    if channels_ld[0]['disabled'] == 'Disabled':
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-    else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-    if channels_ld[1]['disabled'] == 'Disabled':
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-    else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-    if channels_ld[2]['disabled'] == 'Disabled':
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-    else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-    if channels_ld[3]['disabled'] == 'Disabled':
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-    else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-    if channels_ld[4]['disabled'] == 'Disabled':
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-    else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-    if channels_ld[5]['disabled'] == 'Disabled':
-        out.append(True)
-        out.append(True)
-        out.append('Disabled')
-    else:
-        out.append(False)
-        out.append(False)
-        out.append('Enabled')
-
-    utils.update_channels('config/channels.csv', channels_ld)
-
-    # utils.write_dcc_store_data()
-    data = utils.get_dcc_store_data()
-    # print(data)
-    out.append(data)
-
-    tree_nodes = utils.update_tree_nodes(utils.get_locations(), utils.get_devices(), utils.get_channels())
-    out.append(tree_nodes)
-
-    return out
+# # Set channel aliases, channel scaling factors, device aliases and update the nav_tree nodes
+# @app.callback([Output('h4_device_id', 'disabled'),
+#                Output('in_sf_ch1', 'disabled'),
+#                Output('btn_ch1', 'children'),
+#                Output('in_alias_ch2', 'disabled'),
+#                Output('in_sf_ch2', 'disabled'),
+#                Output('btn_ch2', 'children'),
+#                Output('in_alias_ch3', 'disabled'),
+#                Output('in_sf_ch3', 'disabled'),
+#                Output('btn_ch3', 'children'),
+#                Output('in_alias_ch4', 'disabled'),
+#                Output('in_sf_ch4', 'disabled'),
+#                Output('btn_ch4', 'children'),
+#                Output('in_alias_ch5', 'disabled'),
+#                Output('in_sf_ch5', 'disabled'),
+#                Output('btn_ch5', 'children'),
+#                Output('store_local_device', 'data'),
+#                Output('nav_tree', 'nodes')],
+#               [Input('in_alias_dev', 'value'),
+#                Input('btn_ch1', 'n_clicks'),
+#                Input('btn_ch2', 'n_clicks'),
+#                Input('btn_ch3', 'n_clicks'),
+#                Input('btn_ch4', 'n_clicks'),
+#                Input('btn_ch5', 'n_clicks'),
+#                Input('btn_ch1', 'children'),
+#                Input('btn_ch2', 'children'),
+#                Input('btn_ch3', 'children'),
+#                Input('btn_ch4', 'children'),
+#                Input('btn_ch5', 'children'),
+#                # Input('in_alias_ch1', 'value'),
+#                # Input('in_alias_ch2', 'value'),
+#                # Input('in_alias_ch3', 'value'),
+#                # Input('in_alias_ch4', 'value'),
+#                # Input('in_alias_ch5', 'value'),
+#                # Input('in_sf_ch1', 'value'),
+#                # Input('in_sf_ch2', 'value'),
+#                # Input('in_sf_ch3', 'value'),
+#                # Input('in_sf_ch4', 'value'),
+#                # Input('in_sf_ch5', 'value'),
+#                Input('in_alias_ch1', 'disabled'),
+#                Input('in_alias_ch2', 'disabled'),
+#                Input('in_alias_ch3', 'disabled'),
+#                Input('in_alias_ch4', 'disabled'),
+#                Input('in_alias_ch5', 'disabled'),
+#                Input('in_sf_ch1', 'disabled'),
+#                Input('in_sf_ch2', 'disabled'),
+#                Input('in_sf_ch3', 'disabled'),
+#                Input('in_sf_ch4', 'disabled'),
+#                Input('in_sf_ch5', 'disabled'),
+#               State('store_local_device', 'data'))
+# def update_dev_ch_tree(dev_alias,
+#                        n1, n2, n3, n4, n5, n6,
+#                        b1, b2, b3, b4, b5, b6,
+#                        # a1, a2, a3, a4, a5, a6,
+#                        # s1, s2, s3, s4, s5, s6,
+#                        ad1, ad2, ad3, ad4, ad5, ad6,
+#                        sd1, sd2, sd3, sd4, sd5, sd6,
+#                        data):
+#
+#     out = []
+#
+#     with open('temp/tree.txt', 'r') as file:
+#         checked_global = [current_place.rstrip() for current_place in file.readlines()]
+#         deviceid = (checked_global[0].split('dev'))[-1]
+#         file.close()
+#
+#     devices_ld = utils.get_devices()
+#     if dev_alias:
+#         for i in range(len(devices_ld)):
+#             if devices_ld[i]['name'] == deviceid:
+#                 devices_ld[i]['alias'] = dev_alias
+#     utils.update_devices(devices_ld)
+#
+#     channels_ld = utils.get_channels()
+#
+#     # if a1: channels_ld[0]['alias'] = a1
+#     # if a2: channels_ld[1]['alias'] = a2
+#     # if a3: channels_ld[2]['alias'] = a3
+#     # if a4: channels_ld[3]['alias'] = a4
+#     # if a5: channels_ld[4]['alias'] = a5
+#     # if a6: channels_ld[5]['alias'] = a6
+#     #
+#     # if s1: channels_ld[0]['scaling_fact'] = float(s1)
+#     # if s2: channels_ld[1]['scaling_fact'] = float(s2)
+#     # if s3: channels_ld[2]['scaling_fact'] = float(s3)
+#     # if s4: channels_ld[3]['scaling_fact'] = float(s4)
+#     # if s5: channels_ld[4]['scaling_fact'] = float(s5)
+#     # if s6: channels_ld[5]['scaling_fact'] = float(s6)
+#
+#     clicked_btns = [p['prop_id'] for p in dash.callback_context.triggered][0]
+#     if 'btn_ch1' in clicked_btns:
+#         if channels_ld[0]['disabled'] == 'Enabled':
+#             channels_ld[0]['disabled'] = 'Disabled'
+#         else:
+#             channels_ld[0]['disabled'] = 'Enabled'
+#     if 'btn_ch2' in clicked_btns:
+#         if channels_ld[1]['disabled'] == 'Enabled':
+#             channels_ld[1]['disabled'] = 'Disabled'
+#         else:
+#             channels_ld[1]['disabled'] = 'Enabled'
+#     if 'btn_ch3' in clicked_btns:
+#         if channels_ld[2]['disabled'] == 'Enabled':
+#             channels_ld[2]['disabled'] = 'Disabled'
+#         else:
+#             channels_ld[2]['disabled'] = 'Enabled'
+#     if 'btn_ch4' in clicked_btns:
+#         if channels_ld[3]['disabled'] == 'Enabled':
+#             channels_ld[3]['disabled'] = 'Disabled'
+#         else:
+#             channels_ld[3]['disabled'] = 'Enabled'
+#     if 'btn_ch5' in clicked_btns:
+#         if channels_ld[4]['disabled'] == 'Enabled':
+#             channels_ld[4]['disabled'] = 'Disabled'
+#         else:
+#             channels_ld[4]['disabled'] = 'Enabled'
+#
+#     if channels_ld[0]['disabled'] == 'Disabled':
+#         out.append(True)
+#         out.append(True)
+#         out.append('Disabled')
+#     else:
+#         out.append(False)
+#         out.append(False)
+#         out.append('Enabled')
+#     if channels_ld[1]['disabled'] == 'Disabled':
+#         out.append(True)
+#         out.append(True)
+#         out.append('Disabled')
+#     else:
+#         out.append(False)
+#         out.append(False)
+#         out.append('Enabled')
+#     if channels_ld[2]['disabled'] == 'Disabled':
+#         out.append(True)
+#         out.append(True)
+#         out.append('Disabled')
+#     else:
+#         out.append(False)
+#         out.append(False)
+#         out.append('Enabled')
+#     if channels_ld[3]['disabled'] == 'Disabled':
+#         out.append(True)
+#         out.append(True)
+#         out.append('Disabled')
+#     else:
+#         out.append(False)
+#         out.append(False)
+#         out.append('Enabled')
+#     if channels_ld[4]['disabled'] == 'Disabled':
+#         out.append(True)
+#         out.append(True)
+#         out.append('Disabled')
+#     else:
+#         out.append(False)
+#         out.append(False)
+#         out.append('Enabled')
+#     if channels_ld[5]['disabled'] == 'Disabled':
+#         out.append(True)
+#         out.append(True)
+#         out.append('Disabled')
+#     else:
+#         out.append(False)
+#         out.append(False)
+#         out.append('Enabled')
+#
+#     utils.update_channels('config/channels.csv', channels_ld)
+#
+#     # utils.write_dcc_store_data()
+#     data = utils.get_dcc_store_data()
+#     # print(data)
+#     out.append(data)
+#
+#     # tree_nodes = utils.update_tree_nodes(utils.get_locations(), utils.get_devices(), utils.get_channels())
+#     out.append(tree_nodes)
+#
+#     return out
 
 
 
@@ -968,20 +888,23 @@ def on_button_click(n, current):
                Output('graph_ch2', 'figure'),
                Output('graph_ch3', 'figure'),
                Output('graph_ch4', 'figure'),
-               Output('graph_ch5', 'figure'),
-               Output('graph_ch6', 'figure')],
+               Output('graph_ch5', 'figure')],
               [Input('graph_update', 'n_intervals'),
                Input('nav_tree', 'checked')])
 def update_graphs(n, checked):
 
-    channels_ld = utils.get_channels()
+    page_dict = utils.get_current_page_dict()
+    location = page_dict['loc']
+    device = page_dict['dev']
+
+    channels_ld = utils.get_channels(location, device)
     scaling_fact = 1.0
     df_scaled = pd.read_csv('../data/sensor_data.csv')
     df_scaled['value'] = df_scaled['value'].astype(float)
     df_scaled['change'] = df_scaled['change'].astype(float)
-    for dict in channels_ld:
-        channel = dict['name']
-        scaling_fact = float(dict['scaling_fact'])
+    for channel_dict in channels_ld:
+        channel = channel_dict['name']
+        scaling_fact = float(channel_dict['scaling_fact'])
         df_scaled.loc[df_scaled['data']==channel, 'value'] = df_scaled[df_scaled['data']==channel]['value'] * scaling_fact
         df_scaled.loc[df_scaled['data']==channel, 'change'] = df_scaled[df_scaled['data']==channel]['change'] * scaling_fact
     df_scaled.index = pd.to_datetime(df_scaled['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
@@ -1029,6 +952,16 @@ def update_graphs(n, checked):
         traces = [trace]
         data = [val for sublist in traces for val in sublist]
 
+        # print('\n')
+        # print(data[0][location])
+        # print('\n')
+        # print(data[0][location])
+        # print('\n')
+        # print(data[0][location]['children'][device])
+        # print('\n')
+        # print(data[0][location]['children'][device]['children']['ch'+str(i+1)]['alias'])
+        # print('\n')
+
         figure = {'data': data,
                   'layout': go.Layout(
                       colorway=colorlist,
@@ -1038,7 +971,7 @@ def update_graphs(n, checked):
                       hovermode='x',
                       autosize=True,
                       margin={'t': 50, 'l': 50, 'b': 10, 'r': 20},
-                      title={'text': channels_ld[i]['alias'], 'font': {'color': 'white'}, 'x': 0.5},
+                      title={'text': 'bruh', 'font': {'color': 'white'}, 'x': 0.5},
                       xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
                       yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
                   ),
@@ -1055,13 +988,17 @@ def update_graphs(n, checked):
                Output('row_graph_ch2', 'style'),
                Output('row_graph_ch3', 'style'),
                Output('row_graph_ch4', 'style'),
-               Output('row_graph_ch5', 'style'),
-               Output('row_graph_ch6', 'style')],
+               Output('row_graph_ch5', 'style')],
               Input('nav_tree', 'checked'))
 def display_graphs(checked):
 
     channels = []
-    channels_ld = utils.get_channels()
+
+    page_dict = utils.get_current_page_dict()
+    location = page_dict['loc']
+    device = page_dict['dev']
+    channels_ld = utils.get_channels(location, device)
+
     graphs_to_display = []
 
     if checked:
@@ -1076,69 +1013,6 @@ def display_graphs(checked):
             graphs_to_display.append({'display': 'none'})
 
     return graphs_to_display
-
-# # Update graph_timeseries based on the dropdown
-# @app.callback(Output('graph_timeseries', 'figure'),
-#               [Input('dd_id', 'value'),
-#                Input('dd_channel', 'value'),
-#                Input('graph_update', 'n_intervals')])
-# def update_graph_timeseries(ids, data, n):
-#
-#     df = pd.read_csv('../data/sensor_data_scaled.csv', parse_dates=True)
-#     df.index = pd.to_datetime(df['timestamp'])  # remove this, make the graph read directly from the timestamp column if possible
-#
-#     trace = []
-#
-#     if ids and data:
-#         df_data = df[df['data'] == data]
-#         xmin = df_data.index.min()
-#         xmax = df_data.index.max()
-#         ymin = df_data['value'].min() - 0.05 * np.abs(df_data['value'].max())
-#         ymax = df_data['value'].max() + 0.05 * np.abs(df_data['value'].max())
-#         for id in ids:
-#             df_data_id = df_data[df_data['deviceId'] == id]
-#             trace.append(go.Scatter(x=df_data_id.index,
-#                                     y=df_data_id['value'],
-#                                     mode='lines+markers',
-#                                     opacity=0.7,
-#                                     line={'width': 3},
-#                                     name=id,
-#                                     textposition='bottom center'))
-#     else:
-#         df_clear = df
-#         df_clear['value'].values[:] = 0
-#         xmin = df.index.min()
-#         xmax = df.index.max()
-#         ymin = -100
-#         ymax = 100
-#         trace.append(go.Scatter(x=df_clear.index,
-#                                 y=df_clear['value'],
-#                                 mode='lines',
-#                                 opacity=0.7,
-#                                 line={'width': 3},
-#                                 textposition='bottom center'
-#                     )
-#         )
-#
-#     traces = [trace]
-#     data = [val for sublist in traces for val in sublist]
-#
-#     figure = {'data': data,
-#               'layout': go.Layout(
-#                   colorway=colorlist,
-#                   template='plotly_dark',
-#                   paper_bgcolor='rgba(0, 0, 0, 0)',
-#                   plot_bgcolor='rgba(0, 0, 0, 0)',
-#                   hovermode='x',
-#                   height=500,
-#                   autosize=True,
-#                   title={'text': 'Sensor Data', 'font': {'color': 'white'}, 'x': 0.5},
-#                   xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
-#                   yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
-#               ),
-#     }
-#
-#     return figure
 
 
 
