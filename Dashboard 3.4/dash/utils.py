@@ -1,9 +1,6 @@
 #Imports=========================================================================================================================#
 import pandas as pd
 import pickle
-import csv
-# from functools import reduce
-# from operator import getitem
 
 
 
@@ -19,7 +16,7 @@ def get_df(filename):
 
 #dccStore========================================================================================================================#
 # Function to write the dcc.Store data
-def write_dcc_store_data():
+def write_store_data():
     # data = []  # There is some weird problem with this code
     # locations_ld = get_locations_old()
     # devices_ld = get_devices_old()
@@ -123,7 +120,7 @@ def write_dcc_store_data():
     file.close()
 
 # Function to get the dcc.Store data
-def get_dcc_store_data():
+def get_store_data():
     file = open(r'temp/dcc_store_data.pkl', 'rb')
     data = pickle.load(file)
     file.close()
@@ -131,13 +128,13 @@ def get_dcc_store_data():
     return data
 
 # Function to update the dcc.Store data
-def update_dcc_store_data(data):
+def update_store_data(data):
     file = open(r'temp/dcc_store_data.pkl', 'wb')
     pickle.dump(data, file)
     file.close()
 
-# write_dcc_store_data()
-# data = get_dcc_store_data()
+# write_store_data()
+# data = get_store_data()
 # print('\ndata')
 # print(data)
 # # del data[0]['SA']['children']['22229D7']['children']['ch6']['unit']
@@ -147,10 +144,10 @@ def update_dcc_store_data(data):
 
 
 
-#LD_new==========================================================================================================================#
-# Function to get the ld from the csv of all location,alias,scaling_fact
+#LD==============================================================================================================================#
+# Function to get the ld from store_data
 def get_locations():
-    data = get_dcc_store_data()
+    data = get_store_data()
     locations_ld = []
     locations = data[0]
     for location in locations:
@@ -159,9 +156,9 @@ def get_locations():
 
     return locations_ld
 
-# Function to get the ld from the csv of all channel,alias,scaling_fact
+# Function to get the ld from store_data
 def get_devices(location=None):
-    data = get_dcc_store_data()
+    data = get_store_data()
     devices_ld = []
     if location:
         devices = data[0][location]['children']
@@ -176,9 +173,9 @@ def get_devices(location=None):
 
     return devices_ld
 
-# Function to get the ld from the csv of all channel,alias,scaling_fact
+# Function to get the ld from store_data
 def get_channels(location=None, device=None):
-    data = get_dcc_store_data()
+    data = get_store_data()
     channels_ld = []
     if location and device:
         channels = data[0][location]['children'][device]['children']
@@ -191,69 +188,63 @@ def get_channels(location=None, device=None):
 
     return channels_ld
 
-# print('\n\n')
-# print(get_locations_from_data())
-# print('\n\n')
-# print(get_devices_from_data('SA'))
-# print('\n\n')
-# print(get_channels_from_data('SA', '22229D9'))
-
 
 
 #LD_old==========================================================================================================================#
-# Function to get the ld from the csv of all locations,alias
-def get_locations_old():
-    with open('config/locations.csv', mode='r') as csv_file:
-        locations_ld = [{key: value for key, value in row.items()} for row in csv.DictReader(csv_file)]
-        csv_file.close()
 
-    return locations_ld
+# # Function to get the ld from the csv of all locations,alias
+# def get_locations_old():
+#     with open('config/locations.csv', mode='r') as csv_file:
+#         locations_ld = [{key: value for key, value in row.items()} for row in csv.DictReader(csv_file)]
+#         csv_file.close()
+#
+#     return locations_ld
 
-# Function to update the csv from the ld of all locations,alias
-def update_locations_old(locations_ld):
-    with open('config/locations.csv', mode='w', newline='') as csv_file:
-        fieldnames = ['name', 'alias']
-        csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-        csv_writer.writeheader()
-        for location in locations_ld:
-            csv_writer.writerow(location)
-        csv_file.close()
+# # Function to update the csv from the ld of all locations,alias
+# def update_locations_old(locations_ld):
+#     with open('config/locations.csv', mode='w', newline='') as csv_file:
+#         fieldnames = ['name', 'alias']
+#         csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+#         csv_writer.writeheader()
+#         for location in locations_ld:
+#             csv_writer.writerow(location)
+#         csv_file.close()
 
-# Function to get the ld from the csv of all deviceid,alias
-def get_devices_oLD_old():
-    with open('config/devices.csv', mode='r') as csv_file:
-        devices_ld = [{key: value for key, value in row.items()} for row in csv.DictReader(csv_file)]
-        csv_file.close()
+# # Function to get the ld from the csv of all deviceid,alias
+# def get_devices_old():
+#     with open('config/devices.csv', mode='r') as csv_file:
+#         devices_ld = [{key: value for key, value in row.items()} for row in csv.DictReader(csv_file)]
+#         csv_file.close()
+#
+#     return devices_ld
 
-    return devices_ld
+# # Function to update the csv from the ld of all deviceid,alias
+# def update_devices_old(devices_ld):
+#     with open('config/devices.csv', mode='w', newline='') as csv_file:
+#         fieldnames = ['name', 'alias']
+#         csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+#         csv_writer.writeheader()
+#         for device_name in devices_ld:
+#             csv_writer.writerow(device_name)
+#         csv_file.close()
 
-# Function to update the csv from the ld of all deviceid,alias
-def update_devices_old(devices_ld):
-    with open('config/devices.csv', mode='w', newline='') as csv_file:
-        fieldnames = ['name', 'alias']
-        csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-        csv_writer.writeheader()
-        for device_name in devices_ld:
-            csv_writer.writerow(device_name)
-        csv_file.close()
+# # Function to get the ld from the csv of all channel,alias,scaling_fact
+# def get_channels_old():
+#     with open('config/channels.csv', mode='r') as csv_file:
+#         channels_ld = [{key: value for key, value in row.items()} for row in csv.DictReader(csv_file)]
+#         csv_file.close()
+#
+#     return channels_ld
 
-# Function to get the ld from the csv of all channel,alias,scaling_fact
-def get_channels_old():
-    with open('config/channels.csv', mode='r') as csv_file:
-        channels_ld = [{key: value for key, value in row.items()} for row in csv.DictReader(csv_file)]
-        csv_file.close()
-
-    return channels_ld
-
-# Function to update the csv from the ld of all channel,alias,scaling_fact
-def update_channels_old(filepath, channels_ld):
-    with open(filepath, mode='w', newline='') as csv_file:
-        fieldnames = ['name', 'alias', 'scaling_fact', 'disabled']
-        csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-        csv_writer.writeheader()
-        for channel_dict in channels_ld:
-            csv_writer.writerow(channel_dict)
-        csv_file.close()
+# # Function to update the csv from the ld of all channel,alias,scaling_fact
+# def update_channels_old(filepath, channels_ld):
+#     with open(filepath, mode='w', newline='') as csv_file:
+#         fieldnames = ['name', 'alias', 'scaling_fact', 'disabled']
+#         csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+#         csv_writer.writeheader()
+#         for channel_dict in channels_ld:
+#             csv_writer.writerow(channel_dict)
+#         csv_file.close()
 
 # # Function to write a string of channels from the ld of all channel,alias,scaling_fact
 # def string_channels():
@@ -265,7 +256,6 @@ def update_channels_old(filepath, channels_ld):
 #         csv_file.close()
 #
 #     return channel_name_string[0:-2]
-#
 
 
 
@@ -323,32 +313,33 @@ def update_tree_nodes(data):
 
 
 #Tree_old============================================================================================================================#
-# Function to write the nodes of the navigation tree
-def update_tree_nodes_old(locations_ld, devices_ld, channels_ld):
-    # Will later have to change this so it checks which locations have which devices, and which devices have which channels
-    tree_children = []
-    for location in locations_ld:
-        loc_children = []
-        for device in devices_ld:
-            dev_children = []
-            for channel in channels_ld:
-                if channel['disabled'] == 'Enabled':
-                    ch_node = {}
-                    ch_node['value'] = 'loc' + location['name'] + '_' + 'dev' + device['name'] + '_' + channel['name']
-                    ch_node['label'] = channel['alias']
-                    dev_children.append(ch_node)
-            dev_node = {}
-            dev_node['value'] = 'loc' + location['name'] + '_' + 'dev' + device['name']
-            dev_node['label'] = device['alias']
-            dev_node['children'] = dev_children
-            loc_children.append(dev_node)
-        loc_node = {}
-        loc_node['value'] = 'loc' + location['name']
-        loc_node['label'] = location['alias']
-        loc_node['children'] = loc_children
-        tree_children.append(loc_node)
 
-    return tree_children
+# # Function to write the nodes of the navigation tree
+# def update_tree_nodes_old(locations_ld, devices_ld, channels_ld):
+#     # Will later have to change this so it checks which locations have which devices, and which devices have which channels
+#     tree_children = []
+#     for location in locations_ld:
+#         loc_children = []
+#         for device in devices_ld:
+#             dev_children = []
+#             for channel in channels_ld:
+#                 if channel['disabled'] == 'Enabled':
+#                     ch_node = {}
+#                     ch_node['value'] = 'loc' + location['name'] + '_' + 'dev' + device['name'] + '_' + channel['name']
+#                     ch_node['label'] = channel['alias']
+#                     dev_children.append(ch_node)
+#             dev_node = {}
+#             dev_node['value'] = 'loc' + location['name'] + '_' + 'dev' + device['name']
+#             dev_node['label'] = device['alias']
+#             dev_node['children'] = dev_children
+#             loc_children.append(dev_node)
+#         loc_node = {}
+#         loc_node['value'] = 'loc' + location['name']
+#         loc_node['label'] = location['alias']
+#         loc_node['children'] = loc_children
+#         tree_children.append(loc_node)
+#
+#     return tree_children
 
 
 

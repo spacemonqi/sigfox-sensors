@@ -37,13 +37,13 @@ map = dbc.Card(dcc.Graph(id='graph_map', animate=True, figure=fig_map), color='p
 
 #Data============================================================================================================================#
 df = utils.get_df('../data/sensor_data.csv')
-data = utils.get_dcc_store_data()
+data = utils.get_store_data()
 tree_nodes = utils.update_tree_nodes(data)
 
 
 
 #Layout Components===============================================================================================================#
-navbar = dbc.Navbar(
+COMP_nav_bar = dbc.Navbar(
     dbc.Container(
         [
             html.A(
@@ -65,7 +65,7 @@ navbar = dbc.Navbar(
     className='mb-4',
 )
 
-body_left_card_tree = dbc.CardBody(
+COMP_nav_tree = dbc.CardBody(
     [
         dbc.Row(html.Div(duc.CheckBoxTree(
                             id='nav_tree',
@@ -84,7 +84,7 @@ body_left_card_tree = dbc.CardBody(
     style = {'color': 'white'}
 ),
 
-body_right_metrics_right = html.Div([
+COMP_metrics = html.Div([
     dbc.Card(
         children = [
             dbc.CardBody(
@@ -146,26 +146,26 @@ body_right_metrics_right = html.Div([
     )
 ])
 
-graph_ch1 = dbc.Row([
-    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch1', animate=True), color='primary', className='mb-1'), width=8),
-    dbc.Col(body_right_metrics_right, width=4)
-], id='row_graph_ch1', style={'display': 'none'})
-graph_ch2 = dbc.Row([
-    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch2', animate=True), color='primary', className='mb-1'), width=8),
-    dbc.Col(body_right_metrics_right, width=4)
-], id='row_graph_ch2', style={'display': 'none'})
-graph_ch3 = dbc.Row([
-    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch3', animate=True), color='primary', className='mb-1'), width=8),
-    dbc.Col(body_right_metrics_right, width=4)
-], id='row_graph_ch3', style={'display': 'none'})
-graph_ch4 = dbc.Row([
-    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch4', animate=True), color='primary', className='mb-1'), width=8),
-    dbc.Col(body_right_metrics_right, width=4)
-], id='row_graph_ch4', style={'display': 'none'})
-graph_ch5 = dbc.Row([
-    dbc.Col(dbc.Card(dcc.Graph(id='graph_ch5', animate=True), color='primary', className='mb-1'), width=8),
-    dbc.Col(body_right_metrics_right, width=4)
-], id='row_graph_ch5', style={'display': 'none'})
+COMP_graph_ch1 = dbc.Row([
+    dbc.Col(dbc.Card(dcc.Graph(id='COMP_graph_ch1', animate=True), color='primary', className='mb-1'), width=8),
+    dbc.Col(COMP_metrics, width=4)
+], id='row_COMP_graph_ch1', style={'display': 'none'})
+COMP_graph_ch2 = dbc.Row([
+    dbc.Col(dbc.Card(dcc.Graph(id='COMP_graph_ch2', animate=True), color='primary', className='mb-1'), width=8),
+    dbc.Col(COMP_metrics, width=4)
+], id='row_COMP_graph_ch2', style={'display': 'none'})
+COMP_graph_ch3 = dbc.Row([
+    dbc.Col(dbc.Card(dcc.Graph(id='COMP_graph_ch3', animate=True), color='primary', className='mb-1'), width=8),
+    dbc.Col(COMP_metrics, width=4)
+], id='row_COMP_graph_ch3', style={'display': 'none'})
+COMP_graph_ch4 = dbc.Row([
+    dbc.Col(dbc.Card(dcc.Graph(id='COMP_graph_ch4', animate=True), color='primary', className='mb-1'), width=8),
+    dbc.Col(COMP_metrics, width=4)
+], id='row_COMP_graph_ch4', style={'display': 'none'})
+COMP_graph_ch5 = dbc.Row([
+    dbc.Col(dbc.Card(dcc.Graph(id='COMP_graph_ch5', animate=True), color='primary', className='mb-1'), width=8),
+    dbc.Col(COMP_metrics, width=4)
+], id='row_COMP_graph_ch5', style={'display': 'none'})
 
 
 
@@ -185,11 +185,11 @@ DIV_channels = html.Div(
         html.Div(
             children = [
                 dbc.Col([
-                    graph_ch1,
-                    graph_ch2,
-                    graph_ch3,
-                    graph_ch4,
-                    graph_ch5,
+                    COMP_graph_ch1,
+                    COMP_graph_ch2,
+                    COMP_graph_ch3,
+                    COMP_graph_ch4,
+                    COMP_graph_ch5,
                 ]),
             ],
             style = {'maxHeight': '100vh', 'overflow': 'scroll'},
@@ -365,7 +365,7 @@ layout = html.Div([
                     dcc.Interval(id='graph_update', interval=1*1000, n_intervals=0),
                     dbc.Col(
                         [
-                            dbc.Card(body_left_card_tree, color='primary', style={'height': '100%'})
+                            dbc.Card(COMP_nav_tree, color='primary', style={'height': '100%'})
                         ],
                         style={'height': '90%'},
                         width=2
@@ -388,7 +388,7 @@ app.layout = html.Div(
     [
         dcc.Location(id='url', refresh=False),
         dcc.Location(id='reset', refresh=True),
-        navbar,
+        COMP_nav_bar,
         layout,
     ]
 )
@@ -465,7 +465,7 @@ def update_in_a_dev_placeholders(checked):
     page_dict = utils.get_current_page_dict()
     location = page_dict['loc']
     device = page_dict['dev']
-    data = utils.get_dcc_store_data()
+    data = utils.get_store_data()
     placeholder = data[0][location]['children'][device]['alias']
 
     return placeholder
@@ -486,13 +486,13 @@ def get_in_a_ch_values(a1, a2, a3, a4, a5, a_dev, nav_tree_trigger_data):
     page_dict = utils.get_current_page_dict()
     location = page_dict['loc']
     device = page_dict['dev']
-    data = utils.get_dcc_store_data()
+    data = utils.get_store_data()
     for i in range(1, len(arguments)-1):
         if arguments['a'+str(i)]:
             channel = 'ch'+str(i)
             data[0][location]['children'][device]['children'][channel]['alias'] = arguments['a'+str(i)]
     if arguments['a_dev']: data[0][location]['children'][device]['alias'] = arguments['a_dev']
-    utils.update_dcc_store_data(data)
+    utils.update_store_data(data)
     nodes = utils.update_tree_nodes(data)
 
     return nodes
@@ -508,7 +508,7 @@ for input_box in ('in_a_ch1', 'in_a_ch2', 'in_a_ch3', 'in_a_ch4', 'in_a_ch5'):
         location = page_dict['loc']
         device = page_dict['dev']
         channel = id.split('_')[-1]
-        data = utils.get_dcc_store_data()
+        data = utils.get_store_data()
         placeholder = data[0][location]['children'][device]['children'][channel]['alias']
 
         return placeholder
@@ -525,9 +525,9 @@ for input_box in ('in_sf_ch1', 'in_sf_ch2', 'in_sf_ch3', 'in_sf_ch4', 'in_sf_ch5
         location = page_dict['loc']
         device = page_dict['dev']
         channel = id.split('_')[-1]
-        data = utils.get_dcc_store_data()
+        data = utils.get_store_data()
         data[0][location]['children'][device]['children'][channel]['scaling_fact'] = value
-        utils.update_dcc_store_data(data)
+        utils.update_store_data(data)
 
         return 'number'
 
@@ -540,7 +540,7 @@ for input_box in ('in_sf_ch1', 'in_sf_ch2', 'in_sf_ch3', 'in_sf_ch4', 'in_sf_ch5
         location = page_dict['loc']
         device = page_dict['dev']
         channel = id.split('_')[-1]
-        data = utils.get_dcc_store_data()
+        data = utils.get_store_data()
         placeholder = data[0][location]['children'][device]['children'][channel]['scaling_fact']
 
         return placeholder
@@ -557,9 +557,9 @@ for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5'):
         location = page_dict['loc']
         device = page_dict['dev']
         channel = id.split('_')[-1]
-        data = utils.get_dcc_store_data()
+        data = utils.get_store_data()
         data[0][location]['children'][device]['children'][channel]['unit'] = value
-        utils.update_dcc_store_data(data)
+        utils.update_store_data(data)
 
         return 'text'
 
@@ -572,7 +572,7 @@ for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5'):
         location = page_dict['loc']
         device = page_dict['dev']
         channel = id.split('_')[-1]
-        data = utils.get_dcc_store_data()
+        data = utils.get_store_data()
         placeholder = data[0][location]['children'][device]['children'][channel]['unit']
 
         return placeholder
@@ -613,7 +613,7 @@ def get_btn_disable(n1, n2, n3, n4, n5, nav_tree_trigger_data):
     location = page_dict['loc']
     device = page_dict['dev']
 
-    data = utils.get_dcc_store_data()
+    data = utils.get_store_data()
 
     clicked_btns = [p['prop_id'] for p in dash.callback_context.triggered][0]
     for i in range(5):
@@ -623,7 +623,7 @@ def get_btn_disable(n1, n2, n3, n4, n5, nav_tree_trigger_data):
             else:
                 data[0][location]['children'][device]['children']['ch'+str(i+1)]['disabled'] = 'Enabled'
 
-    utils.update_dcc_store_data(data)
+    utils.update_store_data(data)
 
     for i in range(5):
         if data[0][location]['children'][device]['children']['ch'+str(i+1)]['disabled'] == 'Disabled':
@@ -655,7 +655,7 @@ def get_btn_reset(n):
         raise PreventUpdate
     if not n:
         raise PreventUpdate
-    utils.write_dcc_store_data()
+    utils.write_store_data()
 
     return '/'
 
@@ -673,12 +673,12 @@ def get_btn_pause(n, current):
     else:
         return [1*1000, 'Pause']
 
-# Update graph_ch
-@app.callback([Output('graph_ch1', 'figure'),
-               Output('graph_ch2', 'figure'),
-               Output('graph_ch3', 'figure'),
-               Output('graph_ch4', 'figure'),
-               Output('graph_ch5', 'figure')],
+# Update COMP_graph_ch
+@app.callback([Output('COMP_graph_ch1', 'figure'),
+               Output('COMP_graph_ch2', 'figure'),
+               Output('COMP_graph_ch3', 'figure'),
+               Output('COMP_graph_ch4', 'figure'),
+               Output('COMP_graph_ch5', 'figure')],
               [Input('graph_update', 'n_intervals'),
                Input('nav_tree', 'checked')])
 def update_graphs(n, checked):
@@ -762,11 +762,11 @@ def update_graphs(n, checked):
     return figures
 
 # Show/Hide Graphs
-@app.callback([Output('row_graph_ch1', 'style'),
-               Output('row_graph_ch2', 'style'),
-               Output('row_graph_ch3', 'style'),
-               Output('row_graph_ch4', 'style'),
-               Output('row_graph_ch5', 'style')],
+@app.callback([Output('row_COMP_graph_ch1', 'style'),
+               Output('row_COMP_graph_ch2', 'style'),
+               Output('row_COMP_graph_ch3', 'style'),
+               Output('row_COMP_graph_ch4', 'style'),
+               Output('row_COMP_graph_ch5', 'style')],
               Input('nav_tree', 'checked'))
 def display_graphs(checked):
 
