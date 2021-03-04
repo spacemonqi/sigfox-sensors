@@ -25,31 +25,24 @@ def read_params(filename):
     return tableName, online
 
 def write_data_to_csv(filename):
-    data_types = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch6']
+    data_types = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5']
     # data_types = ['ch1']
     num_data_types = len(data_types)
-    columns = ['location', 'deviceId', 'timestamp', 'data', 'value', 'change']
+    columns = ['location', 'deviceId', 'timestamp', 'data', 'value']
     df = pd.DataFrame(columns=columns)
     all_msgs = aws_api.scan_items_AWS(online, tableName)['Items']
     num_all_msgs = len(all_msgs)
     for i in range(num_all_msgs):
         item_dict = {'location': 'SA', 'deviceId': all_msgs[i]['deviceId'],
-                     'timestamp': datetime.fromtimestamp(int(int(str(all_msgs[i]['timestamp']))/1000+1))}  # THIS IS VERY BAD
+                     'timestamp': datetime.fromtimestamp(int(str(all_msgs[i]['timestamp'])))}
         for k in range(num_data_types):
             item_dict['data'] = data_types[k]
-            item_dict['value'] = int(all_msgs[i]['payload']['data'][k*4:k*4+4], 16)
-            if (i==0):
-                item_dict['change'] = item_dict['value']
-            else:
-                item_dict['change'] = item_dict['value'] - int(df.at[i * num_data_types + k - num_data_types, 'value'])
+            item_dict['value'] = int(all_msgs[i]['payload']['data'][k*4+4:k*4+8], 16)
             df.loc[i * num_data_types + k] = item_dict
     df = df.sort_values(by=['timestamp', 'deviceId', 'data'], ascending=True)
     df.to_csv(filename, index=False, header=True)
-    last_timestamp = int(int(datetime.timestamp(df.iloc[-1]['timestamp'])) * 1000)
 
-    return last_timestamp, df
-
-# def append_data_to_csv(filename, new_msgs, df): # create a gsi to query by sort key only
+# def append_data_to_csv(filename, new_msgs, df): # create a global secondary index to query by sort key only
 #     num_prev_items = len(df.index)
 #     data_types = ['Pressure', 'Temperature', 'Humidity']
 #     fieldnames = ['deviceId', 'timestamp', 'data', 'value', 'change']
@@ -79,7 +72,7 @@ tableName, online = read_params('config/config.txt')
 
 #Loop============================================================================================================================#
 while True:
-    last_timestamp, df_sigfox = write_data_to_csv('../data/sensor_data.csv')
+    write_data_to_csv('../data/sensor_data.csv')
     time.sleep(1)                                                           # THIS IS VERY BAD
 
 # while True:
