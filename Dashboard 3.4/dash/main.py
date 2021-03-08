@@ -39,6 +39,7 @@ map = dbc.Card(dcc.Graph(id='graph_map', animate=True, figure=fig_map), color='p
 df = utils.get_df('../data/sensor_data.csv')
 data = utils.get_store_data()
 tree_nodes = utils.update_tree_nodes(data)
+# utils.write_store_data()
 
 
 
@@ -149,23 +150,23 @@ COMP_metrics = html.Div([
 COMP_graph_ch1 = dbc.Row([
     dbc.Col(dbc.Card(dcc.Graph(id='COMP_graph_ch1', animate=True), color='primary', className='mb-1'), width=8),
     dbc.Col(COMP_metrics, width=4)
-], id='row_COMP_graph_ch1', style={'display': 'none'})
+], id='ROW_graph_ch1', style={'display': 'none'})
 COMP_graph_ch2 = dbc.Row([
     dbc.Col(dbc.Card(dcc.Graph(id='COMP_graph_ch2', animate=True), color='primary', className='mb-1'), width=8),
     dbc.Col(COMP_metrics, width=4)
-], id='row_COMP_graph_ch2', style={'display': 'none'})
+], id='ROW_graph_ch2', style={'display': 'none'})
 COMP_graph_ch3 = dbc.Row([
     dbc.Col(dbc.Card(dcc.Graph(id='COMP_graph_ch3', animate=True), color='primary', className='mb-1'), width=8),
     dbc.Col(COMP_metrics, width=4)
-], id='row_COMP_graph_ch3', style={'display': 'none'})
+], id='ROW_graph_ch3', style={'display': 'none'})
 COMP_graph_ch4 = dbc.Row([
     dbc.Col(dbc.Card(dcc.Graph(id='COMP_graph_ch4', animate=True), color='primary', className='mb-1'), width=8),
     dbc.Col(COMP_metrics, width=4)
-], id='row_COMP_graph_ch4', style={'display': 'none'})
+], id='ROW_graph_ch4', style={'display': 'none'})
 COMP_graph_ch5 = dbc.Row([
     dbc.Col(dbc.Card(dcc.Graph(id='COMP_graph_ch5', animate=True), color='primary', className='mb-1'), width=8),
     dbc.Col(COMP_metrics, width=4)
-], id='row_COMP_graph_ch5', style={'display': 'none'})
+], id='ROW_graph_ch5', style={'display': 'none'})
 
 
 
@@ -199,7 +200,6 @@ DIV_channels = html.Div(
 )
 
 DIV_devices = html.Div([
-    dcc.Store(id='nav_tree_trigger', storage_type='local'),
     dbc.Container([
         dbc.Row([dbc.Col(dbc.Card(html.H3(id='devconfig', children='Device Configuration', className='text-center bg-primary'),
                                   body=True,
@@ -362,11 +362,12 @@ layout = html.Div([
         [
             dbc.Row(
                 [
+                    dcc.Store(id='nav_tree_trigger_add', storage_type='local', data=True),
+                    dcc.Store(id='nav_tree_trigger_disable', storage_type='local', data=True),
+                    dcc.Store(id='nav_tree_trigger_alias', storage_type='local', data=True),
                     dcc.Interval(id='graph_update', interval=1*1000, n_intervals=0),
                     dbc.Col(
-                        [
-                            dbc.Card(COMP_nav_tree, color='primary', style={'height': '100%'})
-                        ],
+                        dbc.Card(COMP_nav_tree, color='primary', style={'height': '100%'}),
                         style={'height': '90%'},
                         width=2
                     ),
@@ -416,7 +417,7 @@ def switch_views(checked):
         checked_global = checked
     elif not checked_diff:
         checked_global = checked
-    elif (checked_global[0].find('ch') > -1) and (checked_diff[0].find('ch') > -1):
+    elif (checked_global[0].find('ch') > -1) and (checked_diff[0].find('ch') > -1) and (checked_global[0].split('_')[1] == checked_diff[0].split('_')[1]):
         checked_global = checked
     else:
         checked_global = checked_diff
@@ -436,6 +437,17 @@ def switch_views(checked):
 
     return checked_global, DIV_home
 
+# Update nav_tree
+@app.callback(Output('nav_tree', 'nodes'),
+              [Input('nav_tree_trigger_alias', 'data'),
+               Input('nav_tree_trigger_disable', 'data'),
+               Input('nav_tree_trigger_add', 'data')])
+def update_nav_tree(nav_tree_trigger_alias, nav_tree_trigger_disable, nav_tree_trigger_add):
+    data = utils.get_store_data()
+    nodes = utils.update_tree_nodes(data)
+
+    return nodes
+
 
 
 #Home============================================================================================================================#
@@ -443,7 +455,16 @@ def switch_views(checked):
 
 
 #Locations=======================================================================================================================#
-
+# Add locations and devices
+@app.callback(Output('nav_tree_trigger_add', 'data'),
+              Input('graph_update', 'n_intervals'),
+              State('nav_tree_trigger_add', 'data'))
+def add_locations_and_devices(n, nav_tree_trigger_add):
+    utils.add_device_store_data()
+    if nav_tree_trigger_add:
+        return False
+    else:
+        return True
 
 
 #Devices=========================================================================================================================#
@@ -470,17 +491,17 @@ def update_in_a_dev_placeholders(checked):
 
     return placeholder
 
-# Get in_a_ch and in_a_dev - THIS ONE SETS THE NAV_TREE
-@app.callback(Output('nav_tree', 'nodes'),
+# Get in_a_ch and in_a_dev
+@app.callback(Output('nav_tree_trigger_alias', 'data'),
               [Input('in_a_ch1', 'value'),
                Input('in_a_ch2', 'value'),
                Input('in_a_ch3', 'value'),
                Input('in_a_ch4', 'value'),
                Input('in_a_ch5', 'value'),
-               Input('in_a_dev', 'value'),
-               Input('nav_tree_trigger', 'data')],
+               Input('in_a_dev', 'value')],
+              State('nav_tree_trigger_alias', 'data'),
               prevent_initial_call=True)
-def get_in_a_ch_values(a1, a2, a3, a4, a5, a_dev, nav_tree_trigger_data):
+def get_in_a_ch_values(a1, a2, a3, a4, a5, a_dev, nav_tree_trigger_alias):
 
     arguments = locals()
     page_dict = utils.get_current_page_dict()
@@ -495,7 +516,10 @@ def get_in_a_ch_values(a1, a2, a3, a4, a5, a_dev, nav_tree_trigger_data):
     utils.update_store_data(data)
     nodes = utils.update_tree_nodes(data)
 
-    return nodes
+    if nav_tree_trigger_alias:
+        return False
+    else:
+        return True
 
 # Update in_a_ch
 for input_box in ('in_a_ch1', 'in_a_ch2', 'in_a_ch3', 'in_a_ch4', 'in_a_ch5'):
@@ -598,14 +622,14 @@ for input_box in ('in_u_ch1', 'in_u_ch2', 'in_u_ch3', 'in_u_ch4', 'in_u_ch5'):
                Output('in_sf_ch5', 'disabled'),
                Output('in_u_ch5', 'disabled'),
                Output('btn_disable5', 'children'),
-               Output('nav_tree_trigger', 'data')],
+               Output('nav_tree_trigger_disable', 'data')],
               [Input('btn_disable1', 'n_clicks'),
                Input('btn_disable2', 'n_clicks'),
                Input('btn_disable3', 'n_clicks'),
                Input('btn_disable4', 'n_clicks'),
-               Input('btn_disable5', 'n_clicks'),
-               Input('nav_tree_trigger', 'data')])
-def get_btn_disable(n1, n2, n3, n4, n5, nav_tree_trigger_data):
+               Input('btn_disable5', 'n_clicks')],
+              State('nav_tree_trigger_disable', 'data'), prevent_initial_call=True)
+def get_btn_disable(n1, n2, n3, n4, n5, nav_tree_trigger_disable):
 
     out = []
 
@@ -615,15 +639,32 @@ def get_btn_disable(n1, n2, n3, n4, n5, nav_tree_trigger_data):
 
     data = utils.get_store_data()
 
-    clicked_btns = [p['prop_id'] for p in dash.callback_context.triggered][0]
-    for i in range(5):
-        if 'btn_disable'+str(i+1) in clicked_btns:
-            if data[0][location]['children'][device]['children']['ch'+str(i+1)]['disabled'] == 'Enabled':
-                data[0][location]['children'][device]['children']['ch'+str(i+1)]['disabled'] = 'Disabled'
-            else:
-                data[0][location]['children'][device]['children']['ch'+str(i+1)]['disabled'] = 'Enabled'
+    # print('\n\ndata')
+    # print(data)
 
-    utils.update_store_data(data)
+    # print('\n\ndash.callback_context.triggered')
+    # print(type(dash.callback_context.triggered))
+
+    if len(dash.callback_context.triggered) == 1:
+        clicked_btns = [p['prop_id'] for p in dash.callback_context.triggered][0]
+
+        # print('\n\nclicked_btns')
+        # print(clicked_btns)
+
+        for i in range(5):
+            if 'btn_disable'+str(i+1) in clicked_btns:
+                if data[0][location]['children'][device]['children']['ch'+str(i+1)]['disabled'] == 'Enabled':
+                    data[0][location]['children'][device]['children']['ch'+str(i+1)]['disabled'] = 'Disabled'
+                else:
+                    data[0][location]['children'][device]['children']['ch'+str(i+1)]['disabled'] = 'Enabled'
+
+                # print('\n\nbtn_disable' + str(i+1))
+                # print(data[0][location]['children'][device]['children']['ch'+str(i+1)]['disabled'])
+
+        utils.update_store_data(data)
+
+    # print('\n\ndata')
+    # print(data)
 
     for i in range(5):
         if data[0][location]['children'][device]['children']['ch'+str(i+1)]['disabled'] == 'Disabled':
@@ -637,10 +678,13 @@ def get_btn_disable(n1, n2, n3, n4, n5, nav_tree_trigger_data):
             out.append(False)
             out.append('Enabled')
 
-    if nav_tree_trigger_data:
+    if nav_tree_trigger_disable:
         out.append(False)
     else:
         out.append(True)
+
+    # print('\n\nout')
+    # print(out)
 
     return out
 
@@ -688,6 +732,7 @@ def update_graphs(n, checked):
     device = page_dict['dev']
 
     channels_ld = utils.get_channels(location, device)
+
     scaling_fact = 1.0
     df_scaled = pd.read_csv('../data/sensor_data.csv')
     df_scaled['value'] = df_scaled['value'].astype(float)
@@ -704,7 +749,7 @@ def update_graphs(n, checked):
 
         trace = []
 
-        if checked:
+        if checked and (len(df_scaled.loc[df_scaled['data'] == channel['name']]) > 1):
             df_data = df_scaled[df_scaled['data'] == channel['name']]
             df_data_id = df_data[df_data['deviceId'] == device]
             xmin = df_data_id.index.min()
@@ -749,7 +794,9 @@ def update_graphs(n, checked):
                       hovermode='x',
                       autosize=True,
                       margin={'t': 50, 'l': 50, 'b': 10, 'r': 20},
-                      title={'text': channels_ld[i]['alias'], 'font': {'color': 'white'}, 'x': 0.5},
+                      title={'text': channels_ld[i]['alias'] + ' [' + channels_ld[i]['unit'] + ']',
+                             'font': {'color': 'white'},
+                             'x': 0.5},
                       xaxis={'range': [xmin, xmax], 'gridcolor': 'white', 'gridwidth': 0.5},
                       yaxis={'range': [ymin, ymax], 'gridcolor': 'white'},
                   ),
@@ -762,11 +809,11 @@ def update_graphs(n, checked):
     return figures
 
 # Show/Hide Graphs
-@app.callback([Output('row_COMP_graph_ch1', 'style'),
-               Output('row_COMP_graph_ch2', 'style'),
-               Output('row_COMP_graph_ch3', 'style'),
-               Output('row_COMP_graph_ch4', 'style'),
-               Output('row_COMP_graph_ch5', 'style')],
+@app.callback([Output('ROW_graph_ch1', 'style'),
+               Output('ROW_graph_ch2', 'style'),
+               Output('ROW_graph_ch3', 'style'),
+               Output('ROW_graph_ch4', 'style'),
+               Output('ROW_graph_ch5', 'style')],
               Input('nav_tree', 'checked'))
 def display_graphs(checked):
 

@@ -26,7 +26,6 @@ def read_params(filename):
 
 def write_data_to_csv(filename):
     data_types = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5']
-    # data_types = ['ch1']
     num_data_types = len(data_types)
     columns = ['location', 'deviceId', 'timestamp', 'data', 'value']
     df = pd.DataFrame(columns=columns)
@@ -34,7 +33,7 @@ def write_data_to_csv(filename):
     num_all_msgs = len(all_msgs)
     for i in range(num_all_msgs):
         item_dict = {'location': 'SA', 'deviceId': all_msgs[i]['deviceId'],
-                     'timestamp': datetime.fromtimestamp(int(str(all_msgs[i]['timestamp'])))}
+                     'timestamp': datetime.fromtimestamp(int(all_msgs[i]['timestamp']/1000))}
         for k in range(num_data_types):
             item_dict['data'] = data_types[k]
             item_dict['value'] = int(all_msgs[i]['payload']['data'][k*4+4:k*4+8], 16)
