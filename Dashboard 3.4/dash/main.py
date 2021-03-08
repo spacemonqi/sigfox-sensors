@@ -734,7 +734,16 @@ def update_graphs(n, checked):
     channels_ld = utils.get_channels(location, device)
 
     scaling_fact = 1.0
-    df_scaled = pd.read_csv('../data/sensor_data.csv')
+
+    flag = False
+    while not flag:
+        try:
+            df_scaled = pd.read_csv('../data/sensor_data.csv')
+            flag = True
+        except pd.errors.EmptyDataError:
+            pass
+    # df_scaled = pd.read_csv('../data/sensor_data.csv')
+
     df_scaled['value'] = df_scaled['value'].astype(float)
     for channel_dict in channels_ld:
         channel = channel_dict['name']
@@ -749,7 +758,7 @@ def update_graphs(n, checked):
 
         trace = []
 
-        if checked and (len(df_scaled.loc[df_scaled['data'] == channel['name']]) > 1):
+        if checked and (len(df_scaled.loc[df_scaled['deviceId'] == device]) > 5):
             df_data = df_scaled[df_scaled['data'] == channel['name']]
             df_data_id = df_data[df_data['deviceId'] == device]
             xmin = df_data_id.index.min()
