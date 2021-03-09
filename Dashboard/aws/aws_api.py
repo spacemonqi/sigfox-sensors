@@ -3,10 +3,12 @@
 from boto3.dynamodb.conditions import Key
 import boto3
 
+region = 'us-east-1'
+
 def create_sigfox_table_AWS(online, tableName, dynamodb=None):
     if not dynamodb:
         if online:
-            dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+            dynamodb = boto3.resource('dynamodb', region_name=region)
         else:
             dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
@@ -46,7 +48,7 @@ def create_sigfox_table_AWS(online, tableName, dynamodb=None):
 def delete_sigfox_table_AWS(online, tableName, dynamodb=None):
     if not dynamodb:
         if online:
-            dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+            dynamodb = boto3.resource('dynamodb', region_name=region)
         else:
             dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
@@ -56,7 +58,7 @@ def delete_sigfox_table_AWS(online, tableName, dynamodb=None):
 def scan_items_AWS(online, tableName, dynamodb=None):
     if not dynamodb:
         if online:
-            dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+            dynamodb = boto3.resource('dynamodb', region_name=region)
         else:
             dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
@@ -67,7 +69,7 @@ def scan_items_AWS(online, tableName, dynamodb=None):
 def put_item_AWS(online, tableName, deviceId, timestamp, data, temperature, humidity, dynamodb=None):
     if not dynamodb:
         if online:
-            dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+            dynamodb = boto3.resource('dynamodb', region_name=region)
         else:
             dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
@@ -88,7 +90,7 @@ def put_item_AWS(online, tableName, deviceId, timestamp, data, temperature, humi
 def query_and_project_items_AWS(online, tableName, deviceId, last_timestamp, dynamodb=None):
     if not dynamodb:
         if online:
-            dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+            dynamodb = boto3.resource('dynamodb', region_name=region)
         else:
             dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
