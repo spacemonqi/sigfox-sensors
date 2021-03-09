@@ -1,0 +1,48 @@
+[{'SA': {
+	'alias': 'South Africa', 'children': {
+		'22229D7': {
+			'alias': 'DevKit1', 'children': {
+				'ch1': {
+					'alias': 'ADC', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				}, 
+				'ch2': {
+					'alias': 'Humidity', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				}, 
+				'ch3': {
+					'alias': 'Methane', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				}, 
+				'ch4': {
+					'alias': 'CO2', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				}, 
+				'ch5': {
+					'alias': 'Methane', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				}, 
+				'ch6': {
+					'alias': 'Propane', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				}
+			}
+		}, 
+		'22229D9': {
+			'alias': 'DevKit2', 'children': {
+				'ch1': {
+					'alias': 'ADC', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				},
+				'ch2': {
+					'alias': 'Humidity', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				},
+				'ch3': {
+					'alias': 'Methane', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				},
+				'ch4': {
+					'alias': 'CO2', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				},
+				'ch5': {
+					'alias': 'Methane', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				},
+				'ch6': {
+					'alias': 'Propane', 'scaling_fact': '1.0', 'disabled': 'Enabled', 'unit': 'EU'
+				}
+			}
+		}
+	}
+}}]
