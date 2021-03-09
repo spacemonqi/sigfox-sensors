@@ -24,15 +24,15 @@ Original repo: https://172.31.18.88/software/sigfox_cloud
 
 ## How to run this app
 
-Clone this repository and open a terminal inside the root folder.
-Create and activate a new virtual environment (recommended) by running
-the following:
+This application requires Python 3. Clone this repository and open a terminal
+inside the root folder. Create and activate a new virtual environment 
+(recommended) by running the following:
 
 Create a virtual environment:
-```python -m venv venv```
+```python3 -m venv venv```
 
 Activate the virtual environment:
-```source venv/bin/activate  # Windows: .\venv\Scripts\activate```
+```source venv/bin/activate``` (Windows: ```.\venv\Scripts\activate```)
 
 Install the requirements:
 ```pip install -r requirements.txt```
