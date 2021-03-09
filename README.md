@@ -32,22 +32,22 @@ Create a virtual environment:
 ```python3 -m venv venv```
 
 Activate the virtual environment:
-```source venv/bin/activate``` (Windows: ```.\venv\Scripts\activate```)
+```source venv/bin/activate```   (Windows: ```.\venv\Scripts\activate```)
 
 Install the requirements:
 ```pip install -r requirements.txt```
 
 Run the GUI only:
 
-```main.bat```
+```main.bat``` or ```python3 main.py```
 
 Run the AWS app only:
 
-```aws_app.bat```
+```aws_app.bat``` or ```python3 aws_app.py```
 
 Run the full dashboard:
 
-```dashboard.bat```
+```dashboard.bat``` or ```python3 main.py``` and ```python3 aws_app.py``` in separate terminals.
 
 The browser should open at http://127.0.0.1:8050. Refresh the page if it does not load immediately - 
 it might take a while, depending on your hardware.
