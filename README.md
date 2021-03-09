@@ -29,7 +29,7 @@ inside the root folder. Create and activate a new virtual environment
 (recommended) by running the following:
 
 Create a virtual environment:
-```python3 -m venv venv```
+```python -m venv venv```
 
 Activate the virtual environment:
 ```source venv/bin/activate```   (Windows: ```.\venv\Scripts\activate```)
