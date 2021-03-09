@@ -30,7 +30,7 @@ def write_data_to_csv(filename):
 
 
 #Variables=======================================================================================================================#
-tableName = 'sigfox'
+tableName = 'Sigfox'
 online = 1
 sampling_rate = 1  # in seconds
 
