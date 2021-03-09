@@ -3,7 +3,7 @@
 from boto3.dynamodb.conditions import Key
 import boto3
 
-region = 'us-east-1'
+region = 'eu-central-1'
 
 def create_sigfox_table_AWS(online, tableName, dynamodb=None):
     if not dynamodb:
