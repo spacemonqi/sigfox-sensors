@@ -8,6 +8,7 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 import dash_useful_components as duc
 from dash.exceptions import PreventUpdate
+import webbrowser
 import dash
 import pandas as pd
 import numpy as np
@@ -831,5 +832,6 @@ def display_graphs(checked):
 
 #Main============================================================================================================================#
 if __name__ == '__main__':
+    webbrowser.open("http://127.0.0.1:8050/")
     app.run_server(debug=False, dev_tools_ui=False, dev_tools_props_check=False, threaded=True)  # Uncomment for production use
     # app.run_server(debug=True, port=8050, threaded=True)  # Uncomment for hot reloading and live debugging
