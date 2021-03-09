@@ -1,5 +1,0 @@
-locSA_dev22229D5_ch1
-locSA_dev22229D5_ch2
-locSA_dev22229D5_ch3
-locSA_dev22229D5_ch4
-locSA_dev22229D5_ch5
