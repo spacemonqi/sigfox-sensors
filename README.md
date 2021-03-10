@@ -29,7 +29,7 @@ inside the root folder. Create and activate a new virtual environment
 (recommended) by running the following:
 
 Create a virtual environment:
-```python3 -m venv venv```
+```python -m venv venv```
 
 Activate the virtual environment:
 ```source venv/bin/activate```   (Windows: ```.\venv\Scripts\activate```)
@@ -39,15 +39,15 @@ Install the requirements:
 
 Run the GUI only:
 
-```main.bat``` or ```python3 main.py```
+```python main.py```
 
 Run the AWS app only:
 
-```aws_app.bat``` or ```python3 aws_app.py```
+```python aws_app.py```
 
 Run the full dashboard:
 
-```dashboard.bat``` or ```python3 main.py``` and ```python3 aws_app.py``` in separate terminals.
+```python main.py``` and ```python aws_app.py``` in separate terminal windows.
 
 The browser should open at http://127.0.0.1:8050. Refresh the page if it does not load immediately - 
 it might take a while, depending on your hardware.
