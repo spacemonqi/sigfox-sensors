@@ -8,9 +8,6 @@ They can be used independently or concurrently. If used concurrently, the
 GUI will display live updates of incoming sensor data (approx. once every 
 six hours).
 
-In order for the application to have access to DynamoDB, you need to have 
-logged in on a web browser on the device that is running this app.
-
 Note that for demo purpose, the app scans the entire DynamoDB database once
 per second, and updates the local copy of the data accordingly. However, for
 practical implementation, the sampling rate (sampling_rate in aws_app.py)
@@ -19,6 +16,17 @@ written as to notify the app when entries are added to the DynamoDB database,
 but this has not been implemented as of yet. Reading the database at a high
 rate will eventually incur a cost, but remains well within the free tier for 
 demo purposes.
+
+In order for the application to have access to DynamoDB, the AWS config and
+credentials need to be set. Create the files if they do not exist. 
+
+Linux:
+~/.aws/credentials
+~/.aws/config
+
+Windows:
+C:\Users\<username>\.aws\credentials
+C:\Users\<username>\.aws\config
 
 
 Original repo: https://172.31.18.88/software/sigfox_cloud
