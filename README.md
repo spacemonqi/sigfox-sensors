@@ -20,13 +20,22 @@ demo purposes.
 In order for the application to have access to DynamoDB, the AWS config and
 credentials need to be set. Create the files if they do not exist. 
 
-Linux:
-~/.aws/credentials
-~/.aws/config
+Linux:  
+~/.aws/credentials  
+~/.aws/config  
 
-Windows:
-C:\Users\<username>\.aws\credentials
-C:\Users\<username>\.aws\config
+Windows:  
+C:\Users\<username>\.aws\credentials  
+C:\Users\<username>\.aws\config  
+
+'credentials' should contain:  
+[default]  
+aws_access_key_id = YOUR_ACCESS_KEY_ID  
+aws_secret_access_key = YOUR_SECRET_ACCESS_KEY  
+
+'config' should contain:  
+[default]  
+region = YOUR_REGION  
 
 
 Original repo: https://172.31.18.88/software/sigfox_cloud
@@ -39,26 +48,26 @@ This application requires Python 3. Clone this repository and open a terminal
 inside the root folder. Create and activate a new virtual environment 
 (recommended) by running the following:
 
-Create a virtual environment:
+Create a virtual environment:  
 ```python -m venv venv```
 
-Activate the virtual environment:
+Activate the virtual environment:  
 ```source venv/bin/activate```   (Windows: ```.\venv\Scripts\activate```)
 
 Install the requirements:
-```pip install -r requirements.txt```
+```pip install -r requirements.txt```  
 
 Run the GUI only:
 
-```python main.py```
+```python main.py```  
 
 Run the AWS app only:
 
-```python aws_app.py```
+```python aws_app.py```  
 
 Run the full dashboard:
 
-```python main.py``` and ```python aws_app.py``` in separate terminal windows.
+```python main.py``` and ```python aws_app.py``` in separate terminal windows.  
 
 The browser should open at http://127.0.0.1:8050. Refresh the page if it does not load immediately - 
 it might take a while, depending on your hardware.
