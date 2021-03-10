@@ -8,6 +8,9 @@ They can be used independently or concurrently. If used concurrently, the
 GUI will display live updates of incoming sensor data (approx. once every 
 six hours).
 
+In order for the application to have access to DynamoDB, you need to have 
+logged in on a web browser on the device that is running this app.
+
 Note that for demo purpose, the app scans the entire DynamoDB database once
 per second, and updates the local copy of the data accordingly. However, for
 practical implementation, the sampling rate (sampling_rate in aws_app.py)
