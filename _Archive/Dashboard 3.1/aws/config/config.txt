@@ -1,4 +1,0 @@
-setting,value
-tableName,sigfox
-numInitItems,2
-online,1

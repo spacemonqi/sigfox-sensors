@@ -1,7 +1,0 @@
-name,alias,scaling_fact
-CH1,Temp,1.0
-CH2,Hum,1.0
-CH3,Gas,1.0
-CH4,ADC,1.0
-CH5,O2,1.0
-CH6,VOC,1.0
