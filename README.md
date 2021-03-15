@@ -8,14 +8,14 @@ They can be used independently or concurrently. If used concurrently, the
 GUI will display live updates of incoming sensor data (approx. once every 
 six hours).
 
-Note that for demo purpose, the app scans the entire DynamoDB database once
+Note that for demonstration purposes, the app scans the entire DynamoDB database once
 per second, and updates the local copy of the data accordingly. However, for
 practical implementation, the sampling rate (sampling_rate in aws_app.py)
 can be set to once per day, for example. Ideally, a Lambda function should be
 written as to notify the app when entries are added to the DynamoDB database,
 but this has not been implemented as of yet. Reading the database at a high
 rate will eventually incur a cost, but remains well within the free tier for 
-demo purposes.
+demonstration purposes.
 
 In order for the application to have access to DynamoDB, the AWS config and
 credentials need to be set. Create the files if they do not exist. 
@@ -35,10 +35,7 @@ aws_secret_access_key = YOUR_SECRET_ACCESS_KEY
 
 'config' should contain:  
 [default]  
-region = YOUR_REGION  
-
-
-Original repo: https://172.31.18.88/software/sigfox_cloud
+region = YOUR_REGION
 
 
 
