@@ -1,0 +1,7 @@
+channel,alias,scaling_fact
+CH1,sweeeet,45.0
+CH2,hahah,4.0
+CH3,ADC1,1
+CH4,ADC2,1
+CH5,CO2,1
+CH6,VOC,1
