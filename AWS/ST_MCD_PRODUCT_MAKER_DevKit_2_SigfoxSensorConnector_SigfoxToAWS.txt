@@ -1,7 +1,0 @@
-External ID:	6013d779e833d960d5c8d999
-
-ARNRole:	arn:aws:iam::107655870605:role/SigfoxSensorConnector-crossAccountRoleForAWSIoT-NR6FPSGVCILK
-
-Region:		us-east-1
-
-Topic:		sigfox

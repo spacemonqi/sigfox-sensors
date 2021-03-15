@@ -1,3 +1,0 @@
-sgfx_cstimer.c:60:6:RxCarrierSenseInitStatus	4	static
-sgfx_cstimer.c:72:9:RxCarrierSenseGetStatus	4	static
-sgfx_cstimer.c:83:6:OnTimerTimeoutCsEvt	16	static

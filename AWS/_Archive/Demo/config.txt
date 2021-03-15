@@ -1,5 +1,0 @@
-setting,value
-tableName,sigfox_demo
-numInitItems,20
-online,0
-reset,1

@@ -1,4 +1,0 @@
-{"errorType":"TypeError","errorMessage":"Cannot read property 'S' of undefined","trace":["TypeError:
-Cannot read property 'S' of undefined","    at event.Records.forEach (/var/task/putCallback.js:11:72)","
-at Array.forEach (<anonymous>)","    at Runtime.exports.handler (/var/task/putCallback.js:7:19)","
-at Runtime.handleOnce (/var/runtime/Runtime.js:66:25)"]}

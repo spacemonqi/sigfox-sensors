@@ -1,1 +1,0 @@
-Latest Stream ARN : arn:aws:dynamodb:us-east-1:093820054507:table/sigfox_demo/stream/2021-01-18T11:31:47.109

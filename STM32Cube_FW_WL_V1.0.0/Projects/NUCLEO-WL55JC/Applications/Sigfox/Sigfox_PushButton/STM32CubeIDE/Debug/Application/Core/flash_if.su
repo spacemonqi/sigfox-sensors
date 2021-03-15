@@ -1,7 +1,0 @@
-stm32wlxx_ll_system.h:1812:26:LL_FLASH_IsActiveFlag_OperationSuspended	4	static
-flash_if.c:69:9:HW_FLASH_Write	40	static
-flash_if.c:92:9:HW_FLASH_Erase	48	static
-flash_if.c:122:10:HW_FLASH_OB_GetIPCCBufferAddr	4	static
-flash_if.c:133:10:HW_FLASH_OB_GetSFSA	4	static
-flash_if.c:144:6:HAL_FLASH_EndOfOperationCallback	16	static
-flash_if.c:159:13:HWCB_FLASH_EndOfCleanup	4	static
