@@ -1,8 +1,8 @@
-# Sigfox Demo
+# Remote Metering Sigfox/AWS/Dash App
 
 ## About this app
 
-This demo retrieves Sigfox data from AWS and visualizes it in a Dash GUI.
+This application retrieves Sigfox data from AWS and visualizes it in a Dash GUI.
 main.py runs the GUI. aws_app.py retrieves the data from the AWS servers.
 They can be used independently or concurrently. If used concurrently, the 
 GUI will display live updates of incoming sensor data (approx. once every 
