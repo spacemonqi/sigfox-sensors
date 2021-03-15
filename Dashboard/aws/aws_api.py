@@ -3,9 +3,7 @@
 from boto3.dynamodb.conditions import Key
 import boto3
 
-region = 'eu-central-1'
-
-def create_sigfox_table_AWS(online, tableName, dynamodb=None):
+def create_sigfox_table_AWS(online, table_name, region, dynamodb=None):
     if not dynamodb:
         if online:
             dynamodb = boto3.resource('dynamodb', region_name=region)
@@ -13,7 +11,7 @@ def create_sigfox_table_AWS(online, tableName, dynamodb=None):
             dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
     table = dynamodb.create_table(
-        TableName=tableName,
+        table_name=table_name,
         KeySchema=[
             {
                 'AttributeName': 'deviceId',
@@ -45,35 +43,35 @@ def create_sigfox_table_AWS(online, tableName, dynamodb=None):
     )
     return table
 
-def delete_sigfox_table_AWS(online, tableName, dynamodb=None):
+def delete_sigfox_table_AWS(online, table_name, region, dynamodb=None):
     if not dynamodb:
         if online:
             dynamodb = boto3.resource('dynamodb', region_name=region)
         else:
             dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-    table = dynamodb.Table(tableName)
+    table = dynamodb.Table(table_name)
     table.delete()
 
-def scan_items_AWS(online, tableName, dynamodb=None):
+def scan_items_AWS(online, table_name, region, dynamodb=None):
     if not dynamodb:
         if online:
             dynamodb = boto3.resource('dynamodb', region_name=region)
         else:
             dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-    table = dynamodb.Table(tableName)
+    table = dynamodb.Table(table_name)
     response = table.scan()
     return response
 
-def put_item_AWS(online, tableName, deviceId, timestamp, data, temperature, humidity, dynamodb=None):
+def put_item_AWS(online, table_name, deviceId, timestamp, data, temperature, humidity, region, dynamodb=None):
     if not dynamodb:
         if online:
             dynamodb = boto3.resource('dynamodb', region_name=region)
         else:
             dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-    table = dynamodb.Table(tableName)
+    table = dynamodb.Table(table_name)
     response = table.put_item(
         Item={
             'deviceId': deviceId,
@@ -87,14 +85,14 @@ def put_item_AWS(online, tableName, deviceId, timestamp, data, temperature, humi
     )
     return response
 
-def query_and_project_items_AWS(online, tableName, deviceId, last_timestamp, dynamodb=None):
+def query_and_project_items_AWS(online, table_name, deviceId, last_timestamp, region, dynamodb=None):
     if not dynamodb:
         if online:
             dynamodb = boto3.resource('dynamodb', region_name=region)
         else:
             dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-    table = dynamodb.Table(tableName)
+    table = dynamodb.Table(table_name)
     response = table.query(
                         ProjectionExpression='#id, #ts, payload',
                         ExpressionAttributeNames={'#id': 'deviceId', '#ts': 'timestamp'},
