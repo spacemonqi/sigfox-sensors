@@ -4,7 +4,7 @@
 
 A distributed sensor network sends data via the Sigfox LPWAN to an AWS database.
 This application retrieves that data and visualizes it in a Dash GUI.
-main.py runs the GUI. aws_app.py retrieves the data from the AWS servers.
+```main.py```  runs the GUI. ```aws_app.py``` retrieves the data from AWS.
 They can be used independently or concurrently. If used concurrently, the 
 GUI will display live updates of incoming sensor data (approx. once every 
 six hours).
